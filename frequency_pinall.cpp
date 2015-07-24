@@ -23,7 +23,10 @@ int main()
       break;
     }
 
-    pwmWrite(18, num);
+    pwmWrite(12, num);
+	pwmWrite(13, num);
+	pwmWrite(18, num);
+	pwmWrite(19, num);
   }
 
   return 0;
