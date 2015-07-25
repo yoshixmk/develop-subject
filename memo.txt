@@ -11,3 +11,22 @@ C_INCLUDE_PATH -- C コンパイル用のインクルード・ディレクトリ
 CPLUS_INCLUDE_PATH -- C++ コンパイル用のインクルード・ディレクトリのパスを指定します。
 
 LIBRARY_PATH -- LIBRARY_PATH の値は、PATH のようにコロンで区切られたディレクトリのリストです。
+
+
+いらないかもしれないけどライブラリのパス設定。
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib
+
+
+実行コマンド
+g++ -o camera_sample camera_sample.cpp `pkg-config --cflags opencv` `pkg-config --libs opencv`
+これでエラーが変わってきた。
+
+
+sudo ldconfig -v
+またエラーが変わってきた。
+
+カメラを接続して、raspberry pi本体の設定、
+sudo raspi-configの中の、CameraをEnableにしておく必要がある。
+ついでに、startxでGUIにしていないと（SSHでは）うまくいかないので直接ラズパイのターミナルから入力。
+
+
