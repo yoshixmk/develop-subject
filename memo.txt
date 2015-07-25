@@ -1,0 +1,12 @@
+GCCにパスを通す。
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include:/usr/local/include
+
+GNU* 環境変数
+
+CPATH - C/C++ コンパイル用のインクルード・ディレクトリのパスを指定します。
+
+C_INCLUDE_PATH -- C コンパイル用のインクルード・ディレクトリのパスを指定します。
+
+CPLUS_INCLUDE_PATH -- C++ コンパイル用のインクルード・ディレクトリのパスを指定します。
+
+LIBRARY_PATH -- LIBRARY_PATH の値は、PATH のようにコロンで区切られたディレクトリのリストです。
