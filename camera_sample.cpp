@@ -4,7 +4,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <time.h>
-#include <Windows.h>
 #include <math.h>
 
 int main(int argc, char** argv[])

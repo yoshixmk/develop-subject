@@ -1,9 +1,10 @@
 GCCにパスを通す。
-export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include:/usr/local/include
+export CPATH=$CPATH:/usr/include:/usr/local/include
 
 GNU* 環境変数
 
 CPATH - C/C++ コンパイル用のインクルード・ディレクトリのパスを指定します。
+↑基本はこれやっとけばよさそう。
 
 C_INCLUDE_PATH -- C コンパイル用のインクルード・ディレクトリのパスを指定します。
 
