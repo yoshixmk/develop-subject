@@ -26,7 +26,22 @@ sudo ldconfig -v
 またエラーが変わってきた。
 
 カメラを接続して、raspberry pi本体の設定、
-sudo raspi-configの中の、CameraをEnableにしておく必要がある。
-ついでに、startxでGUIにしていないと（SSHでは）うまくいかないので直接ラズパイのターミナルから入力。
+sudo raspi-configの中の、CameraをEnableにしておく。
+（USBカメラでない場合のやつかもしれないけど一応）
 
+startxでGUIにしていないと（SSHでは）うまくいかないので直接ラズパイのターミナルから入力。
 
+最後はV4Lがないよ、と下記のエラーがあったので、入れる。
+（参考：http://www.ics.com/blog/raspberry-pi-camera-module）
+エラー内容
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+VIDEOIO ERROR: V4L/V4L2: VIDIOC_S_CROP
+VIDEOIO ERROR: V4L: setting property #1 is not supported
+VIDEOIO ERROR: V4L: setting property #5 is not supported
+VIDEOIO ERROR: V4L/V4L2: VIDIOC_S_CROP
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+apt-cache search v4l
+sudo apt-get install v4l-conf v4l-utils v4l2ucp
+あとは、事前にやっているはずの中にもあるので一応確認しとく。
+sudo apt-get -y install libjpeg8 libjpeg8-dev libjpeg8-dbg libjpeg-progs ffmpeg libavcodec-dev libavcodec53 libavformat53 libavformat-dev libgstreamer0.10-0-dbg libgstreamer0.10-0 libgstreamer0.10-dev libxine1-ffmpeg libxine-dev libxine1-bin libunicap2 libunicap2-dev libdc1394-22-dev libdc1394-22 libdc1394-utils swig libv4l-0 libv4l-dev python-numpy python-dev libgtk2.0-dev pkg-config
