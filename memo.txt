@@ -17,7 +17,7 @@ LIBRARY_PATH -- LIBRARY_PATH の値は、PATH のようにコロンで区切ら�
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib
 
 
-実行コマンド
+コンパイルコマンド
 g++ -o camera_sample camera_sample.cpp `pkg-config --cflags opencv` `pkg-config --libs opencv`
 これでエラーが変わってきた。
 

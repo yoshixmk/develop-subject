@@ -20,7 +20,7 @@ int main(int argc, char** argv[])
 	const double f = (1000 / cv::getTickFrequency());
 
 	mCap.open(0);
-	cap.set(CV_CAP_PROP_POS_FRAMES, 0);
+	mCap.set(CV_CAP_PROP_POS_FRAMES, 0);
 	mCap.set(CV_CAP_PROP_FPS, 30);
 	mCap.set(CV_CAP_PROP_FRAME_WIDTH, 320);
 	mCap.set(CV_CAP_PROP_FRAME_HEIGHT, 240);
