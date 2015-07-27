@@ -10,19 +10,9 @@ int main()
 
   pinMode(18, PWM_OUTPUT);
   pwmSetMode(PWM_MODE_MS);
-  pwmSetClock(3000);
-  pwmSetRange(1024);
-
-  while (true) {
-    int num;
-    std::cin >> num;
-
-    if (num == -1) {
-      break;
-    }
-
-    pwmWrite(18, num);
-  }
+  pwmSetClock(64);
+  pwmSetRange(100);
+  pwmWrite(18, 50);
 
   return 0;
 }
