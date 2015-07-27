@@ -13,7 +13,7 @@ int main()
   pinMode(19, PWM_OUTPUT);
   pwmSetMode(PWM_MODE_MS);
   pwmSetClock(3000);
-  pwmSetRange(1024);
+  pwmSetRange(512);
 
   while (true) {
     int num;
