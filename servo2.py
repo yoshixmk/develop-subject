@@ -18,9 +18,9 @@ for x in SERVO:
 
 start = time.time()
 
-   for x in range (len(SERVO)): # For each servo.
-      pi.set_PWM_dutycycle(SERVO[x], 128)
-      pi.set_PWM_frequency(SERVO[x], FREQ[x])
+for x in range (len(SERVO)): # For each servo.
+   pi.set_PWM_dutycycle(SERVO[x], 128)
+   pi.set_PWM_frequency(SERVO[x], FREQ[x])
 
 while (time.time() - start) < 60: # Spin for 60 seconds.
 
