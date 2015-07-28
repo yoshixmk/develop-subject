@@ -1,6 +1,7 @@
 #include <iostream>
-#include <wiringPi/wiringPi.h>
+#include <wiringPi.h>
 #include <thread>
+#include <exception>
 
 void do_worker1 () {
         pinMode(18, PWM_OUTPUT);
