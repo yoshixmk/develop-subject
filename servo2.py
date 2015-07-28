@@ -21,9 +21,9 @@ start = time.time()
 while (time.time() - start) < 60: # Spin for 60 seconds.
 
    for x in range (len(SERVO)): # For each servo.
-	  pi.set_PWM_dutycycle(SERVO[x], 128)
+      pi.set_PWM_dutycycle(SERVO[x], 128)
       pi.set_servo_pulsewidth(SERVO[x], PW[x])
-
+	  
 for x in SERVO:
    pi.set_servo_pulsewidth(x, 0) # Switch servo pulses off.
 
