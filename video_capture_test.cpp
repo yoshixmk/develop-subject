@@ -42,8 +42,8 @@ int main(int argc, char** argv[])
 
 		std::ostringstream os;
 		os << fps;
-		std::string number = os.str();
 
+		std::string number = os.str();
 		cv::putText(mat, number, point, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 0, 200), 2, CV_AA);
 
 		cv::imshow("image", mat);
