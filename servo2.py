@@ -23,5 +23,6 @@ for x in range (len(SERVO)): # For each servo.
    pi.set_PWM_frequency(SERVO[x], FREQ[x])
 
 while True: # Spin for 60 seconds.
+   print "ok"
 
 pi.stop()
