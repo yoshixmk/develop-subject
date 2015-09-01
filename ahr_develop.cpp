@@ -31,8 +31,8 @@
 
 // PS3 Camera windows driver from : http://codelaboratories.com/products/eye/driver/
 
-#include <opencv\cv.h>
-#include <opencv\highgui.h>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 #include <time.h>
 #include <Windows.h>
 #include <stdio.h>
