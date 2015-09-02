@@ -1,5 +1,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <string>
 
 int
 main(int argc, char *argv[])
@@ -19,7 +20,7 @@ main(int argc, char *argv[])
     // ...
     cv::imshow("Capture", frame); // 表示
     if(cv::waitKey(30) >= 0){
-      cv::imwrite("photodir/cap"+ (i+1) +".png", frame);
+      cv::imwrite("photodir/cap"+ std::to_string(i+1) +".png", frame);
       // break;
     }
   }
