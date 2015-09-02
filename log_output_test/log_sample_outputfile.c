@@ -5,13 +5,19 @@ int main(void)
   FILE *fp;
   char *fname = "test.txt";
   char *str = "Hello World\nThe C Programming Language\nTest Test\n";
-  int i;
+  int i, j;
+  char c = 'A';
   fp = fopen( fname, "w" );
-
-  for( i=0; i<100 ; i++ ){
-    fputc( str[i], fp );
-  }
+  // while(1){
+    for( i=0; i<26; i++){
+      for( j=0; j<100 ; j++ ){
+        fprintf(fp, "%c", c);
+      }
+      c++;
+      fprintf(fp, "%c", '\n');
+    }
+  // }
   fclose( fp );
-  printf( "%sOK\n", fname );
+  printf( "%s, OK\n", fname );
   return 0;
 }
