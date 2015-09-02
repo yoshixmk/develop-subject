@@ -12,16 +12,15 @@ main(int argc, char *argv[])
   if(!cap.isOpened()) return -1;
 
   cv::namedWindow("Capture", CV_WINDOW_AUTOSIZE|CV_WINDOW_FREERATIO);
-  while(1) {
+  for(int i=0; i<2; i++) {
     cv::Mat frame;
     cap >> frame;  // キャプチャ
     // 様々な処理
     // ...
     cv::imshow("Capture", frame); // 表示
-    if(cv::waitKey(30) >= 0)
-       {
-    cv::imwrite("photodir/cap.png", frame);
-       break;
-       }
+    if(cv::waitKey(30) >= 0){
+      cv::imwrite("photodir/cap"+ (i+1) +".png", frame);
+      // break;
+    }
   }
 }
