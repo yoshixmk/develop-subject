@@ -476,9 +476,9 @@ int main(int argc, char* argv[]){
     cvReleaseImage(&img);
 
     //Wait 1mS necesary???
-    int c = cvWaitKey(1);
+    // int c = cvWaitKey(1);
     //If 'ESC' is pressed, break the loop
-    if((char)c==27 ) break;
+    // if((char)c==27 ) break;
 
     //counter++;
     //}
