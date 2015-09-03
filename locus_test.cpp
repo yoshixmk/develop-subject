@@ -428,8 +428,7 @@ int main(int argc, char* argv[]){
 
   cvNamedWindow("Video");
     //cvNamedWindow("Processed");
-  cvWaitKey(1200);
-  cvWaitKey(1000);
+  cvWaitKey(3000);
 
   // Init font
   cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
@@ -459,8 +458,10 @@ int main(int argc, char* argv[]){
     // LOG TEXT
     cvPutText (img, logStr, cvPoint(20,220), &font, cvScalar(50,220,220));
 
-    //cvShowImage("Processed", imgThresh);
+    cvShowImage("Processed", imgThresh);
+    cvWaitKey(3000);
     cvShowImage("Video", img);
+    cvWaitKey(5000);
 
     //Write image to output video
     cvWriteFrame(record,img);
