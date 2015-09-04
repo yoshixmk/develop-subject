@@ -7,8 +7,9 @@ int main(void)
   char *str = "Hello World\nThe C Programming Language\nTest Test\n";
   int i, j;
   char c = 'A';
-  fp = fopen( fname, "w" );
-  // while(1){
+
+   while(1){
+    fp = fopen( fname, "a+" );
     for( i=0; i<26; i++){
       for( j=0; j<100 ; j++ ){
         fprintf(fp, "%c", c);
@@ -16,8 +17,10 @@ int main(void)
       c++;
       fprintf(fp, "%c", '\n');
     }
-  // }
-  fclose( fp );
+      fclose( fp );
+    c='A';
+   }
+
   printf( "%s, OK\n", fname );
   return 0;
 }

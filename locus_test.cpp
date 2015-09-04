@@ -43,26 +43,28 @@
 
 // PS3 Camera pixels
 // NOTE: We are using the camera at 320x240 but we are outputing a 640x480 pixel position
-#define CAM_PIX_WIDTH 320
-#define CAM_PIX_HEIGHT 240
+#define CAM_PIX_WIDTH 640
+#define CAM_PIX_HEIGHT 480
 #define CAM_PIX_TO_MM 1.4
 
 time_t start,end;
 
 // Parameters (with default values)
 char comPort[20] = "COM19";
-int minH=70;
-int maxH=94;
-int minS=60;
-int maxS=150;
-int minV=10;
-int maxV=145;
-int RminH=235;
-int RmaxH=245;
-int RminS=75;
-int RmaxS=85;
-int RminV=105;
-int RmaxV=115;
+//white Pack
+int minH=0;
+int maxH=1;
+int minS=0;
+int maxS=3;
+int minV=80;
+int maxV=100;
+//green  ROBOT MARK
+int RminH=80;
+int RmaxH=150;
+int RminS=60;
+int RmaxS=105;
+int RminV=40;
+int RmaxV=105;
 int fps=30;
 int viewWindow=1;
 
@@ -409,17 +411,22 @@ int main(int argc, char* argv[]){
 
   // 画像ファイルポインタの宣言
   IplImage* img;
+  IplImage* img2;
   // 読み込み画像ファイル名
-  char imgfile[] = "camera/photodir/circle_sample1.png";
+  char imgfile[] = "camera/photodir/cap1.png";
+  char imgfile2[] = "camera/photodir/cap2.png";
 
   // 画像の読み込み
   img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR | CV_LOAD_IMAGE_ANYDEPTH);
+  img2 = cvLoadImage(imgfile2, CV_LOAD_IMAGE_ANYCOLOR | CV_LOAD_IMAGE_ANYDEPTH);
 
   // 画像の表示用ウィンドウ生成
   cvNamedWindow("circle_sample", CV_WINDOW_AUTOSIZE);
+cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
   // 指定したウィンドウ内に画像を表示する
   cvShowImage("circle_sample", img);
+  cvShowImage("circle_sample2", img2);
 
     //create a blank image and assgned to 'imgTracking' which has the same size of original video
   frame=cvCreateImage(cvGetSize(img),IPL_DEPTH_8U, 3);
@@ -427,8 +434,7 @@ int main(int argc, char* argv[]){
     cvZero(imgTracking); //covert the image, 'imgTracking' to black
 
   cvNamedWindow("Video");
-    //cvNamedWindow("Processed");
-  cvWaitKey(3000);
+  cvNamedWindow("Processed");
 
   // Init font
   cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
@@ -459,9 +465,7 @@ int main(int argc, char* argv[]){
     cvPutText (img, logStr, cvPoint(20,220), &font, cvScalar(50,220,220));
 
     cvShowImage("Processed", imgThresh);
-    cvWaitKey(3000);
     cvShowImage("Video", img);
-    cvWaitKey(5000);
 
     //Write image to output video
     cvWriteFrame(record,img);
@@ -483,6 +487,11 @@ int main(int argc, char* argv[]){
 
     //counter++;
     //}
+    while(1){
+      if(cv::waitKey(30) >= 0){
+        break;
+      }
+    }
 
     cvDestroyAllWindows() ;
     cvReleaseImage(&imgTracking);
