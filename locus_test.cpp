@@ -160,19 +160,17 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
     cvErode( imgThresh, imgThresh, NULL,1 );
     cvDilate( imgThresh, imgThresh, NULL,1 );
     
- CvSeq* contours;  //hold the pointer to a contour in the memory block
- CvSeq* result;   //hold sequence of points of a contour
- CvMemStorage *storage = cvCreateMemStorage(0); //storage area for all contours
-  // Position initialization
- RposX = 0;
- RposY = 0;
- RobjectSize = 0;
+	CvSeq* contours;  //hold the pointer to a contour in the memory block
+	CvSeq* result;   //hold sequence of points of a contour
+	CvMemStorage *storage = cvCreateMemStorage(0); //storage area for all contours
+	// Position initialization
+	RposX = 0;
+	RposY = 0;
+	RobjectSize = 0;
 
- //finding all contours in the image (segmentation)
- cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
-  IplImage* dst_img;
-  dst_img = cvCreateImage(cvSize(384, 512), IPL_DEPTH_8U, 3);
- cvDrawContours(img, contours, CV_RGB(255,0,0), CV_RGB(255,0,0), 0, 2);
+	//finding all contours in the image (segmentation)
+	cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
+	cvDrawContours(img, contours, CV_RGB(255,0,0), CV_RGB(255,0,0), 0, 2);
     cvLine(img, cvPoint(10, 300), cvPoint(50, 50), cvScalar(0,255,0), 2);
     cvPutText (img, tempStr2, cvPoint(150,20), &font, cvScalar(255,255,0));
 
@@ -182,8 +180,16 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
     //Write image to output video
     cvWriteFrame(record,img);
+	
+  // (2)出力画像領域を作成し，入力画像をタイリングする
+	IplImage* dst_img;
+	dst_img = cvCreateImage (cvSize (384, 512), IPL_DEPTH_8U, 3);
+	cvRepeat (src_img, dst_img);
 
-    
+	cvNamedWindow ("dst", CV_WINDOW_AUTOSIZE);
+	cvShowImage ("dst", dst_img);
+
+	cvDestroyWindow ("dst");    
 
     while(1){
       if(cv::waitKey(30) >= 0){
@@ -196,10 +202,11 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
     cvReleaseImage(&imgThresh);
     cvReleaseImage(&imgThresh2);
     cvReleaseImage(&img);
+	cvReleaseImage (&dst_img);
 
     cvDestroyAllWindows() ;
     cvReleaseImage(&imgTracking);
-  cvReleaseVideoWriter(&record);
+    cvReleaseVideoWriter(&record);
 
     return 0;
 }
