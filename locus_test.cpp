@@ -48,6 +48,9 @@
 #define CAM_PIX_TO_MM 1.4
 
 time_t start,end;
+  // 画像ファイルポインタの宣言
+  IplImage* img=0;
+  IplImage* img2=0;
 
 // Parameters (with default values)
 char comPort[20] = "COM19";
@@ -74,7 +77,6 @@ CvVideoWriter* record;
 IplImage* imgTracking;
 IplImage* imgThresh;
 IplImage* imgThresh2;
-IplImage* frameGrabbed=0;
 IplImage* frame=0;
 int lastX = -1;
 int lastY = -1;
@@ -215,7 +217,7 @@ void cameraProcess(int PosX, int PosY, int time)
     else
       {
       // draw line
-      cvLine(frameGrabbed, cvPoint(posX/2, posY/2), cvPoint(bounce_pixX/2, bounce_pixY/2), cvScalar(255,0,0), 2);
+      cvLine(img, cvPoint(posX/2, posY/2), cvPoint(bounce_pixX/2, bounce_pixY/2), cvScalar(255,0,0), 2);
       // result average
       if (predict_x_old != -1)
         predict_x = (predict_x_old + predict_x)>>1;
@@ -225,7 +227,7 @@ void cameraProcess(int PosX, int PosY, int time)
       predict_pixX = cam_center_x - (predict_y-robot_center_y)/cam_pix_to_mm;
       predict_pixY = cam_center_y - (predict_x-robot_center_x)/(cam_pix_to_mm*(1-cam_rotation));
       // draw line
-      cvLine(frameGrabbed, cvPoint(bounce_pixX/2, bounce_pixY/2), cvPoint(predict_pixX/2, predict_pixY/2), cvScalar(0,255,0), 2);
+      cvLine(img, cvPoint(bounce_pixX/2, bounce_pixY/2), cvPoint(predict_pixX/2, predict_pixY/2), cvScalar(0,255,0), 2);
       }
      }
       else  // No bounce, direct impact
@@ -241,7 +243,7 @@ void cameraProcess(int PosX, int PosY, int time)
     predict_pixX = cam_center_x - (predict_y-robot_center_y)/cam_pix_to_mm;
     predict_pixY = cam_center_y - (predict_x-robot_center_x)/(cam_pix_to_mm*(1-cam_rotation));
     // draw line
-    cvLine(frameGrabbed, cvPoint(posX/2, posY/2), cvPoint(predict_pixX/2, predict_pixY/2), cvScalar(0,255,0), 2);
+    cvLine(img, cvPoint(posX/2, posY/2), cvPoint(predict_pixX/2, predict_pixY/2), cvScalar(0,255,0), 2);
         }
     }
   else // Puck is moving slowly or to the other side
@@ -317,9 +319,9 @@ void trackObjectPuck(IplImage* imgThresh){
       {
         status = 4;
         // Draw a line from the previous point to the current point
-        cvLine(frameGrabbed, cvPoint(posX/2, posY/2), cvPoint(lastX/2, lastY/2), cvScalar(255,255,0), 4);
+        cvLine(img, cvPoint(posX/2, posY/2), cvPoint(lastX/2, lastY/2), cvScalar(255,255,0), 4);
         // Draw contour
-        cvDrawContours(frameGrabbed,contours,cvScalar(255,0,0),cvScalar(0,0,255),0,1,8,cvPoint(0,0));
+        cvDrawContours(img,contours,cvScalar(255,0,0),cvScalar(0,0,255),0,1,8,cvPoint(0,0));
       }
       lastX = posX;
       lastY = posY;
@@ -373,8 +375,8 @@ void trackObjectRobot(IplImage* imgThresh){
       RobjectSize = area;
       if(RposX>=0 && RposY>=0)
       {
-        cvLine(frameGrabbed, cvPoint(RposX/2, RposY/2), cvPoint(RposX/2, RposY/2), cvScalar(100,255,50), 4);
-        cvDrawContours(frameGrabbed,contours,cvScalar(0,0,100),cvScalar(100,0,0),0,1,8,cvPoint(0,0));
+        cvLine(img, cvPoint(RposX/2, RposY/2), cvPoint(RposX/2, RposY/2), cvScalar(100,255,50), 4);
+        cvDrawContours(img,contours,cvScalar(0,0,100),cvScalar(100,0,0),0,1,8,cvPoint(0,0));
       }
     }
    }
@@ -406,12 +408,6 @@ int main(int argc, char* argv[]){
   printf("ROBOT MAXV: %d\n",RmaxV);
   printf("FPS: %d\n",fps);
 
-  // CvCapture* capture =0;
-  //   capture = cvCaptureFromCAM(CV_CAP_ANY);
-
-  // 画像ファイルポインタの宣言
-  IplImage* img;
-  IplImage* img2;
   // 読み込み画像ファイル名
   char imgfile[] = "camera/photodir/cap1.png";
   char imgfile2[] = "camera/photodir/cap2.png";
@@ -434,7 +430,6 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
     cvZero(imgTracking); //covert the image, 'imgTracking' to black
 
   cvNamedWindow("Video");
-  cvNamedWindow("Processed");
 
   // Init font
   cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
@@ -454,25 +449,45 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
     cvDilate( imgThresh, imgThresh, NULL,1 );
 
     //track the possition of the puck and the robot
-    trackObjectPuck(imgThresh);
-    trackObjectRobot(imgThresh2);
+    //trackObjectPuck(imgThresh);
+    //trackObjectRobot(imgThresh2);
 
     // TEST CAMERA PROCESS
-    cameraProcess(posX,posY,16.66);
+    //cameraProcess(posX,posY,16.66);
+    
+ CvSeq* contours;  //hold the pointer to a contour in the memory block
+ CvSeq* result;   //hold sequence of points of a contour
+ CvMemStorage *storage = cvCreateMemStorage(0); //storage area for all contours
+  // Position initialization
+ RposX = 0;
+ RposY = 0;
+ RobjectSize = 0;
+
+ //finding all contours in the image (segmentation)
+ cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
+  IplImage* dst_img;
+  dst_img = cvCreateImage(cvSize(384, 512), IPL_DEPTH_8U, 3);
+ // cvRepeat(img, dst_img);
+ cvDrawContours(img, contours, CV_RGB(255,0,0), CV_RGB(255,0,0), 0, 2);
+    //cvLine endpoint -> startpoint ordering
+    cvLine(img, cvPoint(10, 300), cvPoint(50, 50), cvScalar(0,255,0), 2);
     cvPutText (img, tempStr2, cvPoint(150,20), &font, cvScalar(255,255,0));
 
     // LOG TEXT
     cvPutText (img, logStr, cvPoint(20,220), &font, cvScalar(50,220,220));
 
-    cvShowImage("Processed", imgThresh);
     cvShowImage("Video", img);
 
     //Write image to output video
     cvWriteFrame(record,img);
 
-    // Write to logFile
-    //sprintf(tempStr,"%ld;%d;%d;%d\n",(frameTimestamp-oldFrameTimestamp),posX,posY,status);
-    //fwrite(tempStr,strlen(tempStr),1,logFile);
+    
+
+    while(1){
+      if(cv::waitKey(30) >= 0){
+        break;
+      }
+    }
 
     //Clean up used images
     cvReleaseImage(&imgHSV);
@@ -487,11 +502,7 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
     //counter++;
     //}
-    while(1){
-      if(cv::waitKey(30) >= 0){
-        break;
-      }
-    }
+
 
     cvDestroyAllWindows() ;
     cvReleaseImage(&imgTracking);
