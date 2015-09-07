@@ -168,6 +168,13 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 	RposY = 0;
 	RobjectSize = 0;
 
+	/*IplImage* dst_img;
+	dst_img = cvCreateImage (cvSize (384, 512), IPL_DEPTH_8U, 3);
+	cvRepeat (img, dst_img);
+
+	cvNamedWindow ("dst", CV_WINDOW_AUTOSIZE);
+	cvShowImage ("dst", dst_img);*/
+
 	//finding all contours in the image (segmentation)
 	cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
 	cvDrawContours(img, contours, CV_RGB(255,0,0), CV_RGB(255,0,0), 0, 2);
@@ -180,16 +187,7 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
     //Write image to output video
     cvWriteFrame(record,img);
-	
-  // (2)出力画像領域を作成し，入力画像をタイリングする
-	IplImage* dst_img;
-	dst_img = cvCreateImage (cvSize (384, 512), IPL_DEPTH_8U, 3);
-	cvRepeat (src_img, dst_img);
 
-	cvNamedWindow ("dst", CV_WINDOW_AUTOSIZE);
-	cvShowImage ("dst", dst_img);
-
-	cvDestroyWindow ("dst");    
 
     while(1){
       if(cv::waitKey(30) >= 0){
@@ -202,7 +200,7 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
     cvReleaseImage(&imgThresh);
     cvReleaseImage(&imgThresh2);
     cvReleaseImage(&img);
-	cvReleaseImage (&dst_img);
+//	cvReleaseImage (&dst_img);
 
     cvDestroyAllWindows() ;
     cvReleaseImage(&imgTracking);
