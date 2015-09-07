@@ -177,16 +177,16 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
 	//finding all contours in the image (segmentation)
 	cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
-	cvDrawContours(img, contours, CV_RGB(255,0,0), CV_RGB(255,0,0), 0, 2);
-    cvLine(img, cvPoint(10, 300), cvPoint(50, 50), cvScalar(0,255,0), 2);
-    cvPutText (img, tempStr2, cvPoint(150,20), &font, cvScalar(255,255,0));
+	cvDrawContours(imgThresh, contours, CV_RGB(255,0,0), CV_RGB(255,0,0), 0, 2);
+    cvLine(imgThresh, cvPoint(10, 300), cvPoint(50, 50), cvScalar(0,255,0), 2);
+    cvPutText (imgThresh, tempStr2, cvPoint(150,20), &font, cvScalar(255,255,0));
 
-    cvPutText (img, logStr, cvPoint(20,220), &font, cvScalar(50,220,220));
+    cvPutText (imgThresh, logStr, cvPoint(20,220), &font, cvScalar(50,220,220));
 
-    cvShowImage("Video", img);
+    cvShowImage("Video", imgThresh);
 
     //Write image to output video
-    cvWriteFrame(record,img);
+    cvWriteFrame(record,imgThresh);
 
 
     while(1){
