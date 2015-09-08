@@ -136,8 +136,6 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
   cvShowImage("circle_sample", img);
   cvShowImage("circle_sample2", img2);
 
-    //create a blank image and assgned to 'imgTracking' which has the same size of original video
-  frame=cvCreateImage(cvGetSize(img),IPL_DEPTH_8U, 3);
     imgTracking=cvCreateImage(cvGetSize(img),IPL_DEPTH_8U, 3);
     cvZero(imgTracking); //covert the image, 'imgTracking' to black
 
@@ -150,8 +148,8 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
     cvSmooth(img, frame, CV_GAUSSIAN,3,3); //smooth the original image using Gaussian kernel
 
-    IplImage* imgHSV = cvCreateImage(cvGetSize(frame), IPL_DEPTH_8U, 3);
-    cvCvtColor(frame, imgHSV, CV_BGR2HSV); //Change the color format from BGR to HSV
+    IplImage* imgHSV = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
+    cvCvtColor(img, imgHSV, CV_BGR2HSV); //Change the color format from BGR to HSV
     imgThresh = GetThresholdedImage(imgHSV,minH,maxH,minS,maxS,minV,maxV);
     imgThresh2 = GetThresholdedImage(imgHSV,RminH,RmaxH,RminS,RmaxS,RminV,RmaxV);
 
