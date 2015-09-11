@@ -285,11 +285,11 @@ int main(int argc, char* argv[]) {
     printf("gY_before: %f\n",gY_before);
     printf("a_inclination: %f\n",a_inclination);
     printf("b_intercept: %f\n",b_intercept);
-	int target_coordinateX = (target_destanceY - (int)b_intercept) / a_inclination;
-    printf("target_coordinateX: %d\n",target_coordinateX);
-    cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint(target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+	double target_coordinateX = (target_destanceY - b_intercept) / a_inclination;
+    printf("target_coordinateX: %f\n",target_coordinateX);
+    cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
     cvLine(img2, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
-	cvPutText (img2, to_c_char(target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
+	cvPutText (img2, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
     // 指定したウィンドウ内に画像を表示する
     cvShowImage("circle_sample", img);
     cvShowImage("circle_sample2", img2);
