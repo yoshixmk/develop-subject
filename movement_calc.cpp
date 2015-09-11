@@ -274,10 +274,11 @@ int main(int argc, char* argv[]) {
     cvCircle(img2, cvPoint(gX_before, gY_before), 80, CV_RGB(0,0,255), 6, 8, 0);
 
     cvLine(img2, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
-	
+
 	int target_destance = 640 - 30;//Y座標の距離を一定にして、ディフェンス
 	int targetCoordinatX = target_destance * (gX_before - gX_after) / (gY_before - gY_after);
-	
+
+    cvLine(img2, cvPoint(gX_after, gY_after), cvPoint(targetCoordinatX, target_destance), cvScalar(0,255,0), 2);
 	cvPutText (img2, to_c_char(targetCoordinatX), cvPoint(560,30), &font, cvScalar(50,220,220));
     // 指定したウィンドウ内に画像を表示する
     cvShowImage("circle_sample", img);
