@@ -232,10 +232,7 @@ int main(int argc, char* argv[]){
   cvNamedWindow("circle_sample", CV_WINDOW_AUTOSIZE);
 cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
-    imgTracking=cvCreateImage(cvGetSize(img),IPL_DEPTH_8U, 3);
-    cvZero(imgTracking); //covert the image, 'imgTracking' to black
-
-  cvNamedWindow("Video");
+  cvNamedWindow("cv_ColorExtraction");
 
   // Init font
   cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
@@ -255,6 +252,7 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
   
   cvMoments(dst_img, &moments, 0);
   cvMoments(dst_img2, &moments2, 0);
+
   double m00_before = cvGetSpatialMoment(&moments, 0, 0);
   double m10_before = cvGetSpatialMoment(&moments, 1, 0);
   double m01_before = cvGetSpatialMoment(&moments, 0, 1);
@@ -273,45 +271,7 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
   cvShowImage("circle_sample", img);
   cvShowImage("circle_sample2", img2);
 
-    //while(true){
-
-//    cvSmooth(img, frame, CV_GAUSSIAN,3,3); //smooth the original image using Gaussian kernel
-
-    IplImage* imgHSV = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
-    cvCvtColor(img, imgHSV, CV_BGR2HSV); //Change the color format from BGR to HSV
-    imgThresh = GetThresholdedImage(imgHSV,minH,maxH,minS,maxS,minV,maxV);
-    imgThresh2 = GetThresholdedImage(imgHSV,RminH,RmaxH,RminS,RmaxS,RminV,RmaxV);
-
-
-    /// Apply the erosion-dilatation operation for filtering
-    cvErode( imgThresh, imgThresh, NULL,1 );
-    cvDilate( imgThresh, imgThresh, NULL,1 );
-    
-	CvSeq* contours;  //hold the pointer to a contour in the memory block
-	CvSeq* result;   //hold sequence of points of a contour
-	CvMemStorage *storage = cvCreateMemStorage(0); //storage area for all contours
-	// Position initialization
-	RposX = 0;
-	RposY = 0;
-	RobjectSize = 0;
-
-	/*IplImage* dst_img;
-	dst_img = cvCreateImage (cvSize (384, 512), IPL_DEPTH_8U, 3);
-	cvRepeat (img, dst_img);
-
-	cvNamedWindow ("dst", CV_WINDOW_AUTOSIZE);
-	cvShowImage ("dst", dst_img);*/
-
-	//finding all contours in the image (segmentation)
-	cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
-	cvDrawContours(imgThresh, contours, CV_RGB(255,0,0), CV_RGB(255,0,0), 0, 2);
-    cvLine(imgThresh, cvPoint(10, 300), cvPoint(50, 50), cvScalar(0,255,0), 2);
-    cvPutText (imgThresh, tempStr2, cvPoint(150,20), &font, cvScalar(255,255,0));
-
-    cvPutText (imgThresh, logStr, cvPoint(20,220), &font, cvScalar(50,220,220));
-
-    cvShowImage("Video", dst_img);
-    //cvWriteFrame(record,imgThresh);
+    cvShowImage("cv_ColorExtraction", dst_img);
 
 
     while(1){
@@ -321,15 +281,10 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
     }
 
     //Clean up used images
-    cvReleaseImage(&imgHSV);
-    cvReleaseImage(&imgThresh);
-    cvReleaseImage(&imgThresh2);
     cvReleaseImage(&img);
-//	cvReleaseImage (&dst_img);
+    cvReleaseImage (&dst_img);
 
     cvDestroyAllWindows() ;
-    cvReleaseImage(&imgTracking);
-    cvReleaseVideoWriter(&record);
 
     return 0;
 }
