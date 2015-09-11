@@ -279,7 +279,7 @@ int main(int argc, char* argv[]) {
     //パックの移動は直線のため、一次関数の計算を使って、その後の奇跡を予測する。
     double a_inclination = (gX_after - gX_before) / (gY_after - gY_before);
     double b_intercept = gY_after - a_inclination * gX_after;
-	int target_coordinateX = (int)(target_destanceY * a_inclination - b_intercept);
+	int target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
 
     cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint(target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
     cvLine(img2, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
