@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 // All units in milimeters
 #define robot_center_x 300   // Center of robot
@@ -200,6 +201,13 @@ void cv_ColorExtraction(IplImage* src_img, IplImage* dst_img,
 
 }
 
+const char* to_c_char(int val)
+{
+	std::stringstream stream;
+	stream << val;
+	return stream.str().c_str();
+}
+
 int main(int argc, char* argv[]) {
     int counter;
     wchar_t auxstr[20];
@@ -267,11 +275,10 @@ int main(int argc, char* argv[]) {
 
     cvLine(img2, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
 	
-	int target_destance = 30;//Y座標の距離を一定にして、ディフェンス
-	int targetCoordinatX = target_destance * (gY_before - gY_after) / (gX_before - gX_after);
+	int target_destance = 640 - 30;//Y座標の距離を一定にして、ディフェンス
+	int targetCoordinatX = target_destance * (gX_before - gX_after) / (gY_before - gY_after);
 	
-	cvPutText (img2, targetCoordinatX, cvPoint(20,220), &font, cvScalar(50,220,220));
-
+	cvPutText (img2, to_c_char(targetCoordinatX), cvPoint(560,30), &font, cvScalar(50,220,220));
     // 指定したウィンドウ内に画像を表示する
     cvShowImage("circle_sample", img);
     cvShowImage("circle_sample2", img2);
