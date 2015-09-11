@@ -275,7 +275,7 @@ int main(int argc, char* argv[]) {
 
     cvLine(img2, cvPoint((int)gX_before, (int)gY_before), cvPoint((int)gX_after, (int)gY_after), cvScalar(0,255,0), 2);
 
-	int target_destance = 640 - 30;//Y座標の距離を一定にして、ディフェンス
+	int target_destance = 480 - 30;//Y座標の距離を一定にして、ディフェンス
 	int targetCoordinatX = (int)(target_destance * (gX_before - gX_after) / (gY_before - gY_after));
 
     cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint(targetCoordinatX, target_destance), cvScalar(0,255,0), 2);
