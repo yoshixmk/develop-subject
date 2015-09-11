@@ -221,8 +221,8 @@ int main(int argc, char* argv[]){
   printf("FPS: %d\n",fps);
 
   // 読み込み画像ファイル名
-  char imgfile[] = "camera/photodir/cap1.png";
-  char imgfile2[] = "camera/photodir/cap2.png";
+  char imgfile[] = "../camera/photodir/cap1.png";
+  char imgfile2[] = "../camera/photodir/cap2.png";
 
   // 画像の読み込み
   img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR | CV_LOAD_IMAGE_ANYDEPTH);
