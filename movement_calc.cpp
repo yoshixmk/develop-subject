@@ -279,6 +279,10 @@ int main(int argc, char* argv[]) {
     //パックの移動は直線のため、一次関数の計算を使って、その後の奇跡を予測する。
     double a_inclination = (gX_after - gX_before) / (gY_after - gY_before);
     double b_intercept = gY_after - a_inclination * gX_after;
+    printf("gX_after: %f\n",gX_after);
+    printf("gY_after: %f\n",gY_after);
+    printf("gX_before: %f\n",gX_before);
+    printf("gY_before: %f\n",gY_before);
     printf("a_inclination: %f\n",a_inclination);
     printf("b_intercept: %f\n",b_intercept);
 	int target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
