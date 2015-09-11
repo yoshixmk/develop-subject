@@ -245,7 +245,7 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
   cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
   
   IplImage* dst_img = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
-  cv_ColorExtraction(img, dst_img, CV_BGR2HSV, 0, 50, 0, 50, 50, 100);//0,1,0,3,80,100
+  cv_ColorExtraction(img2, dst_img, CV_BGR2HSV, 0, 255, 0, 15, 240, 255);//0,255,0,15,240,255
 
     //while(true){
 
