@@ -232,10 +232,6 @@ int main(int argc, char* argv[]){
   cvNamedWindow("circle_sample", CV_WINDOW_AUTOSIZE);
 cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
-  // 指定したウィンドウ内に画像を表示する
-  cvShowImage("circle_sample", img);
-  cvShowImage("circle_sample2", img2);
-
     imgTracking=cvCreateImage(cvGetSize(img),IPL_DEPTH_8U, 3);
     cvZero(imgTracking); //covert the image, 'imgTracking' to black
 
@@ -245,7 +241,31 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
   cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
   
   IplImage* dst_img = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
-  cv_ColorExtraction(img2, dst_img, CV_BGR2HSV, 0, 255, 0, 15, 240, 255);//0,255,0,15,240,255
+  IplImage* dst_img2 = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
+  cv_ColorExtraction(img, dst_img, CV_BGR2HSV, 0, 255, 0, 15, 240, 255);//0,255,0,15,240,255
+  cv_ColorExtraction(img2, dst_img2, CV_BGR2HSV, 0, 255, 0, 15, 240, 255);//0,255,0,15,240,255
+  
+  CvMoments moments;
+  CvMoments moments2;
+  
+  cvMoments(dst_img, &moments, 0);
+  double m00_before = cvGetSpatialMoment(&moments, 0, 0);
+  double m10_before = cvGetSpatialMoment(&moments, 1, 0);
+  double m01_before = cvGetSpatialMoment(&moments, 0, 1);
+  double m00_after = cvGetSpatialMoment(&moments2, 0, 0);
+  double m10_after = cvGetSpatialMoment(&moments2, 1, 0);
+  double m01_after = cvGetSpatialMoment(&moments2, 0, 1);
+  int gX_before = m10_before/m00_before;
+  int gY_before = m01_before/m00_before;
+  int gX_after = m10_after/m00_after;
+  int gY_after = m01_after/m00_after;
+  cvCircle(img, cvPoint(gX_before, gY_before), 80, CV_RGB(0,0,255), 6, 8, 0);
+  
+  cvLine(img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
+  
+    // 指定したウィンドウ内に画像を表示する
+  cvShowImage("circle_sample", img);
+  cvShowImage("circle_sample2", img2);
 
     //while(true){
 
