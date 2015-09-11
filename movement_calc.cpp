@@ -277,7 +277,7 @@ int main(int argc, char* argv[]) {
 
 	int target_destanceY = 480 - 30;//Y座標の距離を一定にしている。ディフェンスライン。
     //パックの移動は直線のため、一次関数の計算を使って、その後の奇跡を予測する。
-    double a_inclination = (gX_after - gX_before) / (gY_after - gY_before);
+    double a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
     double b_intercept = gY_after - a_inclination * gX_after;
     printf("gX_after: %f\n",gX_after);
     printf("gY_after: %f\n",gY_after);
@@ -286,9 +286,7 @@ int main(int argc, char* argv[]) {
     printf("a_inclination: %f\n",a_inclination);
     printf("b_intercept: %f\n",b_intercept);
 
-	double target_coordinateX = (target_destanceY - b_intercept);
-    printf("target_coordinateX: %f\n",target_coordinateX);
-    double target_coordinateX /= a_inclination;
+	int target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
     printf("target_coordinateX: %f\n",target_coordinateX);
     cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
     cvLine(img2, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
