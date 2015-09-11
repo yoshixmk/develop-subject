@@ -1,0 +1,7 @@
+gX_after: 283.720253
+gY_after: 236.466112
+gX_before: 170.408112
+gY_before: 108.790000
+a_inclination: 0.887497
+b_intercept: -15.334706
+target_coordinateX: 524s
