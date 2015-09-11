@@ -247,8 +247,14 @@ cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
   
   CvMoments moments;
   CvMoments moments2;
+
+  if(dst_img -> nChannels == 3 && cvGetImageCOI(dst_img) == 0)
+    cvSetImageCOI(dst_img, 1);
+  if(dst_img2 -> nChannels == 3 && cvGetImageCOI(dst_img2) == 0)
+    cvSetImageCOI(dst_img2, 1);
   
   cvMoments(dst_img, &moments, 0);
+  cvMoments(dst_img2, &moments2, 0);
   double m00_before = cvGetSpatialMoment(&moments, 0, 0);
   double m10_before = cvGetSpatialMoment(&moments, 1, 0);
   double m01_before = cvGetSpatialMoment(&moments, 0, 1);
