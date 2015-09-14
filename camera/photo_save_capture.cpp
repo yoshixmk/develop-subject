@@ -25,7 +25,7 @@ main(int argc, char *argv[])
       // 様々な処理
       cv::imshow("Capture", frame); // 表示
       if(cv::waitKey(30) >= 0){
-        cv::imwrite("photodir/cap"+ tostr(i+1) +".png", frame);
+        cv::imwrite("photodir/capmallet"+ tostr(i+1) +".png", frame);
         break;
       }
     }
