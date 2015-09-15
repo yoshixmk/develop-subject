@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <pigpio.h>
 
 // All units in milimeters
 #define robot_center_x 300   // Center of robot
@@ -315,8 +316,9 @@ int main(int argc, char* argv[]) {
     cvShowImage("circle_sample", img);
     cvShowImage("circle_sample2", img2);
 
-//    cvShowImage("cv_ColorExtraction", dst_img);
-
+	//pwm output test
+	gpioPWM(18, 128);
+	gpioSetPWMfrequency(18, 1000);
 
     while(1) {
         if(cv::waitKey(30) >= 0) {
