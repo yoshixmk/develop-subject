@@ -5,6 +5,8 @@
 #include <math.h>
 #include <string.h>
 #include <pigpio.h>
+#include <wiringPi.h>
+#include <softPwm.h>
 
 // All units in milimeters
 #define robot_center_x 300   // Center of robot
@@ -317,8 +319,19 @@ int main(int argc, char* argv[]) {
     cvShowImage("circle_sample2", img2);
 
 	//pwm output test
+	if(gpioInitialise() < 0) return 1;
+	gpioSetMode(18, PI_OUTPUT);
 	gpioPWM(18, 128);
 	gpioSetPWMfrequency(18, 1000);
+	/*if(wiringPiSetupGpio()==-1){
+		printf("cannotsetup gpio.\n" );
+		return 1;
+	}
+	pinMode(18,PWM_OUTPUT);
+	pwmSetMode(PWM_MODE_MS);
+	pwmSetClock(64);
+	pwmSetRange(100);
+	pwmWrite(18,50);*/
 
     while(1) {
         if(cv::waitKey(30) >= 0) {
