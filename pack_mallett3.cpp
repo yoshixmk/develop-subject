@@ -242,8 +242,8 @@ int main(int argc, char* argv[]) {
 	if(gpioInitialise() < 0) return 1;
 
     // 読み込み画像ファイル名
-    char imgfile[] = "camera/photodir/capmallet1_2.png";
-    char imgfile2[] = "camera/photodir/capmallet2_2.png";
+    char imgfile[] = "camera/photodir/capmallet1.png";
+    char imgfile2[] = "camera/photodir/capmallet2.png";
 
     // 画像の読み込み
     img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR | CV_LOAD_IMAGE_ANYDEPTH);
@@ -319,14 +319,20 @@ int main(int argc, char* argv[]) {
 	
     int target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
 	cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-//	while(target_coordinateX < 0)
-	if(target_coordinateX < 0){
-		target_coordinateX = -target_coordinateX;
-		cvLine(img2, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);		
-	}
-	else if(CAM_PIX_WIDTH < target_coordinateX){
-		target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
-		cvLine(img2, cvPoint((int)640, (int)640*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+	while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
+		if(target_coordinateX < 0){
+			target_coordinateX = -target_coordinateX;
+			//if(CAM_PIX_WIDTH < target_coordinateX)
+			a_inclination = -a_inclination;
+			//b_intercept += 2 * 640 * a_inclination;
+			cvLine(img2, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);		
+		}
+		else if(CAM_PIX_WIDTH < target_coordinateX){
+			target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
+			cvLine(img2, cvPoint((int)640, (int)640*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+			b_intercept += 2 * 640 * a_inclination;
+			a_inclination= -a_inclination;
+		}
 	}
 
     printf("target_coordinateX: %d\n",target_coordinateX);
