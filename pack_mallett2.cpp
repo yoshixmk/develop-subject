@@ -213,7 +213,9 @@ const char* to_c_char(int val)
 
 //タイマー制御用関数。時間が経ったらリセット
 void pwmReset(void){
-	gpioSetPWMfrequency(18, 0);
+	gpioWrite(18, 0);
+	//gpioSetPWMfrequency(18, 0);
+	gpioSetTimerFunc(0, 6000, NULL);
 }
 
 int main(int argc, char* argv[]) {
@@ -330,14 +332,14 @@ int main(int argc, char* argv[]) {
 	    if(max_amount_movement < amount_movement){
     	    amount_movement = max_amount_movement;
     	}
-		target_direction = 0;//逆転
+		target_direction = 0;//時計回り
 	}
 	else if(amount_movement < 0){
 		amount_movement = -amount_movement;//正の数にする
 		if(max_amount_movement < amount_movement){
 			amount_movement = max_amount_movement;
 		}
-		target_direction = 1;//正転
+		target_direction = 1;//反時計回り
 	}    
 
 	//pwm output
@@ -349,16 +351,6 @@ int main(int argc, char* argv[]) {
 	int closest_frequency = gpioSetPWMfrequency(18, 2000);
 	printf("setting_frequency: %d\n", closest_frequency);
 	gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
-	//gpioSetTimerFunc(0, set_time_millis, );
-	/*if(wiringPiSetupGpio()==-1){
-		printf("cannotsetup gpio.\n" );
-		return 1;
-	}
-	pinMode(18,PWM_OUTPUT);
-	pwmSetMode(PWM_MODE_MS);
-	pwmSetClock(64);
-	pwmSetRange(100);
-	pwmWrite(18,50);*/
 
     // 指定したウィンドウ内に画像を表示する
     cvShowImage("circle_sample", img);
