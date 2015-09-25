@@ -6,7 +6,7 @@
 #include <string.h>
 #include <pigpio.h>
 #include <wiringPi.h>
-#include <softPwm.h>
+//#include <softPwm.h>
 #include <float.h>
 
 // All units in milimeters
@@ -220,9 +220,6 @@ void pwmReset(void){
 }
 
 int main(int argc, char* argv[]) {
-    int counter;
-    wchar_t auxstr[20];
-
     printf("start!\n");
 
     printf("PUCK MINH: %d\n",minH);
@@ -240,8 +237,10 @@ int main(int argc, char* argv[]) {
     printf("FPS: %d\n",fps);
 
 	//pwm initialize
-	if(gpioInitialise() < 0) return 1;
-	
+	if(gpioInitialise() < 0) return -1;
+	gpioSetMode(18, PI_OUTPUT);
+	gpioSetMode(19, PI_OUTPUT);
+
 	CvCapture* capture =0;
     capture = cvCaptureFromCAM(CV_CAP_ANY);
 	// size設定
@@ -255,20 +254,22 @@ int main(int argc, char* argv[]) {
 	cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 
 	img = cvQueryFrame(capture);
-	img2 = cvQueryFrame(capture);
-	//while(1){
-		img2 = img;
+	img2  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
+	int capture_misalignment = 0;
+	while(1){
+		img2 = cvCloneImage(img);
 		img = cvQueryFrame(capture);
+		
 
 		//cvNamedWindow("cv_ColorExtraction");
 
 		// Init font
 		cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
-
+printf("aaa\n");
 		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
 		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
+		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
+		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
 		//白抽出0,255,0,15,240,255
 		//黒抽出0, 255, 0, 50, 0, 100
 		//青検出0, 255, 50, 200, 100, 180
@@ -276,12 +277,12 @@ int main(int argc, char* argv[]) {
 		cv_ColorExtraction(img, dst_img_pack, CV_BGR2HSV, 0, 255, 0, 50, 0, 100);
 		cv_ColorExtraction(img2, dst_img2_mallett, CV_BGR2HSV, 0, 255, 50, 200, 100, 180);
 		cv_ColorExtraction(img2, dst_img2_pack, CV_BGR2HSV, 0, 255, 0, 50, 0, 100);
-
+printf("aaa2\n");
 		//CvMoments moment_mallett;
 		CvMoments moment_pack;
 		CvMoments moment2_mallett;
 		CvMoments moment2_pack;
-
+printf("aaa3\n");
 		//cvSetImageCOI(dst_img_mallett, 1);
 		cvSetImageCOI(dst_img_pack, 1);
 		cvSetImageCOI(dst_img2_mallett, 1);
@@ -299,38 +300,57 @@ int main(int argc, char* argv[]) {
 		double m00_after = cvGetSpatialMoment(&moment2_pack, 0, 0);
 		double m10_after = cvGetSpatialMoment(&moment2_pack, 1, 0);
 		double m01_after = cvGetSpatialMoment(&moment2_pack, 0, 1);
+printf("bbb\n");
 		double gX_before = m10_before/m00_before;
 		double gY_before = m01_before/m00_before;
 		double gX_after = m10_after/m00_after;
 		double gY_after = m01_after/m00_after;
+printf("bbb\n");
 		double m00_mallett = cvGetSpatialMoment(&moment2_mallett, 0, 0);
 		double m10_mallett = cvGetSpatialMoment(&moment2_mallett, 1, 0);
 		double m01_mallett = cvGetSpatialMoment(&moment2_mallett, 0, 1);
 		double gX_now_mallett = m10_mallett/m00_mallett;
 		double gY_now_mallett = m01_mallett/m00_mallett;
-
+printf("bbb\n");
 		cvCircle(img2, cvPoint(gX_before, gY_before), 50, CV_RGB(0,0,255), 6, 8, 0);
 
 		cvLine(img2, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
-
-		int target_destanceY = 480 - 30;//Y座標の距離を一定にしている。ディフェンスライン。
-		//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
-		double a_inclination;
-		/*if(gX_after == gX_before){
-			a_inclination = 0.0;
-		}
-		else{*/
-			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
-		//}
-		double b_intercept = gY_after - a_inclination * gX_after;
+printf("ccc\n");
 		printf("gX_after: %f\n",gX_after);
 		printf("gY_after: %f\n",gY_after);
 		printf("gX_before: %f\n",gX_before);
 		printf("gY_before: %f\n",gY_before);
+		int target_destanceY = 480 - 30;//Y座標の距離を一定にしている。ディフェンスライン。
+		//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
+		double a_inclination;
+		double b_intercept;
+		if((gX_after - gX_before)==0){
+			a_inclination = 0;
+			b_intercept=0;
+		}
+		else{
+			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
+			/*if(gY_after - gY_before == 0){
+				b_intercept=0;
+			}
+			else{*/
+				b_intercept = gY_after - a_inclination * gX_after;
+			//}
+		}
+		//double b_intercept = gY_after - a_inclination * gX_after;
+		/*printf("gX_after: %f\n",gX_after);
+		printf("gY_after: %f\n",gY_after);
+		printf("gX_before: %f\n",gX_before);
+		printf("gY_before: %f\n",gY_before);*/
 		printf("a_inclination: %f\n",a_inclination);
 		printf("b_intercept: %f\n",b_intercept);
-	
-		int target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
+		int target_coordinateX;
+		if(a_inclination){
+			target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
+		}
+		else{
+			target_coordinateX = 0;
+		}
 		cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 		while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
 			if(target_coordinateX < 0){
@@ -375,8 +395,6 @@ int main(int argc, char* argv[]) {
 
 		//pwm output
 		double set_time_millis= 270 * amount_movement / max_amount_movement;//0.27ms*(0~1)
-		gpioSetMode(18, PI_OUTPUT);
-		gpioSetMode(19, PI_OUTPUT);
 		gpioPWM(18, 128);
 		gpioWrite(19, target_direction);
 		int closest_frequency = gpioSetPWMfrequency(18, 2000);
@@ -387,10 +405,10 @@ int main(int argc, char* argv[]) {
 		cvShowImage("circle_sample", img);
 		cvShowImage("circle_sample2", img2);
 
-        /*if(cv::waitKey(30) >= 0) {
+        if(cv::waitKey(30) >= 0) {
             break;
-        }*/
-    //}
+        }
+    }
 	gpioTerminate();
     //Clean up used images
     cvReleaseImage(&img);
