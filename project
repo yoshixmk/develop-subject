@@ -25,10 +25,8 @@ long_line_column=72
 [files]
 current_page=1
 FILE_NAME_0=249;None;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fproject;0;4
-FILE_NAME_1=6709;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fpack_mallett4.cpp;0;4
-FILE_NAME_2=28;None;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fmemodir%2Fgeany_install.txt;0;4
-FILE_NAME_3=108;None;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fmemodir%2Focmk.txt;0;4
-FILE_NAME_4=272;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fservo%2Fstop.cpp;0;4
+FILE_NAME_1=13709;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fpack_mallett5.cpp;0;4
+FILE_NAME_2=0;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fcamera%2Fphoto_save_capture.cpp;0;4
 
 [VTE]
 last_dir=/home/pi
@@ -41,3 +39,9 @@ C++FT_01_LB=ビルド(_B)
 C++FT_01_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo timeout -s 9 20 ./%e; sudo servo/stop
 C++FT_01_WD=
 filetypes=C++;
+EX_00_LB=実行(_E)
+EX_00_CM=sudo ./%e
+EX_00_WD=
+EX_01_LB=ビルド&実行
+EX_01_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo ./%e
+EX_01_WD=
