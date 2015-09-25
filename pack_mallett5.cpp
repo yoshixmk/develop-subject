@@ -254,15 +254,14 @@ int main(int argc, char* argv[]) {
 	cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("mallett", CV_WINDOW_AUTOSIZE);
-	
-	img  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
-	img2 = cvQueryFrame(capture);
-	
+
+	img = cvQueryFrame(capture);
+	img2  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
 	int capture_misalignment = 0;
 	
 	while(1){
-		img = cvCloneImage(img2);
-		img2 = cvQueryFrame(capture);
+		img2 = cvCloneImage(img);
+		img = cvQueryFrame(capture);
 		
 
 		//cvNamedWindow("cv_ColorExtraction");
@@ -273,13 +272,13 @@ int main(int argc, char* argv[]) {
 		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
 		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
 		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
-		//白抽出0,255,0,15,240,255
-		//黒抽出0, 255, 0, 50, 0, 100
-		//青検出0, 255, 50, 200, 100, 180
+		//table:白抽出0,255,0,15,240,255
+		//mallett:青検出0, 255, 50, 200, 100, 180
+		//pack:黒抽出0, 255, 0, 50, 0, 100
 		//cv_ColorExtraction(img, dst_img_mallett, CV_BGR2HSV, 0, 255, 50, 200, 100, 180);
-		cv_ColorExtraction(img, dst_img_pack, CV_BGR2HSV, 0, 255, 0, 50, 0, 100);
-		cv_ColorExtraction(img2, dst_img2_mallett, CV_BGR2HSV, 0, 255, 50, 200, 100, 180);
-		cv_ColorExtraction(img2, dst_img2_pack, CV_BGR2HSV, 0, 255, 0, 50, 0, 100);
+		cv_ColorExtraction(img, dst_img_pack, CV_BGR2HSV, 0, 50, 0, 100, 40, 100);
+		cv_ColorExtraction(img2, dst_img2_mallett, CV_BGR2HSV, 0, 255, 100, 255, 140, 200);//0, 255, 50, 255, 150, 200
+		cv_ColorExtraction(img2, dst_img2_pack, CV_BGR2HSV, 0, 50, 0, 100, 40, 100);//0, 125, 0, 100, 20, 100
 		//CvMoments moment_mallett;
 		CvMoments moment_pack;
 		CvMoments moment2_mallett;
