@@ -25,8 +25,9 @@ long_line_column=72
 [files]
 current_page=1
 FILE_NAME_0=249;None;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fproject;0;4
-FILE_NAME_1=13709;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fpack_mallett5.cpp;0;4
-FILE_NAME_2=0;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fcamera%2Fphoto_save_capture.cpp;0;4
+FILE_NAME_1=7662;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Flocus%2Ftimecheck_pack_mallett3.cpp;0;4
+FILE_NAME_2=6058;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Flocus%2Ftimecheck_pack_mallett.cpp;0;4
+FILE_NAME_3=0;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fcamera%2Fphoto_save_capture.cpp;0;4
 
 [VTE]
 last_dir=/home/pi
@@ -36,7 +37,7 @@ C++FT_00_LB=コンパイル(_C)
 C++FT_00_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`
 C++FT_00_WD=
 C++FT_01_LB=ビルド(_B)
-C++FT_01_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo timeout -s 9 20 ./%e; sudo servo/stop
+C++FT_01_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo timeout -s 9 20 ./%e; sudo ~/develop-subject/servostop
 C++FT_01_WD=
 filetypes=C++;
 EX_00_LB=実行(_E)
