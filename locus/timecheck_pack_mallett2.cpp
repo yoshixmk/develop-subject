@@ -250,16 +250,21 @@ int main(int argc, char* argv[]) {
 	cvSetCaptureProperty(capture,CV_CAP_PROP_FPS,fps);
 
 	// 画像の表示用ウィンドウ生成
-	cvNamedWindow("circle_sample", CV_WINDOW_AUTOSIZE);
+	/*cvNamedWindow("circle_sample", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("mallett", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("mallett", CV_WINDOW_AUTOSIZE);*/
 
 	img = cvQueryFrame(capture);
 	img2  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
 	int capture_misalignment = 0;
 	
+	clock_t start;
 	while(1){
+		printf("start!\n");
+		std::cout << "clock():\n";
+		start = clock();
+		
 		img2 = cvCloneImage(img);
 		img = cvQueryFrame(capture);
 		
@@ -311,13 +316,13 @@ int main(int argc, char* argv[]) {
 		double m01_mallett = cvGetSpatialMoment(&moment2_mallett, 0, 1);
 		double gX_now_mallett = m10_mallett/m00_mallett;
 		double gY_now_mallett = m01_mallett/m00_mallett;
-		cvCircle(img2, cvPoint(gX_before, gY_before), 50, CV_RGB(0,0,255), 6, 8, 0);
+		//cvCircle(img2, cvPoint(gX_before, gY_before), 50, CV_RGB(0,0,255), 6, 8, 0);
 
-		cvLine(img2, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
-		printf("gX_after: %f\n",gX_after);
+		//cvLine(img2, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
+		/*printf("gX_after: %f\n",gX_after);
 		printf("gY_after: %f\n",gY_after);
 		printf("gX_before: %f\n",gX_before);
-		printf("gY_before: %f\n",gY_before);
+		printf("gY_before: %f\n",gY_before);*/
 		int target_destanceY = 480 - 30;//Y座標の距離を一定にしている。ディフェンスライン。
 		//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
 		double a_inclination;
@@ -331,8 +336,8 @@ int main(int argc, char* argv[]) {
 			b_intercept = gY_after - a_inclination * gX_after;
 		}
 
-		printf("a_inclination: %f\n",a_inclination);
-		printf("b_intercept: %f\n",b_intercept);
+		/*printf("a_inclination: %f\n",a_inclination);
+		printf("b_intercept: %f\n",b_intercept);*/
 		int target_coordinateX;
 		if(a_inclination){
 			target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
@@ -340,27 +345,27 @@ int main(int argc, char* argv[]) {
 		else{
 			target_coordinateX = 0;
 		}
-		cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+		//cvLine(img2, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 		while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
 			if(target_coordinateX < 0){
 				target_coordinateX = -target_coordinateX;
 				a_inclination = -a_inclination;
-				cvLine(img2, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);		
+				//cvLine(img2, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);		
 			}
 			else if(CAM_PIX_WIDTH < target_coordinateX){
 				target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
-				cvLine(img2, cvPoint((int)640, (int)640*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+				//cvLine(img2, cvPoint((int)640, (int)640*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 				b_intercept += 2 * 640 * a_inclination;
 				a_inclination= -a_inclination;
 			}
 		}
 
-		printf("target_coordinateX: %d\n",target_coordinateX);
+		//printf("target_coordinateX: %d\n",target_coordinateX);
 		
-		cvLine(img2, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
+		/*cvLine(img2, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
 		cvLine(img2, cvPoint((int)gX_now_mallett, (int)gY_now_mallett), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 		cvPutText (img2, to_c_char((int)gX_now_mallett), cvPoint(460,30), &font, cvScalar(220,50,50));
-		cvPutText (img2, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
+		cvPutText (img2, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));*/
 		int amount_movement = gX_now_mallett - target_coordinateX;
 
 		//2枚の画像比較1回で移動できる量の計算
@@ -385,20 +390,21 @@ int main(int argc, char* argv[]) {
 		gpioPWM(18, 128);
 		gpioWrite(19, target_direction);
 		int closest_frequency = gpioSetPWMfrequency(18, 2000);
-		printf("setting_frequency: %d\n", closest_frequency);
-		gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
+		//printf("setting_frequency: %d\n", closest_frequency);
+		//gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
 
 		// 指定したウィンドウ内に画像を表示する
-		cvShowImage("circle_sample", img);
+		/*cvShowImage("circle_sample", img);
 		cvShowImage("circle_sample2", img2);
 		cvShowImage("pack", dst_img2_pack);
-		cvShowImage("mallett", dst_img2_mallett);
+		cvShowImage("mallett", dst_img2_mallett);*/
 		
 		cvReleaseImage (&dst_img_mallett);
 		cvReleaseImage (&dst_img_pack);
 		cvReleaseImage (&dst_img2_mallett);
 		cvReleaseImage (&dst_img2_pack);
-		
+		clock_t end = clock();
+		std::cout << "duration = " << (double)(end - start)/CLOCKS_PER_SEC << "sec\n";
         if(cv::waitKey(30) >= 0) {
             break;
         }
