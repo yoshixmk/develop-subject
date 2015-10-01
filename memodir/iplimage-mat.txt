@@ -1,0 +1,42 @@
+cv::MatからIplImageへの変換
+cv::MatのインスタンスをIplImageに変換するには、そのまま代入するだけです。 ただし、代入先は、ポインタ(IplImage*)ではなくIplImageのインスタンスそのものです。
+
+代入先のIplImageを、事後に無理やりcvReleaseImageで解放してはいけません。。
+
+//変換元画像
+cv::Mat mat(240, 320, CV_8UC3);
+ 
+//変換先画像
+IplImage iplImage = mat;    //ポインターではない
+IplImage iplImage2 = mat;   //   〃
+ 
+//後始末について
+ 
+//変換先画像を以下のように無理に解放してはいけない。
+// IplImage* pIplImage = &iplImage;
+// cvReleaseImage(&pIplImage);
+IplImageからcv::Matへの変換
+既に存在する IplImageへのポインタをcv::Matクラスに変換して使用するには、以下のように、 (1)コンストラクタの引数に指定するか、(2)ポインタを代入します。
+
+この場合のコピー元のIplImageは、従来通り使い終えた後にcvReleaseImageで開放するべきです。
+
+//変換元画像
+IplImage* iplImage = cvCreateImage(cvSize(320,240), IPL_DEPTH_8S, 3);
+ 
+//変換先画像
+cv::Mat mat(iplImage);  //(1)コピーコンストラクタ
+cv::Mat mat2;
+mat2 = iplImage;        //(2)ポインタの代入
+ 
+//後始末について
+cvReleaseImage(&iplImage);//元画像は開放すべき
+
+====================================
+
+// cv::MatをIplImageに変換する
+cv::Mat cppMat = cv::imread("image.bmp");
+IplImage iplImage = cppMat;
+
+// IplImageをcv::Matに変換する
+cv::Ptr<IplImage> iplImage = cvLoadImage("image.bmp", CV_LOAD_IMAGE_COLOR);
+cv::Mat cppMat = cv::cvarrToMat(iplImage);
