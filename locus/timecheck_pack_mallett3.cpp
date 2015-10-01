@@ -5,7 +5,7 @@
 #include <math.h>
 #include <string.h>
 #include <pigpio.h>
-#include <wiringPi.h>
+//#include <wiringPi.h>
 //#include <softPwm.h>
 #include <float.h>
 
@@ -238,7 +238,6 @@ int main(int argc, char* argv[]) {
 
 	//pwm initialize
 	if(gpioInitialise() < 0) return -1;
-	if(wiringPiSetupGpio() < 0) return -1;
 	gpioSetMode(18, PI_OUTPUT);
 	gpioSetMode(19, PI_OUTPUT);
  
@@ -261,25 +260,21 @@ int main(int argc, char* argv[]) {
 	int capture_misalignment = 0;
 	
 	clock_t start;
-	digitalWrite(24, 0);
 	int gpio19_status = 0;
 	while(1){
 		printf("start!\n");
 		std::cout << "clock():\n";
 		start = clock();
-		pinMode(24, INPUT);
-		std::cout << gpio19_status << " , "<< digitalRead(24) << ": ok!\n";
-		if(gpio19_status == digitalRead(24)){
+		std::cout << gpio19_status << " , "<< gpioRead(19) << ": ok!\n";
+		if(gpio19_status == gpioRead(19)){
 			std::cout << "Read check!\n";
 		}
-		if(digitalRead(24) == 1){
-			pinMode(24, OUTPUT);
-			digitalWrite(24, 0);
+		if(gpioRead(19) == 1){
+			gpioWrite(19, 0);
 			gpio19_status = 0;
 		}
-		else if(digitalRead(24) == 0){
-			pinMode(24, OUTPUT);
-			digitalWrite(24, 1);
+		else if(gpioRead(19) == 0){
+			gpioWrite(19, 1);
 			gpio19_status = 1;
 		}
 		
