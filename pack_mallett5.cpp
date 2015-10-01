@@ -8,6 +8,8 @@
 #include <wiringPi.h>
 //#include <softPwm.h>
 #include <float.h>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 // All units in milimeters
 #define robot_center_x 300   // Center of robot
@@ -250,8 +252,8 @@ int main(int argc, char* argv[]) {
 	cvSetCaptureProperty(capture,CV_CAP_PROP_FPS,fps);
 
 	// 画像の表示用ウィンドウ生成
-	cvNamedWindow("circle_sample", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("circle_sample2", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("Previous Image", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("Now Image", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("mallett", CV_WINDOW_AUTOSIZE);
 
@@ -259,13 +261,36 @@ int main(int argc, char* argv[]) {
 	img2  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
 	int capture_misalignment = 0;
 	
+	//Create trackbar to change brightness
+	int iSliderValue1 = 50;
+	cvCreateTrackbar("Brightness", "Now Image", &iSliderValue1, 100);
+	
+	//Create trackbar to change contrast
+	int iSliderValue2 = 50;
+	cvCreateTrackbar("Contrast", "Now Image", &iSliderValue2, 100);
+	
 	while(1){
+		cv::Mat src;
+		cv::Mat dst;
 		img2 = cvCloneImage(img);
 		img = cvQueryFrame(capture);
 		
-
-		//cvNamedWindow("cv_ColorExtraction");
-
+		 src = cv::cvarrToMat(img);
+		//if fail to read the image
+		if (!src.data) 
+		{ 
+			std::cout << "Error loading the image\n";
+			return -1; 
+		}
+		
+		int iBrightness  = iSliderValue1 - 50;
+		double dContrast = iSliderValue2 / 50.0;
+		src.convertTo(dst, -1, dContrast, iBrightness); 
+		
+		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+		*img2 = dst;
+		src.release();
+		
 		// Init font
 		cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
@@ -386,11 +411,11 @@ int main(int argc, char* argv[]) {
 		gpioWrite(19, target_direction);
 		int closest_frequency = gpioSetPWMfrequency(18, 2000);
 		printf("setting_frequency: %d\n", closest_frequency);
-		gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
+		//gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
 
 		// 指定したウィンドウ内に画像を表示する
-		cvShowImage("circle_sample", img);
-		cvShowImage("circle_sample2", img2);
+		cvShowImage("Previous Image", img);
+		cvShowImage("Now Image", img2);
 		cvShowImage("pack", dst_img2_pack);
 		cvShowImage("mallett", dst_img2_mallett);
 		
