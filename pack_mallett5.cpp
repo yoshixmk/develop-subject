@@ -264,10 +264,35 @@ int main(int argc, char* argv[]) {
 	//Create trackbar to change brightness
 	int iSliderValue1 = 50;
 	cvCreateTrackbar("Brightness", "Now Image", &iSliderValue1, 100);
-	
 	//Create trackbar to change contrast
 	int iSliderValue2 = 50;
 	cvCreateTrackbar("Contrast", "Now Image", &iSliderValue2, 100);
+	//pack threthold 0, 50, 120, 220, 100, 220
+	int iSliderValuePack1 = 82;
+	cvCreateTrackbar("minH", "pack", &iSliderValuePack1, 255);
+	int iSliderValuePack2 = 135;
+	cvCreateTrackbar("maxH", "pack", &iSliderValuePack2, 255);
+	int iSliderValuePack3 = 140;
+	cvCreateTrackbar("minS", "pack", &iSliderValuePack2, 255);
+	int iSliderValuePack4 = 255;
+	cvCreateTrackbar("maxS", "pack", &iSliderValuePack4, 255);
+	int iSliderValuePack5 = 0;
+	cvCreateTrackbar("minV", "pack", &iSliderValuePack5, 255);
+	int iSliderValuePack6 = 255;
+	cvCreateTrackbar("maxV", "pack", &iSliderValuePack6, 255);
+	//mallett threthold 0, 255, 100, 255, 140, 200
+	int iSliderValueMallett1 = 37;
+	cvCreateTrackbar("minH", "mallett", &iSliderValueMallett1, 255);
+	int iSliderValueMallett2 = 92;
+	cvCreateTrackbar("maxH", "mallett", &iSliderValueMallett2, 255);
+	int iSliderValueMallett3 = 92;
+	cvCreateTrackbar("minS", "mallett", &iSliderValueMallett3, 255);
+	int iSliderValueMallett4 = 255;
+	cvCreateTrackbar("maxS", "mallett", &iSliderValueMallett4, 255);
+	int iSliderValueMallett5 = 29;
+	cvCreateTrackbar("minV", "mallett", &iSliderValueMallett5, 255);
+	int iSliderValueMallett6 = 203;
+	cvCreateTrackbar("maxV", "mallett", &iSliderValueMallett6, 255);
 	
 	while(1){
 		cv::Mat src;
@@ -302,10 +327,12 @@ int main(int argc, char* argv[]) {
 		//旧pack:黒抽出0, 255, 0, 50, 0, 100
 		//mallett:青検出0, 50, 0, 120, 30, 70
 		//pack:黒抽出0, 50, 0, 120, 30, 70
-		//cv_ColorExtraction(img, dst_img_mallett, CV_BGR2HSV, 0, 255, 50, 200, 100, 180);
-		cv_ColorExtraction(img, dst_img_pack, CV_BGR2HSV, 0, 50, 0, 120, 30, 70);
-		cv_ColorExtraction(img2, dst_img2_mallett, CV_BGR2HSV, 0, 255, 100, 255, 140, 200);
-		cv_ColorExtraction(img2, dst_img2_pack, CV_BGR2HSV, 0, 50, 0, 120, 30, 70);
+		//黄抽出0, 50, 120, 220, 100, 220
+
+		cv_ColorExtraction(img, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
+		cv_ColorExtraction(img2, dst_img2_mallett, CV_BGR2HSV, iSliderValueMallett1, iSliderValueMallett2, iSliderValueMallett3, iSliderValueMallett4, iSliderValueMallett5, iSliderValueMallett6);
+		cv_ColorExtraction(img2, dst_img2_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
+		
 		//CvMoments moment_mallett;
 		CvMoments moment_pack;
 		CvMoments moment2_mallett;
