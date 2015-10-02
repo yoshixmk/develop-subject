@@ -23,11 +23,8 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=1
-FILE_NAME_0=249;None;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fproject;0;4
-FILE_NAME_1=7662;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Flocus%2Ftimecheck_pack_mallett3.cpp;0;4
-FILE_NAME_2=6058;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Flocus%2Ftimecheck_pack_mallett.cpp;0;4
-FILE_NAME_3=0;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fcamera%2Fphoto_save_capture.cpp;0;4
+current_page=0
+FILE_NAME_0=0;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fpack_mallett6.cpp;0;4
 
 [VTE]
 last_dir=/home/pi
@@ -46,3 +43,6 @@ EX_00_WD=
 EX_01_LB=ビルド&実行
 EX_01_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo ./%e
 EX_01_WD=
+C++FT_02_LB=
+C++FT_02_CM=\s
+C++FT_02_WD=

@@ -5,7 +5,7 @@
 #include <math.h>
 #include <string.h>
 #include <pigpio.h>
-#include <wiringPi.h>
+//#include <wiringPi.h>
 //#include <softPwm.h>
 #include <float.h>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -373,10 +373,23 @@ int main(int argc, char* argv[]) {
 		
 		int closest_frequency;
 		
+		//reacted limit-switch
+		if(gpioRead(24) == 1){
+			gpioWrite(18, 0);	
+			closest_frequency = gpioSetPWMfrequency(18, 0);
+			break;
+		}
+		
 		//pwm output for rotate
 		//台の揺れを想定してマージンをとる
-		if(abs(gX_after - gX_before) <= 3 ){
+		if(abs(gX_after - gX_before) <= 2){//パックが動いてない場合一時停止
 			gpioPWM(18, 0);
+			closest_frequency = gpioSetPWMfrequency(18, 0);
+			a_inclination = 0;
+			b_intercept=0;
+		}
+		else if(gY_after-2 < gY_before ){	//台の中央に戻る
+			//本番の台が届いてから実装
 			closest_frequency = gpioSetPWMfrequency(18, 0);
 			a_inclination = 0;
 			b_intercept=0;
