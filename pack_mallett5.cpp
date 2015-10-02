@@ -20,9 +20,6 @@
 #define CAM_PIX_TO_MM 1.4
 
 time_t start,end;
-// 画像ファイルポインタの宣言
-IplImage* img=0;
-IplImage* img2=0;
 
 // Parameters (with default values)
 char comPort[20] = "COM19";
@@ -290,9 +287,10 @@ int main(int argc, char* argv[]) {
 	int iSliderValueMallett6 = 203;
 	cvCreateTrackbar("maxV", "mallett", &iSliderValueMallett6, 255);
 	
-	img = cvQueryFrame(capture);
-	img2 = cvQueryFrame(capture);
-	//img2  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
+	// 画像ファイルポインタの宣言
+	IplImage* img = cvQueryFrame(capture);
+	IplImage* img2  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
+	IplImage* show_img  = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
 	//IplImage* -> Mat
 	cv::Mat pre_src;
 	cv::Mat pre_dst;
@@ -304,18 +302,19 @@ int main(int argc, char* argv[]) {
 	*img = pre_dst;
 	pre_src.release();
 	
-	cv::Mat src;
 	cv::Mat dst;
 	while(1){		
 		img2 = cvCloneImage(img);
+		show_img = cvCloneImage(img);
 		img = cvQueryFrame(capture);
 		//IplImage* -> Mat
-		src = cv::cvarrToMat(img);
+		cv::Mat src = cv::cvarrToMat(img);
 		int iBrightness  = iSliderValue1 - 50;
 		double dContrast = iSliderValue2 / 50.0;
 		src.convertTo(dst, -1, dContrast, iBrightness); 
 		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
 		*img = dst;
+		src.release();
 		
 		// Init font
 		cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
@@ -358,9 +357,9 @@ int main(int argc, char* argv[]) {
 		double m01_mallett = cvGetSpatialMoment(&moment_mallett, 0, 1);
 		double gX_now_mallett = m10_mallett/m00_mallett;
 		double gY_now_mallett = m01_mallett/m00_mallett;
-		cvCircle(img, cvPoint(gX_before, gY_before), 50, CV_RGB(0,0,255), 6, 8, 0);
+		cvCircle(show_img, cvPoint(gX_before, gY_before), 50, CV_RGB(0,0,255), 6, 8, 0);
 
-		cvLine(img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
+		cvLine(show_img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
 		printf("gX_after: %f\n",gX_after);
 		printf("gY_after: %f\n",gY_after);
 		printf("gX_before: %f\n",gX_before);
@@ -387,16 +386,16 @@ int main(int argc, char* argv[]) {
 		else{
 			target_coordinateX = 0;
 		}
-		cvLine(img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+		cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 		while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
 			if(target_coordinateX < 0){
 				target_coordinateX = -target_coordinateX;
 				a_inclination = -a_inclination;
-				cvLine(img, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);		
+				cvLine(show_img, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);		
 			}
 			else if(CAM_PIX_WIDTH < target_coordinateX){
 				target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
-				cvLine(img, cvPoint((int)640, (int)640*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+				cvLine(show_img, cvPoint((int)640, (int)640*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 				b_intercept += 2 * 640 * a_inclination;
 				a_inclination= -a_inclination;
 			}
@@ -404,10 +403,10 @@ int main(int argc, char* argv[]) {
 
 		printf("target_coordinateX: %d\n",target_coordinateX);
 		
-		cvLine(img, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
-		cvLine(img, cvPoint((int)gX_now_mallett, (int)gY_now_mallett), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
-		cvPutText (img, to_c_char((int)gX_now_mallett), cvPoint(460,30), &font, cvScalar(220,50,50));
-		cvPutText (img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
+		cvLine(show_img, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
+		cvLine(show_img, cvPoint((int)gX_now_mallett, (int)gY_now_mallett), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
+		cvPutText (show_img, to_c_char((int)gX_now_mallett), cvPoint(460,30), &font, cvScalar(220,50,50));
+		cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
 		int amount_movement = gX_now_mallett - target_coordinateX;
 
 		//2枚の画像比較1回で移動できる量の計算
@@ -437,7 +436,7 @@ int main(int argc, char* argv[]) {
 
 		// 指定したウィンドウ内に画像を表示する
 		cvShowImage("Previous Image", img2);
-		cvShowImage("Now Image", img);
+		cvShowImage("Now Image", show_img);
 		cvShowImage("pack", dst_img_pack);
 		cvShowImage("mallett", dst_img_mallett);
 		
@@ -450,13 +449,13 @@ int main(int argc, char* argv[]) {
             break;
         }
     }
-    src.release();
     dst.release();
     
 	gpioTerminate();
     //Clean up used images
     cvReleaseImage(&img);
     cvReleaseImage(&img2);
+    cvReleaseImage(&show_img);
     cvReleaseImage(&imgTracking);
 	cvReleaseImage(&imgThresh);
 	cvReleaseImage(&imgThresh2);
