@@ -302,6 +302,16 @@ int main(int argc, char* argv[]) {
 	*img = pre_dst;
 	pre_src.release();
 	
+	printf("redy?\n");
+	//決定ボタンが押されたらスタート
+	//本番はコメントはずす
+	/*while(gpioRead(25) == 0){	
+		if(cv::waitKey(30) >= 0) {
+            break;
+        }
+	}*/
+	printf("go!\n");
+	
 	cv::Mat dst;
 	int rotate_times = 0;
 	while(1){		
