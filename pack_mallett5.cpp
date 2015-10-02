@@ -261,30 +261,30 @@ int main(int argc, char* argv[]) {
 	int iSliderValue2 = 50;
 	cvCreateTrackbar("Contrast", "Now Image", &iSliderValue2, 100);
 	//pack threthold 0, 50, 120, 220, 100, 220
-	int iSliderValuePack1 = 106;
+	int iSliderValuePack1 = 80;
 	cvCreateTrackbar("minH", "pack", &iSliderValuePack1, 255);
-	int iSliderValuePack2 = 135;
+	int iSliderValuePack2 = 106;
 	cvCreateTrackbar("maxH", "pack", &iSliderValuePack2, 255);
-	int iSliderValuePack3 = 140;
+	int iSliderValuePack3 = 219;
 	cvCreateTrackbar("minS", "pack", &iSliderValuePack2, 255);
 	int iSliderValuePack4 = 255;
 	cvCreateTrackbar("maxS", "pack", &iSliderValuePack4, 255);
-	int iSliderValuePack5 = 0;
+	int iSliderValuePack5 = 29;
 	cvCreateTrackbar("minV", "pack", &iSliderValuePack5, 255);
-	int iSliderValuePack6 = 255;
+	int iSliderValuePack6 = 203;
 	cvCreateTrackbar("maxV", "pack", &iSliderValuePack6, 255);
 	//mallett threthold 0, 255, 100, 255, 140, 200
-	int iSliderValueMallett1 = 80;
+	int iSliderValueMallett1 = 106;
 	cvCreateTrackbar("minH", "mallett", &iSliderValueMallett1, 255);
-	int iSliderValueMallett2 = 106;
+	int iSliderValueMallett2 = 135;
 	cvCreateTrackbar("maxH", "mallett", &iSliderValueMallett2, 255);
-	int iSliderValueMallett3 = 219;
+	int iSliderValueMallett3 = 140;
 	cvCreateTrackbar("minS", "mallett", &iSliderValueMallett3, 255);
 	int iSliderValueMallett4 = 255;
 	cvCreateTrackbar("maxS", "mallett", &iSliderValueMallett4, 255);
-	int iSliderValueMallett5 = 29;
+	int iSliderValueMallett5 = 0;
 	cvCreateTrackbar("minV", "mallett", &iSliderValueMallett5, 255);
-	int iSliderValueMallett6 = 203;
+	int iSliderValueMallett6 = 255;
 	cvCreateTrackbar("maxV", "mallett", &iSliderValueMallett6, 255);
 	
 	// 画像ファイルポインタの宣言
@@ -303,7 +303,7 @@ int main(int argc, char* argv[]) {
 	pre_src.release();
 	
 	cv::Mat dst;
-	//int rotate_times = 3;
+	int rotate_times = 0;
 	while(1){		
 		img2 = cvCloneImage(img);
 		show_img = cvCloneImage(img);
@@ -375,9 +375,9 @@ int main(int argc, char* argv[]) {
 		
 		//pwm output for rotate
 		//台の揺れを想定してマージンをとる
-		if(abs(gX_after - gX_before)==3){
-			//gpioPWM(18, 0);
-			//closest_frequency = gpioSetPWMfrequency(18, 0);
+		if(abs(gX_after - gX_before) <= 5 && rotate_times == 0 ){
+			gpioPWM(18, 0);
+			closest_frequency = gpioSetPWMfrequency(18, 0);
 			a_inclination = 0;
 			b_intercept=0;
 		}
@@ -386,6 +386,10 @@ int main(int argc, char* argv[]) {
 			closest_frequency = gpioSetPWMfrequency(18, 2000);
 			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 			b_intercept = gY_after - a_inclination * gX_after;
+			if(rotate_times >= 5){
+				rotate_times = 0;
+			}
+			rotate_times++;
 		}
 
 		printf("a_inclination: %f\n",a_inclination);
