@@ -303,6 +303,7 @@ int main(int argc, char* argv[]) {
 	pre_src.release();
 	
 	cv::Mat dst;
+	//int rotate_times = 3;
 	while(1){		
 		img2 = cvCloneImage(img);
 		show_img = cvCloneImage(img);
@@ -368,11 +369,21 @@ int main(int argc, char* argv[]) {
 		//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
 		double a_inclination;
 		double b_intercept;
-		if((gX_after - gX_before)==0){
+		
+		
+		int closest_frequency;
+		
+		//pwm output for rotate
+		//台の揺れを想定してマージンをとる
+		if(abs(gX_after - gX_before)==3){
+			//gpioPWM(18, 0);
+			//closest_frequency = gpioSetPWMfrequency(18, 0);
 			a_inclination = 0;
 			b_intercept=0;
 		}
 		else{
+			gpioPWM(18, 128);
+			closest_frequency = gpioSetPWMfrequency(18, 2000);
 			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 			b_intercept = gY_after - a_inclination * gX_after;
 		}
@@ -424,13 +435,12 @@ int main(int argc, char* argv[]) {
 				amount_movement = max_amount_movement;
 			}
 			target_direction = 1;//反時計回り
-		}    
+		}
 
-		//pwm output
+		//pwm output for delection
 		double set_time_millis= 270 * amount_movement / max_amount_movement;//0.27ms*(0~1)
-		gpioPWM(18, 128);
 		gpioWrite(19, target_direction);
-		int closest_frequency = gpioSetPWMfrequency(18, 2000);
+		
 		printf("setting_frequency: %d\n", closest_frequency);
 		//gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
 
