@@ -375,7 +375,7 @@ int main(int argc, char* argv[]) {
 		
 		//pwm output for rotate
 		//台の揺れを想定してマージンをとる
-		if(abs(gX_after - gX_before) <= 5 && rotate_times == 0 ){
+		if(abs(gX_after - gX_before) <= 3 ){
 			gpioPWM(18, 0);
 			closest_frequency = gpioSetPWMfrequency(18, 0);
 			a_inclination = 0;
@@ -386,10 +386,6 @@ int main(int argc, char* argv[]) {
 			closest_frequency = gpioSetPWMfrequency(18, 2000);
 			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 			b_intercept = gY_after - a_inclination * gX_after;
-			if(rotate_times >= 5){
-				rotate_times = 0;
-			}
-			rotate_times++;
 		}
 
 		printf("a_inclination: %f\n",a_inclination);
