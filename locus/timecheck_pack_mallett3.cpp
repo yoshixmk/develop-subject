@@ -13,8 +13,8 @@
 #define robot_center_x 300   // Center of robot
 #define robot_center_y 500
 
-#define CAM_PIX_WIDTH 640
-#define CAM_PIX_HEIGHT 480
+#define CAM_PIX_WIDTH  160//640
+#define CAM_PIX_HEIGHT 120//480
 #define CAM_PIX_TO_MM 1.4
 
 time_t start,end;
@@ -220,6 +220,13 @@ void pwmReset(void){
 }
 
 int main(int argc, char* argv[]) {
+	int cnt = 0;    // frame数
+	int oldcnt = 0;    // 前フレーム数
+	int64 nowTime = 0;   // 現時刻
+	int64 diffTime = 0;   // 経過時間
+	int fps = 0;    // 1秒のフレーム数
+	const double f = (1000 / cv::getTickFrequency());
+	
     printf("start!\n");
 
     printf("PUCK MINH: %d\n",minH);
@@ -261,8 +268,26 @@ int main(int argc, char* argv[]) {
 	
 	clock_t start;
 	int gpio19_status = 0;
+	
+	int64 startTime = cv::getTickCount();
 	while(1){
-		printf("start!\n");
+		
+		nowTime = cv::getTickCount();
+		diffTime = (int)((nowTime - startTime)*f);
+
+		if (diffTime >= 1000) {
+			startTime = nowTime;
+			fps = cnt - oldcnt;
+			oldcnt = cnt;
+		}
+
+		std::ostringstream os;
+		os << fps;
+		std::string number = os.str();
+		std::cout << "fps = " << number << "\n";
+		//cv::putText(mat, number, point, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 0, 200), 2, CV_AA);
+		cnt++;
+
 		std::cout << "clock():\n";
 		start = clock();
 		std::cout << gpio19_status << " , "<< gpioRead(19) << ": ok!\n";
@@ -336,7 +361,7 @@ int main(int argc, char* argv[]) {
 		printf("gY_after: %f\n",gY_after);
 		printf("gX_before: %f\n",gX_before);
 		printf("gY_before: %f\n",gY_before);*/
-		int target_destanceY = 480 - 30;//Y座標の距離を一定にしている。ディフェンスライン。
+		int target_destanceY = CAM_PIX_HEIGHT - 30;//Y座標の距離を一定にしている。ディフェンスライン。
 		//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
 		double a_inclination;
 		double b_intercept;
@@ -367,15 +392,15 @@ int main(int argc, char* argv[]) {
 			}
 			else if(CAM_PIX_WIDTH < target_coordinateX){
 				target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
-				//cvLine(img2, cvPoint((int)640, (int)640*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-				b_intercept += 2 * 640 * a_inclination;
+				//cvLine(img2, cvPoint((int)CAM_PIX_WIDTH, (int)CAM_PIX_WIDTH*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+				b_intercept += 2 * CAM_PIX_WIDTH * a_inclination;
 				a_inclination= -a_inclination;
 			}
 		}
 
 		//printf("target_coordinateX: %d\n",target_coordinateX);
 		
-		/*cvLine(img2, cvPoint(640, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
+		/*cvLine(img2, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
 		cvLine(img2, cvPoint((int)gX_now_mallett, (int)gY_now_mallett), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 		cvPutText (img2, to_c_char((int)gX_now_mallett), cvPoint(460,30), &font, cvScalar(220,50,50));
 		cvPutText (img2, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));*/
