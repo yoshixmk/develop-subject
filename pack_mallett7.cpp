@@ -243,7 +243,7 @@ int main(int argc, char* argv[]) {
 	cv::Mat dst_img_v;
 	cv::Mat dst_bright_cont;
 	int rotate_times = 0;
-	while(1){		
+	while(1){
 		img2 = cvCloneImage(img_robot_side);
 		show_img = cvCloneImage(img_robot_side);
 		img_robot_side = cvQueryFrame(capture_robot_side);
@@ -251,6 +251,9 @@ int main(int argc, char* argv[]) {
 		//IplImage* -> Mat
 		cv::Mat mat_frame1 = cv::cvarrToMat(img_robot_side);
 		cv::Mat mat_frame2 = cv::cvarrToMat(img_human_side);
+		//上下左右を反転。本番環境では、mat_frame1を反転させる
+		cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
 		vconcat(mat_frame2, mat_frame1, dst_img_v);
 		
 		int iBrightness  = iSliderValue1 - 50;
