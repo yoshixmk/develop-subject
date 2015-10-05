@@ -1,7 +1,7 @@
 #include <cv.h>
 #include <highgui.h>
 #include <stdio.h>
-#include <opencv2/core/core.hpp>
+//#include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
@@ -29,42 +29,47 @@ int main(int argc, char** argv)
 	cvSetCaptureProperty(src2,CV_CAP_PROP_FRAME_WIDTH,CAM_PIX_WIDTH);
 	cvSetCaptureProperty(src2,CV_CAP_PROP_FRAME_HEIGHT,CAM_PIX_HEIGHT);
 
-if(src1 == NULL)
-{
-printf(" No1 not data \n ");
-cvWaitKey(0);
-return -1;
-}
-if(src2 == NULL)
-{
-printf(" No2 not data \n ");
-cvWaitKey(0);
-return -1;
-}
+	if(src1 == NULL)
+	{
+		printf(" No1 not data \n ");
+		cvWaitKey(0);
+		return -1;
+	}
+	if(src2 == NULL)
+	{
+		printf(" No2 not data \n ");
+		cvWaitKey(0);
+		return -1;
+	}
 	cv::Mat mat_frame1;
 	cv::Mat mat_frame2;
-	cv::Mat dst_img_h;
-while(1){
+	cv::Mat dst_img_v;
+	while(1){
+		frame1 = cvQueryFrame(src1);
+		frame2 = cvQueryFrame(src2);
+		
+		mat_frame1 = cv::cvarrToMat(frame1); //ロボット側
+		mat_frame2 = cv::cvarrToMat(frame2); //人側
+		//上下左右を反転。本番環境では、mat_frame1を反転させる
+		cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+		vconcat(mat_frame2, mat_frame1, dst_img_v);
 
-	frame1 = cvQueryFrame(src1);
-	frame2 = cvQueryFrame(src2);
-	
-	mat_frame1 = cv::cvarrToMat(frame1);
-	mat_frame2 = cv::cvarrToMat(frame2);
-	vconcat(mat_frame1, mat_frame2, dst_img_h);
+		cvShowImage("カメラ映像表示1",frame1);
+		cvShowImage("カメラ映像表示2",frame2);
+		cv::imshow("カメラ映像結合",dst_img_v);
 
-	cvShowImage("カメラ映像表示1",frame1);
-	cvShowImage("カメラ映像表示2",frame2);
-	cv::imshow("カメラ映像結合",dst_img_h);
-
-	key = cvWaitKey(33);
-	if(key == 27)
-	break;
+		key = cvWaitKey(33);
+		if(key == 27)
+			break;
 	}
 	cvDestroyWindow("カメラ映像表示1");
 	cvDestroyWindow("カメラ映像表示2");
 	cvDestroyWindow("カメラ映像結合");
 	cvReleaseCapture(&src1);
 	cvReleaseCapture(&src2);
+	mat_frame1.release();
+	mat_frame2.release();
+	dst_img_v.release();
 	return 0;
 }
