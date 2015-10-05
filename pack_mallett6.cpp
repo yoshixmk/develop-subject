@@ -21,81 +21,14 @@
 
 time_t start,end;
 
-// Parameters (with default values)
-char comPort[20] = "COM19";
-//white Pack
-int minH=0;
-int maxH=1;
-int minS=0;
-int maxS=3;
-int minV=80;
-int maxV=100;
-//green  ROBOT MARK
-int RminH=80;
-int RmaxH=150;
-int RminS=60;
-int RmaxS=105;
-int RminV=40;
-int RmaxV=105;
 int fps=30;
-int viewWindow=1;
 
 // OpenCV variables
 CvFont font;
-CvVideoWriter* record;
 IplImage* imgTracking;
 IplImage* imgThresh;
 IplImage* imgThresh2;
 IplImage* frame=0;
-int lastX = -1;
-int lastY = -1;
-int posX;
-int posY;
-int objectSize;
-int RposX;
-int RposY;
-int RobjectSize;
-int status;
-
-FILE* logFile;
-char tempStr[80];
-char logStr[4096];
-
-// Trajectory prediction
-// Puck variables
-int puckCoordX;
-int puckCoordY;
-int puckOldCoordX;
-int puckOldCoordY;
-int puckSpeedX;
-int puckSpeedY;
-float puckSpeed;         // mm/sec
-float puckDirection;     // radians
-
-int defense_position;
-int predict_x;    // X position at impact (mm)
-int predict_y;
-int predict_x_old;
-int predict_y_old;
-int predict_time;   // time to impact in ms
-char tempStr2[80];
-
-// Camera variables
-int cam_center_x;
-int cam_center_y;
-float cam_pix_to_mm;
-float cam_rotation;  //Camera rotation in radians
-
-void cameraProcessInit()
-{
-    // Default values
-    cam_center_x = CAM_PIX_WIDTH/2;
-    cam_center_y = CAM_PIX_HEIGHT/2;
-    cam_pix_to_mm = CAM_PIX_TO_MM;
-    cam_rotation = 0; //radians  1º = 0.01745 2º = 0.035 4º = 0.07 5º = 0.087
-    predict_x_old = -1;
-    defense_position = 100;  // Pusher defense position
-}
 
 //This function threshold the HSV image and create a binary image
 IplImage* GetThresholdedImage(IplImage* imgHSV, int minH, int maxH, int minS, int maxS, int minV, int maxV) {
