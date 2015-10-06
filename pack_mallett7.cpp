@@ -15,8 +15,9 @@
 #define robot_center_x 300   // Center of robot
 #define robot_center_y 500
 
-#define CAM_PIX_WIDTH  320//160
-#define CAM_PIX_HEIGHT 240//120
+#define CAM_PIX_2HEIGHT (2 * CAM_PIX_HEIGHT)
+#define CAM_PIX_WIDTH  160
+#define CAM_PIX_HEIGHT 120
 #define CAM_PIX_TO_MM 1.4
 
 time_t start,end;
@@ -215,8 +216,9 @@ int main(int argc, char* argv[]) {
 	// 画像ファイルポインタの宣言
 	IplImage* img_robot_side = cvQueryFrame(capture_robot_side);
 	IplImage* img_human_side = cvQueryFrame(capture_human_side);
-	IplImage* img2  = cvCreateImage(cvGetSize(img_robot_side), IPL_DEPTH_8U, 3);
-	IplImage* show_img  = cvCreateImage(cvGetSize(img_robot_side), IPL_DEPTH_8U, 3);
+	IplImage* img_all_round = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+	IplImage* img2  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* show_img  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	//IplImage* -> Mat
 	cv::Mat pre_src;
 	cv::Mat pre_dst;
@@ -244,8 +246,8 @@ int main(int argc, char* argv[]) {
 	cv::Mat dst_bright_cont;
 	int rotate_times = 0;
 	while(1){
-		img2 = cvCloneImage(img_robot_side);
-		show_img = cvCloneImage(img_robot_side);
+		img2 = cvCloneImage(img_all_round);
+		show_img = cvCloneImage(img_all_round);
 		img_robot_side = cvQueryFrame(capture_robot_side);
 		img_human_side = cvQueryFrame(capture_human_side);
 		//IplImage* -> Mat
@@ -258,20 +260,23 @@ int main(int argc, char* argv[]) {
 		
 		int iBrightness  = iSliderValue1 - 50;
 		double dContrast = iSliderValue2 / 50.0;
-		mat_frame1.convertTo(dst_bright_cont, -1, dContrast, iBrightness); 
+		//mat_frame1.convertTo(dst_bright_cont, -1, dContrast, iBrightness); 
+		dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
-		*img_robot_side = dst_bright_cont;
+		//*img_robot_side = dst_bright_cont;
+		*img_all_round = dst_bright_cont;
 		mat_frame1.release();
+		mat_frame2.release();
 		
 		// Init font
 		cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
-		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_robot_side), IPL_DEPTH_8U, 3);
-		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_robot_side), IPL_DEPTH_8U, 3);
+		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
 		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
 
-		cv_ColorExtraction(img_robot_side, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
-		cv_ColorExtraction(img_robot_side, dst_img_mallett, CV_BGR2HSV, iSliderValueMallett1, iSliderValueMallett2, iSliderValueMallett3, iSliderValueMallett4, iSliderValueMallett5, iSliderValueMallett6);
+		cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
+		cv_ColorExtraction(img_all_round, dst_img_mallett, CV_BGR2HSV, iSliderValueMallett1, iSliderValueMallett2, iSliderValueMallett3, iSliderValueMallett4, iSliderValueMallett5, iSliderValueMallett6);
 		cv_ColorExtraction(img2, dst_img2_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
 		
 		//CvMoments moment_mallett;
@@ -312,7 +317,8 @@ int main(int argc, char* argv[]) {
 		printf("gY_after: %f\n",gY_after);
 		printf("gX_before: %f\n",gX_before);
 		printf("gY_before: %f\n",gY_before);
-		int target_destanceY = CAM_PIX_HEIGHT - 30;//Y座標の距離を一定にしている。ディフェンスライン。
+		int target_destanceY = CAM_PIX_2HEIGHT - 30;
+		//int target_destanceY = CAM_PIX_HEIGHT - 30;//Y座標の距離を一定にしている。ディフェンスライン。
 		//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
 		double a_inclination;
 		double b_intercept;
@@ -436,6 +442,7 @@ int main(int argc, char* argv[]) {
     //Clean up used images
     cvReleaseImage(&img_robot_side);
     cvReleaseImage(&img2);
+    cvReleaseImage(&img_all_round);
     cvReleaseImage(&show_img);
     cvReleaseImage(&imgTracking);
 	cvReleaseImage(&imgThresh);
