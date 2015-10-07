@@ -329,7 +329,6 @@ int main(int argc, char* argv[]) {
 		double a_inclination;
 		double b_intercept;
 		
-		
 		int closest_frequency;
 		
 		//reacted limit-switch
@@ -339,6 +338,7 @@ int main(int argc, char* argv[]) {
 			break;
 		}
 		
+		int target_coordinateX;
 		//pwm output for rotate
 		//台の揺れを想定してマージンをとる
 		if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
@@ -347,28 +347,38 @@ int main(int argc, char* argv[]) {
 			a_inclination = 0;
 			b_intercept=0;
 		}
-		else if(gY_after-1 < gY_before ){	//台の中央に戻る
+		else if(gY_after-1 < gY_before ){	//packが離れていく時、台の中央に戻る
 			//本番の台が届いてから実装
 			closest_frequency = gpioSetPWMfrequency(25, 0);
 			a_inclination = 0;
 			b_intercept=0;
+			target_coordinateX = CAM_PIX_WIDTH/2; //目標値は中央
+			if(gX_now_mallett < CAM_PIX_WIDTH/2 - CAM_PIX_WIDTH/100){ //壁がとれていないので、CAM_PIX_WIDTH/2=中央 とした
+				gpioPWM(25, 128);
+				closest_frequency = gpioSetPWMfrequency(25, 2000);
+			}
+			else{
+				gpioPWM(25, 128);
+				closest_frequency = gpioSetPWMfrequency(25, 2000);
+			}
 		}
 		else{
 			gpioPWM(25, 128);
 			closest_frequency = gpioSetPWMfrequency(25, 2000);
 			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 			b_intercept = gY_after - a_inclination * gX_after;
+			//一次関数で目標X座標の計算
+			if(a_inclination){
+				target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
+			}
+			else{
+				target_coordinateX = 0;
+			}
 		}
 
 		printf("a_inclination: %f\n",a_inclination);
 		printf("b_intercept: %f\n",b_intercept);
-		int target_coordinateX;
-		if(a_inclination){
-			target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
-		}
-		else{
-			target_coordinateX = 0;
-		}
+
 		cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 		while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
 			if(target_coordinateX < 0){
@@ -390,10 +400,10 @@ int main(int argc, char* argv[]) {
 		cvLine(show_img, cvPoint((int)gX_now_mallett, (int)gY_now_mallett), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 		cvPutText (show_img, to_c_char((int)gX_now_mallett), cvPoint(460,30), &font, cvScalar(220,50,50));
 		cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
+		
 		int amount_movement = gX_now_mallett - target_coordinateX;
-
 		//2枚の画像比較1回で移動できる量の計算
-		int max_amount_movement = CAM_PIX_WIDTH * 0.54 / 1; //CAM_PIX_WIDTH:640, 比較にかかる時間:0.27*2, 端までの移動時間：1s
+		int max_amount_movement = CAM_PIX_WIDTH * 0.54 / 1; //比較にかかる時間:0.27*2, 端までの移動時間：1s
 		int target_direction;
 		if(amount_movement > 0){
 			if(max_amount_movement < amount_movement){
