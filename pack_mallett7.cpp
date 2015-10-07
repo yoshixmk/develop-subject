@@ -147,8 +147,8 @@ const char* to_c_char(int val)
 
 //タイマー制御用関数。時間が経ったらリセット
 void pwmReset(void){
-	gpioWrite(18, 0);
-	//gpioSetPWMfrequency(18, 0);
+	gpioWrite(25, 0);
+	//gpioSetPWMfrequency(25, 0);
 	gpioSetTimerFunc(0, 6000, NULL);
 }
 
@@ -157,8 +157,12 @@ int main(int argc, char* argv[]) {
 
 	//pwm initialize
 	if(gpioInitialise() < 0) return -1;
+	//pigpio CW/CCW pin setup
+	//X:18, Y1:14, Y2:15
 	gpioSetMode(18, PI_OUTPUT);
-	gpioSetMode(19, PI_OUTPUT);
+	//pigpio pulse setup
+	//X:25, Y1:23, Y2:24
+	gpioSetMode(25, PI_OUTPUT);
  
 	CvCapture* capture_robot_side;
 	CvCapture* capture_human_side;
@@ -328,28 +332,28 @@ int main(int argc, char* argv[]) {
 		
 		//reacted limit-switch
 		if(gpioRead(24) == 1){
-			gpioWrite(18, 0);	
-			closest_frequency = gpioSetPWMfrequency(18, 0);
+			gpioWrite(25, 0);	
+			closest_frequency = gpioSetPWMfrequency(25, 0);
 			break;
 		}
 		
 		//pwm output for rotate
 		//台の揺れを想定してマージンをとる
 		if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
-			gpioPWM(18, 0);
-			closest_frequency = gpioSetPWMfrequency(18, 0);
+			gpioPWM(25, 0);
+			closest_frequency = gpioSetPWMfrequency(25, 0);
 			a_inclination = 0;
 			b_intercept=0;
 		}
 		else if(gY_after-1 < gY_before ){	//台の中央に戻る
 			//本番の台が届いてから実装
-			closest_frequency = gpioSetPWMfrequency(18, 0);
+			closest_frequency = gpioSetPWMfrequency(25, 0);
 			a_inclination = 0;
 			b_intercept=0;
 		}
 		else{
-			gpioPWM(18, 128);
-			closest_frequency = gpioSetPWMfrequency(18, 2000);
+			gpioPWM(25, 128);
+			closest_frequency = gpioSetPWMfrequency(25, 2000);
 			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 			b_intercept = gY_after - a_inclination * gX_after;
 		}
@@ -405,7 +409,7 @@ int main(int argc, char* argv[]) {
 
 		//pwm output for delection
 		double set_time_millis= 270 * amount_movement / max_amount_movement;//0.27ms*(0~1)
-		gpioWrite(19, target_direction);
+		gpioWrite(18, target_direction);
 		
 		printf("setting_frequency: %d\n", closest_frequency);
 		//gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
