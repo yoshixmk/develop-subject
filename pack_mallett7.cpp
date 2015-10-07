@@ -163,6 +163,8 @@ int main(int argc, char* argv[]) {
 	//pigpio pulse setup
 	//X:25, Y1:23, Y2:24
 	gpioSetMode(25, PI_OUTPUT);
+	//limit-switch setup
+	gpioSetMode(13, PI_INPUT);
  
 	CvCapture* capture_robot_side;
 	CvCapture* capture_human_side;
@@ -331,7 +333,7 @@ int main(int argc, char* argv[]) {
 		int closest_frequency;
 		
 		//reacted limit-switch
-		if(gpioRead(24) == 1){
+		if(gpioRead(13) == 1){
 			gpioWrite(25, 0);	
 			closest_frequency = gpioSetPWMfrequency(25, 0);
 			break;
