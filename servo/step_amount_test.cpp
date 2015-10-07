@@ -251,6 +251,7 @@ int main(int argc, char* argv[]) {
 	cv::Mat dst_img_v;
 	cv::Mat dst_bright_cont;
 	int rotate_times = 0;
+	int turn_l_or_r = -1; //left=-1; right=1;
 	while(1){
 		img2 = cvCloneImage(img_all_round);
 		show_img = cvCloneImage(img_all_round);
@@ -330,11 +331,12 @@ int main(int argc, char* argv[]) {
 		double b_intercept;
 		
 		int closest_frequency;
-		
+		gpioPWM(25, 128);
+		closest_frequency = gpioSetPWMfrequency(25, 2000);
 		//reacted limit-switch
 		if(gpioRead(13) == 1){
-			gpioWrite(25, 0);	
-			closest_frequency = gpioSetPWMfrequency(25, 0);
+			//gpioWrite(25, 0);
+			//closest_frequency = gpioSetPWMfrequency(25, 0);
 			break;
 		}
 		
@@ -342,29 +344,29 @@ int main(int argc, char* argv[]) {
 		//pwm output for rotate
 		//台の揺れを想定してマージンをとる
 		if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
-			gpioPWM(25, 0);
-			closest_frequency = gpioSetPWMfrequency(25, 0);
+			//gpioPWM(25, 0);
+			//closest_frequency = gpioSetPWMfrequency(25, 0);
 			a_inclination = 0;
 			b_intercept=0;
 		}
 		else if(gY_after-1 < gY_before ){	//packが離れていく時、台の中央に戻る
 			//本番の台が届いてから実装
-			closest_frequency = gpioSetPWMfrequency(25, 0);
+			//closest_frequency = gpioSetPWMfrequency(25, 0);
 			a_inclination = 0;
 			b_intercept=0;
 			target_coordinateX = CAM_PIX_WIDTH/2; //目標値は中央
 			if(gX_now_mallett < CAM_PIX_WIDTH/2 - CAM_PIX_WIDTH/100){ //壁がとれていないので、CAM_PIX_WIDTH/2=中央 とした
-				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 2000);
+				//gpioPWM(25, 128);
+				//closest_frequency = gpioSetPWMfrequency(25, 2000);
 			}
 			else{
 				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 2000);
+				//closest_frequency = gpioSetPWMfrequency(25, 2000);
 			}
 		}
 		else{
 			gpioPWM(25, 128);
-			closest_frequency = gpioSetPWMfrequency(25, 2000);
+			//closest_frequency = gpioSetPWMfrequency(25, 2000);
 			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 			b_intercept = gY_after - a_inclination * gX_after;
 			//一次関数で目標X座標の計算
@@ -421,7 +423,13 @@ int main(int argc, char* argv[]) {
 
 		//pwm output for delection
 		double set_time_millis= 270 * amount_movement / max_amount_movement;//0.27ms*(0~1)
-		gpioWrite(18, target_direction);
+		//gpioWrite(18, target_direction);
+		if(turn_l_or_r == -1){
+			gpioWrite(18, 1);
+		}
+		else if(turn_l_or_r == 1){
+			gpioWrite(18, 0);
+		}
 		
 		printf("setting_frequency: %d\n", closest_frequency);
 		//gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
@@ -432,6 +440,13 @@ int main(int argc, char* argv[]) {
 		cvShowImage("pack", dst_img_pack);
 		cvShowImage("mallett", dst_img_mallett);
 		cv::imshow("Vertical Concat", dst_img_v);
+		
+		rotate_times++;
+		if(rotate_times == 4){
+			rotate_times = 0;
+			turn_l_or_r *= -1;
+			break;
+		}
 		
 		cvReleaseImage (&dst_img_mallett);
 		cvReleaseImage (&dst_img_pack);
