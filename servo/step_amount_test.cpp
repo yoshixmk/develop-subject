@@ -147,9 +147,21 @@ const char* to_c_char(int val)
 
 //タイマー制御用関数。時間が経ったらリセット
 void pwmReset(void){
-	gpioWrite(25, 0);
-	//gpioSetPWMfrequency(25, 0);
-	gpioSetTimerFunc(0, 6000, NULL);
+	if(cv::waitKey(1000) >= 0) {
+
+	}else{
+		gpioWrite(25, 0);
+		gpioSetPWMfrequency(25, 0);
+	}
+	//gpioSetTimerFunc(0, 6000, NULL);
+}
+
+//タイマー制御用関数。時間が経ったらスタート
+void pwmStart(void){
+	gpioPWM(25, 128);
+	gpioSetPWMfrequency(25, 2000);
+	//gpioSetTimerFunc(0, 6000, NULL);
+	gpioSetTimerFunc(1, 1000, pwmReset);
 }
 
 int main(int argc, char* argv[]) {
@@ -360,12 +372,12 @@ int main(int argc, char* argv[]) {
 				//closest_frequency = gpioSetPWMfrequency(25, 2000);
 			}
 			else{
-				gpioPWM(25, 128);
+				//gpioPWM(25, 128);
 				//closest_frequency = gpioSetPWMfrequency(25, 2000);
 			}
 		}
 		else{
-			gpioPWM(25, 128);
+			//gpioPWM(25, 128);
 			//closest_frequency = gpioSetPWMfrequency(25, 2000);
 			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 			b_intercept = gY_after - a_inclination * gX_after;
@@ -423,6 +435,8 @@ int main(int argc, char* argv[]) {
 
 		//pwm output for delection
 		double set_time_millis= 270 * amount_movement / max_amount_movement;//0.27ms*(0~1)
+		set_time_millis = 270;
+		printf("set_time_millis: %f\n", set_time_millis);
 		//gpioWrite(18, target_direction);
 		if(turn_l_or_r == -1){
 			gpioWrite(18, 1);
@@ -432,7 +446,7 @@ int main(int argc, char* argv[]) {
 		}
 		
 		printf("setting_frequency: %d\n", closest_frequency);
-		//gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
+		gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
 
 		// 指定したウィンドウ内に画像を表示する
 		cvShowImage("Previous Image", img2);
@@ -441,12 +455,12 @@ int main(int argc, char* argv[]) {
 		cvShowImage("mallett", dst_img_mallett);
 		cv::imshow("Vertical Concat", dst_img_v);
 		
-		rotate_times++;
+		/*rotate_times++;
 		if(rotate_times == 4){
 			rotate_times = 0;
 			turn_l_or_r *= -1;
 			break;
-		}
+		}*/
 		
 		cvReleaseImage (&dst_img_mallett);
 		cvReleaseImage (&dst_img_pack);
