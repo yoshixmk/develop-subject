@@ -1,0 +1,49 @@
+[file_prefs]
+final_new_line=true
+ensure_convert_new_lines=false
+strip_trailing_spaces=false
+replace_tabs=false
+
+[indentation]
+indent_width=4
+indent_type=1
+indent_hard_tab_width=8
+detect_indent=false
+detect_indent_width=false
+indent_mode=2
+
+[project]
+name=develop-subject
+base_path=/home/pi/develop-subject
+description=
+file_patterns=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=72
+
+[files]
+current_page=0
+FILE_NAME_0=8649;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fpack_mallett7.cpp;0;4
+FILE_NAME_1=0;C++;0;16;1;1;1;%2Fhome%2Fpi%2Fdevelop-subject%2Fcamera%2Fcamera_sample_double.cpp;0;4
+
+[VTE]
+last_dir=/home/pi
+
+[build-menu]
+C++FT_00_LB=コンパイル(_C)
+C++FT_00_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`
+C++FT_00_WD=
+C++FT_01_LB=ビルド(_B)
+C++FT_01_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo timeout -s 9 20 ./%e; sudo ~/develop-subject/servostop
+C++FT_01_WD=
+filetypes=C++;
+EX_00_LB=実行(_E)
+EX_00_CM=sudo ./%e
+EX_00_WD=
+EX_01_LB=ビルド&実行
+EX_01_CM=g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo ./%e
+EX_01_WD=
+C++FT_02_LB=
+C++FT_02_CM=
+C++FT_02_WD=

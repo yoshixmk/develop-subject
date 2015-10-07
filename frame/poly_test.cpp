@@ -6,46 +6,36 @@
 #include <time.h>
 #include <stdio.h>
 
-void GetContourFeature(CvSeq *Contour);
-void DrawChildContour(       
-                IplImage *img,    //ﾗﾍﾞﾘﾝｸﾞ結果を描画するIplImage(8Bit3chｶﾗｰ)
-                CvSeq *Contour, //輪郭へのﾎﾟｲﾝﾀ
-                int Level             //輪郭のﾚﾍﾞﾙ(階層)
-                );
-
-////////////////////////////////////////////////////////////////
-//  次の輪郭を描画する｡
-////////////////////////////////////////////////////////////////
 void DrawNextContour(       
                 IplImage *img,    //ﾗﾍﾞﾘﾝｸﾞ結果を描画するIplImage(8Bit3chｶﾗｰ)
                 CvSeq *Contour, //輪郭へのﾎﾟｲﾝﾀ
                 int Level            //輪郭のﾚﾍﾞﾙ(階層)
-                ){
+                );
+                
+double perimeter_max;
+CvSeq *max_perimeter_contor;
 
-      // 輪郭を描画する色の設定
-      CvScalar ContoursColor;
+//各種輪郭の特徴量の取得
+void GetContourFeature(CvSeq *Contour){
+   //面積
+   double Area = fabs(cvContourArea(Contour, CV_WHOLE_SEQ));
+   //周囲長
+   double Perimeter = cvArcLength(Contour);
+   //円形度
+   double CircleLevel = 4.0 * CV_PI * Area / (Perimeter * Perimeter);
 
-      if ((Level % 2) == 1){
-            //白の輪郭の場合､赤で輪郭を描画
-            ContoursColor = CV_RGB( 255, 0, 0 );
-      }else{
-            //黒の輪郭の場合､青で輪郭を描画
-            ContoursColor = CV_RGB( 0, 0, 255 );
-      }
-             
-      //輪郭の描画
-      cvDrawContours( img, Contour, ContoursColor, ContoursColor, 0, 2);
-
-      //各種輪郭の特徴量の取得
-      GetContourFeature(Contour); //←ｵﾘｼﾞﾅﾙ関数です｡(詳細は後述)
-
-      if (Contour->h_next != NULL)
-            //次の輪郭がある場合は次の輪郭を描画
-            DrawNextContour(img, Contour->h_next, Level);
-
-      if (Contour->v_next != NULL)
-            //子の輪郭がある場合は子の輪郭を描画
-            DrawChildContour(img, Contour->v_next, Level + 1);
+   //傾いていない外接四角形領域(ﾌｨﾚ径)
+   CvRect rect = cvBoundingRect(Contour);
+   //輪郭を構成する頂点座標を取得
+   for ( int i = 0; i < Contour->total; i++){
+            CvPoint *point = CV_GET_SEQ_ELEM (CvPoint, Contour, i);
+             std::cout << "x:" << point->x << ", y:" << point->y  << std::endl;
+            
+   }
+   if(perimeter_max < Perimeter){
+	   perimeter_max = Perimeter;
+	   max_perimeter_contor = Contour;
+	}
 }
 
 ////////////////////////////////////////////////////////////////
@@ -69,7 +59,7 @@ void DrawChildContour(
       }
              
       //輪郭の描画
-      cvDrawContours( img, Contour, ContoursColor, ContoursColor, 0, 2);
+      //cvDrawContours( img, Contour, ContoursColor, ContoursColor, 0, 2);
              
       //各種輪郭の特徴量の取得
       GetContourFeature(Contour); //←ｵﾘｼﾞﾅﾙ関数です｡(詳細は後述)
@@ -77,6 +67,41 @@ void DrawChildContour(
       if (Contour->h_next != NULL)
             //次の輪郭がある場合は次の輪郭を描画
             DrawNextContour(img, Contour->h_next, Level);
+      if (Contour->v_next != NULL)
+            //子の輪郭がある場合は子の輪郭を描画
+            DrawChildContour(img, Contour->v_next, Level + 1);
+}
+
+////////////////////////////////////////////////////////////////
+//  次の輪郭を描画する｡
+////////////////////////////////////////////////////////////////
+void DrawNextContour(       
+                IplImage *img,    //ﾗﾍﾞﾘﾝｸﾞ結果を描画するIplImage(8Bit3chｶﾗｰ)
+                CvSeq *Contour, //輪郭へのﾎﾟｲﾝﾀ
+                int Level            //輪郭のﾚﾍﾞﾙ(階層)
+                ){
+
+      // 輪郭を描画する色の設定
+      CvScalar ContoursColor;
+
+      if ((Level % 2) == 1){
+            //白の輪郭の場合､赤で輪郭を描画
+            ContoursColor = CV_RGB( 255, 0, 0 );
+      }else{
+            //黒の輪郭の場合､青で輪郭を描画
+            ContoursColor = CV_RGB( 0, 0, 255 );
+      }
+             
+      //輪郭の描画
+      //cvDrawContours( img, Contour, ContoursColor, ContoursColor, 0, 2);
+
+      //各種輪郭の特徴量の取得
+      GetContourFeature(Contour); //←ｵﾘｼﾞﾅﾙ関数です｡(詳細は後述)
+
+      if (Contour->h_next != NULL)
+            //次の輪郭がある場合は次の輪郭を描画
+            DrawNextContour(img, Contour->h_next, Level);
+
       if (Contour->v_next != NULL)
             //子の輪郭がある場合は子の輪郭を描画
             DrawChildContour(img, Contour->v_next, Level + 1);
@@ -127,29 +152,14 @@ void cv_Labelling(
             //輪郭の描画
             DrawNextContour(dst_img, contours, 1);
       }
+      
+      cvDrawContours( dst_img, max_perimeter_contor, CV_RGB( 255, 0, 0 ), CV_RGB( 255, 0, 0 ), 0, 2);
 
       //ﾒﾓﾘｽﾄﾚｰｼﾞの解放
       cvReleaseMemStorage (&storage);
 }
 
-//各種輪郭の特徴量の取得
-void GetContourFeature(CvSeq *Contour){
-   //面積
-   double Area = fabs(cvContourArea(Contour, CV_WHOLE_SEQ));
-   //周囲長
-   double Perimeter = cvArcLength(Contour);
-   //円形度
-   double CircleLevel = 4.0 * CV_PI * Area / (Perimeter * Perimeter);
 
-   //傾いていない外接四角形領域(ﾌｨﾚ径)
-   CvRect rect = cvBoundingRect(Contour);
-   //輪郭を構成する頂点座標を取得
-   for ( int i = 0; i < Contour->total; i++){
-            CvPoint *point = CV_GET_SEQ_ELEM (CvPoint, Contour, i);
-             std::cout << "x:" << point->x << ", y:" << point->y  << std::endl;
-            
-   }
-}
 
 int main(int argc, char* argv[])
 {
@@ -159,10 +169,6 @@ int main(int argc, char* argv[])
   CvTreeNodeIterator polyIterator;
   int found = 0;
   int i;
-  CvPoint point;
-  // ポリライン近似
-  CvMemStorage *polyStorage = cvCreateMemStorage(0);
-  CvSeq *polys, *poly;
 
   // (1)画像を読み込む
   if ((src_img = cvLoadImage ("ah01.jpg", CV_LOAD_IMAGE_GRAYSCALE)) == 0)
@@ -181,31 +187,9 @@ int main(int argc, char* argv[])
   
 
   found = cvFindContours( tmp, contStorage, &contours, sizeof( CvContour), CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-
-  polys = cvApproxPoly( contours, sizeof( CvContour), polyStorage , CV_POLY_APPROX_DP, 7, 10);
-
-  cvInitTreeNodeIterator( &polyIterator, ( void*)polys, 10);
-  while( (poly = (CvSeq *)cvNextTreeNode( &polyIterator)) != NULL)
-  {
-    //４点の領域が1000（適当）以上のとき、その４点を描画
-    if( ( abs(cvContourArea(poly, CV_WHOLE_SEQ) > 100 ) ) ){
-        for( i = 0 ; i < poly -> total ; i++ )
-        {
-            point = *( CvPoint*)cvGetSeqElem( poly, i);
-            cvCircle( dst, point, 5, CV_RGB(0,0,255), 1);
-            std::cout << "x:" << point.x << ", y:" << point.y  << std::endl;
-        }
-    }
-  }
-
-  
-
-  while(1){
-        // 画像の表示
-  cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
-  cvNamedWindow( "Poly", CV_WINDOW_AUTOSIZE);
+cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
+  while(1){  
   cvShowImage ("Image", dst_img);
-  cvShowImage( "Poly", dst);
   if(cv::waitKey(30) >= 0) {
     break;
     }
@@ -219,7 +203,6 @@ int main(int argc, char* argv[])
   cvReleaseImage( &src_img2);
   cvReleaseImage( &dst);
   cvReleaseImage( &tmp);
-  cvReleaseMemStorage( &polyStorage);
   
   return 0;
 }
