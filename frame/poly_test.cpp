@@ -26,12 +26,7 @@ void GetContourFeature(CvSeq *Contour) {
 
     //傾いていない外接四角形領域(ﾌｨﾚ径)
     CvRect rect = cvBoundingRect(Contour);
-    //輪郭を構成する頂点座標を取得
-    for ( int i = 0; i < Contour->total; i++) {
-        CvPoint *point = CV_GET_SEQ_ELEM (CvPoint, Contour, i);
-        std::cout << "x:" << point->x << ", y:" << point->y  << std::endl;
 
-    }
     if(perimeter_max < Perimeter) {
         perimeter_max = Perimeter;
         max_perimeter_contor = Contour;
@@ -154,7 +149,16 @@ void cv_Labelling(
     }
 
     cvDrawContours( dst_img, max_perimeter_contor, CV_RGB( 255, 0, 0 ), CV_RGB( 255, 0, 0 ), 0, 2);
+        for ( int i = 0; i < max_perimeter_contor->total; i++) {
+        CvPoint *point = CV_GET_SEQ_ELEM (CvPoint, max_perimeter_contor, i);
+        std::cout << "x:" << point->x << ", y:" << point->y  << std::endl;
+    }
+	//輪郭を構成する頂点座標を取得
+    /*for ( int i = 0; i < Contour->total; i++) {
+        CvPoint *point = CV_GET_SEQ_ELEM (CvPoint, Contour, i);
+        std::cout << "x:" << point->x << ", y:" << point->y  << std::endl;
 
+    }*/
     //ﾒﾓﾘｽﾄﾚｰｼﾞの解放
     cvReleaseMemStorage (&storage);
 }
@@ -187,6 +191,7 @@ int main(int argc, char* argv[])
 
 
     found = cvFindContours( tmp, contStorage, &contours, sizeof( CvContour), CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+
     cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
     while(1) {
         cvShowImage ("Image", dst_img);
