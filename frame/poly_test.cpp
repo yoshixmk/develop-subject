@@ -6,6 +6,8 @@
 #include <time.h>
 #include <stdio.h>
 
+using namespace cv;
+
 void DrawNextContour(
     IplImage *img,    //ﾗﾍﾞﾘﾝｸﾞ結果を描画するIplImage(8Bit3chｶﾗｰ)
     CvSeq *Contour, //輪郭へのﾎﾟｲﾝﾀ
@@ -151,7 +153,7 @@ void cv_Labelling(
     cvDrawContours( dst_img, max_perimeter_contor, CV_RGB( 255, 0, 0 ), CV_RGB( 255, 0, 0 ), 0, 2);
         for ( int i = 0; i < max_perimeter_contor->total; i++) {
         CvPoint *point = CV_GET_SEQ_ELEM (CvPoint, max_perimeter_contor, i);
-        std::cout << "x:" << point->x << ", y:" << point->y  << std::endl;
+        //std::cout << "x:" << point->x << ", y:" << point->y  << std::endl;
     }
 	//輪郭を構成する頂点座標を取得
     /*for ( int i = 0; i < Contour->total; i++) {
@@ -167,12 +169,7 @@ void cv_Labelling(
 
 int main(int argc, char* argv[])
 {
-    IplImage *src_img, *src_img2, *dst_img, *tmp, *dst;
-    CvMemStorage *contStorage = cvCreateMemStorage(0);
-    CvSeq *contours;
-    CvTreeNodeIterator polyIterator;
-    int found = 0;
-    int i;
+    IplImage *src_img, *dst_img;
 
     // (1)画像を読み込む
     if ((src_img = cvLoadImage ("ah01.jpg", CV_LOAD_IMAGE_GRAYSCALE)) == 0)
@@ -180,17 +177,24 @@ int main(int argc, char* argv[])
     if ((dst_img = cvLoadImage ("ah01.jpg", CV_LOAD_IMAGE_COLOR )) == 0)
         return -1;
 
-    if ((src_img2 = cvLoadImage ("ah01.jpg", CV_LOAD_IMAGE_GRAYSCALE )) == 0)
-        return -1;
     cv_Labelling(src_img, dst_img);
-    tmp = cvCreateImage( cvGetSize( src_img2), IPL_DEPTH_8U, 1);
-    dst = cvCreateImage( cvGetSize( src_img2), IPL_DEPTH_8U, 3);
 
-    cvCopy( src_img2, tmp);
-    cvCvtColor( src_img2, dst, CV_GRAY2BGR);
+	cv::Mat eigen_img = cv::cvarrToMat(dst_img);  // データをコピーする
 
+	Mat gray_img;
+    cvtColor(eigen_img, gray_img, CV_BGR2GRAY);
+    normalize(gray_img, gray_img, 0, 255, NORM_MINMAX);
 
-    found = cvFindContours( tmp, contStorage, &contours, sizeof( CvContour), CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+    vector<Point2f> corners;
+    goodFeaturesToTrack(gray_img, corners, 80, 0.01, 5);
+    vector<Point2f>::iterator it_corner = corners.begin();
+    for(; it_corner!=corners.end(); ++it_corner) {
+        if((it_corner->y < 76 || 345 < it_corner->y) && (it_corner->x < 75 || 690 < it_corner->x) ){
+            circle(eigen_img, Point(it_corner->x, it_corner->y), 1, Scalar(0,200,255), -1);
+            circle(eigen_img, Point(it_corner->x, it_corner->y), 8, Scalar(0,200,255));
+            std::cout << "x:" << it_corner->x << ", y:" << it_corner->y  << std::endl;
+        }
+    }
 
     cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
     while(1) {
@@ -203,11 +207,8 @@ int main(int argc, char* argv[])
     // 全てのウィンドウの削除
     cvDestroyAllWindows();
 
-    cvReleaseImage (&src_img);
     cvReleaseImage (&dst_img);
-    cvReleaseImage( &src_img2);
-    cvReleaseImage( &dst);
-    cvReleaseImage( &tmp);
+
 
     return 0;
 }
