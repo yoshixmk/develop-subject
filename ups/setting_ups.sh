@@ -2,7 +2,7 @@ cd ~/develop-subject/ups
 
 sudo apt-get install i2c-tools
 
-cp picofssd.py ~
+cp picofssd.py /home/pi
 sudo mv /etc/rc.local /etc/rc.local_old
 sudo cp rc.local /etc
 
