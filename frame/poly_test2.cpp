@@ -293,11 +293,11 @@ int main(int argc, char* argv[])
     goodFeaturesToTrack(gray_img, corners, 80, 0.01, 5);
     vector<Point2f>::iterator it_corner = corners.begin();
     for(; it_corner!=corners.end(); ++it_corner) {
-        if((it_corner->y < 76 || 345 < it_corner->y) && (it_corner->x < 75 || 690 < it_corner->x) ){
+        //if((it_corner->y < 76 || 345 < it_corner->y) && (it_corner->x < 75 || 690 < it_corner->x) ){
             circle(eigen_img, Point(it_corner->x, it_corner->y), 1, Scalar(0,200,255), -1);
             circle(eigen_img, Point(it_corner->x, it_corner->y), 8, Scalar(0,200,255));
             std::cout << "x:" << it_corner->x << ", y:" << it_corner->y  << std::endl;
-        }
+        //}
     }
 
     cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
