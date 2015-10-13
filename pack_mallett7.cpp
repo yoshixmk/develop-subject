@@ -160,11 +160,22 @@ int main(int argc, char* argv[]) {
 	//pigpio CW/CCW pin setup
 	//X:18, Y1:14, Y2:15
 	gpioSetMode(18, PI_OUTPUT);
+	gpioSetMode(14, PI_OUTPUT);
+	gpioSetMode(15, PI_OUTPUT);
 	//pigpio pulse setup
 	//X:25, Y1:23, Y2:24
 	gpioSetMode(25, PI_OUTPUT);
+	gpioSetMode(23, PI_OUTPUT);
+	gpioSetMode(24, PI_OUTPUT);
 	//limit-switch setup
+	gpioSetMode(5, PI_INPUT);
+	gpioWrite(5, 0);
+	gpioSetMode(6, PI_INPUT);
+	gpioWrite(6, 0);
 	gpioSetMode(13, PI_INPUT);
+	gpioSetMode(19, PI_INPUT);
+	gpioSetMode(26, PI_INPUT);
+	gpioSetMode(21, PI_INPUT);
  
 	CvCapture* capture_robot_side;
 	CvCapture* capture_human_side;
@@ -331,13 +342,6 @@ int main(int argc, char* argv[]) {
 		
 		int closest_frequency;
 		
-		//reacted limit-switch
-		if(gpioRead(13) == 1){
-			gpioWrite(25, 0);	
-			closest_frequency = gpioSetPWMfrequency(25, 0);
-			break;
-		}
-		
 		int target_coordinateX;
 		//pwm output for rotate
 		//台の揺れを想定してマージンをとる
@@ -395,36 +399,67 @@ int main(int argc, char* argv[]) {
 		}
 
 		printf("target_coordinateX: %d\n",target_coordinateX);
-		
+
 		cvLine(show_img, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
 		cvLine(show_img, cvPoint((int)gX_now_mallett, (int)gY_now_mallett), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 		cvPutText (show_img, to_c_char((int)gX_now_mallett), cvPoint(460,30), &font, cvScalar(220,50,50));
 		cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
 		
 		int amount_movement = gX_now_mallett - target_coordinateX;
-		//2枚の画像比較1回で移動できる量の計算
-		int max_amount_movement = CAM_PIX_WIDTH * 0.54 / 1; //比較にかかる時間:0.27*2, 端までの移動時間：1s
 		int target_direction;
-		if(amount_movement > 0){
-			if(max_amount_movement < amount_movement){
-			    amount_movement = max_amount_movement;
-			}
-			target_direction = 0;//時計回り
-		}
-		else if(amount_movement < 0){
-			amount_movement = -amount_movement;//正の数にする
-			if(max_amount_movement < amount_movement){
-				amount_movement = max_amount_movement;
-			}
+		//reacted limit-switch and target_direction rotate
+		if(gpioRead(6) == 1){//X軸右
+			gpioPWM(25, 128);	
+			closest_frequency = gpioSetPWMfrequency(25, 2000);
 			target_direction = 1;//反時計回り
+			printf("X軸右リミット！反時計回り\n");
 		}
-
-		//pwm output for delection
-		double set_time_millis= 270 * amount_movement / max_amount_movement;//0.27ms*(0~1)
+		else if(gpioRead(26) == 1){//X軸左
+			gpioPWM(25, 128);
+			closest_frequency = gpioSetPWMfrequency(25, 2000);
+			target_direction = 0;//時計回り
+			printf("X軸左リミット！時計回り\n");
+		}
+		else if(gpioRead(5) == 1){//Y軸右上
+			gpioPWM(23, 128);
+			gpioSetPWMfrequency(23, 2000);
+			gpioWrite(14, 0);
+			printf("Y軸右上リミット！時計回り\n");
+		}
+		else if(gpioRead(13) == 1){//Y軸右下
+			gpioPWM(23, 128);	
+			gpioSetPWMfrequency(23, 2000);
+			gpioWrite(14, 1);
+			printf("Y軸右下リミット！反時計回り\n");
+		}
+		else if(gpioRead(19) == 1){//Y軸左下
+			gpioPWM(24, 128);	
+			gpioSetPWMfrequency(24, 2000);
+			gpioWrite(15, 0);
+			printf("Y軸左下リミット！時計回り\n");
+		}
+		
+		else if(gpioRead(21) == 1){//Y軸左上
+			gpioPWM(24, 0);
+			gpioSetPWMfrequency(24, 2000);
+			gpioWrite(15, 1);
+			printf("Y軸左上リミット！反時計回り\n");
+		}
+		else{
+			//Y軸固定のため
+			gpioSetPWMfrequency(23, 0);
+			gpioSetPWMfrequency(24, 0);
+			
+			if(amount_movement > 0){
+				target_direction = 0;//時計回り
+			}
+			else if(amount_movement < 0){
+				target_direction = 1;//反時計回り
+			}
+		}
 		gpioWrite(18, target_direction);
 		
 		printf("setting_frequency: %d\n", closest_frequency);
-		//gpioSetTimerFunc(0, (int)set_time_millis, pwmReset);
 
 		// 指定したウィンドウ内に画像を表示する
 		cvShowImage("Previous Image", img2);
