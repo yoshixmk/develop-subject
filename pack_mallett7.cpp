@@ -11,22 +11,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-// All units in milimeters
-#define robot_center_x 300   // Center of robot
-#define robot_center_y 500
-
 #define CAM_PIX_2HEIGHT (2 * CAM_PIX_HEIGHT)
 #define CAM_PIX_WIDTH  160
 #define CAM_PIX_HEIGHT 120
-#define CAM_PIX_TO_MM 1.4
-
-time_t start,end;
-
-int fps=30;
-
-// OpenCV variables
-CvFont font;
-IplImage* imgTracking;
 
 //---------------------------------------------------------------
 //【関数名　】：cv_ColorExtraction
@@ -135,14 +122,13 @@ const char* to_c_char(int val)
 	return stream.str().c_str();
 }
 
-//タイマー制御用関数。時間が経ったらリセット
-void pwmReset(void){
-	gpioWrite(25, 0);
-	//gpioSetPWMfrequency(25, 0);
-	gpioSetTimerFunc(0, 6000, NULL);
-}
-
 int main(int argc, char* argv[]) {
+	int fps=30;
+	time_t start,end;
+
+	// OpenCV variables
+	CvFont font;
+	
     printf("start!\n");
 
 	//pwm initialize
@@ -185,7 +171,6 @@ int main(int argc, char* argv[]) {
 	cvNamedWindow("Now Image", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("mallett", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("Vertical Concat", CV_WINDOW_AUTOSIZE);
 	
 	//Create trackbar to change brightness
 	int iSliderValue1 = 50;
@@ -224,7 +209,7 @@ int main(int argc, char* argv[]) {
 	IplImage* img_robot_side = cvQueryFrame(capture_robot_side);
 	IplImage* img_human_side = cvQueryFrame(capture_human_side);
 	IplImage* img_all_round = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
-	IplImage* img2  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* img_all_round2  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	IplImage* show_img  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	//IplImage* -> Mat
 	cv::Mat pre_src;
@@ -234,8 +219,9 @@ int main(int argc, char* argv[]) {
 	double dContrast = iSliderValue2 / 50.0;
 	pre_src.convertTo(pre_dst, -1, dContrast, iBrightness); 
 	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
-	*img_robot_side = pre_dst;
+	*img_robot_side = pre_dst.clone();
 	pre_src.release();
+	pre_dst.release();
 	
 	printf("redy?\n");
 	//決定ボタンが押されたらスタート
@@ -247,13 +233,14 @@ int main(int argc, char* argv[]) {
 	}*/
 	printf("go!\n");
 	
-	cv::Mat mat_frame1;
-	cv::Mat mat_frame2;
-	cv::Mat dst_img_v;
-	cv::Mat dst_bright_cont;
 	int rotate_times = 0;
+	cv::Mat dst_bright_cont;
 	while(1){
-		img2 = cvCloneImage(img_all_round);
+		cv::Mat mat_frame1;
+		cv::Mat mat_frame2;
+		cv::Mat dst_img_v;
+		
+		img_all_round2 = cvCloneImage(img_all_round);
 		show_img = cvCloneImage(img_all_round);
 		img_robot_side = cvQueryFrame(capture_robot_side);
 		img_human_side = cvQueryFrame(capture_human_side);
@@ -267,24 +254,23 @@ int main(int argc, char* argv[]) {
 		
 		int iBrightness  = iSliderValue1 - 50;
 		double dContrast = iSliderValue2 / 50.0;
-		//mat_frame1.convertTo(dst_bright_cont, -1, dContrast, iBrightness); 
 		dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
-		//*img_robot_side = dst_bright_cont;
 		*img_all_round = dst_bright_cont;
 		mat_frame1.release();
 		mat_frame2.release();
+		dst_img_v.release();
 		
 		// Init font
 		cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img2), IPL_DEPTH_8U, 3);
+		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
+		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
 
 		cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
 		cv_ColorExtraction(img_all_round, dst_img_mallett, CV_BGR2HSV, iSliderValueMallett1, iSliderValueMallett2, iSliderValueMallett3, iSliderValueMallett4, iSliderValueMallett5, iSliderValueMallett6);
-		cv_ColorExtraction(img2, dst_img2_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
+		cv_ColorExtraction(img_all_round2, dst_img2_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
 		
 		//CvMoments moment_mallett;
 		CvMoments moment_pack;
@@ -396,7 +382,7 @@ int main(int argc, char* argv[]) {
 		cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
 		
 		int amount_movement = gX_now_mallett - target_coordinateX;
-		int target_direction;
+		int target_direction = -1;
 		//reacted limit-switch and target_direction rotate
 		if(gpioRead(6) == 1){//X軸右
 			gpioPWM(25, 128);	
@@ -447,16 +433,16 @@ int main(int argc, char* argv[]) {
 				target_direction = 1;//反時計回り
 			}
 		}
-		gpioWrite(18, target_direction);
-		
+		if(target_direction != -1){
+			gpioWrite(18, target_direction);
+		}
 		printf("setting_frequency: %d\n", closest_frequency);
 
 		// 指定したウィンドウ内に画像を表示する
-		cvShowImage("Previous Image", img2);
+		cvShowImage("Previous Image", img_all_round2);
 		cvShowImage("Now Image", show_img);
 		cvShowImage("pack", dst_img_pack);
 		cvShowImage("mallett", dst_img_mallett);
-		cv::imshow("Vertical Concat", dst_img_v);
 		
 		cvReleaseImage (&dst_img_mallett);
 		cvReleaseImage (&dst_img_pack);
@@ -471,9 +457,6 @@ int main(int argc, char* argv[]) {
     gpioTerminate();
     
     cvDestroyAllWindows();
-    //Clean up used cv::Mat
-    dst_bright_cont.release();
-	dst_img_v.release();
 	
 	//Clean up used CvCapture*
 	cvReleaseCapture(&capture_robot_side);
@@ -481,7 +464,7 @@ int main(int argc, char* argv[]) {
     //Clean up used images
     cvReleaseImage(&img_all_round);
     cvReleaseImage(&img_human_side);
-    cvReleaseImage(&img2);
+    cvReleaseImage(&img_all_round2);
     cvReleaseImage(&show_img);
     cvReleaseImage(&img_robot_side);
 

@@ -5,8 +5,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#define CAM_PIX_WIDTH  320//160
-#define CAM_PIX_HEIGHT 240//120
+#define CAM_PIX_WIDTH  160
+#define CAM_PIX_HEIGHT 120
 
 int main(int argc, char** argv)
 {
