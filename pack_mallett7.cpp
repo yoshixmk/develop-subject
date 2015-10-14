@@ -27,16 +27,6 @@ int fps=30;
 // OpenCV variables
 CvFont font;
 IplImage* imgTracking;
-IplImage* imgThresh;
-IplImage* imgThresh2;
-IplImage* frame=0;
-
-//This function threshold the HSV image and create a binary image
-IplImage* GetThresholdedImage(IplImage* imgHSV, int minH, int maxH, int minS, int maxS, int minV, int maxV) {
-    IplImage* imgThresh=cvCreateImage(cvGetSize(imgHSV),IPL_DEPTH_8U, 1);
-    cvInRangeS(imgHSV, cvScalar(minH,minS,minV), cvScalar(maxH,maxS,maxV), imgThresh);
-    return imgThresh;
-}
 
 //---------------------------------------------------------------
 //【関数名　】：cv_ColorExtraction
@@ -209,7 +199,7 @@ int main(int argc, char* argv[]) {
 	int iSliderValuePack2 = 84;//106;
 	cvCreateTrackbar("maxH", "pack", &iSliderValuePack2, 255);
 	int iSliderValuePack3 = 81;//219;
-	cvCreateTrackbar("minS", "pack", &iSliderValuePack2, 255);
+	cvCreateTrackbar("minS", "pack", &iSliderValuePack3, 255);
 	int iSliderValuePack4 = 175;//255;
 	cvCreateTrackbar("maxS", "pack", &iSliderValuePack4, 255);
 	int iSliderValuePack5 = 0;//29;
@@ -268,8 +258,8 @@ int main(int argc, char* argv[]) {
 		img_robot_side = cvQueryFrame(capture_robot_side);
 		img_human_side = cvQueryFrame(capture_human_side);
 		//IplImage* -> Mat
-		cv::Mat mat_frame1 = cv::cvarrToMat(img_robot_side);
-		cv::Mat mat_frame2 = cv::cvarrToMat(img_human_side);
+		mat_frame1 = cv::cvarrToMat(img_robot_side);
+		mat_frame2 = cv::cvarrToMat(img_human_side);
 		//上下左右を反転。本番環境では、mat_frame1を反転させる
 		cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
 		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
@@ -486,17 +476,14 @@ int main(int argc, char* argv[]) {
 	dst_img_v.release();
 	
 	//Clean up used CvCapture*
-	cvReleaseImage(&img_all_round);
 	cvReleaseCapture(&capture_robot_side);
 	cvReleaseCapture(&capture_human_side);
     //Clean up used images
+    cvReleaseImage(&img_all_round);
     cvReleaseImage(&img_human_side);
     cvReleaseImage(&img2);
     cvReleaseImage(&show_img);
-    cvReleaseImage(&imgTracking);
     cvReleaseImage(&img_robot_side);
-	cvReleaseImage(&imgThresh);
-	cvReleaseImage(&imgThresh2);
 
     return 0;
 }
