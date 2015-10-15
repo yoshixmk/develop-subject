@@ -209,19 +209,20 @@ int main(int argc, char* argv[]) {
 	IplImage* img_robot_side = cvQueryFrame(capture_robot_side);
 	IplImage* img_human_side = cvQueryFrame(capture_human_side);
 	IplImage* img_all_round = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
-	IplImage* img_all_round2  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-	IplImage* show_img  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* img_all_round2  = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+	IplImage* show_img  = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+	IplImage* dst_img_mallett;
+	IplImage* dst_img_pack;
+	IplImage* dst_img2_mallett;
+	IplImage* dst_img2_pack;
+	cv::Mat dst_bright_cont;
+	cv::Mat mat_frame1;
+	cv::Mat mat_frame2;
+	cv::Mat dst_img_v;
+	
 	//IplImage* -> Mat
 	cv::Mat pre_src;
 	cv::Mat pre_dst;
-	pre_src = cv::cvarrToMat(img_robot_side);
-	int iBrightness  = iSliderValue1 - 50;
-	double dContrast = iSliderValue2 / 50.0;
-	pre_src.convertTo(pre_dst, -1, dContrast, iBrightness); 
-	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
-	*img_robot_side = pre_dst.clone();
-	pre_src.release();
-	pre_dst.release();
 	
 	printf("redy?\n");
 	//決定ボタンが押されたらスタート
@@ -234,12 +235,30 @@ int main(int argc, char* argv[]) {
 	printf("go!\n");
 	
 	int rotate_times = 0;
-	cv::Mat dst_bright_cont;
+	int iBrightness  = iSliderValue1 - 50;
+	double dContrast = iSliderValue2 / 50.0;
+	img_robot_side = cvQueryFrame(capture_robot_side);
+	img_human_side = cvQueryFrame(capture_human_side);
+	//IplImage* -> Mat
+	mat_frame1 = cv::cvarrToMat(img_robot_side);
+	mat_frame2 = cv::cvarrToMat(img_human_side);
+	//上下左右を反転。本番環境では、mat_frame1を反転させる
+	cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+	cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+	vconcat(mat_frame2, mat_frame1, dst_img_v);
+	
+	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+	*img_all_round = dst_bright_cont;
+	mat_frame1.release();
+	mat_frame2.release();
+	dst_img_v.release();
+	// Init font
+	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
+
 	while(1){
-		cv::Mat mat_frame1;
-		cv::Mat mat_frame2;
-		cv::Mat dst_img_v;
-		
+		cvZero(img_all_round2);
+		cvZero(show_img);
 		img_all_round2 = cvCloneImage(img_all_round);
 		show_img = cvCloneImage(img_all_round);
 		img_robot_side = cvQueryFrame(capture_robot_side);
@@ -252,8 +271,6 @@ int main(int argc, char* argv[]) {
 		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
 		vconcat(mat_frame2, mat_frame1, dst_img_v);
 		
-		int iBrightness  = iSliderValue1 - 50;
-		double dContrast = iSliderValue2 / 50.0;
 		dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
 		*img_all_round = dst_bright_cont;
@@ -261,12 +278,10 @@ int main(int argc, char* argv[]) {
 		mat_frame2.release();
 		dst_img_v.release();
 		
-		// Init font
-		cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
-		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
+		dst_img_mallett = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+		dst_img_pack = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+		dst_img2_mallett = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+		dst_img2_pack = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
 
 		cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
 		cv_ColorExtraction(img_all_round, dst_img_mallett, CV_BGR2HSV, iSliderValueMallett1, iSliderValueMallett2, iSliderValueMallett3, iSliderValueMallett4, iSliderValueMallett5, iSliderValueMallett6);
