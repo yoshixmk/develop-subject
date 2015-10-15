@@ -54,6 +54,7 @@ while True:
         GPIO.output(spi_clk, False)
 
     GPIO.output(spi_ss, True)
+    value = 20.0 + (value - 700) / 8.0
     sys.stdout.write(str(value))
 
     sys.stdout.write("\n")
