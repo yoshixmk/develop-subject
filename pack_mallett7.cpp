@@ -233,16 +233,32 @@ int main(int argc, char* argv[]) {
 	}*/
 	printf("go!\n");
 	
-	int rotate_times = 0;
 	cv::Mat dst_bright_cont;
+	cv::Mat mat_frame1;
+	cv::Mat mat_frame2;
+	cv::Mat dst_img_v;
+	int rotate_times = 0;
+	//IplImage* -> Mat
+	mat_frame1 = cv::cvarrToMat(img_robot_side);
+	mat_frame2 = cv::cvarrToMat(img_human_side);
+	//上下左右を反転。本番環境では、mat_frame1を反転させる
+	cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+	cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+	vconcat(mat_frame2, mat_frame1, dst_img_v);
+	
+	iBrightness  = iSliderValue1 - 50;
+	dContrast = iSliderValue2 / 50.0;
+	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+	*img_all_round = dst_bright_cont;
+	
+	// Init font
+	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 	while(1){
-		cv::Mat mat_frame1;
-		cv::Mat mat_frame2;
-		cv::Mat dst_img_v;
-		
-		img_all_round2 = cvCloneImage(img_all_round);
-		show_img = cvCloneImage(img_all_round);
-		//cvZero(img_all_round);
+		cvCopy(img_all_round, img_all_round2);
+		cvCopy(img_all_round, show_img);
+		//img_all_round2 = cvCloneImage(img_all_round);
+		//show_img = cvCloneImage(img_all_round);
 		img_robot_side = cvQueryFrame(capture_robot_side);
 		img_human_side = cvQueryFrame(capture_human_side);
 		//IplImage* -> Mat
@@ -253,8 +269,8 @@ int main(int argc, char* argv[]) {
 		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
 		vconcat(mat_frame2, mat_frame1, dst_img_v);
 		
-		int iBrightness  = iSliderValue1 - 50;
-		double dContrast = iSliderValue2 / 50.0;
+		iBrightness  = iSliderValue1 - 50;
+		dContrast = iSliderValue2 / 50.0;
 		dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
 		*img_all_round = dst_bright_cont;
@@ -262,8 +278,6 @@ int main(int argc, char* argv[]) {
 		mat_frame2.release();
 		dst_img_v.release();
 		
-		// Init font
-		cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
