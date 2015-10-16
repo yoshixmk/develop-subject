@@ -10,6 +10,10 @@
 #define HOLE_COLOR      CV_RGB( 0, 255, 0)
 #define VIRTEX_COLOR    CV_RGB( 0, 0, 255)
 
+#define CAM_PIX_2HEIGHT (2 * CAM_PIX_HEIGHT)
+#define CAM_PIX_WIDTH  160
+#define CAM_PIX_HEIGHT 120
+
 using namespace cv;
 
 void DrawNextContour(
@@ -271,78 +275,9 @@ void cv_ColorExtraction(IplImage* src_img, IplImage* dst_img,
 
 }
 
-/* コールバック関数 */
-/*void
-on_mouse (int event, int x, int y, int flags, void *param = NULL)
-{
-  char str[64];
-  static int line = 0;
-  const int max_line = 15, w = 15, h = 30;
-
-  // (4)マウスイベントを取得
-  switch (event) {
-  case CV_EVENT_MOUSEMOVE:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "MOUSE_MOVE");
-    break;
-  case CV_EVENT_LBUTTONDOWN:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "LBUTTON_DOWN");
-    break;
-  case CV_EVENT_RBUTTONDOWN:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "RBUTTON_DOWN");
-    break;
-  case CV_EVENT_MBUTTONDOWN:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "MBUTTON_DOWN");
-    break;
-  case CV_EVENT_LBUTTONUP:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "LBUTTON_UP");
-    break;
-  case CV_EVENT_RBUTTONUP:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "RBUTTON_UP");
-    break;
-  case CV_EVENT_MBUTTONUP:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "MBUTTON_UP");
-    break;
-  case CV_EVENT_LBUTTONDBLCLK:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "LBUTTON_DOUBLE_CLICK");
-    break;
-  case CV_EVENT_RBUTTONDBLCLK:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "RBUTTON_DOUBLE_CLICK");
-    break;
-  case CV_EVENT_MBUTTONDBLCLK:
-    snprintf (str, 64, "(%d,%d) %s", x, y, "MBUTTON_DOUBLE_CLICK");
-    break;
-  }
-
-  // (5)マウスボタン，修飾キーを取得
-  if (flags & CV_EVENT_FLAG_LBUTTON)
-    strncat (str, " + LBUTTON", 64);
-  if (flags & CV_EVENT_FLAG_RBUTTON)
-    strncat (str, " + RBUTTON", 64);
-  if (flags & CV_EVENT_FLAG_MBUTTON)
-    strncat (str, " + MBUTTON", 64);
-  if (flags & CV_EVENT_FLAG_CTRLKEY)
-    strncat (str, " + CTRL", 64);
-  if (flags & CV_EVENT_FLAG_SHIFTKEY)
-    strncat (str, " + SHIFT", 64);
-  if (flags & CV_EVENT_FLAG_ALTKEY)
-    strncat (str, " + ALT", 64);
-
-  // (6)マウス座標，イベント，修飾キーなどを画像に描画，表示
-  if (line > max_line) {
-    cvGetRectSubPix (img, img, cvPoint2D32f (320 - 0.5, 240 - 0.5 + h));
-    cvPutText (img, str, cvPoint (w, 20 + h * max_line), &font, CV_RGB (0, 200, 100));
-  }
-  else {
-    cvPutText (img, str, cvPoint (w, 20 + h * line), &font, CV_RGB (0, 200, 100));
-  }
-  line++;
-  cvShowImage ("Image", img);
-}*/
-
-
 int main(int argc, char* argv[])
 {
-    IplImage *src_img, *dst_img, *poly_dst, *poly_tmp, *poly_gray;
+    IplImage *src_img, *dst_img, *poly_dst, *poly_tmp, *poly_gray, *ipl_concat;
     CvMemStorage *contStorage = cvCreateMemStorage(0);
     CvSeq *contours;
     CvTreeNodeIterator polyIterator;
@@ -354,6 +289,76 @@ int main(int argc, char* argv[])
     CvMemStorage *polyStorage = cvCreateMemStorage(0);
     CvSeq *polys, *poly;
 
+    CvCapture* capture_robot_side;
+    CvCapture* capture_human_side;
+    capture_robot_side = cvCaptureFromCAM(0);
+    capture_human_side = cvCaptureFromCAM(1);
+    
+    int c;
+    int fps=30;
+    int iSliderValue1 = 50;
+    int iSliderValue2 = 50;
+ 
+    // size設定
+    cvSetCaptureProperty(capture_robot_side,CV_CAP_PROP_FRAME_WIDTH,CAM_PIX_WIDTH);
+    cvSetCaptureProperty(capture_robot_side,CV_CAP_PROP_FRAME_HEIGHT,CAM_PIX_HEIGHT);
+    cvSetCaptureProperty(capture_human_side,CV_CAP_PROP_FRAME_WIDTH,CAM_PIX_WIDTH);
+    cvSetCaptureProperty(capture_human_side,CV_CAP_PROP_FRAME_HEIGHT,CAM_PIX_HEIGHT);
+    //fps設定
+    cvSetCaptureProperty(capture_robot_side,CV_CAP_PROP_FPS,fps);
+    cvSetCaptureProperty(capture_human_side,CV_CAP_PROP_FPS,fps);
+
+    // 画像ファイルポインタの宣言
+    IplImage* img_robot_side = cvQueryFrame(capture_robot_side);
+    IplImage* img_human_side = cvQueryFrame(capture_human_side);
+    IplImage* img_all_round = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+    IplImage* img2  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+    IplImage* show_img  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+
+    //IplImage* -> Mat
+    cv::Mat pre_src;
+    cv::Mat pre_dst;
+    pre_src = cv::cvarrToMat(img_robot_side);
+    int iBrightness  = iSliderValue1 - 50;
+    double dContrast = iSliderValue2 / 50.0;
+    pre_src.convertTo(pre_dst, -1, dContrast, iBrightness); 
+    //明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+    *img_robot_side = pre_dst;
+    pre_src.release();
+
+    cv::Mat mat_frame1;
+    cv::Mat mat_frame2;
+    cv::Mat dst_img_v;
+    cv::Mat dst_bright_cont;
+    int rotate_times = 0;
+
+    img2 = cvCloneImage(img_all_round);
+    show_img = cvCloneImage(img_all_round);
+    img_robot_side = cvQueryFrame(capture_robot_side);
+    img_human_side = cvQueryFrame(capture_human_side);
+    //IplImage* -> Mat
+    mat_frame1 = cv::cvarrToMat(img_robot_side);
+    mat_frame2 = cv::cvarrToMat(img_human_side);
+    //上下左右を反転。本番環境では、mat_frame1を反転させる
+    cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+    cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+    vconcat(mat_frame2, mat_frame1, dst_img_v);
+
+    iBrightness  = iSliderValue1 - 50;
+    dContrast = iSliderValue2 / 50.0;
+    //mat_frame1.convertTo(dst_bright_cont, -1, dContrast, iBrightness); 
+    dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+    //明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+    //*img_robot_side = dst_bright_cont;
+    *img_all_round = dst_bright_cont;
+
+    IplImage ipl_tmp = dst_img_v;
+    ipl_concat = cvCreateImage( cvGetSize( &ipl_tmp), IPL_DEPTH_8U, 3);
+    cvCopy(&ipl_tmp, ipl_concat);
+    
+    mat_frame1.release();
+    mat_frame2.release();
+
     // (1)画像を読み込む
     /*if ((src_img = cvLoadImage ("../camera/photodir/capmallet1.png", CV_LOAD_IMAGE_GRAYSCALE)) == 0)
         return -1;*/
@@ -362,15 +367,15 @@ int main(int argc, char* argv[])
         return -1;
     IplImage *scale_image=cvCreateImage(cvSize(160, 120), IPL_DEPTH_8U, 3);
     cvResize(dst_img, scale_image, CV_INTER_LINEAR);
-    src_img = cvCreateImage(cvGetSize(scale_image), IPL_DEPTH_8U, 1);
-    IplImage* dst_img_pack = cvCreateImage(cvGetSize(scale_image), IPL_DEPTH_8U, 3);
-	cv_ColorExtraction(scale_image, dst_img_pack, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
+    src_img = cvCreateImage(cvGetSize(ipl_concat), IPL_DEPTH_8U, 1);
+    IplImage* dst_img_pack = cvCreateImage(cvGetSize(ipl_concat), IPL_DEPTH_8U, 3);
+	cv_ColorExtraction(ipl_concat, dst_img_pack, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
 	
 	cvCvtColor(dst_img_pack, src_img, CV_BGR2GRAY);
-    cv_Labelling(src_img, scale_image);
+    cv_Labelling(src_img, ipl_concat);
 
-    poly_gray = cvCreateImage( cvGetSize(scale_image),IPL_DEPTH_8U,1);
-    cvCvtColor(scale_image, poly_gray, CV_BGR2GRAY);
+    poly_gray = cvCreateImage( cvGetSize(ipl_concat),IPL_DEPTH_8U,1);
+    cvCvtColor(ipl_concat, poly_gray, CV_BGR2GRAY);
 
     poly_tmp = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 1);
     poly_dst = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 3);
@@ -384,7 +389,7 @@ int main(int argc, char* argv[])
     polys = cvApproxPoly( contours, sizeof( CvContour), polyStorage, CV_POLY_APPROX_DP, 8, 10);
 
      // 表示
-    cvDrawContours( poly_dst, contours, OUTLINE_COLOR, HOLE_COLOR, 10, 2, 4, cvPoint( 0, 0));
+    //cvDrawContours( poly_dst, contours, OUTLINE_COLOR, HOLE_COLOR, 10, 2, 4, cvPoint( 0, 0));
 
     cvInitTreeNodeIterator( &polyIterator, ( void*)polys, 10);
     while( (poly = (CvSeq *)cvNextTreeNode( &polyIterator)) != NULL)
@@ -398,7 +403,8 @@ int main(int argc, char* argv[])
             }
     }
 
-	cv::Mat eigen_img = cv::cvarrToMat(scale_image);  // データをコピーする
+    /*
+	cv::Mat eigen_img = cv::cvarrToMat(frame);  // データをコピーする
 
 	Mat gray_img;
     cvtColor(eigen_img, gray_img, CV_BGR2GRAY);
@@ -414,11 +420,39 @@ int main(int argc, char* argv[])
             //std::cout << "x:" << it_corner->x << ", y:" << it_corner->y  << std::endl;
         //}
     }
+    */
 
     cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
     cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
     while(1) {
-        cvShowImage ("Image", scale_image);
+        img2 = cvCloneImage(img_all_round);
+        show_img = cvCloneImage(img_all_round);
+        img_robot_side = cvQueryFrame(capture_robot_side);
+        img_human_side = cvQueryFrame(capture_human_side);
+        //IplImage* -> Mat
+        mat_frame1 = cv::cvarrToMat(img_robot_side);
+        mat_frame2 = cv::cvarrToMat(img_human_side);
+        //上下左右を反転。本番環境では、mat_frame1を反転させる
+        cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+        cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+        vconcat(mat_frame2, mat_frame1, dst_img_v);
+
+        iBrightness  = iSliderValue1 - 50;
+        dContrast = iSliderValue2 / 50.0;
+        //mat_frame1.convertTo(dst_bright_cont, -1, dContrast, iBrightness); 
+        dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+        //明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+        //*img_robot_side = dst_bright_cont;
+        *img_all_round = dst_bright_cont;
+
+        IplImage ipl_tmp = dst_img_v;
+        ipl_concat = cvCreateImage( cvGetSize( &ipl_tmp), IPL_DEPTH_8U, 3);
+        cvCopy(&ipl_tmp, ipl_concat);
+        
+        mat_frame1.release();
+        mat_frame2.release();
+        //ipl_concat = cvQueryFrame (capture);
+        cvShowImage ("Image", ipl_concat);
         cvShowImage ("Poly", poly_dst);
         if(cv::waitKey(30) >= 0) {
             break;
@@ -428,8 +462,11 @@ int main(int argc, char* argv[])
     // 全てのウィンドウの削除
     cvDestroyAllWindows();
 
-    cvReleaseImage (&dst_img);
-    cvReleaseImage (&scale_image);
+//    cvReleaseCapture (&capture);
+    cvReleaseCapture(&capture_robot_side);
+    cvReleaseCapture(&capture_human_side);
+    cvReleaseImage (&poly_dst);
+    cvReleaseImage (&ipl_concat);
 
 
     return 0;
