@@ -429,7 +429,7 @@ int main(int argc, char* argv[]) {
     cv_Labelling(src_img, tracking_img);
 
     poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
-    cvCvtColor(img_all_round, poly_gray, CV_BGR2GRAY);
+    cvCvtColor(tracking_img, poly_gray, CV_BGR2GRAY);
 	printf("go!\n");
     poly_tmp = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 1);
     poly_dst = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 3);
@@ -454,14 +454,18 @@ int main(int argc, char* argv[]) {
             }
     }
 		
-	cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow ("frameImage", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow ("Labelling", CV_WINDOW_AUTOSIZE);
     cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
     cvNamedWindow ("img_robot", CV_WINDOW_AUTOSIZE);
     cvNamedWindow ("img_human", CV_WINDOW_AUTOSIZE);
     
     while(1){
+    	img_robot_side = cvQueryFrame(capture_robot_side);
+		img_human_side = cvQueryFrame(capture_human_side);
 		cvShowImage ("Poly", poly_dst);
-		cvShowImage ("Image", img_all_round);
+		cvShowImage ("frameImage", dst_img_pack);
+		cvShowImage ("Labelling", tracking_img);
 		cvShowImage("img_robot", img_robot_side);
 		cvShowImage("img_human", img_human_side);
         if(cv::waitKey(30) >= 0) {
