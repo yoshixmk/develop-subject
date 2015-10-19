@@ -149,3 +149,6 @@ $RECYCLE.BIN/
 
 # ownproject-file removing
 project
+.autotools
+.cproject
+.project
