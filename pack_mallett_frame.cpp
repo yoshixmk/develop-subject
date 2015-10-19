@@ -321,10 +321,17 @@ int main(int argc, char* argv[]) {
 	gpioSetMode(26, PI_INPUT);
 	gpioSetMode(21, PI_INPUT);
  
-	CvCapture* capture_robot_side;
-	CvCapture* capture_human_side;
-    capture_robot_side = cvCaptureFromCAM(0);
-	capture_human_side = cvCaptureFromCAM(1);
+	CvCapture* capture_robot_side = cvCaptureFromCAM(0);
+	CvCapture* capture_human_side = cvCaptureFromCAM(1);
+    if(capture_robot_side ==NULL){
+		std::cout << "Robot Side Camera Capture FAILED" << std::endl;
+		return -1;
+	 }
+	if(capture_human_side ==NULL){
+		std::cout << "Human Side Camera Capture FAILED" << std::endl;
+		return -1;
+	}
+	
 	// size設定
     cvSetCaptureProperty(capture_robot_side,CV_CAP_PROP_FRAME_WIDTH,CAM_PIX_WIDTH);
 	cvSetCaptureProperty(capture_robot_side,CV_CAP_PROP_FRAME_HEIGHT,CAM_PIX_HEIGHT);
@@ -374,22 +381,17 @@ int main(int argc, char* argv[]) {
 	cvCreateTrackbar("maxV", "mallett", &iSliderValueMallett6, 255);
 	
 	// 画像ファイルポインタの宣言
-	IplImage* img_robot_side = cvQueryFrame(capture_robot_side);
-	IplImage* img_human_side = cvQueryFrame(capture_human_side);
+	IplImage* img_robot_side;
+	IplImage* img_human_side;
+	//カメラによっては時間がかかるため複数回キャプチャ
+	for(i=0; i<10; i++){
+		img_robot_side = cvQueryFrame(capture_robot_side);
+		img_human_side = cvQueryFrame(capture_human_side);
+	}
 	IplImage* img_all_round = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
+	IplImage* tracking_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	IplImage* img_all_round2  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	IplImage* show_img  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-	//IplImage* -> Mat
-	cv::Mat pre_src;
-	cv::Mat pre_dst;
-	pre_src = cv::cvarrToMat(img_robot_side);
-	int iBrightness  = iSliderValue1 - 50;
-	double dContrast = iSliderValue2 / 50.0;
-	pre_src.convertTo(pre_dst, -1, dContrast, iBrightness); 
-	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
-	*img_robot_side = pre_dst.clone();
-	pre_src.release();
-	pre_dst.release();
 	
 	printf("redy?\n");
 	//決定ボタンが押されたらスタート
@@ -414,8 +416,8 @@ int main(int argc, char* argv[]) {
 	cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
 	vconcat(mat_frame2, mat_frame1, dst_img_v);
 	
-	iBrightness  = iSliderValue1 - 50;
-	dContrast = iSliderValue2 / 50.0;
+	int iBrightness  = iSliderValue1 - 50;
+	double dContrast = iSliderValue2 / 50.0;
 	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
 	*img_all_round = dst_bright_cont;
@@ -424,7 +426,7 @@ int main(int argc, char* argv[]) {
 	cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
 	
 	cvCvtColor(dst_img_pack, src_img, CV_BGR2GRAY);
-    cv_Labelling(src_img, img_all_round);
+    cv_Labelling(src_img, tracking_img);
 
     poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
     cvCvtColor(img_all_round, poly_gray, CV_BGR2GRAY);
@@ -451,12 +453,17 @@ int main(int argc, char* argv[]) {
                 std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
             }
     }
-    cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
+		
+	cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
     cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
+    cvNamedWindow ("img_robot", CV_WINDOW_AUTOSIZE);
+    cvNamedWindow ("img_human", CV_WINDOW_AUTOSIZE);
     
     while(1){
 		cvShowImage ("Poly", poly_dst);
 		cvShowImage ("Image", img_all_round);
+		cvShowImage("img_robot", img_robot_side);
+		cvShowImage("img_human", img_human_side);
         if(cv::waitKey(30) >= 0) {
             break;
         }
@@ -467,8 +474,6 @@ int main(int argc, char* argv[]) {
 	while(1){
 		cvCopy(img_all_round, img_all_round2);
 		cvCopy(img_all_round, show_img);
-		//img_all_round2 = cvCloneImage(img_all_round);
-		//show_img = cvCloneImage(img_all_round);
 		img_robot_side = cvQueryFrame(capture_robot_side);
 		img_human_side = cvQueryFrame(capture_human_side);
 		//IplImage* -> Mat
@@ -486,7 +491,7 @@ int main(int argc, char* argv[]) {
 		*img_all_round = dst_bright_cont;
 		mat_frame1.release();
 		mat_frame2.release();
-		dst_img_v.release();
+		//dst_img_v.release();
 		
 		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		//while前に宣言済み
