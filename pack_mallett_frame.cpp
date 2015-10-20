@@ -316,6 +316,10 @@ int main(int argc, char* argv[]) {
 	gpioWrite(5, 0);
 	gpioSetMode(6, PI_INPUT);
 	gpioWrite(6, 0);
+	gpioSetMode(7, PI_INPUT);
+	gpioWrite(7, 0);
+	gpioSetMode(8, PI_INPUT);
+	gpioWrite(8, 0);
 	gpioSetMode(13, PI_INPUT);
 	gpioSetMode(19, PI_INPUT);
 	gpioSetMode(26, PI_INPUT);
@@ -346,6 +350,7 @@ int main(int argc, char* argv[]) {
 	cvNamedWindow("Now Image", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("mallet", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
 	
 	//Create trackbar to change brightness
 	int iSliderValue1 = 50;
@@ -394,13 +399,7 @@ int main(int argc, char* argv[]) {
 	IplImage* show_img  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	
 	printf("redy?\n");
-	//決定ボタンが押されたらスタート
-	//本番はコメントはずす
-	/*while(gpioRead(25) == 0){	
-		if(cv::waitKey(30) >= 0) {
-            break;
-        }
-	}*/
+
 	printf("go!\n");
 	
 	cv::Mat dst_bright_cont;
@@ -455,230 +454,237 @@ int main(int argc, char* argv[]) {
             }
     }
 
-	cvNamedWindow ("Labelling", CV_WINDOW_AUTOSIZE);
-    cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
-
     cvReleaseImage(&dst_img_frame);
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
 
 	// Init font
 	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
+	bool is_pushed_decision_button = 0;//本番時は初期値0
 	while(1){
-		cvCopy(img_all_round, img_all_round2);
-		cvCopy(img_all_round, show_img);
-		img_robot_side = cvQueryFrame(capture_robot_side);
-		img_human_side = cvQueryFrame(capture_human_side);
-		//IplImage* -> Mat
-		mat_frame1 = cv::cvarrToMat(img_robot_side);
-		mat_frame2 = cv::cvarrToMat(img_human_side);
-		//上下左右を反転。本番環境では、mat_frame1を反転させる
-		cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
-		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
-		vconcat(mat_frame2, mat_frame1, dst_img_v);
-		
-		iBrightness  = iSliderValue1 - 50;
-		dContrast = iSliderValue2 / 50.0;
-		dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
-		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
-		*img_all_round = dst_bright_cont;
-		mat_frame1.release();
-		mat_frame2.release();
-		//dst_img_v.release();
-		
-		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		IplImage* dst_img_mallet = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		//while前に宣言済み
-		//IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_mallet = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
-
-		cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
-		cv_ColorExtraction(img_all_round, dst_img_mallet, CV_BGR2HSV, iSliderValuemallet1, iSliderValuemallet2, iSliderValuemallet3, iSliderValuemallet4, iSliderValuemallet5, iSliderValuemallet6);
-		cv_ColorExtraction(img_all_round2, dst_img2_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
-		
-		//CvMoments moment_mallet;
-		CvMoments moment_pack;
-		CvMoments moment_mallet;
-		CvMoments moment2_pack;
-		//cvSetImageCOI(dst_img_mallet, 1);
-		cvSetImageCOI(dst_img_pack, 1);
-		cvSetImageCOI(dst_img_mallet, 1);
-		cvSetImageCOI(dst_img2_pack, 1);
-
-		//cvMoments(dst_img_mallet, &moment_mallet, 0);
-		cvMoments(dst_img_pack, &moment_pack, 0);
-		cvMoments(dst_img_mallet, &moment_mallet, 0);
-		cvMoments(dst_img2_pack, &moment2_pack, 0);
-
-		//座標計算
-		double m00_before = cvGetSpatialMoment(&moment2_pack, 0, 0);
-		double m10_before = cvGetSpatialMoment(&moment2_pack, 1, 0);
-		double m01_before = cvGetSpatialMoment(&moment2_pack, 0, 1);
-		double m00_after = cvGetSpatialMoment(&moment_pack, 0, 0);
-		double m10_after = cvGetSpatialMoment(&moment_pack, 1, 0);
-		double m01_after = cvGetSpatialMoment(&moment_pack, 0, 1);
-		double gX_before = m10_before/m00_before;
-		double gY_before = m01_before/m00_before;
-		double gX_after = m10_after/m00_after;
-		double gY_after = m01_after/m00_after;
-		double m00_mallet = cvGetSpatialMoment(&moment_mallet, 0, 0);
-		double m10_mallet = cvGetSpatialMoment(&moment_mallet, 1, 0);
-		double m01_mallet = cvGetSpatialMoment(&moment_mallet, 0, 1);
-		double gX_now_mallet = m10_mallet/m00_mallet;
-		double gY_now_mallet = m01_mallet/m00_mallet;
-		
-		//円の大きさは全体の1/10で描画
-		cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
-		cvLine(show_img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
-		printf("gX_after: %f\n",gX_after);
-		printf("gY_after: %f\n",gY_after);
-		printf("gX_before: %f\n",gX_before);
-		printf("gY_before: %f\n",gY_before);
-		int target_destanceY = CAM_PIX_2HEIGHT - 30;
-		//int target_destanceY = CAM_PIX_HEIGHT - 30;//Y座標の距離を一定にしている。ディフェンスライン。
-		//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
-		double a_inclination;
-		double b_intercept;
-		
-		int closest_frequency;
-		
-		int target_coordinateX;
-		//pwm output for rotate
-		//台の揺れを想定してマージンをとる
-		if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
-			gpioPWM(25, 0);
-			closest_frequency = gpioSetPWMfrequency(25, 0);
-			a_inclination = 0;
-			b_intercept=0;
+		//決定ボタンが押されたらスタート
+		//本番はコメントはずす
+		if(gpioRead(7) == 1){
+		    is_pushed_decision_button = 1;
 		}
-		else if(gY_after-1 < gY_before ){	//packが離れていく時、台の中央に戻る
-			//本番の台が届いてから実装
-			closest_frequency = gpioSetPWMfrequency(25, 0);
-			a_inclination = 0;
-			b_intercept=0;
-			target_coordinateX = CAM_PIX_WIDTH/2; //目標値は中央
-			if(gX_now_mallet < CAM_PIX_WIDTH/2 - CAM_PIX_WIDTH/100){ //壁がとれていないので、CAM_PIX_WIDTH/2=中央 とした
-				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 2000);
+		if(gpioRead(8)==0 && is_pushed_decision_button==1){
+			cvCopy(img_all_round, img_all_round2);
+			cvCopy(img_all_round, show_img);
+			img_robot_side = cvQueryFrame(capture_robot_side);
+			img_human_side = cvQueryFrame(capture_human_side);
+			//IplImage* -> Mat
+			mat_frame1 = cv::cvarrToMat(img_robot_side);
+			mat_frame2 = cv::cvarrToMat(img_human_side);
+			//上下左右を反転。本番環境では、mat_frame1を反転させる
+			cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+			cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+			vconcat(mat_frame2, mat_frame1, dst_img_v);
+
+			iBrightness  = iSliderValue1 - 50;
+			dContrast = iSliderValue2 / 50.0;
+			dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+			//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+			*img_all_round = dst_bright_cont;
+			mat_frame1.release();
+			mat_frame2.release();
+			//dst_img_v.release();
+
+			IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+			IplImage* dst_img_mallet = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+			//while前に宣言済み
+			//IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+			IplImage* dst_img2_mallet = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
+			IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
+
+			cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
+			cv_ColorExtraction(img_all_round, dst_img_mallet, CV_BGR2HSV, iSliderValuemallet1, iSliderValuemallet2, iSliderValuemallet3, iSliderValuemallet4, iSliderValuemallet5, iSliderValuemallet6);
+			cv_ColorExtraction(img_all_round2, dst_img2_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
+
+			//CvMoments moment_mallet;
+			CvMoments moment_pack;
+			CvMoments moment_mallet;
+			CvMoments moment2_pack;
+			//cvSetImageCOI(dst_img_mallet, 1);
+			cvSetImageCOI(dst_img_pack, 1);
+			cvSetImageCOI(dst_img_mallet, 1);
+			cvSetImageCOI(dst_img2_pack, 1);
+
+			//cvMoments(dst_img_mallet, &moment_mallet, 0);
+			cvMoments(dst_img_pack, &moment_pack, 0);
+			cvMoments(dst_img_mallet, &moment_mallet, 0);
+			cvMoments(dst_img2_pack, &moment2_pack, 0);
+
+			//座標計算
+			double m00_before = cvGetSpatialMoment(&moment2_pack, 0, 0);
+			double m10_before = cvGetSpatialMoment(&moment2_pack, 1, 0);
+			double m01_before = cvGetSpatialMoment(&moment2_pack, 0, 1);
+			double m00_after = cvGetSpatialMoment(&moment_pack, 0, 0);
+			double m10_after = cvGetSpatialMoment(&moment_pack, 1, 0);
+			double m01_after = cvGetSpatialMoment(&moment_pack, 0, 1);
+			double gX_before = m10_before/m00_before;
+			double gY_before = m01_before/m00_before;
+			double gX_after = m10_after/m00_after;
+			double gY_after = m01_after/m00_after;
+			double m00_mallet = cvGetSpatialMoment(&moment_mallet, 0, 0);
+			double m10_mallet = cvGetSpatialMoment(&moment_mallet, 1, 0);
+			double m01_mallet = cvGetSpatialMoment(&moment_mallet, 0, 1);
+			double gX_now_mallet = m10_mallet/m00_mallet;
+			double gY_now_mallet = m01_mallet/m00_mallet;
+
+			//円の大きさは全体の1/10で描画
+			cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
+			cvLine(show_img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
+			printf("gX_after: %f\n",gX_after);
+			printf("gY_after: %f\n",gY_after);
+			printf("gX_before: %f\n",gX_before);
+			printf("gY_before: %f\n",gY_before);
+			int target_destanceY = CAM_PIX_2HEIGHT - 30;
+			//int target_destanceY = CAM_PIX_HEIGHT - 30;//Y座標の距離を一定にしている。ディフェンスライン。
+			//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
+			double a_inclination;
+			double b_intercept;
+
+			int closest_frequency;
+
+			int target_coordinateX;
+			//pwm output for rotate
+			//台の揺れを想定してマージンをとる
+			if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
+				gpioPWM(25, 0);
+				closest_frequency = gpioSetPWMfrequency(25, 0);
+				a_inclination = 0;
+				b_intercept=0;
+			}
+			else if(gY_after-1 < gY_before ){	//packが離れていく時、台の中央に戻る
+				//本番の台が届いてから実装
+				closest_frequency = gpioSetPWMfrequency(25, 0);
+				a_inclination = 0;
+				b_intercept=0;
+				target_coordinateX = CAM_PIX_WIDTH/2; //目標値は中央
+				if(gX_now_mallet < CAM_PIX_WIDTH/2 - CAM_PIX_WIDTH/100){ //壁がとれていないので、CAM_PIX_WIDTH/2=中央 とした
+					gpioPWM(25, 128);
+					closest_frequency = gpioSetPWMfrequency(25, 2000);
+				}
+				else{
+					gpioPWM(25, 128);
+					closest_frequency = gpioSetPWMfrequency(25, 2000);
+				}
 			}
 			else{
 				gpioPWM(25, 128);
 				closest_frequency = gpioSetPWMfrequency(25, 2000);
+				a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
+				b_intercept = gY_after - a_inclination * gX_after;
+				//一次関数で目標X座標の計算
+				if(a_inclination){
+					target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
+				}
+				else{
+					target_coordinateX = 0;
+				}
 			}
-		}
-		else{
-			gpioPWM(25, 128);
-			closest_frequency = gpioSetPWMfrequency(25, 2000);
-			a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
-			b_intercept = gY_after - a_inclination * gX_after;
-			//一次関数で目標X座標の計算
-			if(a_inclination){
-				target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
-			}
-			else{
-				target_coordinateX = 0;
-			}
-		}
 
-		printf("a_inclination: %f\n",a_inclination);
-		printf("b_intercept: %f\n",b_intercept);
+			printf("a_inclination: %f\n",a_inclination);
+			printf("b_intercept: %f\n",b_intercept);
 
-		cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-		while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
-			if(target_coordinateX < 0){
-				target_coordinateX = -target_coordinateX;
-				a_inclination = -a_inclination;
-				cvLine(show_img, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);		
+			cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+			while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
+				if(target_coordinateX < 0){
+					target_coordinateX = -target_coordinateX;
+					a_inclination = -a_inclination;
+					cvLine(show_img, cvPoint((int)0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+				}
+				else if(CAM_PIX_WIDTH < target_coordinateX){
+					target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
+					cvLine(show_img, cvPoint((int)CAM_PIX_WIDTH, (int)CAM_PIX_WIDTH*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					b_intercept += 2 * CAM_PIX_WIDTH * a_inclination;
+					a_inclination= -a_inclination;
+				}
 			}
-			else if(CAM_PIX_WIDTH < target_coordinateX){
-				target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
-				cvLine(show_img, cvPoint((int)CAM_PIX_WIDTH, (int)CAM_PIX_WIDTH*a_inclination +b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-				b_intercept += 2 * CAM_PIX_WIDTH * a_inclination;
-				a_inclination= -a_inclination;
-			}
-		}
 
-		printf("target_coordinateX: %d\n",target_coordinateX);
+			printf("target_coordinateX: %d\n",target_coordinateX);
 
-		cvLine(show_img, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
-		cvLine(show_img, cvPoint((int)gX_now_mallet, (int)gY_now_mallet), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
-		cvPutText (show_img, to_c_char((int)gX_now_mallet), cvPoint(460,30), &font, cvScalar(220,50,50));
-		cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
-		
-		int amount_movement = gX_now_mallet - target_coordinateX;
-		int target_direction = -1;
-		//reacted limit-switch and target_direction rotate
-		if(gpioRead(6) == 1){//X軸右
-			gpioPWM(25, 128);	
-			closest_frequency = gpioSetPWMfrequency(25, 2000);
-			target_direction = 1;//反時計回り
-			printf("X軸右リミット！反時計回り\n");
-		}
-		else if(gpioRead(26) == 1){//X軸左
-			gpioPWM(25, 128);
-			closest_frequency = gpioSetPWMfrequency(25, 2000);
-			target_direction = 0;//時計回り
-			printf("X軸左リミット！時計回り\n");
-		}
-		else if(gpioRead(5) == 1){//Y軸右上
-			gpioPWM(23, 128);
-			gpioSetPWMfrequency(23, 2000);
-			gpioWrite(14, 0);
-			printf("Y軸右上リミット！時計回り\n");
-		}
-		else if(gpioRead(13) == 1){//Y軸右下
-			gpioPWM(23, 128);	
-			gpioSetPWMfrequency(23, 2000);
-			gpioWrite(14, 1);
-			printf("Y軸右下リミット！反時計回り\n");
-		}
-		else if(gpioRead(19) == 1){//Y軸左下
-			gpioPWM(24, 128);	
-			gpioSetPWMfrequency(24, 2000);
-			gpioWrite(15, 0);
-			printf("Y軸左下リミット！時計回り\n");
-		}
-		
-		else if(gpioRead(21) == 1){//Y軸左上
-			gpioPWM(24, 0);
-			gpioSetPWMfrequency(24, 2000);
-			gpioWrite(15, 1);
-			printf("Y軸左上リミット！反時計回り\n");
-		}
-		else{
-			//Y軸固定のため
-			gpioSetPWMfrequency(23, 0);
-			gpioSetPWMfrequency(24, 0);
-			
-			if(amount_movement > 0){
-				target_direction = 0;//時計回り
-			}
-			else if(amount_movement < 0){
+			cvLine(show_img, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
+			cvLine(show_img, cvPoint((int)gX_now_mallet, (int)gY_now_mallet), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
+			cvPutText (show_img, to_c_char((int)gX_now_mallet), cvPoint(460,30), &font, cvScalar(220,50,50));
+			cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
+
+			int amount_movement = gX_now_mallet - target_coordinateX;
+			int target_direction = -1;
+			//reacted limit-switch and target_direction rotate
+			if(gpioRead(6) == 1){//X軸右
+				gpioPWM(25, 128);
+				closest_frequency = gpioSetPWMfrequency(25, 2000);
 				target_direction = 1;//反時計回り
+				printf("X軸右リミット！反時計回り\n");
+			}
+			else if(gpioRead(26) == 1){//X軸左
+				gpioPWM(25, 128);
+				closest_frequency = gpioSetPWMfrequency(25, 2000);
+				target_direction = 0;//時計回り
+				printf("X軸左リミット！時計回り\n");
+			}
+			else if(gpioRead(5) == 1){//Y軸右上
+				gpioPWM(23, 128);
+				gpioSetPWMfrequency(23, 2000);
+				gpioWrite(14, 0);
+				printf("Y軸右上リミット！時計回り\n");
+			}
+			else if(gpioRead(13) == 1){//Y軸右下
+				gpioPWM(23, 128);
+				gpioSetPWMfrequency(23, 2000);
+				gpioWrite(14, 1);
+				printf("Y軸右下リミット！反時計回り\n");
+			}
+			else if(gpioRead(19) == 1){//Y軸左下
+				gpioPWM(24, 128);
+				gpioSetPWMfrequency(24, 2000);
+				gpioWrite(15, 0);
+				printf("Y軸左下リミット！時計回り\n");
+			}
+
+			else if(gpioRead(21) == 1){//Y軸左上
+				gpioPWM(24, 0);
+				gpioSetPWMfrequency(24, 2000);
+				gpioWrite(15, 1);
+				printf("Y軸左上リミット！反時計回り\n");
+			}
+			else{
+				//Y軸固定のため
+				gpioSetPWMfrequency(23, 0);
+				gpioSetPWMfrequency(24, 0);
+
+				if(amount_movement > 0){
+					target_direction = 0;//時計回り
+				}
+				else if(amount_movement < 0){
+					target_direction = 1;//反時計回り
+				}
+			}
+			if(target_direction != -1){
+				gpioWrite(18, target_direction);
+			}
+			printf("setting_frequency: %d\n", closest_frequency);
+
+			// 指定したウィンドウ内に画像を表示する
+			cvShowImage("Previous Image", img_all_round2);
+			cvShowImage("Now Image", show_img);
+			cvShowImage("pack", dst_img_pack);
+			cvShowImage("mallet", dst_img_mallet);
+			cvShowImage ("Poly", poly_dst);
+
+			cvReleaseImage (&dst_img_mallet);
+			//cvReleaseImage (&dst_img_pack);
+			cvReleaseImage (&dst_img2_mallet);
+			cvReleaseImage (&dst_img2_pack);
+
+			if(cv::waitKey(1) >= 0) {
+				break;
 			}
 		}
-		if(target_direction != -1){
-			gpioWrite(18, target_direction);
+		else{ //リセット信号が来た場合
+			is_pushed_decision_button = 0;
 		}
-		printf("setting_frequency: %d\n", closest_frequency);
-
-		// 指定したウィンドウ内に画像を表示する
-		cvShowImage("Previous Image", img_all_round2);
-		cvShowImage("Now Image", show_img);
-		cvShowImage("pack", dst_img_pack);
-		cvShowImage("mallet", dst_img_mallet);
-		cvShowImage ("Poly", poly_dst);
-		cvShowImage ("Labelling", tracking_img);
-		
-		cvReleaseImage (&dst_img_mallet);
-		//cvReleaseImage (&dst_img_pack);
-		cvReleaseImage (&dst_img2_mallet);
-		cvReleaseImage (&dst_img2_pack);
-		
-        if(cv::waitKey(1) >= 0) {
-            break;
-        }
     }
     
     gpioTerminate();
