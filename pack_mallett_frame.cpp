@@ -345,7 +345,7 @@ int main(int argc, char* argv[]) {
 	cvNamedWindow("Previous Image", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("Now Image", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("mallett", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("mallet", CV_WINDOW_AUTOSIZE);
 	
 	//Create trackbar to change brightness
 	int iSliderValue1 = 50;
@@ -366,19 +366,19 @@ int main(int argc, char* argv[]) {
 	cvCreateTrackbar("minV", "pack", &iSliderValuePack5, 255);
 	int iSliderValuePack6 = 255;//203;
 	cvCreateTrackbar("maxV", "pack", &iSliderValuePack6, 255);
-	//mallett threthold 0, 255, 100, 255, 140, 200
-	int iSliderValueMallett1 = 106;
-	cvCreateTrackbar("minH", "mallett", &iSliderValueMallett1, 255);
-	int iSliderValueMallett2 = 135;
-	cvCreateTrackbar("maxH", "mallett", &iSliderValueMallett2, 255);
-	int iSliderValueMallett3 = 140;
-	cvCreateTrackbar("minS", "mallett", &iSliderValueMallett3, 255);
-	int iSliderValueMallett4 = 255;
-	cvCreateTrackbar("maxS", "mallett", &iSliderValueMallett4, 255);
-	int iSliderValueMallett5 = 0;
-	cvCreateTrackbar("minV", "mallett", &iSliderValueMallett5, 255);
-	int iSliderValueMallett6 = 255;
-	cvCreateTrackbar("maxV", "mallett", &iSliderValueMallett6, 255);
+	//mallet threthold 0, 255, 100, 255, 140, 200
+	int iSliderValuemallet1 = 106;
+	cvCreateTrackbar("minH", "mallet", &iSliderValuemallet1, 255);
+	int iSliderValuemallet2 = 135;
+	cvCreateTrackbar("maxH", "mallet", &iSliderValuemallet2, 255);
+	int iSliderValuemallet3 = 140;
+	cvCreateTrackbar("minS", "mallet", &iSliderValuemallet3, 255);
+	int iSliderValuemallet4 = 255;
+	cvCreateTrackbar("maxS", "mallet", &iSliderValuemallet4, 255);
+	int iSliderValuemallet5 = 0;
+	cvCreateTrackbar("minV", "mallet", &iSliderValuemallet5, 255);
+	int iSliderValuemallet6 = 255;
+	cvCreateTrackbar("maxV", "mallet", &iSliderValuemallet6, 255);
 	
 	// 画像ファイルポインタの宣言
 	IplImage* img_robot_side;
@@ -454,25 +454,10 @@ int main(int argc, char* argv[]) {
                 std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
             }
     }
-		
-	cvNamedWindow ("frameImage", CV_WINDOW_AUTOSIZE);
+
 	cvNamedWindow ("Labelling", CV_WINDOW_AUTOSIZE);
     cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
-    cvNamedWindow ("img_robot", CV_WINDOW_AUTOSIZE);
-    cvNamedWindow ("img_human", CV_WINDOW_AUTOSIZE);
-    
-    while(1){
-    	img_robot_side = cvQueryFrame(capture_robot_side);
-		img_human_side = cvQueryFrame(capture_human_side);
-		cvShowImage ("Poly", poly_dst);
-		cvShowImage ("frameImage", dst_img_frame);
-		cvShowImage ("Labelling", tracking_img);
-		cvShowImage("img_robot", img_robot_side);
-		cvShowImage("img_human", img_human_side);
-        if(cv::waitKey(30) >= 0) {
-            break;
-        }
-	}
+
     cvReleaseImage(&dst_img_frame);
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
@@ -502,28 +487,28 @@ int main(int argc, char* argv[]) {
 		//dst_img_v.release();
 		
 		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+		IplImage* dst_img_mallet = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		//while前に宣言済み
 		//IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-		IplImage* dst_img2_mallett = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
+		IplImage* dst_img2_mallet = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
 		IplImage* dst_img2_pack = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
 
 		cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
-		cv_ColorExtraction(img_all_round, dst_img_mallett, CV_BGR2HSV, iSliderValueMallett1, iSliderValueMallett2, iSliderValueMallett3, iSliderValueMallett4, iSliderValueMallett5, iSliderValueMallett6);
+		cv_ColorExtraction(img_all_round, dst_img_mallet, CV_BGR2HSV, iSliderValuemallet1, iSliderValuemallet2, iSliderValuemallet3, iSliderValuemallet4, iSliderValuemallet5, iSliderValuemallet6);
 		cv_ColorExtraction(img_all_round2, dst_img2_pack, CV_BGR2HSV, iSliderValuePack1, iSliderValuePack2, iSliderValuePack3, iSliderValuePack4, iSliderValuePack5, iSliderValuePack6);
 		
-		//CvMoments moment_mallett;
+		//CvMoments moment_mallet;
 		CvMoments moment_pack;
-		CvMoments moment_mallett;
+		CvMoments moment_mallet;
 		CvMoments moment2_pack;
-		//cvSetImageCOI(dst_img_mallett, 1);
+		//cvSetImageCOI(dst_img_mallet, 1);
 		cvSetImageCOI(dst_img_pack, 1);
-		cvSetImageCOI(dst_img_mallett, 1);
+		cvSetImageCOI(dst_img_mallet, 1);
 		cvSetImageCOI(dst_img2_pack, 1);
 
-		//cvMoments(dst_img_mallett, &moment_mallett, 0);
+		//cvMoments(dst_img_mallet, &moment_mallet, 0);
 		cvMoments(dst_img_pack, &moment_pack, 0);
-		cvMoments(dst_img_mallett, &moment_mallett, 0);
+		cvMoments(dst_img_mallet, &moment_mallet, 0);
 		cvMoments(dst_img2_pack, &moment2_pack, 0);
 
 		//座標計算
@@ -537,11 +522,11 @@ int main(int argc, char* argv[]) {
 		double gY_before = m01_before/m00_before;
 		double gX_after = m10_after/m00_after;
 		double gY_after = m01_after/m00_after;
-		double m00_mallett = cvGetSpatialMoment(&moment_mallett, 0, 0);
-		double m10_mallett = cvGetSpatialMoment(&moment_mallett, 1, 0);
-		double m01_mallett = cvGetSpatialMoment(&moment_mallett, 0, 1);
-		double gX_now_mallett = m10_mallett/m00_mallett;
-		double gY_now_mallett = m01_mallett/m00_mallett;
+		double m00_mallet = cvGetSpatialMoment(&moment_mallet, 0, 0);
+		double m10_mallet = cvGetSpatialMoment(&moment_mallet, 1, 0);
+		double m01_mallet = cvGetSpatialMoment(&moment_mallet, 0, 1);
+		double gX_now_mallet = m10_mallet/m00_mallet;
+		double gY_now_mallet = m01_mallet/m00_mallet;
 		
 		//円の大きさは全体の1/10で描画
 		cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
@@ -573,7 +558,7 @@ int main(int argc, char* argv[]) {
 			a_inclination = 0;
 			b_intercept=0;
 			target_coordinateX = CAM_PIX_WIDTH/2; //目標値は中央
-			if(gX_now_mallett < CAM_PIX_WIDTH/2 - CAM_PIX_WIDTH/100){ //壁がとれていないので、CAM_PIX_WIDTH/2=中央 とした
+			if(gX_now_mallet < CAM_PIX_WIDTH/2 - CAM_PIX_WIDTH/100){ //壁がとれていないので、CAM_PIX_WIDTH/2=中央 とした
 				gpioPWM(25, 128);
 				closest_frequency = gpioSetPWMfrequency(25, 2000);
 			}
@@ -617,11 +602,11 @@ int main(int argc, char* argv[]) {
 		printf("target_coordinateX: %d\n",target_coordinateX);
 
 		cvLine(show_img, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
-		cvLine(show_img, cvPoint((int)gX_now_mallett, (int)gY_now_mallett), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
-		cvPutText (show_img, to_c_char((int)gX_now_mallett), cvPoint(460,30), &font, cvScalar(220,50,50));
+		cvLine(show_img, cvPoint((int)gX_now_mallet, (int)gY_now_mallet), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
+		cvPutText (show_img, to_c_char((int)gX_now_mallet), cvPoint(460,30), &font, cvScalar(220,50,50));
 		cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
 		
-		int amount_movement = gX_now_mallett - target_coordinateX;
+		int amount_movement = gX_now_mallet - target_coordinateX;
 		int target_direction = -1;
 		//reacted limit-switch and target_direction rotate
 		if(gpioRead(6) == 1){//X軸右
@@ -682,11 +667,13 @@ int main(int argc, char* argv[]) {
 		cvShowImage("Previous Image", img_all_round2);
 		cvShowImage("Now Image", show_img);
 		cvShowImage("pack", dst_img_pack);
-		cvShowImage("mallett", dst_img_mallett);
+		cvShowImage("mallet", dst_img_mallet);
+		cvShowImage ("Poly", poly_dst);
+		cvShowImage ("Labelling", tracking_img);
 		
-		cvReleaseImage (&dst_img_mallett);
+		cvReleaseImage (&dst_img_mallet);
 		//cvReleaseImage (&dst_img_pack);
-		cvReleaseImage (&dst_img2_mallett);
+		cvReleaseImage (&dst_img2_mallet);
 		cvReleaseImage (&dst_img2_pack);
 		
         if(cv::waitKey(1) >= 0) {
@@ -702,6 +689,8 @@ int main(int argc, char* argv[]) {
 	cvReleaseCapture(&capture_robot_side);
 	cvReleaseCapture(&capture_human_side);
     //Clean up used images
+	cvReleaseImage(&poly_dst);
+	cvReleaseImage(&tracking_img);
     cvReleaseImage(&img_all_round);
     cvReleaseImage(&img_human_side);
     cvReleaseImage(&img_all_round2);
