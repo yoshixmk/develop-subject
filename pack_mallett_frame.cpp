@@ -280,7 +280,7 @@ const char* to_c_char(int val)
 }
 
 int main(int argc, char* argv[]) {
-	IplImage *src_img, *dst_img, *poly_dst, *poly_tmp, *poly_gray, *ipl_concat;
+	IplImage *grayscale_img, *dst_img, *poly_dst, *poly_tmp, *poly_gray;
     CvMemStorage *contStorage = cvCreateMemStorage(0);
     CvSeq *contours;
     CvTreeNodeIterator polyIterator;
@@ -421,12 +421,13 @@ int main(int argc, char* argv[]) {
 	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
 	*img_all_round = dst_bright_cont;
-	src_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 1);
-    IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-	cv_ColorExtraction(img_all_round, dst_img_pack, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
+	grayscale_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 1);
 	
-	cvCvtColor(dst_img_pack, src_img, CV_BGR2GRAY);
-    cv_Labelling(src_img, tracking_img);
+	IplImage* dst_img_frame = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
+	cv_ColorExtraction(img_all_round, dst_img_frame, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
+
+	cvCvtColor(dst_img_frame, grayscale_img, CV_BGR2GRAY);
+    cv_Labelling(grayscale_img, tracking_img);
 
     poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
     cvCvtColor(tracking_img, poly_gray, CV_BGR2GRAY);
@@ -441,7 +442,7 @@ int main(int argc, char* argv[]) {
 
     // ポリライン近似
     polys = cvApproxPoly( contours, sizeof( CvContour), polyStorage, CV_POLY_APPROX_DP, 8, 10);
-    
+
     cvInitTreeNodeIterator( &polyIterator, ( void*)polys, 10);
     while( (poly = (CvSeq *)cvNextTreeNode( &polyIterator)) != NULL)
     {
@@ -464,7 +465,7 @@ int main(int argc, char* argv[]) {
     	img_robot_side = cvQueryFrame(capture_robot_side);
 		img_human_side = cvQueryFrame(capture_human_side);
 		cvShowImage ("Poly", poly_dst);
-		cvShowImage ("frameImage", dst_img_pack);
+		cvShowImage ("frameImage", dst_img_frame);
 		cvShowImage ("Labelling", tracking_img);
 		cvShowImage("img_robot", img_robot_side);
 		cvShowImage("img_human", img_human_side);
@@ -472,7 +473,10 @@ int main(int argc, char* argv[]) {
             break;
         }
 	}
-	
+    cvReleaseImage(&dst_img_frame);
+    cvReleaseMemStorage(&contStorage);
+    cvReleaseMemStorage(&polyStorage);
+
 	// Init font
 	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 	while(1){
@@ -497,6 +501,7 @@ int main(int argc, char* argv[]) {
 		mat_frame2.release();
 		//dst_img_v.release();
 		
+		IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		IplImage* dst_img_mallett = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 		//while前に宣言済み
 		//IplImage* dst_img_pack = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
