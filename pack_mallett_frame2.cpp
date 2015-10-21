@@ -478,7 +478,7 @@ int main(int argc, char* argv[]) {
 
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
-return 1;
+	//return 1;
 	// Init font
 	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 	bool is_pushed_decision_button = 1;//本番時は初期値0
