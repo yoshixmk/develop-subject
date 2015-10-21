@@ -286,7 +286,6 @@ int compare_cvpoint(const void *a, const void *b)
 }
 
 int main(int argc, char* argv[]) {
-	IplImage *grayscale_img, *dst_img, *poly_dst, *poly_tmp, *poly_gray;
     CvMemStorage *contStorage = cvCreateMemStorage(0);
     CvSeq *contours;
     CvTreeNodeIterator polyIterator;
@@ -411,7 +410,11 @@ int main(int argc, char* argv[]) {
 	cv::Mat dst_bright_cont;
 	int iBrightness  = iSliderValue1 - 50;
 	double dContrast = iSliderValue2 / 50.0;
-	IplImage* dst_img_frame = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
+	IplImage* dst_img_frame = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* grayscale_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 1);
+	IplImage* poly_tmp = cvCreateImage( cvGetSize( img_all_round), IPL_DEPTH_8U, 1);
+	IplImage* poly_dst = cvCreateImage( cvGetSize( img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
 	do{
 		img_robot_side = cvQueryFrame(capture_robot_side);
 		img_human_side = cvQueryFrame(capture_human_side);
@@ -428,18 +431,14 @@ int main(int argc, char* argv[]) {
 		dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
 		*img_all_round = dst_bright_cont;
-		grayscale_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 1);
 
 		cv_ColorExtraction(img_all_round, dst_img_frame, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
 	
 		cvCvtColor(dst_img_frame, grayscale_img, CV_BGR2GRAY);
 		cv_Labelling(grayscale_img, tracking_img);
 
-		poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
 		cvCvtColor(tracking_img, poly_gray, CV_BGR2GRAY);
 
-		poly_tmp = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 1);
-		poly_dst = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 3);
 		cvCopy( poly_gray, poly_tmp);
 		cvCvtColor( poly_gray, poly_dst, CV_GRAY2BGR);
 
@@ -471,6 +470,10 @@ int main(int argc, char* argv[]) {
 		}
 	}while(poly->total != 8);
     cvReleaseImage(&dst_img_frame);
+    cvReleaseImage(&grayscale_img);
+    cvReleaseImage(&poly_tmp);
+    cvReleaseImage(&poly_gray);
+
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
 

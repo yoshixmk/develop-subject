@@ -286,7 +286,6 @@ int compare_cvpoint(const void *a, const void *b)
 }
 
 int main(int argc, char* argv[]) {
-	IplImage *grayscale_img, *dst_img, *poly_dst, *poly_tmp, *poly_gray;
     CvMemStorage *contStorage = cvCreateMemStorage(0);
     CvSeq *contours;
     CvTreeNodeIterator polyIterator;
@@ -405,72 +404,66 @@ int main(int argc, char* argv[]) {
 	cv::Mat dst_bright_cont;
 	int iBrightness  = iSliderValue1 - 50;
 	double dContrast = iSliderValue2 / 50.0;
-	IplImage* dst_img_frame = cvCreateImage(cvGetSize(img_all_round2), IPL_DEPTH_8U, 3);
-	do{
-		img_robot_side = cvQueryFrame(capture_robot_side);
-		img_human_side = cvQueryFrame(capture_human_side);
+	IplImage* dst_img_frame = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* grayscale_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 1);
+	IplImage* poly_tmp = cvCreateImage( cvGetSize( img_all_round), IPL_DEPTH_8U, 1);
+	IplImage* poly_dst = cvCreateImage( cvGetSize( img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
 
-		int rotate_times = 0;
-		//IplImage* -> Mat
-		mat_frame1 = cv::cvarrToMat(img_robot_side);
-		mat_frame2 = cv::cvarrToMat(img_human_side);
-		//上下左右を反転。本番環境では、mat_frame1を反転させる
-		cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
-		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
-		vconcat(mat_frame2, mat_frame1, dst_img_v);
+	img_robot_side = cvQueryFrame(capture_robot_side);
+	img_human_side = cvQueryFrame(capture_human_side);
 
-		//iBrightness  = iSliderValue1 - 50;
-		//dContrast = iSliderValue2 / 50.0;
-		dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
-		//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
-		*img_all_round = dst_bright_cont;
-		grayscale_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 1);
+	int rotate_times = 0;
+	//IplImage* -> Mat
+	mat_frame1 = cv::cvarrToMat(img_robot_side);
+	mat_frame2 = cv::cvarrToMat(img_human_side);
+	//上下左右を反転。本番環境では、mat_frame1を反転させる
+	cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
+	cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+	vconcat(mat_frame2, mat_frame1, dst_img_v);
 
-		cv_ColorExtraction(img_all_round, dst_img_frame, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
-	
-		cvCvtColor(dst_img_frame, grayscale_img, CV_BGR2GRAY);
-		cv_Labelling(grayscale_img, tracking_img);
+	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
+	*img_all_round = dst_bright_cont;
 
-		poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
-		cvCvtColor(tracking_img, poly_gray, CV_BGR2GRAY);
+	cv_ColorExtraction(img_all_round, dst_img_frame, CV_BGR2HSV, 0, 54, 77, 255, 0, 255);
 
-		poly_tmp = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 1);
-		poly_dst = cvCreateImage( cvGetSize( poly_gray), IPL_DEPTH_8U, 3);
-		cvCopy( poly_gray, poly_tmp);
-		cvCvtColor( poly_gray, poly_dst, CV_GRAY2BGR);
+	cvCvtColor(dst_img_frame, grayscale_img, CV_BGR2GRAY);
+	cv_Labelling(grayscale_img, tracking_img);
 
-		// 輪郭抽出
-		found = cvFindContours( poly_tmp, contStorage, &contours, sizeof( CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
-	
-		// ポリライン近似
-		polys = cvApproxPoly( contours, sizeof( CvContour), polyStorage, CV_POLY_APPROX_DP, 8, 10);
-	
-		cvInitTreeNodeIterator( &polyIterator, ( void*)polys, 10);
-		CvPoint frame_points[8];
-		//if(poly->total == 8){
-		    poly = (CvSeq *)cvNextTreeNode( &polyIterator);
-		    //while( (poly = (CvSeq *)cvNextTreeNode( &polyIterator)) != NULL)
-		    //{
-		
-			for( i=0; i<poly->total; i++)
-			{
-				poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
-				cvCircle( poly_dst, poly_point, 1, CV_RGB(255, 0 , 255), -1);
-				cvCircle( poly_dst, poly_point, 8, CV_RGB(255, 0 , 255));
-				std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
-	
-	
-	
-	
-	
-	
-			}
-		//}
-		//}
-	
-	    printf("Poly FindTotal:%d\n",poly->total);
-	}while(poly->total != 8);
+	cvCvtColor(tracking_img, poly_gray, CV_BGR2GRAY);
+
+	cvCopy( poly_gray, poly_tmp);
+	cvCvtColor( poly_gray, poly_dst, CV_GRAY2BGR);
+
+	// 輪郭抽出
+	found = cvFindContours( poly_tmp, contStorage, &contours, sizeof( CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+
+	// ポリライン近似
+	polys = cvApproxPoly( contours, sizeof( CvContour), polyStorage, CV_POLY_APPROX_DP, 8, 10);
+
+	cvInitTreeNodeIterator( &polyIterator, ( void*)polys, 10);
+	CvPoint frame_points[8];
+	poly = (CvSeq *)cvNextTreeNode( &polyIterator);
+	for( i=0; i<poly->total; i++)
+	{
+		poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
+		cvCircle( poly_dst, poly_point, 1, CV_RGB(255, 0 , 255), -1);
+		cvCircle( poly_dst, poly_point, 8, CV_RGB(255, 0 , 255));
+		std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
+
+	}
+
+	printf("Poly FindTotal:%d\n",poly->total);
+	if(poly->total != 8){
+		printf("Frame is not 8 Point\n");
+		return -1;
+	}
     cvReleaseImage(&dst_img_frame);
+    cvReleaseImage(&grayscale_img);
+    cvReleaseImage(&poly_tmp);
+    cvReleaseImage(&poly_gray);
+
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
 
