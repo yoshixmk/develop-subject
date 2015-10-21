@@ -443,19 +443,31 @@ int main(int argc, char* argv[]) {
 	polys = cvApproxPoly( contours, sizeof( CvContour), polyStorage, CV_POLY_APPROX_DP, 8, 10);
 
 	cvInitTreeNodeIterator( &polyIterator, ( void*)polys, 10);
-	CvPoint frame_points[8];
 	poly = (CvSeq *)cvNextTreeNode( &polyIterator);
+	printf("sort before by X\n");
 	for( i=0; i<poly->total; i++)
 	{
 		poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
 		cvCircle( poly_dst, poly_point, 1, CV_RGB(255, 0 , 255), -1);
 		cvCircle( poly_dst, poly_point, 8, CV_RGB(255, 0 , 255));
 		std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
-
 	}
 
 	printf("Poly FindTotal:%d\n",poly->total);
-	if(poly->total != 8){
+
+	CvPoint frame_points[8];
+	if(poly->total == 8){
+		for( i=0; i<8; i++){
+			poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
+			frame_points[i] = poly_point;
+		}
+		qsort(frame_points, 8, sizeof(CvPoint), compare_cvpoint);
+		printf("sort after by X\n");
+		for( i=0; i<8; i++){
+			std::cout << "x:" << frame_points[i].x << ", y:" << frame_points[i].y  << std::endl;
+		}
+	}
+	else{
 		printf("Frame is not 8 Point\n");
 		return -1;
 	}
@@ -466,7 +478,7 @@ int main(int argc, char* argv[]) {
 
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
-
+return 1;
 	// Init font
 	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 	bool is_pushed_decision_button = 1;//本番時は初期値0
