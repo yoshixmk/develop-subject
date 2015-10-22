@@ -452,8 +452,18 @@ int main(int argc, char* argv[]) {
 		cvCircle( poly_dst, poly_point, 8, CV_RGB(255, 0 , 255));
 		std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
 	}
-
 	printf("Poly FindTotal:%d\n",poly->total);
+
+	//枠の座標決定
+	//左上 の 壁サイド側 upper_left_f
+	//左上 の ゴール寄り  upper_left_g
+	//右上 の 壁サイド側 upper_right_f
+	//右上 の ゴール寄り  upper_right_g
+	//左下 の 壁サイド側 lower_left_f
+	//左下 の ゴール寄り  lower_left_g
+	//右下 の 壁サイド側 lower_right_f
+	//右下 の ゴール寄り  lower_right_g
+	int upper_left_f, upper_left_g, upper_right_f, upper_right_g, lower_left_f, lower_left_g, lower_right_f, lower_right_g;
 
 	CvPoint frame_points[8];
 	if(poly->total == 8){
