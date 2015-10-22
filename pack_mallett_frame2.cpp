@@ -617,18 +617,21 @@ int main(int argc, char* argv[]) {
 				b_intercept=0;
 			}
 			else if(gY_after-1 < gY_before ){	//packが離れていく時、台の中央に戻る
-				//本番の台が届いてから実装
-				closest_frequency = gpioSetPWMfrequency(25, 0);
 				a_inclination = 0;
 				b_intercept=0;
-				target_coordinateX = CAM_PIX_WIDTH/2; //目標値は中央
-				if(gX_now_mallet < CAM_PIX_WIDTH/2 - CAM_PIX_WIDTH/100){ //壁がとれていないので、CAM_PIX_WIDTH/2=中央 とした
+				//目標値は中央。台のロボット側(4点)からを計算
+				target_coordinateX = (upper_left_f + upper_left_g + lower_left_f + lower_left_g)/4;
+				if(gX_now_mallet < target_coordinateX - 1){ //-1 マージン
+					gpioPWM(25, 128);
+					closest_frequency = gpioSetPWMfrequency(25, 2000);
+				}
+				else if(target_coordinateX + 1 < gX_now_mallet){  //+1 マージン
 					gpioPWM(25, 128);
 					closest_frequency = gpioSetPWMfrequency(25, 2000);
 				}
 				else{
-					gpioPWM(25, 128);
-					closest_frequency = gpioSetPWMfrequency(25, 2000);
+					gpioPWM(25, 0);
+					closest_frequency = gpioSetPWMfrequency(25, 0);
 				}
 			}
 			else{
@@ -649,16 +652,18 @@ int main(int argc, char* argv[]) {
 			printf("b_intercept: %f\n",b_intercept);
 
 			cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-			while(target_coordinateX < 0 || CAM_PIX_WIDTH < target_coordinateX){
-				if(target_coordinateX < 0){
-					target_coordinateX = -target_coordinateX;
+			int left_frame = (upper_left_f+upper_right_f)/2;
+			int right_frame = (lower_left_f+lower_right_f)/2;
+			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
+				if(target_coordinateX < left_frame){ //左側の跳ね返り。左枠側平均
+					target_coordinateX = 2 * left_frame -target_coordinateX;
 					a_inclination = -a_inclination;
 					//cvLine(show_img, cvPoint(0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 				}
-				else if(CAM_PIX_WIDTH < target_coordinateX){
-					target_coordinateX = 2 * CAM_PIX_WIDTH - target_coordinateX;
+				else if(right_frame < target_coordinateX){ //右側の跳ね返り。右枠側平均
+					target_coordinateX = 2 * right_frame - target_coordinateX;
 					//cvLine(show_img, cvPoint(CAM_PIX_WIDTH, CAM_PIX_WIDTH*(int)a_inclination +(int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-					b_intercept += 2 * CAM_PIX_WIDTH * a_inclination;
+					b_intercept += 2 * (right_frame - left_frame) * a_inclination;
 					a_inclination= -a_inclination;
 	
 				}
