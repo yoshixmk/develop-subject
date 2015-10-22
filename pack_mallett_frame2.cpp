@@ -476,6 +476,38 @@ int main(int argc, char* argv[]) {
 		for( i=0; i<8; i++){
 			std::cout << "x:" << frame_points[i].x << ", y:" << frame_points[i].y  << std::endl;
 		}
+		if(frame_points[0].y < frame_points[1].y){
+			upper_left_g = frame_points[0].y;
+			lower_left_g = frame_points[1].y;
+		}
+		else{
+			upper_left_g = frame_points[1].y;
+			lower_left_g = frame_points[0].y;
+		}
+		if(frame_points[2].y < frame_points[3].y){
+			upper_left_f = frame_points[2].y;
+			lower_left_f = frame_points[3].y;
+		}
+		else{
+			upper_left_f = frame_points[3].y;
+			lower_left_f = frame_points[2].y;
+		}
+		if(frame_points[4].y < frame_points[5].y){
+			upper_right_f = frame_points[4].y;
+			lower_right_f = frame_points[5].y;
+		}
+		else{
+			upper_right_f = frame_points[5].y;
+			lower_right_f = frame_points[4].y;
+		}
+		if(frame_points[6].y < frame_points[7].y){
+			upper_right_g = frame_points[6].y;
+			lower_right_g = frame_points[7].y;
+		}
+		else{
+			upper_right_g = frame_points[7].y;
+			lower_right_g = frame_points[6].y;
+		}
 	}
 	else{
 		printf("Frame is not 8 Point\n");
