@@ -599,8 +599,7 @@ int main(int argc, char* argv[]) {
 			printf("gY_after: %f\n",gY_after);
 			printf("gX_before: %f\n",gX_before);
 			printf("gY_before: %f\n",gY_before);
-			int target_destanceY = CAM_PIX_2HEIGHT - 30;
-			//int target_destanceY = CAM_PIX_HEIGHT - 30;//Y座標の距離を一定にしている。ディフェンスライン。
+			int target_destanceY = CAM_PIX_2HEIGHT - 30; //Y座標の距離を一定にしている。ディフェンスライン。
 			//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
 			double a_inclination;
 			double b_intercept;
@@ -658,20 +657,20 @@ int main(int argc, char* argv[]) {
 				if(target_coordinateX < left_frame){ //左側の跳ね返り。左枠側平均
 					target_coordinateX = 2 * left_frame -target_coordinateX;
 					a_inclination = -a_inclination;
-					//cvLine(show_img, cvPoint(0, (int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					cvLine(show_img, cvPoint(left_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 				}
 				else if(right_frame < target_coordinateX){ //右側の跳ね返り。右枠側平均
 					target_coordinateX = 2 * right_frame - target_coordinateX;
-					//cvLine(show_img, cvPoint(CAM_PIX_WIDTH, CAM_PIX_WIDTH*(int)a_inclination +(int)b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 					b_intercept += 2 * (right_frame - left_frame) * a_inclination;
+					cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 					a_inclination= -a_inclination;
-	
 				}
 			}
 
 			printf("target_coordinateX: %d\n",target_coordinateX);
-
+			//防御ラインの描画
 			cvLine(show_img, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
+			//マレットの動きの描画
 			cvLine(show_img, cvPoint((int)gX_now_mallet, (int)gY_now_mallet), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 			//cvPutText (show_img, to_c_char((int)gX_now_mallet), cvPoint(460,30), &font, cvScalar(220,50,50));
 			//cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
