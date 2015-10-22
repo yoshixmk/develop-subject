@@ -340,7 +340,7 @@ int main(int argc, char* argv[]) {
 		std::cout << "Human Side Camera Capture FAILED" << std::endl;
 		return -1;
 	}
-	
+
 	// size設定
     cvSetCaptureProperty(capture_robot_side,CV_CAP_PROP_FRAME_WIDTH,CAM_PIX_WIDTH);
 	cvSetCaptureProperty(capture_robot_side,CV_CAP_PROP_FRAME_HEIGHT,CAM_PIX_HEIGHT);
@@ -356,7 +356,7 @@ int main(int argc, char* argv[]) {
 	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("mallet", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
-	
+
 	//Create trackbar to change brightness
 	int iSliderValue1 = 50;
 	cvCreateTrackbar("Brightness", "Now Image", &iSliderValue1, 100);
@@ -477,36 +477,36 @@ int main(int argc, char* argv[]) {
 			std::cout << "x:" << frame_points[i].x << ", y:" << frame_points[i].y  << std::endl;
 		}
 		if(frame_points[0].y < frame_points[1].y){
-			upper_left_g = frame_points[0].y;
-			lower_left_g = frame_points[1].y;
+			upper_left_f = frame_points[0].x;
+			lower_left_f = frame_points[1].x;
 		}
 		else{
-			upper_left_g = frame_points[1].y;
-			lower_left_g = frame_points[0].y;
+			upper_left_f = frame_points[1].x;
+			lower_left_f = frame_points[0].x;
 		}
 		if(frame_points[2].y < frame_points[3].y){
-			upper_left_f = frame_points[2].y;
-			lower_left_f = frame_points[3].y;
+			upper_left_g = frame_points[2].x;
+			lower_left_g = frame_points[3].x;
 		}
 		else{
-			upper_left_f = frame_points[3].y;
-			lower_left_f = frame_points[2].y;
+			upper_left_g = frame_points[3].x;
+			lower_left_g = frame_points[2].x;
 		}
 		if(frame_points[4].y < frame_points[5].y){
-			upper_right_f = frame_points[4].y;
-			lower_right_f = frame_points[5].y;
+			upper_right_g = frame_points[4].x;
+			lower_right_g = frame_points[5].x;
 		}
 		else{
-			upper_right_f = frame_points[5].y;
-			lower_right_f = frame_points[4].y;
+			upper_right_g = frame_points[5].x;
+			lower_right_g = frame_points[4].x;
 		}
 		if(frame_points[6].y < frame_points[7].y){
-			upper_right_g = frame_points[6].y;
-			lower_right_g = frame_points[7].y;
+			upper_right_f = frame_points[6].x;
+			lower_right_f = frame_points[7].x;
 		}
 		else{
-			upper_right_g = frame_points[7].y;
-			lower_right_g = frame_points[6].y;
+			upper_right_f = frame_points[7].x;
+			lower_right_f = frame_points[6].x;
 		}
 	}
 	else{
