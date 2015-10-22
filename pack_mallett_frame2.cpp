@@ -619,7 +619,7 @@ int main(int argc, char* argv[]) {
 				a_inclination = 0;
 				b_intercept=0;
 				//目標値は中央。台のロボット側(4点)からを計算
-				target_coordinateX = (upper_left_f + upper_left_g + lower_left_f + lower_left_g)/4;
+				target_coordinateX = (lower_right_f + lower_right_g + lower_left_f + lower_left_g)/4;
 				if(gX_now_mallet < target_coordinateX - 1){ //-1 マージン
 					gpioPWM(25, 128);
 					closest_frequency = gpioSetPWMfrequency(25, 2000);
@@ -651,8 +651,8 @@ int main(int argc, char* argv[]) {
 			printf("b_intercept: %f\n",b_intercept);
 
 			cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-			int left_frame = (upper_left_f+upper_right_f)/2;
-			int right_frame = (lower_left_f+lower_right_f)/2;
+			int left_frame = (upper_left_f+lower_left_f)/2;
+			int right_frame = (upper_right_f+lower_right_f)/2;
 			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
 				if(target_coordinateX < left_frame){ //左側の跳ね返り。左枠側平均
 					target_coordinateX = 2 * left_frame -target_coordinateX;
