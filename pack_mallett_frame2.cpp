@@ -410,9 +410,6 @@ int main(int argc, char* argv[]) {
 	IplImage* poly_dst = cvCreateImage( cvGetSize( img_all_round), IPL_DEPTH_8U, 3);
 	IplImage* poly_gray = cvCreateImage( cvGetSize(img_all_round),IPL_DEPTH_8U,1);
 
-	img_robot_side = cvQueryFrame(capture_robot_side);
-	img_human_side = cvQueryFrame(capture_human_side);
-
 	int rotate_times = 0;
 	//IplImage* -> Mat
 	mat_frame1 = cv::cvarrToMat(img_robot_side);
