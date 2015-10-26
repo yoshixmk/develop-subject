@@ -510,6 +510,15 @@ int main(int argc, char* argv[]) {
 		printf("Frame is not 8 Point\n");
 		return -1;
 	}
+	printf("%d\n",upper_left_f);
+	printf("%d\n",upper_left_g);
+	printf("%d\n", upper_right_f);
+	printf("%d\n" , upper_right_g);
+	printf("%d\n", lower_left_f);
+	printf("%d\n", lower_left_g);
+	printf("%d\n", lower_right_f);
+	printf("%d\n", lower_right_g);
+
     cvReleaseImage(&dst_img_frame);
     cvReleaseImage(&grayscale_img);
     cvReleaseImage(&poly_tmp);
@@ -604,6 +613,7 @@ int main(int argc, char* argv[]) {
 			int closest_frequency;
 
 			int target_coordinateX;
+			int target_coordinateY;
 			//pwm output for rotate
 			//台の揺れを想定してマージンをとる
 			if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
@@ -654,13 +664,26 @@ int main(int argc, char* argv[]) {
 				if(target_coordinateX < left_frame){ //左側の跳ね返り。左枠側平均
 					target_coordinateX = 2 * left_frame -target_coordinateX;
 					a_inclination = -a_inclination;
-					cvLine(show_img, cvPoint(left_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					target_coordinateY = a_inclination * (right_frame - left_frame) + b_intercept;
+					if(target_coordinateX < right_frame){
+						cvLine(show_img, cvPoint(left_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					}
+					else{
+						cvLine(show_img, cvPoint(left_frame, b_intercept), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
+					}
 				}
 				else if(right_frame < target_coordinateX){ //右側の跳ね返り。右枠側平均
 					target_coordinateX = 2 * right_frame - target_coordinateX;
 					b_intercept += 2 * (right_frame - left_frame) * a_inclination;
-					cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					//cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 					a_inclination= -a_inclination;
+					target_coordinateY = a_inclination * (right_frame - left_frame) + b_intercept;
+					if(left_frame < target_coordinateX){
+						cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					}
+					else{
+						cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
+					}
 				}
 			}
 
