@@ -419,7 +419,13 @@ int main(int argc, char* argv[]) {
 	cv::flip(mat_frame1, mat_frame1, 1); //垂直軸で反転（水平反転）
 	vconcat(mat_frame2, mat_frame1, dst_img_v);
 
-	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+	//画像の膨張と縮小
+//	cv::Mat close_img;
+//	cv::Mat element(3,3,CV_8U, cv::Scalar::all(255));
+//	cv::morphologyEx(dst_img_v, close_img, cv::MORPH_CLOSE, element, cv::Point(-1,-1), 3);
+//	cv::imshow("morphologyEx", dst_img_v);
+//	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
+
 	//明るさ調整した結果を変換(Mat->IplImage*)して渡す。その後解放。
 	*img_all_round = dst_bright_cont;
 
@@ -432,6 +438,9 @@ int main(int argc, char* argv[]) {
 
 	cvCopy( poly_gray, poly_tmp);
 	cvCvtColor( poly_gray, poly_dst, CV_GRAY2BGR);
+
+	//画像の膨張と縮小
+	//cvMorphologyEx(tracking_img, tracking_img,)
 
 	// 輪郭抽出
 	found = cvFindContours( poly_tmp, contStorage, &contours, sizeof( CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
