@@ -1,4 +1,4 @@
-#include <cv.h>
+ #include <cv.h>
 #include <highgui.h>
 #include <stdio.h>
 //#include <opencv2/core/core.hpp>
@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 	CvCapture* src1;
 	CvCapture* src2;
 	IplImage* frame1;
-	IplImage* frame2;
+	IplImage* frame2; 
 
 	cvNamedWindow("カメラ映像表示1", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("カメラ映像表示2", CV_WINDOW_AUTOSIZE);
@@ -51,17 +51,18 @@ int main(int argc, char** argv)
 		mat_frame1 = cv::cvarrToMat(frame1); //ロボット側
 		mat_frame2 = cv::cvarrToMat(frame2); //人側
 		//上下左右を反転。本番環境では、mat_frame1を反転させる
-		cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
-		cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+		cv::flip(mat_frame1, mat_frame1, 0); //水平軸で反転（垂直反転）
+		cv::flip(mat_frame1, mat_frame1, 1); //垂直軸で反転（水平反転）
 		vconcat(mat_frame2, mat_frame1, dst_img_v);
 
 		cvShowImage("カメラ映像表示1",frame1);
 		cvShowImage("カメラ映像表示2",frame2);
 		cv::imshow("カメラ映像結合",dst_img_v);
 
-		key = cvWaitKey(33);
-		if(key == 27)
+		if(cv::waitKey(30) >= 0){
+			cv::imwrite("photodir/table.png", dst_img_v);
 			break;
+		}
 	}
 	cvDestroyWindow("カメラ映像表示1");
 	cvDestroyWindow("カメラ映像表示2");
