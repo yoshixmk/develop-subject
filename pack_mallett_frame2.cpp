@@ -415,8 +415,8 @@ int main(int argc, char* argv[]) {
 	mat_frame1 = cv::cvarrToMat(img_robot_side);
 	mat_frame2 = cv::cvarrToMat(img_human_side);
 	//上下左右を反転。本番環境では、mat_frame1を反転させる
-	cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
-	cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+	cv::flip(mat_frame1, mat_frame1, 0); //水平軸で反転（垂直反転）
+	cv::flip(mat_frame1, mat_frame1, 1); //垂直軸で反転（水平反転）
 	vconcat(mat_frame2, mat_frame1, dst_img_v);
 
 	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
@@ -508,6 +508,13 @@ int main(int argc, char* argv[]) {
 	}
 	else{
 		printf("Frame is not 8 Point\n");
+		while(1){
+			cvShowImage("Now Image", img_all_round);
+			cvShowImage ("Poly", poly_dst);
+			if(cv::waitKey(1) >= 0) {
+				break;
+			}
+		}
 		return -1;
 	}
     cvReleaseImage(&dst_img_frame);
@@ -536,8 +543,8 @@ int main(int argc, char* argv[]) {
 			mat_frame1 = cv::cvarrToMat(img_robot_side);
 			mat_frame2 = cv::cvarrToMat(img_human_side);
 			//上下左右を反転。本番環境では、mat_frame1を反転させる
-			cv::flip(mat_frame2, mat_frame2, 0); //水平軸で反転（垂直反転）
-			cv::flip(mat_frame2, mat_frame2, 1); //垂直軸で反転（水平反転）
+			cv::flip(mat_frame1, mat_frame1, 0); //水平軸で反転（垂直反転）
+			cv::flip(mat_frame1, mat_frame1, 1); //垂直軸で反転（水平反転）
 			vconcat(mat_frame2, mat_frame1, dst_img_v);
 
 			iBrightness  = iSliderValue1 - 50;
