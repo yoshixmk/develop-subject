@@ -469,7 +469,7 @@ int main(int argc, char* argv[]) {
 	//左下 の ゴール寄り  lower_left_g
 	//右下 の 壁サイド側 lower_right_f
 	//右下 の ゴール寄り  lower_right_g
-	int upper_left_f, upper_left_g, upper_right_f, upper_right_g, lower_left_f, lower_left_g, lower_right_f, lower_right_g;
+	CvPoint upper_left_f, upper_left_g, upper_right_f, upper_right_g, lower_left_f, lower_left_g, lower_right_f, lower_right_g;
 
 	CvPoint frame_points[8];
 	if(poly->total == 8){
@@ -483,36 +483,36 @@ int main(int argc, char* argv[]) {
 			std::cout << "x:" << frame_points[i].x << ", y:" << frame_points[i].y  << std::endl;
 		}
 		if(frame_points[0].y < frame_points[1].y){
-			upper_left_f = frame_points[0].x;
-			lower_left_f = frame_points[1].x;
+			upper_left_f = frame_points[0];
+			lower_left_f = frame_points[1];
 		}
 		else{
-			upper_left_f = frame_points[1].x;
-			lower_left_f = frame_points[0].x;
+			upper_left_f = frame_points[1];
+			lower_left_f = frame_points[0];
 		}
 		if(frame_points[2].y < frame_points[3].y){
-			upper_left_g = frame_points[2].x;
-			lower_left_g = frame_points[3].x;
+			upper_left_g = frame_points[2];
+			lower_left_g = frame_points[3];
 		}
 		else{
-			upper_left_g = frame_points[3].x;
-			lower_left_g = frame_points[2].x;
+			upper_left_g = frame_points[3];
+			lower_left_g = frame_points[2];
 		}
 		if(frame_points[4].y < frame_points[5].y){
-			upper_right_g = frame_points[4].x;
-			lower_right_g = frame_points[5].x;
+			upper_right_g = frame_points[4];
+			lower_right_g = frame_points[5];
 		}
 		else{
-			upper_right_g = frame_points[5].x;
-			lower_right_g = frame_points[4].x;
+			upper_right_g = frame_points[5];
+			lower_right_g = frame_points[4];
 		}
 		if(frame_points[6].y < frame_points[7].y){
-			upper_right_f = frame_points[6].x;
-			lower_right_f = frame_points[7].x;
+			upper_right_f = frame_points[6];
+			lower_right_f = frame_points[7];
 		}
 		else{
-			upper_right_f = frame_points[7].x;
-			lower_right_f = frame_points[6].x;
+			upper_right_f = frame_points[7];
+			lower_right_f = frame_points[6];
 		}
 	}
 	else{
@@ -526,14 +526,14 @@ int main(int argc, char* argv[]) {
 		}
 		return -1;
 	}
-	printf("%d\n",upper_left_f);
-	printf("%d\n",upper_left_g);
-	printf("%d\n", upper_right_f);
-	printf("%d\n" , upper_right_g);
-	printf("%d\n", lower_left_f);
-	printf("%d\n", lower_left_g);
-	printf("%d\n", lower_right_f);
-	printf("%d\n", lower_right_g);
+	printf("%d\n",upper_left_f.x);
+	printf("%d\n",upper_left_g.x);
+	printf("%d\n", upper_right_f.x);
+	printf("%d\n" , upper_right_g.x);
+	printf("%d\n", lower_left_f.x);
+	printf("%d\n", lower_left_g.x);
+	printf("%d\n", lower_right_f.x);
+	printf("%d\n", lower_right_g.x);
 
     cvReleaseImage(&dst_img_frame);
     cvReleaseImage(&grayscale_img);
