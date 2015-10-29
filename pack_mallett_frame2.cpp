@@ -332,7 +332,7 @@ int main(int argc, char* argv[]) {
  
 	CvCapture* capture_robot_side = cvCaptureFromCAM(0);
 	CvCapture* capture_human_side = cvCaptureFromCAM(1);
-    if(capture_robot_side ==NULL){
+    if(capture_robot_side == NULL){
 		std::cout << "Robot Side Camera Capture FAILED" << std::endl;
 		return -1;
 	 }
@@ -419,6 +419,7 @@ int main(int argc, char* argv[]) {
 	cv::flip(mat_frame1, mat_frame1, 1); //垂直軸で反転（水平反転）
 	vconcat(mat_frame2, mat_frame1, dst_img_v);
 
+	dst_img_v.convertTo(dst_bright_cont, -1, dContrast, iBrightness); //１枚にした画像をコンバート
 	//画像の膨張と縮小
 //	cv::Mat close_img;
 //	cv::Mat element(3,3,CV_8U, cv::Scalar::all(255));
@@ -517,8 +518,17 @@ int main(int argc, char* argv[]) {
 	}
 	else{
 		printf("Frame is not 8 Point\n");
+		upper_left_f = cvPoint(26, 29);
+		upper_right_f =  cvPoint(134, 29);
+		lower_left_f = cvPoint(26, 211);
+		lower_right_f =  cvPoint(134, 211);
+		cvCopy(img_all_round, show_img);
+		cvLine(show_img, upper_left_f, upper_right_f, CV_RGB( 255, 255, 0 ));
+		cvLine(show_img, lower_left_f, lower_right_f, CV_RGB( 255, 255, 0 ));
+		cvLine(show_img, upper_right_f, lower_right_f, CV_RGB( 255, 255, 0 ));
+		cvLine(show_img, upper_left_f, lower_left_f, CV_RGB( 255, 255, 0 ));
 		while(1){
-			cvShowImage("Now Image", img_all_round);
+			cvShowImage("Now Image", show_img);
 			cvShowImage ("Poly", poly_dst);
 			if(cv::waitKey(1) >= 0) {
 				break;
@@ -526,14 +536,14 @@ int main(int argc, char* argv[]) {
 		}
 		return -1;
 	}
-	printf("%d\n",upper_left_f.x);
-	printf("%d\n",upper_left_g.x);
-	printf("%d\n", upper_right_f.x);
-	printf("%d\n" , upper_right_g.x);
-	printf("%d\n", lower_left_f.x);
-	printf("%d\n", lower_left_g.x);
-	printf("%d\n", lower_right_f.x);
-	printf("%d\n", lower_right_g.x);
+	printf("upper_left_fX:%d, Y:%d\n",upper_left_f.x, upper_left_f.y);
+	printf("upper_left_gX:%d, Y:%d\n",upper_left_g.x, upper_left_g.y);
+	printf("upper_right_fX:%d,Y:%d\n", upper_right_f.x, upper_right_f.y);
+	printf("upper_right_gX:%d, Y:%d\n" , upper_right_g.x, upper_right_g.y);
+	printf("lower_left_fX:%d, Y:%d\n", lower_left_f.x, lower_left_f.y);
+	printf("lower_left_gX:%d, Y:%d\n", lower_left_g.x, lower_left_g.y);
+	printf("lower_right_fX:%d, Y:%d\n", lower_right_f.x, lower_right_f.y);
+	printf("lower_right_gX:%d, Y:%d\n", lower_right_g.x, lower_right_g.y);
 
     cvReleaseImage(&dst_img_frame);
     cvReleaseImage(&grayscale_img);
@@ -642,7 +652,7 @@ int main(int argc, char* argv[]) {
 				a_inclination = 0;
 				b_intercept=0;
 				//目標値は中央。台のロボット側(4点)からを計算
-				target_coordinateX = (lower_right_f + lower_right_g + lower_left_f + lower_left_g)/4;
+				target_coordinateX = (lower_right_f.x + lower_right_g.x + lower_left_f.x + lower_left_g.x)/4;
 				if(gX_now_mallet < target_coordinateX - 1){ //-1 マージン
 					gpioPWM(25, 128);
 					closest_frequency = gpioSetPWMfrequency(25, 2000);
@@ -674,8 +684,8 @@ int main(int argc, char* argv[]) {
 			printf("b_intercept: %f\n",b_intercept);
 
 			cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-			int left_frame = (upper_left_f+lower_left_f)/2;
-			int right_frame = (upper_right_f+lower_right_f)/2;
+			int left_frame = (upper_left_f.x + lower_left_f.x)/2;
+			int right_frame = (upper_right_f.x + lower_right_f.x)/2;
 			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
 				if(target_coordinateX < left_frame){ //左側の跳ね返り。左枠側平均
 					target_coordinateX = 2 * left_frame -target_coordinateX;
