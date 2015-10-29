@@ -31,6 +31,7 @@ void GetContourFeature(CvSeq *Contour) {
     double Area = fabs(cvContourArea(Contour, CV_WHOLE_SEQ));
     //周囲長
     double Perimeter = cvArcLength(Contour);
+    
     //円形度
     double CircleLevel = 4.0 * CV_PI * Area / (Perimeter * Perimeter);
 
@@ -519,14 +520,26 @@ int main(int argc, char* argv[]) {
 	else{
 		printf("Frame is not 8 Point\n");
 		upper_left_f = cvPoint(26, 29);
-		upper_right_f =  cvPoint(134, 29);
-		lower_left_f = cvPoint(26, 211);
-		lower_right_f =  cvPoint(134, 211);
+		upper_right_f =  cvPoint(136, 29);
+		lower_left_f = cvPoint(26, 220);
+		lower_right_f =  cvPoint(136, 220);
+
+		upper_left_g = cvPoint(38, 22);
+		upper_right_g = cvPoint(125, 22);
+		lower_left_g =  cvPoint(38, 226);
+		lower_right_g =  cvPoint(125, 226);
+
 		cvCopy(img_all_round, show_img);
 		cvLine(show_img, upper_left_f, upper_right_f, CV_RGB( 255, 255, 0 ));
 		cvLine(show_img, lower_left_f, lower_right_f, CV_RGB( 255, 255, 0 ));
 		cvLine(show_img, upper_right_f, lower_right_f, CV_RGB( 255, 255, 0 ));
 		cvLine(show_img, upper_left_f, lower_left_f, CV_RGB( 255, 255, 0 ));
+
+		cvLine(show_img, upper_left_g, upper_right_g, CV_RGB( 0, 255, 0 ));
+		cvLine(show_img, lower_left_g, lower_right_g, CV_RGB( 0, 255, 0 ));
+		cvLine(show_img, upper_right_g, lower_right_g, CV_RGB( 0, 255, 0 ));
+		cvLine(show_img, upper_left_g, lower_left_g, CV_RGB( 0, 255, 0 ));
+
 		while(1){
 			cvShowImage("Now Image", show_img);
 			cvShowImage ("Poly", poly_dst);
