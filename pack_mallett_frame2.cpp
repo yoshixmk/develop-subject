@@ -382,7 +382,7 @@ int main(int argc, char* argv[]) {
 	cvCreateTrackbar("minH", "mallet", &iSliderValuemallet1, 255);
 	int iSliderValuemallet2 = 135;
 	cvCreateTrackbar("maxH", "mallet", &iSliderValuemallet2, 255);
-	int iSliderValuemallet3 = 140;
+	int iSliderValuemallet3 = 218;//140
 	cvCreateTrackbar("minS", "mallet", &iSliderValuemallet3, 255);
 	int iSliderValuemallet4 = 255;
 	cvCreateTrackbar("maxS", "mallet", &iSliderValuemallet4, 255);
@@ -474,50 +474,50 @@ int main(int argc, char* argv[]) {
 	CvPoint upper_left_f, upper_left_g, upper_right_f, upper_right_g, lower_left_f, lower_left_g, lower_right_f, lower_right_g;
 
 	CvPoint frame_points[8];
-	if(poly->total == 8){
-		for( i=0; i<8; i++){
-			poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
-			frame_points[i] = poly_point;
-		}
-		qsort(frame_points, 8, sizeof(CvPoint), compare_cvpoint);
-		printf("sort after by X\n");
-		for( i=0; i<8; i++){
-			std::cout << "x:" << frame_points[i].x << ", y:" << frame_points[i].y  << std::endl;
-		}
-		if(frame_points[0].y < frame_points[1].y){
-			upper_left_f = frame_points[0];
-			lower_left_f = frame_points[1];
-		}
-		else{
-			upper_left_f = frame_points[1];
-			lower_left_f = frame_points[0];
-		}
-		if(frame_points[2].y < frame_points[3].y){
-			upper_left_g = frame_points[2];
-			lower_left_g = frame_points[3];
-		}
-		else{
-			upper_left_g = frame_points[3];
-			lower_left_g = frame_points[2];
-		}
-		if(frame_points[4].y < frame_points[5].y){
-			upper_right_g = frame_points[4];
-			lower_right_g = frame_points[5];
-		}
-		else{
-			upper_right_g = frame_points[5];
-			lower_right_g = frame_points[4];
-		}
-		if(frame_points[6].y < frame_points[7].y){
-			upper_right_f = frame_points[6];
-			lower_right_f = frame_points[7];
-		}
-		else{
-			upper_right_f = frame_points[7];
-			lower_right_f = frame_points[6];
-		}
-	}
-	else{
+//	if(poly->total == 8){
+//		for( i=0; i<8; i++){
+//			poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
+//			frame_points[i] = poly_point;
+//		}
+//		qsort(frame_points, 8, sizeof(CvPoint), compare_cvpoint);
+//		printf("sort after by X\n");
+//		for( i=0; i<8; i++){
+//			std::cout << "x:" << frame_points[i].x << ", y:" << frame_points[i].y  << std::endl;
+//		}
+//		if(frame_points[0].y < frame_points[1].y){
+//			upper_left_f = frame_points[0];
+//			lower_left_f = frame_points[1];
+//		}
+//		else{
+//			upper_left_f = frame_points[1];
+//			lower_left_f = frame_points[0];
+//		}
+//		if(frame_points[2].y < frame_points[3].y){
+//			upper_left_g = frame_points[2];
+//			lower_left_g = frame_points[3];
+//		}
+//		else{
+//			upper_left_g = frame_points[3];
+//			lower_left_g = frame_points[2];
+//		}
+//		if(frame_points[4].y < frame_points[5].y){
+//			upper_right_g = frame_points[4];
+//			lower_right_g = frame_points[5];
+//		}
+//		else{
+//			upper_right_g = frame_points[5];
+//			lower_right_g = frame_points[4];
+//		}
+//		if(frame_points[6].y < frame_points[7].y){
+//			upper_right_f = frame_points[6];
+//			lower_right_f = frame_points[7];
+//		}
+//		else{
+//			upper_right_f = frame_points[7];
+//			lower_right_f = frame_points[6];
+//		}
+//	}
+//	else{
 		printf("Frame is not 8 Point\n");
 		upper_left_f = cvPoint(26, 29);
 		upper_right_f =  cvPoint(136, 29);
@@ -529,26 +529,26 @@ int main(int argc, char* argv[]) {
 		lower_left_g =  cvPoint(38, 226);
 		lower_right_g =  cvPoint(125, 226);
 
-		cvCopy(img_all_round, show_img);
-		cvLine(show_img, upper_left_f, upper_right_f, CV_RGB( 255, 255, 0 ));
-		cvLine(show_img, lower_left_f, lower_right_f, CV_RGB( 255, 255, 0 ));
-		cvLine(show_img, upper_right_f, lower_right_f, CV_RGB( 255, 255, 0 ));
-		cvLine(show_img, upper_left_f, lower_left_f, CV_RGB( 255, 255, 0 ));
+//		cvCopy(img_all_round, show_img);
+//		cvLine(show_img, upper_left_f, upper_right_f, CV_RGB( 255, 255, 0 ));
+//		cvLine(show_img, lower_left_f, lower_right_f, CV_RGB( 255, 255, 0 ));
+//		cvLine(show_img, upper_right_f, lower_right_f, CV_RGB( 255, 255, 0 ));
+//		cvLine(show_img, upper_left_f, lower_left_f, CV_RGB( 255, 255, 0 ));
+//
+//		cvLine(show_img, upper_left_g, upper_right_g, CV_RGB( 0, 255, 0 ));
+//		cvLine(show_img, lower_left_g, lower_right_g, CV_RGB( 0, 255, 0 ));
+//		cvLine(show_img, upper_right_g, lower_right_g, CV_RGB( 0, 255, 0 ));
+//		cvLine(show_img, upper_left_g, lower_left_g, CV_RGB( 0, 255, 0 ));
 
-		cvLine(show_img, upper_left_g, upper_right_g, CV_RGB( 0, 255, 0 ));
-		cvLine(show_img, lower_left_g, lower_right_g, CV_RGB( 0, 255, 0 ));
-		cvLine(show_img, upper_right_g, lower_right_g, CV_RGB( 0, 255, 0 ));
-		cvLine(show_img, upper_left_g, lower_left_g, CV_RGB( 0, 255, 0 ));
-
-		while(1){
-			cvShowImage("Now Image", show_img);
-			cvShowImage ("Poly", poly_dst);
-			if(cv::waitKey(1) >= 0) {
-				break;
-			}
-		}
-		return -1;
-	}
+		//while(1){
+			//cvShowImage("Now Image", show_img);
+			//cvShowImage ("Poly", poly_dst);
+			//if(cv::waitKey(1) >= 0) {
+				//break;
+			//}
+		//}
+		//return -1;
+//	}
 	printf("upper_left_fX:%d, Y:%d\n",upper_left_f.x, upper_left_f.y);
 	printf("upper_left_gX:%d, Y:%d\n",upper_left_g.x, upper_left_g.y);
 	printf("upper_right_fX:%d,Y:%d\n", upper_right_f.x, upper_right_f.y);
@@ -565,7 +565,7 @@ int main(int argc, char* argv[]) {
 
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
-	//return 1;
+	return 1;
 	// Init font
 	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 	bool is_pushed_decision_button = 1;//本番時は初期値0
@@ -652,6 +652,7 @@ int main(int argc, char* argv[]) {
 			int closest_frequency;
 
 			int target_coordinateX;
+			int origin_coordinateY;
 			int target_coordinateY;
 			//pwm output for rotate
 			//台の揺れを想定してマージンをとる
@@ -700,28 +701,35 @@ int main(int argc, char* argv[]) {
 			int left_frame = (upper_left_f.x + lower_left_f.x)/2;
 			int right_frame = (upper_right_f.x + lower_right_f.x)/2;
 			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
-				if(target_coordinateX < left_frame){ //左側の跳ね返り。左枠側平均
-					target_coordinateX = 2 * left_frame -target_coordinateX;
+				if(target_coordinateX < left_frame){ //左側の枠での跳ね返り後の軌跡。左枠側平均
+					target_coordinateX = 2 * left_frame - target_coordinateX;
+					b_intercept -= 2 * (a_inclination * left_frame);
 					a_inclination = -a_inclination;
-					target_coordinateY = a_inclination * (right_frame - left_frame) + b_intercept;
 					if(target_coordinateX < right_frame){
 						cvLine(show_img, cvPoint(left_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+						break;
 					}
 					else{
-						cvLine(show_img, cvPoint(left_frame, b_intercept), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
+						//左側の枠から右側の枠に当たるときのY座標
+						origin_coordinateY = a_inclination * left_frame + b_intercept;
+						target_coordinateY = a_inclination * right_frame + b_intercept;
+						cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
 					}
 				}
-				else if(right_frame < target_coordinateX){ //右側の跳ね返り。右枠側平均
+				else if(right_frame < target_coordinateX){ //右側の枠での跳ね返り後の軌跡。右枠側平均
 					target_coordinateX = 2 * right_frame - target_coordinateX;
-					b_intercept += 2 * (right_frame - left_frame) * a_inclination;
-					//cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					b_intercept += 2 * right_frame * a_inclination;
 					a_inclination= -a_inclination;
-					target_coordinateY = a_inclination * (right_frame - left_frame) + b_intercept;
+					//cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 					if(left_frame < target_coordinateX){
 						cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+						break;
 					}
 					else{
-						cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
+						//右側の枠から左側の枠に当たるときのY座標
+						origin_coordinateY = a_inclination * right_frame + b_intercept;
+						target_coordinateY = a_inclination * left_frame + b_intercept;
+						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint(left_frame, target_coordinateY), cvScalar(0,255,255), 2);
 					}
 				}
 			}
