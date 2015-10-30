@@ -637,6 +637,7 @@ int main(int argc, char* argv[]) {
 			double gX_now_mallet = m10_mallet/m00_mallet;
 			double gY_now_mallet = m01_mallet/m00_mallet;
 
+			int target_direction = -1; //目標とする向き　時計回り＝1、　反時計回り＝0
 			//円の大きさは全体の1/10で描画
 			cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
 			cvLine(show_img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
@@ -657,23 +658,25 @@ int main(int argc, char* argv[]) {
 			//pwm output for rotate
 			//台の揺れを想定してマージンをとる
 			if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
-				gpioPWM(25, 0);
+				/*gpioPWM(25, 0);
 				closest_frequency = gpioSetPWMfrequency(25, 0);
 				a_inclination = 0;
-				b_intercept=0;
+				b_intercept=0;*/
 			}
 			else if(gY_after-1 < gY_before ){	//packが離れていく時、台の中央に戻る
 				a_inclination = 0;
 				b_intercept=0;
 				//目標値は中央。台のロボット側(4点)からを計算
-				target_coordinateX = (lower_right_f.x + lower_right_g.x + lower_left_f.x + lower_left_g.x)/4;
-				if(gX_now_mallet < target_coordinateX - 3){ //-1 マージン
+				double center_line = (lower_right_f.x + lower_right_g.x + lower_left_f.x + lower_left_g.x)/4;
+				if(center_line + 3 < gX_now_mallet){ //+1 マージン
 					gpioPWM(25, 128);
-					closest_frequency = gpioSetPWMfrequency(25, 2000);
+					closest_frequency = gpioSetPWMfrequency(25, 1500);
+					target_direction = 0;//反時計回り
 				}
-				else if(target_coordinateX + 3 < gX_now_mallet){  //+1 マージン
+				else if(gX_now_mallet < center_line-3){  //-1 マージン
 					gpioPWM(25, 128);
-					closest_frequency = gpioSetPWMfrequency(25, 2000);
+					closest_frequency = gpioSetPWMfrequency(25, 1500);
+					target_direction = 1;//時計回り
 				}
 				else{
 					gpioPWM(25, 0);
@@ -682,7 +685,7 @@ int main(int argc, char* argv[]) {
 			}
 			else{
 				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 2000);
+				closest_frequency = gpioSetPWMfrequency(25, 1500);
 				a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
 				b_intercept = gY_after - a_inclination * gX_after;
 				//一次関数で目標X座標の計算
@@ -709,6 +712,9 @@ int main(int argc, char* argv[]) {
 			else{
 				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 			}
+
+			int rebound_max = 5;
+			int rebound_num = 0;
 
 			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
 				if(target_coordinateX < left_frame){ //左側の枠での跳ね返り後の軌跡。左枠側平均
@@ -740,6 +746,12 @@ int main(int argc, char* argv[]) {
 						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint(left_frame, target_coordinateY), cvScalar(0,255,255), 2);
 					}
 				}
+				rebound_num++;
+				if(rebound_max < rebound_num){
+					//跳ね返りが多すぎる時は、中央を指定
+					target_coordinateX = (lower_right_f.x + lower_right_g.x + lower_left_f.x + lower_left_g.x)/4;
+					break;
+				}
 			}
 
 			printf("target_coordinateX: %d\n",target_coordinateX);
@@ -751,42 +763,42 @@ int main(int argc, char* argv[]) {
 			//cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
 
 			int amount_movement = gX_now_mallet - target_coordinateX;
-			int target_direction = -1;
+
 			//reacted limit-switch and target_direction rotate
-			if(gpioRead(6) == 1){//X軸右
+			/*if(gpioRead(6) == 1){//X軸右
 				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 2000);
+				closest_frequency = gpioSetPWMfrequency(25, 1500);
 				target_direction = 0;//時計回り
 				printf("X軸右リミット！時計回り\n");
 			}
-			else if(gpioRead(26) == 1){//X軸左
+			else */if(gpioRead(26) == 1){//X軸左
 				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 2000);
+				closest_frequency = gpioSetPWMfrequency(25, 1500);
 				target_direction = 1;//反時計回り
 				printf("X軸左リミット！反時計回り\n");
 			}
 			else if(gpioRead(5) == 1){//Y軸右上
 				gpioPWM(23, 128);
-				gpioSetPWMfrequency(23, 2000);
+				gpioSetPWMfrequency(23, 1500);
 				gpioWrite(14, 0);
 				printf("Y軸右上リミット！時計回り\n");
 			}
 			else if(gpioRead(13) == 1){//Y軸右下
 				gpioPWM(23, 128);
-				gpioSetPWMfrequency(23, 2000);
+				gpioSetPWMfrequency(23, 1500);
 				gpioWrite(14, 1);
 				printf("Y軸右下リミット！反時計回り\n");
 			}
 			else if(gpioRead(19) == 1){//Y軸左下
 				gpioPWM(24, 128);
-				gpioSetPWMfrequency(24, 2000);
+				gpioSetPWMfrequency(24, 1500);
 				gpioWrite(15, 0);
 				printf("Y軸左下リミット！時計回り\n");
 			}
 
 			else if(gpioRead(21) == 1){//Y軸左上
 				gpioPWM(24, 0);
-				gpioSetPWMfrequency(24, 2000);
+				gpioSetPWMfrequency(24, 1500);
 				gpioWrite(15, 1);
 				printf("Y軸左上リミット！反時計回り\n");
 			}
