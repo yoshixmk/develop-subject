@@ -371,7 +371,7 @@ int main(int argc, char* argv[]) {
 	cvCreateTrackbar("maxH", "pack", &iSliderValuePack2, 255);
 	int iSliderValuePack3 = 81;//219;
 	cvCreateTrackbar("minS", "pack", &iSliderValuePack3, 255);
-	int iSliderValuePack4 = 175;//255;
+	int iSliderValuePack4 = 255;//175;
 	cvCreateTrackbar("maxS", "pack", &iSliderValuePack4, 255);
 	int iSliderValuePack5 = 0;//29;
 	cvCreateTrackbar("minV", "pack", &iSliderValuePack5, 255);
@@ -565,7 +565,7 @@ int main(int argc, char* argv[]) {
 
     cvReleaseMemStorage(&contStorage);
     cvReleaseMemStorage(&polyStorage);
-	return 1;
+	//return 1;
 	// Init font
 	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 	bool is_pushed_decision_button = 1;//本番時は初期値0
@@ -697,37 +697,45 @@ int main(int argc, char* argv[]) {
 			printf("a_inclination: %f\n",a_inclination);
 			printf("b_intercept: %f\n",b_intercept);
 
-			cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 			int left_frame = (upper_left_f.x + lower_left_f.x)/2;
 			int right_frame = (upper_right_f.x + lower_right_f.x)/2;
+			origin_coordinateY = a_inclination * left_frame + b_intercept;
+			if(target_coordinateX < left_frame){
+				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(left_frame, origin_coordinateY), cvScalar(0,255,255), 2);
+			}
+			else if(right_frame < target_coordinateX){
+				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(right_frame, origin_coordinateY), cvScalar(0,255,255), 2);
+			}
+			else{
+				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+			}
+
 			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
 				if(target_coordinateX < left_frame){ //左側の枠での跳ね返り後の軌跡。左枠側平均
 					target_coordinateX = 2 * left_frame - target_coordinateX;
-					b_intercept -= 2 * (a_inclination * left_frame);
+					b_intercept -= 2 * ((-a_inclination) * left_frame);
 					a_inclination = -a_inclination;
+					origin_coordinateY = a_inclination * left_frame + b_intercept;
 					if(target_coordinateX < right_frame){
-						cvLine(show_img, cvPoint(left_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-						break;
+						cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 					}
 					else{
 						//左側の枠から右側の枠に当たるときのY座標
-						origin_coordinateY = a_inclination * left_frame + b_intercept;
 						target_coordinateY = a_inclination * right_frame + b_intercept;
 						cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
 					}
 				}
 				else if(right_frame < target_coordinateX){ //右側の枠での跳ね返り後の軌跡。右枠側平均
 					target_coordinateX = 2 * right_frame - target_coordinateX;
-					b_intercept += 2 * right_frame * a_inclination;
+					b_intercept += 2 * (a_inclination * right_frame);
 					a_inclination= -a_inclination;
 					//cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
+					origin_coordinateY = a_inclination * right_frame + b_intercept;
 					if(left_frame < target_coordinateX){
-						cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-						break;
+						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 					}
 					else{
 						//右側の枠から左側の枠に当たるときのY座標
-						origin_coordinateY = a_inclination * right_frame + b_intercept;
 						target_coordinateY = a_inclination * left_frame + b_intercept;
 						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint(left_frame, target_coordinateY), cvScalar(0,255,255), 2);
 					}
