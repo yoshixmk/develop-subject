@@ -302,8 +302,6 @@ int main(int argc, char* argv[]) {
 
 	// OpenCV variables
 	CvFont font;
-	
-    printf("start!\n");
 
 	//pwm initialize
 	if(gpioInitialise() < 0) return -1;
@@ -353,11 +351,6 @@ int main(int argc, char* argv[]) {
 
 	// 画像の表示用ウィンドウ生成
 	//cvNamedWindow("Previous Image", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("Now Image", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("mallet", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
-
 	//Create trackbar to change brightness
 	int iSliderValue1 = 50;
 	cvCreateTrackbar("Brightness", "Now Image", &iSliderValue1, 100);
@@ -456,9 +449,6 @@ int main(int argc, char* argv[]) {
 	for( i=0; i<poly->total; i++)
 	{
 		poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
-		cvCircle( poly_dst, poly_point, 1, CV_RGB(255, 0 , 255), -1);
-		cvCircle( poly_dst, poly_point, 8, CV_RGB(255, 0 , 255));
-		std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
 	}
 	printf("Poly FindTotal:%d\n",poly->total);
 
@@ -637,13 +627,6 @@ int main(int argc, char* argv[]) {
 			double gX_now_mallet = m10_mallet/m00_mallet;
 			double gY_now_mallet = m01_mallet/m00_mallet;
 
-			//円の大きさは全体の1/10で描画
-			cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
-			cvLine(show_img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
-			printf("gX_after: %f\n",gX_after);
-			printf("gY_after: %f\n",gY_after);
-			printf("gX_before: %f\n",gX_before);
-			printf("gY_before: %f\n",gY_before);
 			int target_destanceY = CAM_PIX_2HEIGHT - 30; //Y座標の距離を一定にしている。ディフェンスライン。
 			//パックの移動は直線のため、一次関数の計算を使って、その後の軌跡を予測する。
 			double a_inclination;
@@ -694,21 +677,9 @@ int main(int argc, char* argv[]) {
 				}
 			}
 
-			printf("a_inclination: %f\n",a_inclination);
-			printf("b_intercept: %f\n",b_intercept);
-
 			int left_frame = (upper_left_f.x + lower_left_f.x)/2;
 			int right_frame = (upper_right_f.x + lower_right_f.x)/2;
 			origin_coordinateY = a_inclination * left_frame + b_intercept;
-			if(target_coordinateX < left_frame){
-				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(left_frame, origin_coordinateY), cvScalar(0,255,255), 2);
-			}
-			else if(right_frame < target_coordinateX){
-				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(right_frame, origin_coordinateY), cvScalar(0,255,255), 2);
-			}
-			else{
-				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-			}
 
 			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
 				if(target_coordinateX < left_frame){ //左側の枠での跳ね返り後の軌跡。左枠側平均
@@ -717,12 +688,10 @@ int main(int argc, char* argv[]) {
 					a_inclination = -a_inclination;
 					origin_coordinateY = a_inclination * left_frame + b_intercept;
 					if(target_coordinateX < right_frame){
-						cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 					}
 					else{
 						//左側の枠から右側の枠に当たるときのY座標
 						target_coordinateY = a_inclination * right_frame + b_intercept;
-						cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
 					}
 				}
 				else if(right_frame < target_coordinateX){ //右側の枠での跳ね返り後の軌跡。右枠側平均
@@ -732,21 +701,16 @@ int main(int argc, char* argv[]) {
 					//cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 					origin_coordinateY = a_inclination * right_frame + b_intercept;
 					if(left_frame < target_coordinateX){
-						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 					}
 					else{
 						//右側の枠から左側の枠に当たるときのY座標
 						target_coordinateY = a_inclination * left_frame + b_intercept;
-						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint(left_frame, target_coordinateY), cvScalar(0,255,255), 2);
 					}
 				}
 			}
 
-			printf("target_coordinateX: %d\n",target_coordinateX);
 			//防御ラインの描画
-			cvLine(show_img, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
 			//マレットの動きの描画
-			cvLine(show_img, cvPoint((int)gX_now_mallet, (int)gY_now_mallet), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 			//cvPutText (show_img, to_c_char((int)gX_now_mallet), cvPoint(460,30), &font, cvScalar(220,50,50));
 			//cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
 
@@ -805,14 +769,9 @@ int main(int argc, char* argv[]) {
 			if(target_direction != -1){
 				gpioWrite(18, target_direction);
 			}
-			printf("setting_frequency: %d\n", closest_frequency);
 
 			// 指定したウィンドウ内に画像を表示する
 			//cvShowImage("Previous Image", img_all_round2);
-			cvShowImage("Now Image", show_img);
-			cvShowImage("pack", dst_img_pack);
-			cvShowImage("mallet", dst_img_mallet);
-			cvShowImage ("Poly", poly_dst);
 
 			cvReleaseImage (&dst_img_mallet);
 			cvReleaseImage (&dst_img_pack);
