@@ -353,10 +353,10 @@ int main(int argc, char* argv[]) {
 
 	// 画像の表示用ウィンドウ生成
 	//cvNamedWindow("Previous Image", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("Now Image", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow("mallet", CV_WINDOW_AUTOSIZE);
-	cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow("Now Image", CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow("pack", CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow("mallet", CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow ("Poly", CV_WINDOW_AUTOSIZE);
 
 	//Create trackbar to change brightness
 	int iSliderValue1 = 50;
@@ -456,8 +456,8 @@ int main(int argc, char* argv[]) {
 	for( i=0; i<poly->total; i++)
 	{
 		poly_point = *( CvPoint*)cvGetSeqElem( poly, i);
-		cvCircle( poly_dst, poly_point, 1, CV_RGB(255, 0 , 255), -1);
-		cvCircle( poly_dst, poly_point, 8, CV_RGB(255, 0 , 255));
+//		cvCircle( poly_dst, poly_point, 1, CV_RGB(255, 0 , 255), -1);
+//		cvCircle( poly_dst, poly_point, 8, CV_RGB(255, 0 , 255));
 		std::cout << "x:" << poly_point.x << ", y:" << poly_point.y  << std::endl;
 	}
 	printf("Poly FindTotal:%d\n",poly->total);
@@ -642,10 +642,10 @@ int main(int argc, char* argv[]) {
 
 			int target_direction = -1; //目標とする向き　時計回り＝1、　反時計回り＝0
 			//円の大きさは全体の1/10で描画
-			cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
-			cvCircle(show_img, cvPoint(gX_now_mallet, gY_now_mallet), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
-			cvLine(show_img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
-			cvLine(show_img, robot_goal_left, robot_goal_right, cvScalar(0,255,255), 2);
+//			cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
+//			cvCircle(show_img, cvPoint(gX_now_mallet, gY_now_mallet), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
+//			cvLine(show_img, cvPoint(gX_before, gY_before), cvPoint(gX_after, gY_after), cvScalar(0,255,0), 2);
+//			cvLine(show_img, robot_goal_left, robot_goal_right, cvScalar(0,255,255), 2);
 			printf("gX_after: %f\n",gX_after);
 			printf("gY_after: %f\n",gY_after);
 			printf("gX_before: %f\n",gX_before);
@@ -669,12 +669,12 @@ int main(int argc, char* argv[]) {
 
 			if(robot_goal_right.x < gX_now_mallet){
 				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 1000);
+				closest_frequency = gpioSetPWMfrequency(25, 1500);
 				target_direction = 0;//反時計回り
 			}
 			else if(gX_now_mallet < robot_goal_left.x){
 				gpioPWM(25, 128);
-				closest_frequency = gpioSetPWMfrequency(25, 1000);
+				closest_frequency = gpioSetPWMfrequency(25, 1500);
 				target_direction = 1;//時計回り
 			}
 			else{
@@ -698,15 +698,6 @@ int main(int argc, char* argv[]) {
 					}
 
 					origin_coordinateY = a_inclination * left_frame + b_intercept;
-					if(target_coordinateX < left_frame){
-						cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(left_frame, origin_coordinateY), cvScalar(0,255,255), 2);
-					}
-					else if(right_frame < target_coordinateX){
-						cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(right_frame, origin_coordinateY), cvScalar(0,255,255), 2);
-					}
-					else{
-						cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
-					}
 
 					int rebound_max = 5;
 					int rebound_num = 0;
@@ -718,12 +709,10 @@ int main(int argc, char* argv[]) {
 							a_inclination = -a_inclination;
 							origin_coordinateY = a_inclination * left_frame + b_intercept;
 							if(target_coordinateX < right_frame){
-								cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 							}
 							else{
 								//左側の枠から右側の枠に当たるときのY座標
 								target_coordinateY = a_inclination * right_frame + b_intercept;
-								cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
 							}
 						}
 						else if(right_frame < target_coordinateX){ //右側の枠での跳ね返り後の軌跡。右枠側平均
@@ -733,12 +722,10 @@ int main(int argc, char* argv[]) {
 							//cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
 							origin_coordinateY = a_inclination * right_frame + b_intercept;
 							if(left_frame < target_coordinateX){
-								cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
 							}
 							else{
 								//右側の枠から左側の枠に当たるときのY座標
 								target_coordinateY = a_inclination * left_frame + b_intercept;
-								cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint(left_frame, target_coordinateY), cvScalar(0,255,255), 2);
 							}
 						}
 						rebound_num++;
@@ -748,25 +735,15 @@ int main(int argc, char* argv[]) {
 							break;
 						}
 					}
-					/*if(target_coordinateX < center_line && center_line < gX_now_mallet){
-						target_direction = 0;
-						gpioPWM(25, 128);
-						closest_frequency = gpioSetPWMfrequency(25, 1500);
-					}
-					else if(center_line < target_coordinateX && gX_now_mallet < center_line){
-						target_direction = 1;
-						gpioPWM(25, 128);
-						closest_frequency = gpioSetPWMfrequency(25, 1500);
-					}*/
 					if(target_coordinateX < center_line && center_line < gX_now_mallet){
 						target_direction = 0;
 						gpioPWM(25, 128);
-						closest_frequency = gpioSetPWMfrequency(25, 1500);
+						closest_frequency = gpioSetPWMfrequency(25, 1000);
 					}
 					else if(center_line < target_coordinateX && gX_now_mallet < center_line){
 						target_direction = 1;
 						gpioPWM(25, 128);
-						closest_frequency = gpioSetPWMfrequency(25, 1500);
+						closest_frequency = gpioSetPWMfrequency(25, 1000);
 					}
 					else{
 						gpioPWM(25, 0);
@@ -775,17 +752,117 @@ int main(int argc, char* argv[]) {
 				}
 				printf("a_inclination: %f\n",a_inclination);
 				printf("b_intercept: %f\n",b_intercept);
-				printf("target_coordinateX: %d\n",target_coordinateX);
 			}
 			if(target_direction != -1){
 				gpioWrite(18, target_direction);
 			}
+
+			//pwm output for rotate
+			//台の揺れを想定してマージンをとる
+			/*if(abs(gX_after - gX_before) <= 1){//パックが動いてない場合一時停止
+				gpioPWM(25, 0);
+				closest_frequency = gpioSetPWMfrequency(25, 0);
+				a_inclination = 0;
+				b_intercept=0;
+			}
+			else if(gY_after-1 < gY_before ){	//packが離れていく時、台の中央に戻る
+				a_inclination = 0;
+				b_intercept=0;
+				//目標値は中央。台のロボット側(4点)からを計算
+				double center_line = (lower_right_f.x + lower_right_g.x + lower_left_f.x + lower_left_g.x)/4;
+				if(center_line + 3 < gX_now_mallet){ //+1 マージン
+					gpioPWM(25, 128);
+					closest_frequency = gpioSetPWMfrequency(25, 1500);
+					target_direction = 0;//反時計回り
+				}
+				else if(gX_now_mallet < center_line-3){  //-1 マージン
+					gpioPWM(25, 128);
+					closest_frequency = gpioSetPWMfrequency(25, 1500);
+					target_direction = 1;//時計回り
+				}
+				else{
+					gpioPWM(25, 0);
+					closest_frequency = gpioSetPWMfrequency(25, 0);
+				}
+			}
+			else{
+				gpioPWM(25, 128);
+				closest_frequency = gpioSetPWMfrequency(25, 1500);
+				a_inclination = (gY_after - gY_before) / (gX_after - gX_before);
+				b_intercept = gY_after - a_inclination * gX_after;
+				//一次関数で目標X座標の計算
+				if(a_inclination){
+					target_coordinateX = (int)((target_destanceY - b_intercept) / a_inclination);
+				}
+				else{
+					target_coordinateX = 0;
+				}
+			}
+
+			printf("a_inclination: %f\n",a_inclination);
+			printf("b_intercept: %f\n",b_intercept);
+
+			int left_frame = (upper_left_f.x + lower_left_f.x)/2;
+			int right_frame = (upper_right_f.x + lower_right_f.x)/2;
+			origin_coordinateY = a_inclination * left_frame + b_intercept;
+			if(target_coordinateX < left_frame){
+				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(left_frame, origin_coordinateY), cvScalar(0,255,255), 2);
+			}
+			else if(right_frame < target_coordinateX){
+				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint(right_frame, origin_coordinateY), cvScalar(0,255,255), 2);
+			}
+			else{
+				cvLine(show_img, cvPoint((int)gX_after, (int)gY_after), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+			}
+
+			int rebound_max = 5;
+			int rebound_num = 0;
+
+			while(target_coordinateX < left_frame || right_frame < target_coordinateX){
+				if(target_coordinateX < left_frame){ //左側の枠での跳ね返り後の軌跡。左枠側平均
+					target_coordinateX = 2 * left_frame - target_coordinateX;
+					b_intercept -= 2 * ((-a_inclination) * left_frame);
+					a_inclination = -a_inclination;
+					origin_coordinateY = a_inclination * left_frame + b_intercept;
+					if(target_coordinateX < right_frame){
+						cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					}
+					else{
+						//左側の枠から右側の枠に当たるときのY座標
+						target_coordinateY = a_inclination * right_frame + b_intercept;
+						cvLine(show_img, cvPoint(left_frame, origin_coordinateY), cvPoint(right_frame, target_coordinateY), cvScalar(0,255,255), 2);
+					}
+				}
+				else if(right_frame < target_coordinateX){ //右側の枠での跳ね返り後の軌跡。右枠側平均
+					target_coordinateX = 2 * right_frame - target_coordinateX;
+					b_intercept += 2 * (a_inclination * right_frame);
+					a_inclination= -a_inclination;
+					//cvLine(show_img, cvPoint(right_frame, b_intercept), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
+					origin_coordinateY = a_inclination * right_frame + b_intercept;
+					if(left_frame < target_coordinateX){
+						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,255,255), 2);
+					}
+					else{
+						//右側の枠から左側の枠に当たるときのY座標
+						target_coordinateY = a_inclination * left_frame + b_intercept;
+						cvLine(show_img, cvPoint(right_frame, origin_coordinateY), cvPoint(left_frame, target_coordinateY), cvScalar(0,255,255), 2);
+					}
+				}
+				rebound_num++;
+				if(rebound_max < rebound_num){
+					//跳ね返りが多すぎる時は、中央を指定
+					target_coordinateX = (lower_right_f.x + lower_right_g.x + lower_left_f.x + lower_left_g.x)/4;
+					break;
+				}
+			}
+
+			printf("target_coordinateX: %d\n",target_coordinateX);
 			//防御ラインの描画
 			cvLine(show_img, cvPoint(CAM_PIX_WIDTH, target_destanceY), cvPoint(0, target_destanceY), cvScalar(255,255,0), 2);
 			//マレットの動きの描画
 			cvLine(show_img, cvPoint((int)gX_now_mallet, (int)gY_now_mallet), cvPoint((int)target_coordinateX, target_destanceY), cvScalar(0,0,255), 2);
-
-			/*
+			//cvPutText (show_img, to_c_char((int)gX_now_mallet), cvPoint(460,30), &font, cvScalar(220,50,50));
+			//cvPutText (show_img, to_c_char((int)target_coordinateX), cvPoint(560,30), &font, cvScalar(50,220,220));
 
 			int amount_movement = target_coordinateX - gX_now_mallet;
 
@@ -851,10 +928,10 @@ int main(int argc, char* argv[]) {
 
 			// 指定したウィンドウ内に画像を表示する
 			//cvShowImage("Previous Image", img_all_round2);
-			cvShowImage("Now Image", show_img);
-			cvShowImage("pack", dst_img_pack);
-			cvShowImage("mallet", dst_img_mallet);
-			cvShowImage ("Poly", poly_dst);
+//			cvShowImage("Now Image", show_img);
+//			cvShowImage("pack", dst_img_pack);
+//			cvShowImage("mallet", dst_img_mallet);
+//			cvShowImage ("Poly", poly_dst);
 
 			cvReleaseImage (&dst_img_mallet);
 			cvReleaseImage (&dst_img_pack);
