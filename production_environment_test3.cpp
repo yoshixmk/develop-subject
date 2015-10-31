@@ -325,7 +325,6 @@ int main(int argc, char* argv[]) {
 	gpioSetMode(7, PI_INPUT);
 	gpioWrite(7, 0);
 	gpioSetMode(8, PI_INPUT);
-	gpioWrite(8, 0);
 	gpioSetMode(13, PI_INPUT);
 	gpioSetMode(19, PI_INPUT);
 	gpioSetMode(26, PI_INPUT);
@@ -695,6 +694,9 @@ int main(int argc, char* argv[]) {
 				closest_frequency = gpioSetPWMfrequency(25, 1000);
 				target_direction = 1;//時計回り
 			}*/
+			/*else if(gpioRead(8) == 0){//X軸左
+				gpioPWM(25, 0);
+			}*/
 			else if(gpioRead(26) == 1){//X軸左
 				gpioPWM(25, 128);
 				closest_frequency = gpioSetPWMfrequency(25, 800);
@@ -704,7 +706,7 @@ int main(int argc, char* argv[]) {
 			else if(y_line < gY_after && y_line > gY_before){
 				double now_time = clock() / CLOCKS_PER_SEC;
 				double end;
-				end = now_time + 0.5 * (target_coordinateX - robot_goal_left.x) / 30;//0.5
+				end = now_time + 0.4 * (target_coordinateX - robot_goal_left.x) / 30;//0.5
 				target_direction = 1;
 				gpioPWM(25, 128);
 				gpioWrite(18, target_direction);

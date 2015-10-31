@@ -576,6 +576,7 @@ int main(int argc, char* argv[]) {
 	// Init font
 	cvInitFont(&font,CV_FONT_HERSHEY_SIMPLEX|CV_FONT_ITALIC, 0.4,0.4,0,1);
 	bool is_pushed_decision_button = 1;//もう一方のラズパイ信号にする
+	
 	while(1){
 		//決定ボタンが押されたらスタート
 		if(gpioRead(8)==0 && is_pushed_decision_button==1){

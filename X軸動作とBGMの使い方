@@ -1,0 +1,11 @@
+
+BGM実行の方法
+mpg321 sound/hisyo.mp3 -g 100 -l0
+画面右上のボリュームを右クリック　「HDMI」のチェックを「Analog」に変更
+　　　　　　　　　　　左クリックで音量もMaxにしておく。
+
+
+ロボット動作開始の方法
+１.このGeanyのファイルの「productionenv...nment_test3.cpp」にタブを合わせる。
+２.上の「歯車のアイコン」をクリック
+
