@@ -369,7 +369,7 @@ int main(int argc, char* argv[]) {
 	cvCreateTrackbar("minH", "pack", &iSliderValuePack1, 255);
 	int iSliderValuePack2 = 84;//106;
 	cvCreateTrackbar("maxH", "pack", &iSliderValuePack2, 255);
-	int iSliderValuePack3 = 81;//219;
+	int iSliderValuePack3 = 100;//219;
 	cvCreateTrackbar("minS", "pack", &iSliderValuePack3, 255);
 	int iSliderValuePack4 = 255;//175;
 	cvCreateTrackbar("maxS", "pack", &iSliderValuePack4, 255);
