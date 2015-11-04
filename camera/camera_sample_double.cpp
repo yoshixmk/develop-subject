@@ -55,6 +55,7 @@ int main(int argc, char** argv)
 	lower_right_g =  cvPoint(125, 226);
 
 	while(1){
+		int target_destanceY = CAM_PIX_HEIGHT * 2 - 30;
 		frame1 = cvQueryFrame(src1);
 		frame2 = cvQueryFrame(src2);
 		
@@ -73,6 +74,8 @@ int main(int argc, char** argv)
 		cv::line(dst_img_v, lower_left_g, lower_right_g, CV_RGB( 0, 255, 0 ));
 		cv::line(dst_img_v, upper_right_g, lower_right_g, CV_RGB( 0, 255, 0 ));
 		cv::line(dst_img_v, upper_left_g, lower_left_g, CV_RGB( 0, 255, 0 ));
+
+		cv::line(dst_img_v, cvPoint(0, target_destanceY), cvPoint(CAM_PIX_WIDTH, target_destanceY), CV_RGB(255, 0, 0));
 		cvShowImage("camera1",frame1);
 		cvShowImage("camera2",frame2);
 		cv::imshow("camera all",dst_img_v);
