@@ -397,7 +397,7 @@ int main(int argc, char* argv[]) {
 	IplImage* img_all_round = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_2HEIGHT), IPL_DEPTH_8U, 3);
 	IplImage* tracking_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	IplImage* img_all_round2  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
-	IplImage* show_img  = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
+	IplImage* show_img = cvCreateImage(cvGetSize(img_all_round), IPL_DEPTH_8U, 3);
 	
 	cv::Mat mat_frame1;
 	cv::Mat mat_frame2;
