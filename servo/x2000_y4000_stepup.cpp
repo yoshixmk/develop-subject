@@ -44,14 +44,37 @@ int main(int argc, char* argv[]) {
 
 	string input_line;
 	clock_t start = clock();
+	int f = gpioSetPWMfrequency(25, 2000);
+	gpioSetPWMfrequency(23, 2000);
+	gpioSetPWMfrequency(24, 2000);
+	int frequency_changing = 0;
 	while(1){
+		std::cout << "Robot Speed:" << f << std::endl;
+
 		clock_t end = clock();
-		gpioSetPWMfrequency(25, 2000);
-		gpioSetPWMfrequency(23, 2000);
-		gpioSetPWMfrequency(24, 2000);
-		if((double)(end - start)/CLOCKS_PER_SEC < 0.5){
+		if((double)(end - start)/CLOCKS_PER_SEC < 1.0){
 			//X
 			gpioWrite(18, 1);
+			gpioPWM(25, 128);
+		}
+		else{
+			if(frequency_changing == 0){
+				f = gpioSetPWMfrequency(25, 4000);
+				frequency_changing++;
+			}
+			gpioWrite(18, 1);
+			gpioPWM(25, 128);
+		}
+		/*clock_t end = clock();
+		if((double)(end - start)/CLOCKS_PER_SEC < 0.2){
+			//X
+			gpioWrite(18, 1);
+			gpioSetPWMfrequency(24, 800);
+			gpioPWM(25, 128);
+		}
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.5){
+			//X
+			gpioSetPWMfrequency(24, 2000);
 			gpioPWM(25, 128);
 			//Y1
 			gpioWrite(14, 0);
@@ -69,9 +92,14 @@ int main(int argc, char* argv[]) {
 			//Y2
 			gpioPWM(24, 0);
 		}
+		else if((double)(end - start)/CLOCKS_PER_SEC < 1.2){
+			//X
+			gpioSetPWMfrequency(24, 800);
+			gpioPWM(25, 128);
+		}
 		else if((double)(end - start)/CLOCKS_PER_SEC < 1.5){
 			//X
-			gpioWrite(18, 0);
+			gpioSetPWMfrequency(24, 2000);
 			gpioPWM(25, 128);
 			//Y1
 			gpioWrite(14, 1);
@@ -91,7 +119,7 @@ int main(int argc, char* argv[]) {
 		}
 		else{
 			start = clock();
-		}
+		}*/
 	}
 
 	gpioTerminate();
