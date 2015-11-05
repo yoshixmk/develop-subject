@@ -16,6 +16,8 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 	//pwm initialize
+	gpioCfgClock(4, 0, 100);
+	//pwm initialize
 	//gpioCfgClock(1, 0, 100);
 	if(gpioInitialise() < 0) return -1;
 	//pigpio CW/CCW pin setup
@@ -44,7 +46,7 @@ int main(int argc, char* argv[]) {
 
 	string input_line;
 	clock_t start = clock();
-	int f = gpioSetPWMfrequency(25, 2000);
+	int f = gpioSetPWMfrequency(25, 1600);
 	gpioSetPWMfrequency(23, 2000);
 	gpioSetPWMfrequency(24, 2000);
 	int frequency_changing = 0;
@@ -66,7 +68,7 @@ int main(int argc, char* argv[]) {
 			gpioPWM(25, 128);
 		}*/
 		clock_t end = clock();
-		if((double)(end - start)/CLOCKS_PER_SEC < 0.05){
+		if((double)(end - start)/CLOCKS_PER_SEC < 0.01){
 			//X
 			gpioWrite(18, 1);
 			if(frequency_changing == 0){
@@ -75,9 +77,23 @@ int main(int argc, char* argv[]) {
 				frequency_changing++;
 			}
 		}
-		else if((double)(end - start)/CLOCKS_PER_SEC < 0.5){
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.03){
 			//X
 			if(frequency_changing == 1){
+				f =gpioSetPWMfrequency(25, 1250);
+				gpioPWM(25, 128);
+				frequency_changing++;
+			}
+			//Y1
+			gpioWrite(14, 0);
+			gpioPWM(23, 128);
+			//Y2
+			gpioWrite(15, 1);
+			gpioPWM(24, 128);
+		}
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.05){
+			//X
+			if(frequency_changing == 2){
 				f =gpioSetPWMfrequency(25, 2000);
 				gpioPWM(25, 128);
 				frequency_changing++;
@@ -89,7 +105,21 @@ int main(int argc, char* argv[]) {
 			gpioWrite(15, 1);
 			gpioPWM(24, 128);
 		}
-		else if((double)(end - start)/CLOCKS_PER_SEC < 1.0){
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.1){
+				//X
+				if(frequency_changing == 3){
+					f =gpioSetPWMfrequency(25, 2500);
+					gpioPWM(25, 128);
+					frequency_changing++;
+				}
+				//Y1
+				gpioWrite(14, 0);
+				gpioPWM(23, 128);
+				//Y2
+				gpioWrite(15, 1);
+				gpioPWM(24, 128);
+			}
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.3){
 			//X
 			gpioPWM(25,0);
 			//Y1
@@ -97,18 +127,32 @@ int main(int argc, char* argv[]) {
 			//Y2
 			gpioPWM(24, 0);
 		}
-		else if((double)(end - start)/CLOCKS_PER_SEC < 1.05){
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.35){
 			//X
 			gpioWrite(18, 0);
-			if(frequency_changing == 2){
+			if(frequency_changing == 4){
 				f =gpioSetPWMfrequency(25, 1000);
 				gpioPWM(25, 128);
 				frequency_changing++;
 			}
 		}
-		else if((double)(end - start)/CLOCKS_PER_SEC < 1.5){
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.4){
 			//X
-			if(frequency_changing == 3){
+			if(frequency_changing == 5){
+				f =gpioSetPWMfrequency(25, 1250);
+				gpioPWM(25, 128);
+				frequency_changing++;
+			}
+			//Y1
+			gpioWrite(14, 1);
+			gpioPWM(23, 128);
+			//Y2
+			gpioWrite(15, 0);
+			gpioPWM(24, 128);
+		}
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.5){
+			//X
+			if(frequency_changing == 6){
 				f =gpioSetPWMfrequency(25, 2000);
 				gpioPWM(25, 128);
 				frequency_changing++;
@@ -120,7 +164,7 @@ int main(int argc, char* argv[]) {
 			gpioWrite(15, 0);
 			gpioPWM(24, 128);
 		}
-		else if((double)(end - start)/CLOCKS_PER_SEC < 2.0 ){
+		else if((double)(end - start)/CLOCKS_PER_SEC < 0.6 ){
 			//X
 			gpioWrite(18, 0);
 			gpioPWM(25,0);
