@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 	while(1){
 		std::cout << "Robot Speed:" << f << std::endl;
 
-		clock_t end = clock();
+		/*clock_t end = clock();
 		if((double)(end - start)/CLOCKS_PER_SEC < 1.0){
 			//X
 			gpioWrite(18, 1);
@@ -64,18 +64,24 @@ int main(int argc, char* argv[]) {
 			}
 			gpioWrite(18, 1);
 			gpioPWM(25, 128);
-		}
-		/*clock_t end = clock();
-		if((double)(end - start)/CLOCKS_PER_SEC < 0.2){
+		}*/
+		clock_t end = clock();
+		if((double)(end - start)/CLOCKS_PER_SEC < 0.05){
 			//X
 			gpioWrite(18, 1);
-			gpioSetPWMfrequency(24, 800);
-			gpioPWM(25, 128);
+			if(frequency_changing == 0){
+				f =gpioSetPWMfrequency(25, 1000);
+				gpioPWM(25, 128);
+				frequency_changing++;
+			}
 		}
 		else if((double)(end - start)/CLOCKS_PER_SEC < 0.5){
 			//X
-			gpioSetPWMfrequency(24, 2000);
-			gpioPWM(25, 128);
+			if(frequency_changing == 1){
+				f =gpioSetPWMfrequency(25, 2000);
+				gpioPWM(25, 128);
+				frequency_changing++;
+			}
 			//Y1
 			gpioWrite(14, 0);
 			gpioPWM(23, 128);
@@ -85,22 +91,28 @@ int main(int argc, char* argv[]) {
 		}
 		else if((double)(end - start)/CLOCKS_PER_SEC < 1.0){
 			//X
-			gpioWrite(18, 0);
 			gpioPWM(25,0);
 			//Y1
 			gpioPWM(23, 0);
 			//Y2
 			gpioPWM(24, 0);
 		}
-		else if((double)(end - start)/CLOCKS_PER_SEC < 1.2){
+		else if((double)(end - start)/CLOCKS_PER_SEC < 1.05){
 			//X
-			gpioSetPWMfrequency(24, 800);
-			gpioPWM(25, 128);
+			gpioWrite(18, 0);
+			if(frequency_changing == 2){
+				f =gpioSetPWMfrequency(25, 1000);
+				gpioPWM(25, 128);
+				frequency_changing++;
+			}
 		}
 		else if((double)(end - start)/CLOCKS_PER_SEC < 1.5){
 			//X
-			gpioSetPWMfrequency(24, 2000);
-			gpioPWM(25, 128);
+			if(frequency_changing == 3){
+				f =gpioSetPWMfrequency(25, 2000);
+				gpioPWM(25, 128);
+				frequency_changing++;
+			}
 			//Y1
 			gpioWrite(14, 1);
 			gpioPWM(23, 128);
@@ -119,7 +131,8 @@ int main(int argc, char* argv[]) {
 		}
 		else{
 			start = clock();
-		}*/
+			frequency_changing = 0;
+		}
 	}
 
 	gpioTerminate();
