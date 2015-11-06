@@ -710,7 +710,7 @@ int main(int argc, char* argv[]) {
 				target_direction = 1;
 				gpioPWM(25, 128);
 				gpioWrite(18, target_direction);
-				closest_frequency = gpioSetPWMfrequency(25, 1500);
+				closest_frequency = gpioSetPWMfrequency(25, 1000);
 				while(end - now_time > 0){//時間がくるまでループ
 					now_time = clock() / CLOCKS_PER_SEC;
 				}

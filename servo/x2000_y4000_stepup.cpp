@@ -57,7 +57,6 @@ int main(int argc, char* argv[]) {
 		if((double)(end - start)/CLOCKS_PER_SEC < 0.01){
 			//X
 			if(frequency_changing == 0){
-				gpioWrite(18, 1);
 				f =gpioSetPWMfrequency(25, 1000);
 				gpioSetPWMfrequency(23, 1000);
 				gpioSetPWMfrequency(24, 1000);
@@ -95,8 +94,8 @@ int main(int argc, char* argv[]) {
 			//X
 			if(frequency_changing == 2){
 				f =gpioSetPWMfrequency(25, 2000);
-				gpioSetPWMfrequency(23, 2000);
-				gpioSetPWMfrequency(24, 2000);
+				//gpioSetPWMfrequency(23, 2000);
+				//gpioSetPWMfrequency(24, 2000);
 				//X
 				gpioWrite(18, 1);
 				gpioPWM(25, 128);
@@ -113,8 +112,8 @@ int main(int argc, char* argv[]) {
 			if(frequency_changing == 3){
 				//X
 				f =gpioSetPWMfrequency(25, 2500);
-				gpioSetPWMfrequency(23, 2500);
-				gpioSetPWMfrequency(24, 2000);
+				//gpioSetPWMfrequency(23, 2500);
+				//gpioSetPWMfrequency(24, 2000);
 				//X
 				gpioWrite(18, 1);
 				gpioPWM(25, 128);
@@ -179,8 +178,8 @@ int main(int argc, char* argv[]) {
 			//X
 			if(frequency_changing == 7){
 				f =gpioSetPWMfrequency(25, 2000);
-				gpioSetPWMfrequency(23, 2000);
-				gpioSetPWMfrequency(24, 2000);
+				//gpioSetPWMfrequency(23, 2000);
+				//gpioSetPWMfrequency(24, 2000);
 				//X
 				gpioWrite(18, 0);
 				gpioPWM(25, 128);
@@ -197,8 +196,8 @@ int main(int argc, char* argv[]) {
 			//X
 			if(frequency_changing == 8){
 				f =gpioSetPWMfrequency(25, 2500);
-				gpioSetPWMfrequency(23, 2500);
-				gpioSetPWMfrequency(24, 2500);
+				//gpioSetPWMfrequency(23, 2500);
+				//gpioSetPWMfrequency(24, 2500);
 				//X
 				gpioWrite(18, 0);
 				gpioPWM(25, 128);
