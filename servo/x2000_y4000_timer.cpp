@@ -47,8 +47,8 @@ int main(int argc, char* argv[]) {
 	while(1){
 		clock_t end = clock();
 		gpioSetPWMfrequency(25, 2000);
-		gpioSetPWMfrequency(23, 2000);
-		gpioSetPWMfrequency(24, 2000);
+		gpioSetPWMfrequency(23, 1000);
+		gpioSetPWMfrequency(24, 1000);
 		if((double)(end - start)/CLOCKS_PER_SEC < 0.5){
 			//X
 			gpioWrite(18, 1);
