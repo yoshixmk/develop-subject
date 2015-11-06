@@ -27,15 +27,15 @@ int main(int argc, char* argv[])
 	CvPoint center_frame_left = cvPoint(11, CAM_PIX_HEIGHT);
 	CvPoint center_frame_right = cvPoint(155, CAM_PIX_HEIGHT);
 
-	out_frame_human[0] = upper_left_f = cvPoint(26, 29);
-	out_frame_human[3] = upper_right_f = cvPoint(136, 29);
-	out_frame_robot[0] = lower_left_f = cvPoint(26, 220);
-	out_frame_robot[3] = lower_right_f =  cvPoint(136, 220);
+	out_frame_human[0] = upper_left_f = cvPoint(17, 28);
+	out_frame_human[3] = upper_right_f = cvPoint(147, 26);
+	out_frame_robot[0] = lower_left_f = cvPoint(15, 217);
+	out_frame_robot[3] = lower_right_f =  cvPoint(145, 224);
 
-	out_frame_human[1] = upper_left_g = cvPoint(38, 22);
-	out_frame_human[2] = upper_right_g = cvPoint(125, 22);
-	out_frame_robot[1] = lower_left_g =  cvPoint(38, 226);
-	out_frame_robot[2] = lower_right_g = cvPoint(125, 226);
+	out_frame_human[1] = upper_left_g = cvPoint(39, 17);
+	out_frame_human[2] = upper_right_g = cvPoint(126, 15);
+	out_frame_robot[1] = lower_left_g =  cvPoint(39, 233);
+	out_frame_robot[2] = lower_right_g = cvPoint(125, 233);
 
 	out_frame_human[4] = center_frame_right;
 	out_frame_human[5] = cvPoint(CAM_PIX_WIDTH, CAM_PIX_HEIGHT);
