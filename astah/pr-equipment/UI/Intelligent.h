@@ -1,12 +1,6 @@
 #ifndef UI_INTELLIGENT_H
 #define UI_INTELLIGENT_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Hardware/PushSwitch.h"
 
 namespace UI

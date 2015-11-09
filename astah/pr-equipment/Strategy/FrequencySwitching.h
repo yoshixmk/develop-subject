@@ -1,12 +1,6 @@
 #ifndef STRATEGY_FREQUENCY_SWITCHING_H
 #define STRATEGY_FREQUENCY_SWITCHING_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Hardware/MotorDriver.h"
 #include "Hardware/Timer.h"
 

@@ -1,9 +1,9 @@
-#ifndef HARDWARE_LIMIT_SWITCH_H
-#define HARDWARE_LIMIT_SWITCH_H
+#ifndef HARDWARE_PROXIMITY_SENSOR_H
+#define HARDWARE_PROXIMITY_SENSOR_H
 
 namespace Hardware
 {
-class LimitSwitch
+class ProximitySensor
 {
 private:
 	int gpio_pin;

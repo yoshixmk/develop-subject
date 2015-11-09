@@ -1,9 +1,9 @@
-#include "RaspberryPiSignal.h"
+#include "ProximitySensor.h"
 
 namespace Hardware
 {
 
-bool RaspberryPiSignal::readLevel()
+bool ProximitySensor::readLevel()
 {
 	return false;
 }
