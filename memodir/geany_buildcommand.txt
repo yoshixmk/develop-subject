@@ -1,2 +1,0 @@
-g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`
-g++ -o %e %f -lwiringPi -lpthread -lpigpio -lrt `pkg-config --cflags opencv` `pkg-config --libs opencv`; sudo timeout -s 9 20 ./%e; sudo servo/stop
