@@ -1,11 +1,5 @@
-#ifndef HARDWARE_PROXIMITY SENSOR_H
-#define HARDWARE_PROXIMITY SENSOR_H
-
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
+#ifndef HARDWARE_PROXIMITY_SENSOR_H
+#define HARDWARE_PROXIMITY_SENSOR_H
 
 namespace Hardware
 {

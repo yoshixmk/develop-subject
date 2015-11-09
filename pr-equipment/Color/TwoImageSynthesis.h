@@ -1,11 +1,5 @@
-#ifndef COLOR_2_IMAGE_SYNTHESIS_H
-#define COLOR_2_IMAGE_SYNTHESIS_H
-
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
+#ifndef COLOR_TWO_IMAGE_SYNTHESIS_H
+#define COLOR_TWO_IMAGE_SYNTHESIS_H
 
 #include "Hardware/Camera.h"
 

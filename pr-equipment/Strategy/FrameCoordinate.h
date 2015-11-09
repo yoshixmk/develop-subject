@@ -1,12 +1,6 @@
 #ifndef STRATEGY_FRAME_COORDINATE_H
 #define STRATEGY_FRAME_COORDINATE_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Strategy/Coordinate.h"
 
 namespace Strategy

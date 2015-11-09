@@ -1,12 +1,6 @@
 #ifndef COLOR_COLOR_EXTRACTION_H
 #define COLOR_COLOR_EXTRACTION_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Color/Masking.h"
 
 namespace Color
