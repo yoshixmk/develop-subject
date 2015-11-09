@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
 	pts = (CvPoint **) cvAlloc (sizeof (CvPoint *) * 2);
 	pts[0] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 4);
-	pts[1] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 12);
+	pts[1] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 8);
 	pts[0][0].x = 0;
 	pts[0][0].y = 0;
 	pts[0][1].x = 160;
@@ -41,30 +41,22 @@ int main(int argc, char* argv[])
 	pts[0][2].y = 240;
 	pts[0][3].x = 0;
 	pts[0][3].y = 240;
-	pts[1][0].x = 39;
-	pts[1][0].y = 17;
-	pts[1][1].x = 126;
-	pts[1][1].y = 15;
-	pts[1][2].x = 147;
-	pts[1][2].y = 26;
-	pts[1][3].x = 160;
-	pts[1][3].y = 77;
-	pts[1][4].x = 160;
-	pts[1][4].y = 164;
-	pts[1][5].x = 145;
-	pts[1][5].y = 224;
-	pts[1][6].x = 125;
-	pts[1][6].y = 233;
-	pts[1][7].x = 39;
-	pts[1][7].y = 233;
-	pts[1][8].x = 15;
-	pts[1][8].y = 217;
-	pts[1][9].x = 0;
-	pts[1][9].y = 133;
-	pts[1][10].x = 0;
-	pts[1][10].y = 115;
-	pts[1][11].x = 17;
-	pts[1][11].y = 28;
+	pts[1][0].x = 0;
+	pts[1][0].y = 115;
+	pts[1][1].x = 160;
+	pts[1][1].y = 77;
+	pts[1][2].x = 160;
+	pts[1][2].y = 164;
+	pts[1][3].x = 145;
+	pts[1][3].y = 224;
+	pts[1][4].x = 125;
+	pts[1][4].y = 233;
+	pts[1][5].x = 39;
+	pts[1][5].y = 233;
+	pts[1][6].x = 15;
+	pts[1][6].y = 217;
+	pts[1][7].x = 0;
+	pts[1][7].y = 133;
 
     cvLine(src_img, center_frame_left, center_frame_right, CV_RGB( 0, 255, 255 ));
     dst_img = cvCreateImage(cvGetSize(src_img), IPL_DEPTH_8U, 3);
@@ -90,3 +82,6 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+
+
+
