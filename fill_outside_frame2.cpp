@@ -23,10 +23,7 @@ int main(int argc, char* argv[])
     cvNamedWindow ("FillImage", CV_WINDOW_AUTOSIZE);
 
     CvPoint **pts;
-//    CvPoint out_frame_robot[10];
-//    CvPoint out_frame_human[10];
-//	CvPoint upper_left_f, upper_left_g, upper_right_f, upper_right_g,
-//			lower_left_f, lower_left_g, lower_right_f, lower_right_g;
+
 	CvPoint center_frame_left = cvPoint(11, CAM_PIX_HEIGHT);
 	CvPoint center_frame_right = cvPoint(155, CAM_PIX_HEIGHT);
 
