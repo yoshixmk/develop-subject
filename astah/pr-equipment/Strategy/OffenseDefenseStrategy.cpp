@@ -1,0 +1,23 @@
+#include <string>
+#include <vector>
+#include <list>
+#include <iostream>
+#include <assert.h>
+
+#include "OffenseDefenseStrategy.h"
+
+namespace Strategy
+{
+
+void OffenseDefenseStrategy::initialize()
+{
+}
+
+void OffenseDefenseStrategy::execute(int strength)
+{
+}
+
+void OffenseDefenseStrategy::terminate()
+{
+}
+}  // namespace Strategy
