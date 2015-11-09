@@ -9,7 +9,7 @@
 
 namespace Hardware
 {
-class Proximity sensor
+class ProximitySensor
 {
 private:
 	int gpio_pin;

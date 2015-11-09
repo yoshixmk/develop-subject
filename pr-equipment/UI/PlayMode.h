@@ -14,7 +14,7 @@ namespace UI
 class PlayMode : public Mode
 {
 public:
-	void Execute();
+	void execute();
 
 };
 

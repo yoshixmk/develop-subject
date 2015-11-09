@@ -7,7 +7,7 @@
 #include <iostream>
 #include <assert.h>
 
-#include "Color/2ImageSynthesis.h"
+#include "TwoImageSynthesis.h"
 
 namespace Color
 {
@@ -16,7 +16,7 @@ class Masking
 private:
 	int output_image;
 
-	2ImageSynthesis 2ImageSynthesis;
+	TwoImageSynthesis twoImageSynthesis;
 
 public:
 	virtual int mask()=0;

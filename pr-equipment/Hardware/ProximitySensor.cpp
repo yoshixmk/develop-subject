@@ -1,15 +1,16 @@
+#include "ProximitySensor.h"
+
 #include <string>
 #include <vector>
 #include <list>
 #include <iostream>
 #include <assert.h>
 
-#include "Proximity sensor.h"
 
 namespace Hardware
 {
 
-bool Proximity sensor::readLevel()
+bool ProximitySensor::readLevel()
 {
 	return false;
 }

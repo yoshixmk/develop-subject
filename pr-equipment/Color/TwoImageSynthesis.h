@@ -11,7 +11,7 @@
 
 namespace Color
 {
-class 2ImageSynthesis
+class TwoImageSynthesis
 {
 private:
 	int synthesis_image;

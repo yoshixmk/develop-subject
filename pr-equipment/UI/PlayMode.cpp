@@ -9,7 +9,7 @@
 namespace UI
 {
 
-void PlayMode::Execute()
+void PlayMode::execute()
 {
 }
 }  // namespace UI

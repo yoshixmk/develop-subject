@@ -7,7 +7,7 @@
 #include <iostream>
 #include <assert.h>
 
-#include "Hardware/Proximity sensor.h"
+#include "../Hardware/ProximitySensor.h"
 #include "Hardware/Photomicrosensor.h"
 #include "Strategy/RobotAction.h"
 

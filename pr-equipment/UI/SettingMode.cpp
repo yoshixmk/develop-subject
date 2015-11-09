@@ -9,7 +9,7 @@
 namespace UI
 {
 
-void SettingMode::Execute()
+void SettingMode::execute()
 {
 }
 }  // namespace UI

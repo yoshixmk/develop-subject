@@ -21,7 +21,7 @@ private:
 	Intelligent intelligent;
 
 public:
-	virtual void Execute()=0;
+	virtual void execute()=0;
 
 };
 

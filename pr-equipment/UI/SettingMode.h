@@ -14,7 +14,7 @@ namespace UI
 class SettingMode : public Mode
 {
 public:
-	void Execute();
+	void execute();
 
 };
 

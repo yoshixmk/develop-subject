@@ -4,12 +4,12 @@
 #include <iostream>
 #include <assert.h>
 
-#include "2ImageSynthesis.h"
+#include "TwoImageSynthesis.h"
 
 namespace Color
 {
 
-int 2ImageSynthesis::synthesize()
+int TwoImageSynthesis::synthesize()
 {
 	return 0;
 }
