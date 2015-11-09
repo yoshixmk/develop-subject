@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
 {
     IplImage *src_img, *dst_img;
     int npts[2] = { 4, 12 };
+    
 
     // 画像を読み込む
     if ((src_img = cvLoadImage ("camera/photodir/table.png", CV_LOAD_IMAGE_COLOR)) == 0)
