@@ -19,6 +19,7 @@ int main(int argc, char* argv[])
     if ((src_img = cvLoadImage ("camera/photodir/table.png", CV_LOAD_IMAGE_COLOR)) == 0)
         return -1;
 
+
     cvNamedWindow ("Image", CV_WINDOW_AUTOSIZE);
     cvNamedWindow ("FillImage", CV_WINDOW_AUTOSIZE);
 
