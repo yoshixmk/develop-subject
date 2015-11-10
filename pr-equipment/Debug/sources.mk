@@ -27,6 +27,7 @@ Color \
 Hardware \
 ShowWindow \
 Strategy \
+Test \
 UI \
 . \
 

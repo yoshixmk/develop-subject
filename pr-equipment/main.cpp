@@ -1,9 +1,10 @@
-#include "UI/UI.h"
+#include "Test/HardwareTest.h"
 
 int  main()
 {
-	UI::UI ui;
-	ui.main();
+	Test::HardwareTest hardware_test;
+	hardware_test.timerTest();
+
 	return 0;
 }
 

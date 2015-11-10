@@ -1,10 +1,10 @@
-#ifndef UI_MAIN_H
-#define UI_MAIN_H
+#ifndef UI_UI_H
+#define UI_UI_H
 
 #include "Hardware/RaspberryPiSignal.h"
 #include "ShowWindow/WindowManagement.h"
 #include "UI/Mode.h"
-
+#include <iostream>
 
 namespace UI
 {
