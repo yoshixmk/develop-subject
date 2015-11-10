@@ -1,13 +1,9 @@
-/*
- * test.cpp
- *
- *  Created on: 2015/11/10
- *      Author: yoshihiro
- */
+#include "UI/UI.h"
 
 int  main()
 {
+	UI::UI ui;
+	ui.main();
 	return 0;
 }
-
 

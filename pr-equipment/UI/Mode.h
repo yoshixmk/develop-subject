@@ -10,7 +10,7 @@ namespace UI
 class Mode
 {
 private:
-	Strategy::Strategy strategy;
+	//Strategy::Strategy strategy;
 	Sound sound;
 	Intelligent intelligent;
 

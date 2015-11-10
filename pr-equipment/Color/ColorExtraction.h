@@ -20,7 +20,7 @@ private:
 
 	int v_min;
 
-	Masking masking[2];
+	//Color::Masking masking;
 
 public:
 	void setHSV(int h_max, int h_min, int s_max, int s_min, int v_max, int v_min);

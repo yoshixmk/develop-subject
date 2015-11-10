@@ -5,12 +5,13 @@
 #include "ShowWindow/WindowManagement.h"
 #include "UI/Mode.h"
 
+
 namespace UI
 {
 class UI
 {
 private:
-	Mode mode;
+	//Mode mode;
 	Hardware::RaspberryPiSignal raspberryPiSignal;
 	ShowWindow::WindowManagement windowManagement;
 
