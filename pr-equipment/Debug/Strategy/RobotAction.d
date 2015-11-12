@@ -3,6 +3,7 @@ Strategy/RobotAction.d: ../Strategy/RobotAction.cpp \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/MotorDriver.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/FrequencySwitching.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Timer.h \
+ C:\dev\pigpio-master/pigpio.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/AnomalyDetection.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/LimitSwitch.h
 
@@ -13,6 +14,8 @@ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/MotorDr
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/FrequencySwitching.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Timer.h:
+
+C:\dev\pigpio-master/pigpio.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/AnomalyDetection.h:
 

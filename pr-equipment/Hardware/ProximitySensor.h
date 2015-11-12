@@ -1,15 +1,18 @@
 #ifndef HARDWARE_PROXIMITY_SENSOR_H
 #define HARDWARE_PROXIMITY_SENSOR_H
 
+#include "pigpio.h"
+
 namespace Hardware
 {
 class ProximitySensor
 {
 private:
-	int gpio_pin;
+	int gpioPin;
 
 
 public:
+	ProximitySensor(int aGpioPin);
 	bool readLevel();
 
 };

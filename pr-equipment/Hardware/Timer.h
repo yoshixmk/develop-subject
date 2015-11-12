@@ -2,20 +2,20 @@
 #define HARDWARE_TIMER_H
 
 #include <time.h>
-
 #include <iostream>
+#include <pigpio.h>
 
 namespace Hardware
 {
 class Timer
 {
 private:
-	double start_time;
-	double now_time;
-	double notification_time;
+	double startTime;
+	double nowTime;
+	double notificationTime;
 
 public:
-	void setTimer(double notification_time);
+	void setTimer(double aNotificationTime);
 	bool getAlarm();
 };
 

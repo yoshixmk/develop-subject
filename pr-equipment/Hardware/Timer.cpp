@@ -1,25 +1,24 @@
-#include <pigpio.h>
-
 #include "Timer.h"
 
 namespace Hardware
 {
-void Timer::setTimer(double notification_time)
+void Timer::setTimer(double aNotificationTime)
 {
-	this->notification_time = notification_time;
-	start_time = time_time();
-	now_time = time_time();
+	this->notificationTime = aNotificationTime;
+	startTime = time_time();
+	nowTime = time_time();
 }
 
 bool Timer::getAlarm()
 {
 	double passed_time;
 
-	now_time = time_time();
-	passed_time=now_time-start_time;
+	//現在時刻、経過時刻を取得、計算
+	nowTime = time_time();
+	passed_time=nowTime-startTime;
 	std::cout<< passed_time <<std::endl;
-
-	if(passed_time >= notification_time){
+	//アラーム判定
+	if(passed_time >= notificationTime){
 		std::cout << "timer_alarm_true" << std::endl;
 		return true;
 	}

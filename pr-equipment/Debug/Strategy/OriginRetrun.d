@@ -1,6 +1,7 @@
 Strategy/OriginRetrun.d: ../Strategy/OriginRetrun.cpp \
  ../Strategy/OriginRetrun.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/ProximitySensor.h \
+ C:\dev\pigpio-master/pigpio.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Photomicrosensor.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/RobotAction.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/MotorDriver.h \
@@ -12,6 +13,8 @@ Strategy/OriginRetrun.d: ../Strategy/OriginRetrun.cpp \
 ../Strategy/OriginRetrun.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/ProximitySensor.h:
+
+C:\dev\pigpio-master/pigpio.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Photomicrosensor.h:
 

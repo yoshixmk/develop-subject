@@ -1,5 +1,6 @@
 UI/UI.d: ../UI/UI.cpp ../UI/UI.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/RaspberryPiSignal.h \
+ C:\dev\pigpio-master/pigpio.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/ShowWindow/WindowManagement.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/ShowWindow/Window.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/ShowWindow/Drawing.h \
@@ -31,6 +32,8 @@ UI/UI.d: ../UI/UI.cpp ../UI/UI.h \
 ../UI/UI.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/RaspberryPiSignal.h:
+
+C:\dev\pigpio-master/pigpio.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/ShowWindow/WindowManagement.h:
 

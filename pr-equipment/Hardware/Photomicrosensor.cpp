@@ -2,9 +2,18 @@
 
 namespace Hardware
 {
+Photomicrosensor::Photomicrosensor(int aGpioPin)
+{
+	this->gpioPin=aGpioPin;
+
+	gpioSetMode(this->gpioPin, PI_INPUT);
+	gpioWrite(this->gpioPin,0);
+}
 
 bool Photomicrosensor::readLevel()
 {
-	return false;
+	bool level=gpioRead(gpioPin);
+
+	return level;
 }
 }  // namespace Hardware
