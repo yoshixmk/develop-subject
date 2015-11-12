@@ -10,18 +10,13 @@ namespace Hardware
 class Timer
 {
 private:
-	int start_time;
-
-	int now_time;
-
-	int notification_time;
-
+	double start_time;
+	double now_time;
+	double notification_time;
 
 public:
-	void setTimer(int notification_time);
-
+	void setTimer(double notification_time);
 	bool getAlarm();
-
 };
 
 }  // namespace Hardware

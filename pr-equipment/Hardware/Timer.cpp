@@ -4,36 +4,28 @@
 
 namespace Hardware
 {
-
-void Timer::setTimer(int notification_time)
+void Timer::setTimer(double notification_time)
 {
 	this->notification_time = notification_time;
-	start_time = clock();
-	now_time = clock();
+	start_time = time_time();
+	now_time = time_time();
 }
 
 bool Timer::getAlarm()
 {
-	now_time = clock();
+	double passed_time;
 
-	if (gpioInitialise() < 0)
-	{
-		std::cout << "pigpio initialisation failed." << std::endl;
-	}
-	else
-	{
-		std::cout << "pigpio initialised okay." << std::endl;
-	}
-	//double now_s = (now_time - start_time) * 100 / CLOCKS_PER_SEC;
-	//std::cout << pi_time << std::endl;
+	now_time = time_time();
+	passed_time=now_time-start_time;
+	std::cout<< passed_time <<std::endl;
 
-	/*if(now_s >= notification_time){
-		std::cout << "###true" << std::endl;
+	if(passed_time >= notification_time){
+		std::cout << "timer_alarm_true" << std::endl;
 		return true;
 	}
 	else{
-		std::cout << "###faluse" << std::endl;*/
-		return true;
-	//}
+		//std::cout << "timer_alarm_false" << std::endl;
+		return false;
+	}
 }
 }  // namespace Hardware

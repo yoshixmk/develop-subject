@@ -11,6 +11,7 @@ class HardwareTest
 private:
 
 public:
+	HardwareTest();
 	void timerTest();
 
 };
