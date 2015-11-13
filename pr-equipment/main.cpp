@@ -12,9 +12,10 @@ int  main()
 	//hardware_test.proximitySensor();
 	//hardwareTest.pushSwitchTest();
 	//hardwareTest.moterDriverTest();
+	hardwareTest.speakerTest();
 
 	Test::StrategyTest strategyTest;
-	strategyTest.anomalyDetectionTest();
+	//strategyTest.anomalyDetectionTest();
 
 	return 0;
 }

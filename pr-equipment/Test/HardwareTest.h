@@ -9,6 +9,7 @@
 #include "Hardware/ProximitySensor.h"
 #include "Hardware/PushSwitch.h"
 #include "Hardware/MotorDriver.h"
+#include "Hardware/Speaker.h"
 #include <iostream>
 #include <pigpio.h>
 
@@ -29,6 +30,7 @@ public:
 	void proximitySensorTest();
 	void pushSwitchTest();
 	void moterDriverTest();
+	void speakerTest();
 };
 
 }  // namespace Test

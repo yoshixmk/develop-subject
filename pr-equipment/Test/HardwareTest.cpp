@@ -118,4 +118,12 @@ void HardwareTest::moterDriverTest()
 	moterDriverXAxis.output();
 	while(!timer.getAlarm());
 }
+
+void HardwareTest::speakerTest(){
+	Hardware::Speaker speaker;
+	speaker.setSoundTrack("hisyo.mp3", true);
+	speaker.emitSound();
+
+}
+
 }  // namespace Test
