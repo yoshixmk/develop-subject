@@ -8,9 +8,10 @@ namespace Strategy
 class AnomalyDetection
 {
 private:
-	Hardware::LimitSwitch limitSwitch[6];
+	Hardware::LimitSwitch limitSwitch;
 
 public:
+	AnomalyDetection();
 	bool detect();
 
 };

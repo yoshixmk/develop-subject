@@ -1,4 +1,5 @@
 #include "Test/HardwareTest.h"
+#include "Test/StrategyTest.h"
 
 int  main()
 {
@@ -10,7 +11,11 @@ int  main()
 	//hardware_test.limitSwitch();
 	//hardware_test.proximitySensor();
 	//hardwareTest.pushSwitchTest();
-	hardwareTest.moterDriverTest();
+	//hardwareTest.moterDriverTest();
+
+	Test::StrategyTest strategyTest;
+	strategyTest.anomalyDetectionTest();
+
 	return 0;
 }
 

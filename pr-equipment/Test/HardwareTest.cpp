@@ -118,4 +118,4 @@ void HardwareTest::moterDriverTest()
 	moterDriverXAxis.output();
 	while(!timer.getAlarm());
 }
-}  // namespace HardwareTest
+}  // namespace Test

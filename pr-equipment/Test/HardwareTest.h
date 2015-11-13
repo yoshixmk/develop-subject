@@ -31,5 +31,5 @@ public:
 	void moterDriverTest();
 };
 
-}  // namespace HardwareTest
+}  // namespace Test
 #endif

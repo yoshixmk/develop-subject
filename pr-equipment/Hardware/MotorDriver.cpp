@@ -17,6 +17,11 @@ void MotorDriver::output()
 	gpioPWM(mPulseGpioPin, 128);
 }
 
+void MotorDriver::stopOutput()
+{
+	gpioPWM(mPulseGpioPin, 0);
+}
+
 void MotorDriver::setPulse(int aFrequency)
 {
 	//設定はパルスを止める
@@ -33,11 +38,6 @@ void MotorDriver::setCwCcw(bool aHOrL)
 	if(gpioRead(mCwCcwGpioPin) != aHOrL){
 		gpioWrite(mCwCcwGpioPin, aHOrL);
 	}
-}
-
-void MotorDriver::stopOutput()
-{
-	gpioPWM(mPulseGpioPin, 0);
 }
 
 }  // namespace Hardware

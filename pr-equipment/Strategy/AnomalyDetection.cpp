@@ -3,8 +3,12 @@
 namespace Strategy
 {
 
+AnomalyDetection::AnomalyDetection() : limitSwitch(5)
+{
+}
+
 bool AnomalyDetection::detect()
 {
-	return false;
+	return limitSwitch.readLevel();
 }
 }  // namespace Strategy
