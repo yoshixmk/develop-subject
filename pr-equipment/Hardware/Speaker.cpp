@@ -14,13 +14,13 @@ void Speaker::emitSound()
 	std::string player_command = "mpg321 ";
 
 	if(mIsRepeat == true){
-		system((player_command + "-l0 -q " + mSoundTrack).c_str());
+		system((player_command + "-q -l0 " + mSoundTrack).c_str());
 	}
 	else{
 		system((player_command + "-q " + mSoundTrack).c_str());
 	}
 
-	std::cout << (player_command + "-q " + mSoundTrack).c_str() <<std::endl;
+	std::cout << (mSoundTrack + "-q play").c_str() <<std::endl;
 }
 
 void Speaker::stopSound()
