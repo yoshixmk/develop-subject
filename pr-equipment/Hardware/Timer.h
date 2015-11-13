@@ -10,9 +10,9 @@ namespace Hardware
 class Timer
 {
 private:
-	double startTime;
-	double nowTime;
-	double notificationTime;
+	double mStartTime;
+	double mNowTime;
+	double mNotificationTime;
 
 public:
 	void setTimer(double aNotificationTime);

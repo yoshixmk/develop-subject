@@ -3,19 +3,15 @@
 namespace Hardware
 {
 
-void Speaker::emitSoundEffect()
+void Speaker::setSoundTrack(int aSoundTrack, bool aLoop)
 {
 }
 
-void Speaker::stopSoundEffect()
+void Speaker::emitSound()
 {
 }
 
-void Speaker::emitBGM()
-{
-}
-
-void Speaker::stopBGM()
+void Speaker::stopSound()
 {
 }
 }  // namespace Hardware

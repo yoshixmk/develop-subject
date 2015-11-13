@@ -8,7 +8,7 @@ namespace Hardware
 class RaspberryPiSignal
 {
 private:
-	int gpioPin;
+	int mGpioPin;
 
 
 public:

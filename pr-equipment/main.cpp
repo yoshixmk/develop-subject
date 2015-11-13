@@ -9,7 +9,8 @@ int  main()
 	//hardware_test.photomicrosensor();
 	//hardware_test.limitSwitch();
 	//hardware_test.proximitySensor();
-	hardwareTest.pushSwitchTest();
+	//hardwareTest.pushSwitchTest();
+	hardwareTest.moterDriverTest();
 	return 0;
 }
 

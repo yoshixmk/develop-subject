@@ -8,7 +8,7 @@ namespace Hardware
 class LimitSwitch
 {
 private:
-	int gpioPin;
+	int mGpioPin;
 
 
 public:

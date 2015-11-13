@@ -6,8 +6,9 @@
 #include "Hardware/PhotoelectricSensor.h"
 #include "Hardware/Photomicrosensor.h"
 #include "Hardware/LimitSwitch.h"
-#include"Hardware/ProximitySensor.h"
+#include "Hardware/ProximitySensor.h"
 #include "Hardware/PushSwitch.h"
+#include "Hardware/MotorDriver.h"
 #include <iostream>
 #include <pigpio.h>
 
@@ -19,6 +20,7 @@ private:
 
 public:
 	HardwareTest();
+	~HardwareTest();
 	void timerTest();
 	void raspberryPiSignalTest();
 	void photoelectricSensorTest();
@@ -26,6 +28,7 @@ public:
 	void limitSwitchTest();
 	void proximitySensorTest();
 	void pushSwitchTest();
+	void moterDriverTest();
 };
 
 }  // namespace HardwareTest

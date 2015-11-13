@@ -4,9 +4,9 @@ namespace Hardware
 {
 void Timer::setTimer(double aNotificationTime)
 {
-	this->notificationTime = aNotificationTime;
-	startTime = time_time();
-	nowTime = time_time();
+	mNotificationTime = aNotificationTime;
+	mStartTime = time_time();
+	mNowTime = time_time();
 }
 
 bool Timer::getAlarm()
@@ -14,12 +14,12 @@ bool Timer::getAlarm()
 	double passed_time;
 
 	//現在時刻、経過時刻を取得、計算
-	nowTime = time_time();
-	passed_time=nowTime-startTime;
-	std::cout<< passed_time <<std::endl;
+	mNowTime = time_time();
+	passed_time=mNowTime-mStartTime;
+	//std::cout<< passed_time <<std::endl;
 	//アラーム判定
-	if(passed_time >= notificationTime){
-		std::cout << "timer_alarm_true" << std::endl;
+	if(passed_time >= mNotificationTime){
+		//std::cout << "timer_alarm_true" << std::endl;
 		return true;
 	}
 	else{

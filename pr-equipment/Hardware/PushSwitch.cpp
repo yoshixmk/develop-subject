@@ -4,15 +4,15 @@ namespace Hardware
 {
 PushSwitch::PushSwitch(int aGpioPin)
 {
-	this->gpioPin=aGpioPin;
+	mGpioPin=aGpioPin;
 
-	gpioSetMode(this->gpioPin, PI_INPUT);
-	gpioWrite(gpioPin,0);
+	gpioSetMode(mGpioPin, PI_INPUT);
+	gpioWrite(mGpioPin,0);
 }
 
 bool PushSwitch::readLevel()
 {
-	bool level=gpioRead(gpioPin);
+	bool level=gpioRead(mGpioPin);
 
 	return level;
 }

@@ -1,22 +1,28 @@
 #ifndef HARDWARE_MOTOR_DRIVER_H
 #define HARDWARE_MOTOR_DRIVER_H
 
+#include <pigpio.h>
+
 namespace Hardware
 {
 class MotorDriver
 {
 private:
-	int pulse_gpio_pin;
+	int mPulseGpioPin;
 
-	int cw_ccw_gpio_pin;
+	int mCwCcwGpioPin;
+
+	void stopOutput();
 
 
 public:
+	MotorDriver(int aPulseGpioPin, int aCwCcwGpioPin);
+
 	void output();
 
-	void setPulse();
+	void setPulse(int aFrequency);
 
-	void setCwCcw(int h_or_l);
+	void setCwCcw(bool aHOrL);
 
 };
 

@@ -8,7 +8,7 @@ namespace Hardware
 class PhotoelectricSensor
 {
 private:
-	int gpioPin;
+	int mGpioPin;
 
 
 public:

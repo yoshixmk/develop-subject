@@ -6,13 +6,11 @@ namespace Hardware
 class Speaker
 {
 public:
-	void emitSoundEffect();
+	void setSoundTrack(int aSoundTrack, bool aLoop);
 
-	void stopSoundEffect();
+	void emitSound();
 
-	void emitBGM();
-
-	void stopBGM();
+	void stopSound();
 
 };
 

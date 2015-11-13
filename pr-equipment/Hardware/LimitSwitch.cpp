@@ -4,14 +4,14 @@ namespace Hardware
 {
 LimitSwitch::LimitSwitch(int aGpioPin)
 {
-	this->gpioPin=aGpioPin;
-	gpioSetMode(this->gpioPin, PI_INPUT);
-	gpioWrite(gpioPin,0);
+	mGpioPin=aGpioPin;
+	gpioSetMode(mGpioPin, PI_INPUT);
+	gpioWrite(mGpioPin,0);
 }
 
 bool LimitSwitch::readLevel()
 {
-	bool level=gpioRead(gpioPin);
+	bool level=gpioRead(mGpioPin);
 
 	return level;
 }

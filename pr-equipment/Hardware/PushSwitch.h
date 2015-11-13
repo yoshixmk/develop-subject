@@ -8,7 +8,7 @@ namespace Hardware
 class PushSwitch
 {
 private:
-	int gpioPin;
+	int mGpioPin;
 
 
 public:

@@ -8,7 +8,7 @@ namespace Hardware
 class Photomicrosensor
 {
 private:
-	int gpioPin;
+	int mGpioPin;
 
 
 public:

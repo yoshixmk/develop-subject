@@ -4,6 +4,7 @@ namespace Test
 {
 HardwareTest::HardwareTest()
 {
+	gpioCfgClock(4, 0, 100);
 	if (gpioInitialise() < 0)
 	{
 		std::cout << "pigpio initialisation failed." << std::endl;
@@ -14,12 +15,15 @@ HardwareTest::HardwareTest()
 	}
 }
 
+HardwareTest::~HardwareTest(){
+	gpioTerminate();
+}
+
 void HardwareTest::timerTest()
 {
 	std::cout << "!!!Timer Test!!!" << std::endl; // Timer Test start!
 
 	Hardware::Timer timer;
-
 
 	timer.setTimer(10.5);
 	while(!timer.getAlarm());
@@ -85,5 +89,33 @@ void HardwareTest::pushSwitchTest()
 	std::cout<<"pushSwitch_test"<<std::endl;
 	std::cout<<pushSwitch1.readLevel()<<std::endl;
 	std::cout<<pushSwitch2.readLevel()<<std::endl;
+}
+
+void HardwareTest::moterDriverTest()
+{
+	Hardware::MotorDriver moterDriverXAxis(25, 18);
+	Hardware::MotorDriver moterDriverY1Axis(23, 7);
+	Hardware::MotorDriver moterDriverY2Axis(24, 12);
+
+	std::cout<<"moterDriver_test"<<std::endl;
+	moterDriverXAxis.setPulse(1000);
+	//moterDriverXAxis.setCwCcw(1);
+	moterDriverXAxis.setCwCcw(0);
+	moterDriverXAxis.output();
+
+	Hardware::Timer timer;
+	timer.setTimer(5);
+	moterDriverXAxis.output();
+	while(!timer.getAlarm());
+
+	moterDriverXAxis.setPulse(2000);
+	timer.setTimer(5);
+	moterDriverXAxis.output();
+	while(!timer.getAlarm());
+
+	moterDriverXAxis.setPulse(2500);
+	timer.setTimer(5);
+	moterDriverXAxis.output();
+	while(!timer.getAlarm());
 }
 }  // namespace HardwareTest
