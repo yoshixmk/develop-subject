@@ -2,14 +2,14 @@
 
 int  main()
 {
-	Test::HardwareTest hardware_test;
+	Test::HardwareTest hardwareTest;
 	//hardware_test.timerTest();
 	//hardware_test.raspberryPiSignalTest();
 	//hardware_test.photoelectricSensor();
 	//hardware_test.photomicrosensor();
 	//hardware_test.limitSwitch();
 	//hardware_test.proximitySensor();
-	hardware_test.pushSwitch();
+	hardwareTest.pushSwitchTest();
 	return 0;
 }
 

@@ -21,11 +21,11 @@ public:
 	HardwareTest();
 	void timerTest();
 	void raspberryPiSignalTest();
-	void photoelectricSensor();
-	void photomicrosensor();
-	void limitSwitch();
-	void proximitySensor();
-	void pushSwitch();
+	void photoelectricSensorTest();
+	void photomicrosensorTest();
+	void limitSwitchTest();
+	void proximitySensorTest();
+	void pushSwitchTest();
 };
 
 }  // namespace HardwareTest

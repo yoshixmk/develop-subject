@@ -41,7 +41,7 @@ void HardwareTest::raspberryPiSignalTest()
 	std::cout << raspberryPiSignal.readLevel() <<std::endl;
 }
 
-void HardwareTest::photoelectricSensor()
+void HardwareTest::photoelectricSensorTest()
 {
 	Hardware::PhotoelectricSensor photoelectricSensor1(2);
 	Hardware::PhotoelectricSensor photoelectricSensor2(9);
@@ -51,17 +51,17 @@ void HardwareTest::photoelectricSensor()
 	std::cout << photoelectricSensor2.readLevel() <<std::endl;
 }
 
-void HardwareTest::photomicrosensor()
+void HardwareTest::photomicrosensorTest()
 {
-	Hardware::Photomicrosensor photomicrosensor_right(16);
-	Hardware::Photomicrosensor photomicrosensor_left(21);
+	Hardware::Photomicrosensor photomicrosensorRight(16);
+	Hardware::Photomicrosensor photomicrosensorLeft(21);
 
 	std::cout<<"photomicrosensor_test"<<std::endl;
-	std::cout<<photomicrosensor_right.readLevel()<<std::endl;
-	std::cout<<photomicrosensor_left.readLevel()<<std::endl;
+	std::cout<<photomicrosensorRight.readLevel()<<std::endl;
+	std::cout<<photomicrosensorLeft.readLevel()<<std::endl;
 }
 
-void HardwareTest::limitSwitch()
+void HardwareTest::limitSwitchTest()
 {
 	Hardware::LimitSwitch limitSwitch(5);
 
@@ -69,7 +69,7 @@ void HardwareTest::limitSwitch()
 	std::cout<<limitSwitch.readLevel()<<std::endl;
 }
 
-void HardwareTest::proximitySensor()
+void HardwareTest::proximitySensorTest()
 {
 	Hardware::ProximitySensor proximitySensor(20);
 
@@ -77,7 +77,7 @@ void HardwareTest::proximitySensor()
 	std::cout<<proximitySensor.readLevel()<<std::endl;
 }
 
-void HardwareTest::pushSwitch()
+void HardwareTest::pushSwitchTest()
 {
 	Hardware::PushSwitch pushSwitch1(10);
 	Hardware::PushSwitch pushSwitch2(11);

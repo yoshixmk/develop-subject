@@ -14,6 +14,7 @@ RM := rm -rf
 -include ShowWindow/subdir.mk
 -include Hardware/subdir.mk
 -include Color/subdir.mk
+-include .metadata/.plugins/org.eclipse.cdt.make.core/subdir.mk
 -include subdir.mk
 -include objects.mk
 
