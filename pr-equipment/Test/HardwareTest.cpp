@@ -122,25 +122,27 @@ void HardwareTest::moterDriverTest()
 void HardwareTest::speakerTest(){
 	std::cout<<"speaker_test"<<std::endl;
 	Hardware::Speaker speaker_hisyo, speaker_sword_f, speaker_chui;
-	//speaker_hisyo.setSoundTrack("hisyo.mp3", true);
-	speaker_sword_f.setSoundTrack("sword_f.mp3", false);
-	speaker_sword_f.emitSound();
-	std::cout<<"sword_f.mp3 emitted."<<std::endl;
+	speaker_hisyo.setSoundTrack("hisyo.mp3", true);
+	speaker_hisyo.emitSound();
+	std::cout<<"hisyo.mp3 emitted."<<std::endl;
+	Hardware::Timer timer;
+	timer.setTimer(5);
+	while(!timer.getAlarm());
 
-//	Hardware::Timer timer;
-//	int i;
-//	for(i = 0; i < 5; i++){
-//		timer.setTimer(5);
-//		speaker_hisyo.setSoundTrack("hisyo.mp3", false);
-//		speaker_sword_f.emitSound();
-//		std::cout<<"sword_f.mp3 emitted."<<std::endl;
-//		while(!timer.getAlarm());
-//		timer.setTimer(5);
-//		speaker_chui.setSoundTrack("chui.mp3", false);
-//		speaker_chui.emitSound();
-//		std::cout<<"chui.mp3 emitted."<<std::endl;
-//		while(!timer.getAlarm());
-//	}
+	int i;
+	for(i = 0; i < 5; i++){
+		speaker_sword_f.setSoundTrack("sword_f.mp3", false);
+		speaker_sword_f.emitSound();
+		std::cout<<"sword_f.mp3 emitted."<<std::endl;
+		timer.setTimer(5);
+		while(!timer.getAlarm());
+
+		timer.setTimer(5);
+		speaker_chui.setSoundTrack("chui.mp3", false);
+		speaker_chui.emitSound();
+		std::cout<<"chui.mp3 emitted."<<std::endl;
+		while(!timer.getAlarm());
+	}
 //	speaker_hisyo.stopSound();
 }
 

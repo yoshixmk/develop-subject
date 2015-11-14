@@ -1,12 +1,12 @@
-Color/Masking.d: ../Color/Masking.cpp ../Color/Masking.h \
- C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/TwoImageSynthesis.h \
- C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Camera.h \
- C:\dev\pigpio-master/pigpio.h
+Color/Masking.o: ../Color/Masking.cpp ../Color/Masking.h \
+ C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment/Color/TwoImageSynthesis.h \
+ C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment/Hardware/Camera.h \
+ C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment\Debug\Libraries\pigpio-master/pigpio.h
 
 ../Color/Masking.h:
 
-C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/TwoImageSynthesis.h:
+C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment/Color/TwoImageSynthesis.h:
 
-C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Camera.h:
+C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment/Hardware/Camera.h:
 
-C:\dev\pigpio-master/pigpio.h:
+C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment\Debug\Libraries\pigpio-master/pigpio.h:

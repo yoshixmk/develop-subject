@@ -1,4 +1,4 @@
-Strategy/RandomPositionCoordinate.d: \
+Strategy/RandomPositionCoordinate.o: \
  ../Strategy/RandomPositionCoordinate.cpp \
  ../Strategy/RandomPositionCoordinate.h
 
