@@ -5,6 +5,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <signal.h>
 
 namespace Hardware
 {
@@ -14,6 +15,8 @@ private:
 	std::string mSoundTrack;
 
 	bool mIsRepeat;
+
+	static void sigHandler(int aSignal);
 
 public:
 	void setSoundTrack(std::string aSoundTrack, bool aIsRepeat);

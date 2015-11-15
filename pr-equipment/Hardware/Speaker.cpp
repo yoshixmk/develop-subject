@@ -3,10 +3,22 @@
 namespace Hardware
 {
 
+/* シグナル受信/処理 */
+void Speaker::sigHandler(int aSignal)
+{
+	std::cout << "SIGNAL Keybord Interrupt, END" <<std::endl;
+    exit(0);
+}
+
 void Speaker::setSoundTrack(std::string aSoundTrack, bool aIsRepeat)
 {
 	mSoundTrack = aSoundTrack;
 	mIsRepeat = aIsRepeat;
+
+	if (signal(SIGINT, &sigHandler) == SIG_ERR) {
+		std::cout << "I could not set up signal. finished" <<std::endl;
+		exit(1);
+	}
 }
 
 void Speaker::emitSound()
@@ -25,7 +37,7 @@ void Speaker::emitSound()
 
 void Speaker::stopSound()
 {
-	std::string player_command = "mpg321 ";
-	system(("killall " + player_command).c_str());
+	system(("pkill -f " + mSoundTrack).c_str());
 }
+
 }  // namespace Hardware

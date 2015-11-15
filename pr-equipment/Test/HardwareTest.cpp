@@ -126,24 +126,27 @@ void HardwareTest::speakerTest(){
 	speaker_hisyo.emitSound();
 	std::cout<<"hisyo.mp3 emitted."<<std::endl;
 	Hardware::Timer timer;
-	timer.setTimer(5);
+	timer.setTimer(1);
 	while(!timer.getAlarm());
 
 	int i;
-	for(i = 0; i < 5; i++){
+	for(i = 0; i < 2; i++){
 		speaker_sword_f.setSoundTrack("sword_f.mp3", false);
 		speaker_sword_f.emitSound();
 		std::cout<<"sword_f.mp3 emitted."<<std::endl;
-		timer.setTimer(5);
+		timer.setTimer(1);
 		while(!timer.getAlarm());
-
-		timer.setTimer(5);
+		if(i==0){
+			speaker_hisyo.stopSound();
+		}
+		timer.setTimer(1);
 		speaker_chui.setSoundTrack("chui.mp3", false);
 		speaker_chui.emitSound();
 		std::cout<<"chui.mp3 emitted."<<std::endl;
 		while(!timer.getAlarm());
 	}
-//	speaker_hisyo.stopSound();
+	speaker_chui.stopSound();
+	speaker_chui.stopSound();
 }
 
 }  // namespace Test
