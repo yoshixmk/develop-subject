@@ -12,12 +12,14 @@
 #include "Hardware/Speaker.h"
 #include <iostream>
 #include <pigpio.h>
+#include <signal.h>
 
 namespace Test
 {
 class HardwareTest
 {
 private:
+	static void sigHandler(int aSignal);
 
 public:
 	HardwareTest();

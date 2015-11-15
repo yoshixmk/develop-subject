@@ -2,9 +2,16 @@
 
 namespace Test
 {
+/* シグナル受信/処理 */
+void HardwareTest::sigHandler(int aSignal)
+{
+	std::cout << "SIGNAL Keybord Interrupt, END" <<std::endl;
+    exit(0);
+}
+
 HardwareTest::HardwareTest()
 {
-	gpioCfgClock(4, 0, 100);
+//	gpioCfgClock(4, 0, 100);
 	if (gpioInitialise() < 0)
 	{
 		std::cout << "pigpio initialisation failed." << std::endl;
@@ -12,6 +19,12 @@ HardwareTest::HardwareTest()
 	else
 	{
 		std::cout << "pigpio initialised okay." << std::endl;
+	}
+
+	if (signal(SIGINT, &sigHandler) == SIG_ERR) {
+		std::cout << "I could not set up signal. finished" <<std::endl;
+		gpioTerminate();
+		exit(1);
 	}
 }
 
