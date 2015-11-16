@@ -10,7 +10,6 @@ class RaspberryPiSignal
 private:
 	int mGpioPin;
 
-
 public:
 	RaspberryPiSignal(int aGpioPin);
 	bool readLevel();

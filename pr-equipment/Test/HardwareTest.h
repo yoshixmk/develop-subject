@@ -10,6 +10,7 @@
 #include "Hardware/PushSwitch.h"
 #include "Hardware/MotorDriver.h"
 #include "Hardware/Speaker.h"
+#include "Hardware/BGMSignal.h"
 #include <iostream>
 #include <pigpio.h>
 #include <signal.h>
@@ -19,7 +20,7 @@ namespace Test
 class HardwareTest
 {
 private:
-	static void sigHandler(int aSignal);
+	static void signalHandler(int aSignal);
 
 public:
 	HardwareTest();
@@ -33,6 +34,7 @@ public:
 	void pushSwitchTest();
 	void moterDriverTest();
 	void speakerTest();
+	void bgmSignalTest();
 };
 
 }  // namespace Test

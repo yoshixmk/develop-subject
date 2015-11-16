@@ -1,10 +1,10 @@
-Color/TwoImageSynthesis.o: ../Color/TwoImageSynthesis.cpp \
+Color/TwoImageSynthesis.d: ../Color/TwoImageSynthesis.cpp \
  ../Color/TwoImageSynthesis.h \
- C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment/Hardware/Camera.h \
- C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment\Debug\Libraries\pigpio-master/pigpio.h
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Camera.h \
+ C:\dev\pigpio-master/pigpio.h
 
 ../Color/TwoImageSynthesis.h:
 
-C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment/Hardware/Camera.h:
+C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Camera.h:
 
-C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment\Debug\Libraries\pigpio-master/pigpio.h:
+C:\dev\pigpio-master/pigpio.h:

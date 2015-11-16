@@ -3,7 +3,7 @@
 namespace Test
 {
 /* シグナル受信/処理 */
-void HardwareTest::sigHandler(int aSignal)
+void HardwareTest::signalHandler(int aSignal)
 {
 	std::cout << "SIGNAL Keybord Interrupt, END" <<std::endl;
     exit(0);
@@ -21,7 +21,7 @@ HardwareTest::HardwareTest()
 		std::cout << "pigpio initialised okay." << std::endl;
 	}
 
-	if (signal(SIGINT, &sigHandler) == SIG_ERR) {
+	if (signal(SIGINT, &signalHandler) == SIG_ERR) {
 		std::cout << "I could not set up signal. finished" <<std::endl;
 		gpioTerminate();
 		exit(1);
@@ -132,7 +132,8 @@ void HardwareTest::moterDriverTest()
 	while(!timer.getAlarm());
 }
 
-void HardwareTest::speakerTest(){
+void HardwareTest::speakerTest()
+{
 	std::cout<<"speaker_test"<<std::endl;
 	Hardware::Speaker speaker_hisyo, speaker_sword_f, speaker_chui;
 	speaker_hisyo.setSoundTrack("hisyo.mp3", true);
@@ -160,6 +161,14 @@ void HardwareTest::speakerTest(){
 	}
 	speaker_chui.stopSound();
 	speaker_chui.stopSound();
+}
+
+void HardwareTest::bgmSignalTest()
+{
+	std::cout<<"BGMSignal_test"<<std::endl;
+	Hardware::BGMSignal bgmSignal(13);
+
+	std::cout << bgmSignal.readLevel() <<std::endl;
 }
 
 }  // namespace Test

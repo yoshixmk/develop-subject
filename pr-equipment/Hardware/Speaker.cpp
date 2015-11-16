@@ -4,7 +4,7 @@ namespace Hardware
 {
 
 /* シグナル受信/処理 */
-void Speaker::sigHandler(int aSignal)
+void Speaker::signalHandler(int aSignal)
 {
 	std::cout << "SIGNAL Keybord Interrupt, END" <<std::endl;
     exit(0);
@@ -20,7 +20,7 @@ void Speaker::emitSound()
 {
 	std::string player_command = "mpg321 ";
 
-	if (signal(SIGINT, &sigHandler) == SIG_ERR) {
+	if (signal(SIGINT, &signalHandler) == SIG_ERR) {
 		std::cout << "I could not set up signal. finished" <<std::endl;
 		system(("sudo killall " + player_command).c_str());
 		exit(1);

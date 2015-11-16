@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../Hardware/BGMSignal.cpp \
 ../Hardware/Camera.cpp \
 ../Hardware/LimitSwitch.cpp \
 ../Hardware/MotorDriver.cpp \
@@ -16,6 +17,7 @@ CPP_SRCS += \
 ../Hardware/Timer.cpp 
 
 OBJS += \
+./Hardware/BGMSignal.o \
 ./Hardware/Camera.o \
 ./Hardware/LimitSwitch.o \
 ./Hardware/MotorDriver.o \
@@ -28,6 +30,7 @@ OBJS += \
 ./Hardware/Timer.o 
 
 CPP_DEPS += \
+./Hardware/BGMSignal.d \
 ./Hardware/Camera.d \
 ./Hardware/LimitSwitch.d \
 ./Hardware/MotorDriver.d \
@@ -44,7 +47,7 @@ CPP_DEPS += \
 Hardware/%.o: ../Hardware/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross G++ Compiler'
-	arm-linux-gnueabihf-g++ -I"C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment" -I"C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment\Debug\Libraries\pigpio-master" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	arm-linux-gnueabihf-g++ -I"C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment" -I"C:\dev\pigpio-master" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

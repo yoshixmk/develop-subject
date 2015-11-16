@@ -16,7 +16,7 @@ private:
 
 	bool mIsRepeat;
 
-	static void sigHandler(int aSignal);
+	static void signalHandler(int aSignal);
 
 public:
 	void setSoundTrack(std::string aSoundTrack, bool aIsRepeat);
