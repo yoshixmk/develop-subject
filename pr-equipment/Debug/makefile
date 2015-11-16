@@ -50,7 +50,7 @@ all: pr-equipment
 pr-equipment: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	arm-linux-gnueabihf-g++ -L"C:\dev\pigpio-master" -o "pr-equipment" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-linux-gnueabihf-g++ -L"C:\dev\pigpio-master" -L"C:\dev\opencv-2.4.11\lib" -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib\arm-linux-gnueabihf -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib -Xlinker -rpath-link=\\RASPBERRYPI\pi\lib\arm-linux-gnueabihf -o "pr-equipment" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

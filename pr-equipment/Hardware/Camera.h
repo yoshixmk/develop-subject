@@ -2,21 +2,27 @@
 #define HARDWARE_CAMERA_H
 
 #include <pigpio.h>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 namespace Hardware
 {
 class Camera
 {
 private:
-	int camera_image;
+	IplImage* mCameraImage;
 
-	int width;
+	int mWidth;
 
-	int height;
+	int mHeight;
 
-	int camera_number;
+	int mCameraNumber;
+
+	CvCapture* mCvCapture;
 
 public:
+	Camera(int aWidth, int aHeight, int aCameraNumber);
+
 	void setSize(int width, int height);
 
 	int getCameraImage();
