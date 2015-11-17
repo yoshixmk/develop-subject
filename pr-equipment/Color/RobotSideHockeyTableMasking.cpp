@@ -3,7 +3,7 @@
 namespace Color
 {
 
-int RobotSideHockeyTableMasking::mask()
+IplImage* RobotSideHockeyTableMasking::mask()
 {
 	return 0;
 }

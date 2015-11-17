@@ -8,11 +8,11 @@ namespace Color
 class RobotSideHockeyTableMasking : public Masking
 {
 private:
-	int robot_side_hockey_table_image;
-
+	IplImage* robot_side_hockey_table_image;
+	TwoImageSynthesis twoImageSynthesis;
 
 public:
-	int mask();
+	IplImage* mask();
 
 };
 

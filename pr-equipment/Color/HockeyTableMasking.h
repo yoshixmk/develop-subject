@@ -8,11 +8,11 @@ namespace Color
 class HockeyTableMasking : public Masking
 {
 private:
-	int hockey_table_image;
-
+	IplImage* mHockeyTableImage;
+	TwoImageSynthesis twoImageSynthesis;
 
 public:
-	int mask();
+	IplImage* mask();
 
 };
 
