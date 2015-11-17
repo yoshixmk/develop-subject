@@ -11,7 +11,7 @@ void HardwareTest::signalHandler(int aSignal)
 
 HardwareTest::HardwareTest()
 {
-//	gpioCfgClock(4, 0, 100);
+	gpioCfgClock(4, 0, 100);
 	if (gpioInitialise() < 0)
 	{
 		std::cout << "pigpio initialisation failed." << std::endl;
@@ -169,6 +169,28 @@ void HardwareTest::bgmSignalTest()
 	Hardware::BGMSignal bgmSignal(13);
 
 	std::cout << bgmSignal.readLevel() <<std::endl;
+}
+
+void HardwareTest::cameraTest()
+{
+	std::cout<<"Camera_test"<<std::endl;
+	Hardware::Camera cameraRobotSide(0, 160, 120);
+	Hardware::Camera cameraHumanSide(1, 160, 120);
+
+	cvNamedWindow("RobotSide", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("HumanSide", CV_WINDOW_AUTOSIZE);
+	cvShowImage("RobotSide", cameraRobotSide.getCameraImage());
+	cvShowImage("HumanSide", cameraHumanSide.getCameraImage());
+
+	while(1)
+	{
+		cvShowImage("RobotSide", cameraRobotSide.getCameraImage());
+		cvShowImage("HumanSide", cameraHumanSide.getCameraImage());
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+
 }
 
 }  // namespace Test

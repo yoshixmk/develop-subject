@@ -14,7 +14,7 @@ int  main()
 	//hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
 	//hardwareTest.bgmSignalTest();
-
+	hardwareTest.cameraTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();

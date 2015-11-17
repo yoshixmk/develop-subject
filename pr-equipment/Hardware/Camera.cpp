@@ -3,21 +3,31 @@
 namespace Hardware
 {
 
-Camera::Camera(int aCameraNumber, int aWidth=160, int aHeight=120)
+Camera::Camera(int aCameraNumber, int aWidth, int aHeight)
 {
+	const int fps = 30;
 	mCameraNumber = aCameraNumber;
+	mCvCapture = cvCreateCameraCapture(mCameraNumber);
+    if(mCvCapture == NULL){
+		std::cout << "Camera Capture FAILED" << std::endl;
+		exit(-1);
+	}
+	setSize(aWidth, aHeight);
+	cvSetCaptureProperty(mCvCapture,CV_CAP_PROP_FPS,fps);
+	mCameraImage = 0;
+}
+
+void Camera::setSize(int aWidth, int aHeight)
+{
 	mWidth = aWidth;
 	mHeight = aHeight;
-	mCvCapture = cvCaptureFromCAM(mCameraNumber);
+	cvSetCaptureProperty(mCvCapture, CV_CAP_PROP_FRAME_WIDTH,aWidth);
+	cvSetCaptureProperty(mCvCapture,CV_CAP_PROP_FRAME_HEIGHT,aHeight);
+}
+
+IplImage* Camera::getCameraImage()
+{
 	mCameraImage = cvQueryFrame(mCvCapture);
-}
-
-void Camera::setSize(int width, int height)
-{
-}
-
-int Camera::getCameraImage()
-{
-	return 0;
+	return mCameraImage;
 }
 }  // namespace Hardware

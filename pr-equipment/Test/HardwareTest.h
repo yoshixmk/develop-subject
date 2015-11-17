@@ -11,9 +11,14 @@
 #include "Hardware/MotorDriver.h"
 #include "Hardware/Speaker.h"
 #include "Hardware/BGMSignal.h"
+#include "Hardware/Camera.h"
 #include <iostream>
 #include <pigpio.h>
 #include <signal.h>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
+//#include <opencv2/imgproc/imgproc.hpp>
+//#include <opencv2/highgui/highgui.hpp>
 
 namespace Test
 {
@@ -35,6 +40,7 @@ public:
 	void moterDriverTest();
 	void speakerTest();
 	void bgmSignalTest();
+	void cameraTest();
 };
 
 }  // namespace Test
