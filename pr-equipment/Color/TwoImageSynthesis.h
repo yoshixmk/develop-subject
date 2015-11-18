@@ -15,10 +15,7 @@ private:
 	const int CAM_PIX_WIDTH;
 	const int CAM_PIX_HEIGHT;
 
-	Hardware::Camera mCameraRobotSide;
-	Hardware::Camera mCameraHumanSide;
-
-	IplImage*  mSynthesisImage;
+	Hardware::Camera mCamera;
 
 public:
 	TwoImageSynthesis();

@@ -4,8 +4,6 @@
 
 int  main()
 {
-	Hardware::Camera::create(0);
-	Hardware::Camera::create(1);
 	Test::HardwareTest hardwareTest;
 	//hardware_test.timerTest();
 	//hardware_test.raspberryPiSignalTest();
@@ -17,16 +15,14 @@ int  main()
 	//hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
 	//hardwareTest.bgmSignalTest();
-	//hardwareTest.cameraTest();
+	hardwareTest.cameraTest();
 
 	Test::ColorTest colorTest;
 	//colorTest.twoImageSynthesisTest();
-	colorTest.hockeyTableMaskingTest();
+//	colorTest.hockeyTableMaskingTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
-
-	Hardware::Camera::destroy();
 
 	return 0;
 }

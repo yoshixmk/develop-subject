@@ -5,20 +5,18 @@ namespace Color
 
 TwoImageSynthesis::TwoImageSynthesis() :CAM_PIX_WIDTH(160),
 										CAM_PIX_HEIGHT(120),
-										mCameraRobotSide(Hardware::Camera::get_instance(0)),
-										mCameraHumanSide(Hardware::Camera::get_instance(1))
-										//mCameraRobotSide(0, CAM_PIX_WIDTH, CAM_PIX_HEIGHT),
-										//mCameraHumanSide(1, CAM_PIX_WIDTH, CAM_PIX_HEIGHT)
+										mCamera(CAM_PIX_WIDTH, CAM_PIX_HEIGHT)
 {
-	mSynthesisImage = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_HEIGHT * 2), IPL_DEPTH_8U, 3);
+//	mSynthesisImage = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_HEIGHT * 2), IPL_DEPTH_8U, 3);
 	//mCameraRobotSide->setSize(320,280);
 	//mCameraHumanSide->setSize(320,280);
 }
 
 IplImage*  TwoImageSynthesis::synthesize()
 {
-	IplImage* imgRobotSide = mCameraRobotSide.getCameraImage();
-	IplImage* imgHumanSide = mCameraHumanSide.getCameraImage();
+	IplImage* imgRobotSide = mCamera.getRobotSideImage();
+	IplImage* imgHumanSide = mCamera.getHumanSideImage();
+	IplImage* mSynthesisImage = cvCreateImage(cvSize(CAM_PIX_WIDTH, CAM_PIX_HEIGHT * 2), IPL_DEPTH_8U, 3);
 
 	cv::Mat matFrameRobotSide;
 	cv::Mat matFrameHumanSide;

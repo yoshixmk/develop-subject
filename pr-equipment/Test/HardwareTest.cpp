@@ -174,24 +174,19 @@ void HardwareTest::bgmSignalTest()
 void HardwareTest::cameraTest()
 {
 	std::cout<<"Camera_test"<<std::endl;
-	/*//Hardware::Camera cameraRobotSide(0, 160, 120);
-	//Hardware::Camera cameraHumanSide(1, 160, 120);
-//	Hardware::Camera cameraRobotSide(0, 320, 240);
-//	Hardware::Camera cameraHumanSide(1, 320, 240);
-	cameraRobotSide.setSize(320, 240);
+	Hardware::Camera camera;
+
 	cvNamedWindow("RobotSide", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("HumanSide", CV_WINDOW_AUTOSIZE);
-	cvShowImage("RobotSide", cameraRobotSide.getCameraImage());
-	cvShowImage("HumanSide", cameraHumanSide.getCameraImage());
 
 	while(1)
 	{
-		cvShowImage("RobotSide", cameraRobotSide.getCameraImage());
-		cvShowImage("HumanSide", cameraHumanSide.getCameraImage());
+		cvShowImage("RobotSide", camera.getRobotSideImage());
+		cvShowImage("HumanSide", camera.getHumanSideImage());
 		if(cv::waitKey(1) >= 0) {
 			break;
 		}
-	}*/
+	}
 
 }
 
