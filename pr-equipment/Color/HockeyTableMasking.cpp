@@ -7,17 +7,23 @@
 
 namespace Color
 {
+
+HockeyTableMasking::HockeyTableMasking() :twoImageSynthesis()
+{
+	mHockeyTableImage = 0;
+}
+
 IplImage* HockeyTableMasking::mask()
 {
 	IplImage* src_img, *dst_img;
 	src_img = twoImageSynthesis.synthesize();
 //	const int WIDTH = src_img->width;
-	const int HEIGHT = src_img->height / 2;
+	int height = src_img->height / 2;
 
 	int npts[2] = { 4, 12 };
 	CvPoint **pts;
-	CvPoint center_frame_left = cvPoint(11, HEIGHT);
-	CvPoint center_frame_right  = cvPoint(155, HEIGHT);
+	CvPoint center_frame_left = cvPoint(11, height);
+	CvPoint center_frame_right  = cvPoint(155, height);
 	pts = (CvPoint **) cvAlloc (sizeof (CvPoint *) * 2);
 	pts[0] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 4);
 	pts[1] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 12);

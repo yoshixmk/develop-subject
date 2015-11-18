@@ -12,6 +12,7 @@ private:
 	TwoImageSynthesis twoImageSynthesis;
 
 public:
+	HockeyTableMasking();
 	IplImage* mask();
 
 };

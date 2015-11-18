@@ -15,11 +15,11 @@ int  main()
 	//hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
 	//hardwareTest.bgmSignalTest();
-//	hardwareTest.cameraTest();
+	//hardwareTest.cameraTest();
 
 	Test::ColorTest colorTest;
-	colorTest.twoImageSynthesisTest();
-//	colorTest.hockeyTableMaskingTest();
+	//colorTest.twoImageSynthesisTest();
+	colorTest.hockeyTableMaskingTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
