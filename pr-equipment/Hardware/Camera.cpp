@@ -13,25 +13,24 @@ Camera::Camera(int aWidth, int aHeight)
 	if(!mCvCapture0)
 	{
 		mCvCapture0 = cvCreateCameraCapture(0);
+		cvSetCaptureProperty(mCvCapture0, CV_CAP_PROP_FPS, FPS);
+		setSize(aWidth, aHeight);
 	}
 	if(!mCvCapture1)
 	{
 		mCvCapture1 = cvCreateCameraCapture(1);
+		cvSetCaptureProperty(mCvCapture1, CV_CAP_PROP_FPS, FPS);
+		setSize(aWidth, aHeight);
 	}
 
     if(mCvCapture0 == NULL || mCvCapture1 == NULL){
 		std::cout << "Camera Capture FAILED" << std::endl;
 		exit(-1);
 	}
-	setSize(aWidth, aHeight);
-	cvSetCaptureProperty(mCvCapture0, CV_CAP_PROP_FPS, FPS);
-	cvSetCaptureProperty(mCvCapture1, CV_CAP_PROP_FPS, FPS);
 }
 
 void Camera::setSize(int aWidth, int aHeight)
 {
-	mWidth = aWidth;
-	mHeight = aHeight;
 	cvSetCaptureProperty(mCvCapture0, CV_CAP_PROP_FRAME_WIDTH,aWidth);
 	cvSetCaptureProperty(mCvCapture0,CV_CAP_PROP_FRAME_HEIGHT,aHeight);
 	cvSetCaptureProperty(mCvCapture1, CV_CAP_PROP_FRAME_WIDTH,aWidth);
@@ -40,16 +39,18 @@ void Camera::setSize(int aWidth, int aHeight)
 
 IplImage* Camera::getRobotSideImage()
 {
-	mRobotSideImage = cvQueryFrame(mCvCapture0);
-
 	return mRobotSideImage;
 }
 
 IplImage* Camera::getHumanSideImage()
 {
-	mHumanSideImage = cvQueryFrame(mCvCapture1);
-
 	return mHumanSideImage;
+}
+
+void Camera::renew()
+{
+	mRobotSideImage = cvQueryFrame(mCvCapture0);
+	mHumanSideImage = cvQueryFrame(mCvCapture1);
 }
 
 }  // namespace Hardware

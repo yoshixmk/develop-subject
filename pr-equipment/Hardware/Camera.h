@@ -11,20 +11,16 @@ namespace Hardware
 class Camera
 {
 private:
-	int mWidth;
-
-	int mHeight;
-
-public:
 	static IplImage* mRobotSideImage;
 	static IplImage* mHumanSideImage;
 	static CvCapture* mCvCapture0;
 	static CvCapture* mCvCapture1;
 
+public:
 	Camera(int aWidth=160, int aHeight=120);
 
-	void setSize(int aWidth, int aHeight);
-
+	static void setSize(int aWidth, int aHeight);
+	static void renew();
 	IplImage* getRobotSideImage();
 	IplImage* getHumanSideImage();
 };

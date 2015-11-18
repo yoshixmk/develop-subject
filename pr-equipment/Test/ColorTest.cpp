@@ -13,6 +13,7 @@ void ColorTest::twoImageSynthesisTest()
 	cvNamedWindow("AllRound", CV_WINDOW_AUTOSIZE);
 	while(1)
 	{
+		Hardware::Camera::renew();
 		cvShowImage("AllRound", twoImageSynthesis.synthesize());
 		if(cv::waitKey(1) >= 0) {
 			break;

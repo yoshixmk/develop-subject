@@ -175,14 +175,17 @@ void HardwareTest::cameraTest()
 {
 	std::cout<<"Camera_test"<<std::endl;
 	Hardware::Camera camera;
+	Hardware::Camera camera2;
 
 	cvNamedWindow("RobotSide", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("HumanSide", CV_WINDOW_AUTOSIZE);
 
 	while(1)
 	{
+		Hardware::Camera camera3;
+		Hardware::Camera::renew();
 		cvShowImage("RobotSide", camera.getRobotSideImage());
-		cvShowImage("HumanSide", camera.getHumanSideImage());
+		cvShowImage("HumanSide", camera2.getHumanSideImage());
 		if(cv::waitKey(1) >= 0) {
 			break;
 		}

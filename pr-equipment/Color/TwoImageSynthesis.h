@@ -12,10 +12,8 @@ namespace Color
 class TwoImageSynthesis
 {
 private:
-	const int CAM_PIX_WIDTH;
-	const int CAM_PIX_HEIGHT;
-
 	Hardware::Camera mCamera;
+	IplImage* mSynthesisImage;
 
 public:
 	TwoImageSynthesis();
