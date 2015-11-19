@@ -15,11 +15,14 @@ private:
 	static IplImage* mHumanSideImage;
 	static CvCapture* mCvCapture0;
 	static CvCapture* mCvCapture1;
+	static int mWidth;
+	static int mHeight;
 
 public:
 	Camera(int aWidth=160, int aHeight=120);
-
 	static void setSize(int aWidth, int aHeight);
+	static int getWidth();
+	static int getHeight();
 	static void renew();
 	IplImage* getRobotSideImage();
 	IplImage* getHumanSideImage();

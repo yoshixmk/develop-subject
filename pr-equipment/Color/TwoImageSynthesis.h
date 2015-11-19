@@ -14,16 +14,11 @@ class TwoImageSynthesis
 {
 private:
 	Hardware::Camera mCamera;
-	IplImage* mSynthesisImage;
-	IplImage* imgRobotSide;
-	IplImage* imgHumanSide;
-	cv::Mat matFrameRobotSide;
-	cv::Mat matFrameHumanSide;
-	cv::Mat dstImgV;
+
+	cv::Mat mMatSynthesisImage;
 
 public:
 	TwoImageSynthesis();
-	~TwoImageSynthesis();
 	IplImage* synthesize();
 
 };

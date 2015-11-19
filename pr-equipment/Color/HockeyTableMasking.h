@@ -13,6 +13,7 @@ private:
 
 public:
 	HockeyTableMasking();
+	~HockeyTableMasking();
 	IplImage* mask();
 
 };

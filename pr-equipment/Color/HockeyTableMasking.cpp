@@ -10,16 +10,19 @@ namespace Color
 
 HockeyTableMasking::HockeyTableMasking() :twoImageSynthesis()
 {
-	mHockeyTableImage = cvCreateImage(cvSize(160, 120*2), IPL_DEPTH_8U, 3);
-//	src_img = cvCreateImage(cvSize(160, 120), IPL_DEPTH_8U, 3);
-//	dst_img = cvCreateImage(cvSize(160, 120), IPL_DEPTH_8U, 3);
+	mHockeyTableImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
+}
+
+HockeyTableMasking::~HockeyTableMasking()
+{
+	cvReleaseImage(&mHockeyTableImage);
 }
 
 IplImage* HockeyTableMasking::mask()
 {
-	IplImage* src_img, *dst_img;
+	IplImage* src_img;
 	src_img = twoImageSynthesis.synthesize();
-	int height = src_img->height / 2;
+	int height = Hardware::Camera::getHeight();
 
 	int npts[2] = { 4, 12 };
 	CvPoint **pts;
@@ -46,13 +49,9 @@ IplImage* HockeyTableMasking::mask()
 	pts[1][11] = cvPoint(17,28);
 
     cvLine(src_img, center_frame_left, center_frame_right, CV_RGB( 0, 255, 255 ));
-//    dst_img = cvCreateImage(cvGetSize(src_img), IPL_DEPTH_8U, 3);
-//    cvCopy(src_img, dst_img);
+    mHockeyTableImage = src_img;
+    cvFillPoly(mHockeyTableImage, pts, npts, 2, CV_RGB(0, 0, 0));
 
-    cvFillPoly(src_img, pts, npts, 2, CV_RGB(0, 0, 0));
-//    mHockeyTableImage = dst_img;
-
-//	return mHockeyTableImage;
-	return src_img;
+	return mHockeyTableImage;
 }
 }  // namespace Color
