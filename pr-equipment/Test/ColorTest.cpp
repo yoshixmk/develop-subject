@@ -27,6 +27,7 @@ void ColorTest::hockeyTableMaskingTest()
 	Color::HockeyTableMasking hockeyTableMasking;
 
 	cvNamedWindow("HockeyTableMacking", CV_WINDOW_AUTOSIZE);
+
 	while(1)
 	{
 		Hardware::Camera::renew();

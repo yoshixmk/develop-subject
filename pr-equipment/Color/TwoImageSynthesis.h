@@ -6,6 +6,7 @@
 #include <opencv/highgui.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <iostream>
 
 namespace Color
 {
@@ -14,10 +15,16 @@ class TwoImageSynthesis
 private:
 	Hardware::Camera mCamera;
 	IplImage* mSynthesisImage;
+	IplImage* imgRobotSide;
+	IplImage* imgHumanSide;
+	cv::Mat matFrameRobotSide;
+	cv::Mat matFrameHumanSide;
+	cv::Mat dstImgV;
 
 public:
 	TwoImageSynthesis();
-	IplImage*  synthesize();
+	~TwoImageSynthesis();
+	IplImage* synthesize();
 
 };
 

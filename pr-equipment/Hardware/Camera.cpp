@@ -8,7 +8,7 @@ CvCapture* Camera::mCvCapture0;
 CvCapture* Camera::mCvCapture1;
 Camera::Camera(int aWidth, int aHeight)
 {
-	const int FPS = 60;
+	const int FPS = 30;
 
 	if(!mCvCapture0)
 	{
@@ -32,9 +32,9 @@ Camera::Camera(int aWidth, int aHeight)
 void Camera::setSize(int aWidth, int aHeight)
 {
 	cvSetCaptureProperty(mCvCapture0, CV_CAP_PROP_FRAME_WIDTH,aWidth);
-	cvSetCaptureProperty(mCvCapture0,CV_CAP_PROP_FRAME_HEIGHT,aHeight);
+	cvSetCaptureProperty(mCvCapture0, CV_CAP_PROP_FRAME_HEIGHT,aHeight);
 	cvSetCaptureProperty(mCvCapture1, CV_CAP_PROP_FRAME_WIDTH,aWidth);
-	cvSetCaptureProperty(mCvCapture1,CV_CAP_PROP_FRAME_HEIGHT,aHeight);
+	cvSetCaptureProperty(mCvCapture1, CV_CAP_PROP_FRAME_HEIGHT,aHeight);
 }
 
 IplImage* Camera::getRobotSideImage()

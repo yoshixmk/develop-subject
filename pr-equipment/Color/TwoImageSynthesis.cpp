@@ -5,17 +5,25 @@ namespace Color
 
 TwoImageSynthesis::TwoImageSynthesis() :mCamera()
 {
-	mSynthesisImage=0;
+	mSynthesisImage = cvCreateImage(cvSize(160, 120*2), IPL_DEPTH_8U, 3);
+	imgRobotSide = cvCreateImage(cvSize(160, 120), IPL_DEPTH_8U, 3);
+	imgHumanSide = cvCreateImage(cvSize(160, 120), IPL_DEPTH_8U, 3);
+	std::cout << "two image constracter calling" << std::endl;
 }
 
+TwoImageSynthesis::~TwoImageSynthesis()
+{
+	cvReleaseImage(&mSynthesisImage);
+	cvReleaseImage(&imgRobotSide);
+	cvReleaseImage(&imgHumanSide);
+	std::cout << "two image Deconstracter calling" << std::endl;
+}
 IplImage*  TwoImageSynthesis::synthesize()
 {
-	IplImage* imgRobotSide = mCamera.getRobotSideImage();
-	IplImage* imgHumanSide = mCamera.getHumanSideImage();
-	mSynthesisImage = cvCreateImage(cvSize(imgRobotSide->width, imgRobotSide->height * 2), IPL_DEPTH_8U, 3);
-	cv::Mat matFrameRobotSide;
-	cv::Mat matFrameHumanSide;
-	cv::Mat dstImgV;
+	imgRobotSide = mCamera.getRobotSideImage();
+	imgHumanSide = mCamera.getHumanSideImage();
+
+
 	matFrameRobotSide = cv::cvarrToMat(imgRobotSide);
 	matFrameHumanSide = cv::cvarrToMat(imgHumanSide);
 	cv::flip(matFrameRobotSide, matFrameRobotSide, 0); //水平軸で反転（垂直反転）
@@ -26,3 +34,4 @@ IplImage*  TwoImageSynthesis::synthesize()
 	return mSynthesisImage;
 }
 }  // namespace Color
+

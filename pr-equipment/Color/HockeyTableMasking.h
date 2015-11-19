@@ -5,7 +5,7 @@
 
 namespace Color
 {
-class HockeyTableMasking : public Masking
+class HockeyTableMasking //: public Masking
 {
 private:
 	IplImage* mHockeyTableImage;
