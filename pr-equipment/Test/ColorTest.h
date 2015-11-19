@@ -3,6 +3,7 @@
 
 #include "Color/TwoImageSynthesis.h"
 #include "Color/HockeyTableMasking.h"
+#include "Color/RobotSideHockeyTableMasking.h"
 
 namespace Test {
 
@@ -11,6 +12,7 @@ public:
 	ColorTest();
 	void twoImageSynthesisTest();
 	void hockeyTableMaskingTest();
+	void robotSideHockeyTableMaskingTest();
 };
 
 } /* namespace Test */

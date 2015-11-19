@@ -8,12 +8,13 @@ namespace Color
 class RobotSideHockeyTableMasking : public Masking
 {
 private:
-	IplImage* robot_side_hockey_table_image;
-	TwoImageSynthesis twoImageSynthesis;
+	IplImage* mRobotSideHockeyTableImage;
+	TwoImageSynthesis mTwoImageSynthesis;
 
 public:
+	RobotSideHockeyTableMasking();
+	~RobotSideHockeyTableMasking();
 	IplImage* mask();
-
 };
 
 }  // namespace Color

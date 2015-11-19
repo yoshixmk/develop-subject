@@ -8,9 +8,9 @@ namespace Color
 class Masking
 {
 private:
-	IplImage* output_image;
+	IplImage* mOutputImage;
 
-	TwoImageSynthesis twoImageSynthesis;
+	TwoImageSynthesis mTwoImageSynthesis;
 
 public:
 	virtual IplImage* mask()=0;

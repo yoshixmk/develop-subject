@@ -38,5 +38,21 @@ void ColorTest::hockeyTableMaskingTest()
 	}
 }
 
+void ColorTest::robotSideHockeyTableMaskingTest()
+{
+	std::cout<<"RobotSideHockeyTableMasking_test"<<std::endl;
+	Color::RobotSideHockeyTableMasking robotSideHockeyTableMasking;
+
+	cvNamedWindow("RobotSideHockeyTableMasking", CV_WINDOW_AUTOSIZE);
+
+	while(1)
+	{
+		Hardware::Camera::renew();
+		cvShowImage("RobotSideHockeyTableMasking", robotSideHockeyTableMasking.mask());
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+}
 
 } /* namespace Test */

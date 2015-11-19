@@ -8,7 +8,7 @@
 namespace Color
 {
 
-HockeyTableMasking::HockeyTableMasking() :twoImageSynthesis()
+HockeyTableMasking::HockeyTableMasking() :mTwoImageSynthesis()
 {
 	mHockeyTableImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 }
@@ -21,7 +21,7 @@ HockeyTableMasking::~HockeyTableMasking()
 IplImage* HockeyTableMasking::mask()
 {
 	IplImage* src_img;
-	src_img = twoImageSynthesis.synthesize();
+	src_img = mTwoImageSynthesis.synthesize();
 	int height = Hardware::Camera::getHeight();
 
 	int npts[2] = { 4, 12 };

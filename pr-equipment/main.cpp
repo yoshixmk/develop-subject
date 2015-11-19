@@ -19,7 +19,8 @@ int  main()
 
 	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
-	colorTest.hockeyTableMaskingTest();
+//	colorTest.hockeyTableMaskingTest();
+	colorTest.robotSideHockeyTableMaskingTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
