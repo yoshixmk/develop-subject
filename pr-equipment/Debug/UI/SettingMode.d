@@ -14,6 +14,7 @@ UI/SettingMode.d: ../UI/SettingMode.cpp ../UI/SettingMode.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/Locus.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/Coordinate.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/ColorExtraction.h \
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/HockeyTableMasking.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/Masking.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/TwoImageSynthesis.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Camera.h \
@@ -71,6 +72,7 @@ UI/SettingMode.d: ../UI/SettingMode.cpp ../UI/SettingMode.h \
  C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui_c.h \
  C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui.hpp \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/PerspectiveTransformation.h \
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/RobotSideHockeyTableMasking.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/RandomPositionCoordinate.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/UI/Sound.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Speaker.h \
@@ -110,6 +112,8 @@ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/Locus.h
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/Coordinate.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/ColorExtraction.h:
+
+C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/HockeyTableMasking.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/Masking.h:
 
@@ -224,6 +228,8 @@ C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui_c.h:
 C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui.hpp:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/PerspectiveTransformation.h:
+
+C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/RobotSideHockeyTableMasking.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Strategy/RandomPositionCoordinate.h:
 

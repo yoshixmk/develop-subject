@@ -1,6 +1,7 @@
 Strategy/Coordinate.d: ../Strategy/Coordinate.cpp \
  ../Strategy/Coordinate.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/ColorExtraction.h \
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/HockeyTableMasking.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/Masking.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/TwoImageSynthesis.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Camera.h \
@@ -57,11 +58,14 @@ Strategy/Coordinate.d: ../Strategy/Coordinate.cpp \
  C:\dev\opencv-2.4.11\include/opencv/highgui.h \
  C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui_c.h \
  C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui.hpp \
- C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/PerspectiveTransformation.h
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/PerspectiveTransformation.h \
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/RobotSideHockeyTableMasking.h
 
 ../Strategy/Coordinate.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/ColorExtraction.h:
+
+C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/HockeyTableMasking.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/Masking.h:
 
@@ -178,3 +182,5 @@ C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui_c.h:
 C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui.hpp:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/PerspectiveTransformation.h:
+
+C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/RobotSideHockeyTableMasking.h:

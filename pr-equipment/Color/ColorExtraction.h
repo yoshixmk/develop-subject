@@ -1,33 +1,52 @@
 #ifndef COLOR_COLOR_EXTRACTION_H
 #define COLOR_COLOR_EXTRACTION_H
 
-#include "Color/Masking.h"
+#include "Color/HockeyTableMasking.h"
+#include "Color/RobotSideHockeyTableMasking.h"
 
 namespace Color
 {
 class ColorExtraction
 {
 private:
-	int h_max;
+	int mHMin;
 
-	int h_min;
+	int mHMax;
 
-	int s_max;
+	int mSMin;
 
-	int s_min;
+	int mSMax;
 
-	int v_max;
+	int mVMin;
 
-	int v_min;
+	int mVMax;
 
-	//Color::Masking masking;
+	Color::HockeyTableMasking mHockeyTableMasking;
+
+	Color::RobotSideHockeyTableMasking mRobotSideHockeyTableMasking;
+
+	void cvColorExtraction(IplImage* aSrcImg, IplImage* aDstImg,
+						   int aCode,
+						   int aCh1Lower, int aCh1Upper,
+						   int aCh2Lower, int aCh2Upper,
+						   int aCh3Lower, int aCh3Upper);
+
+	IplImage* colorExtractionImage;
 
 public:
-	void setHSV(int h_max, int h_min, int s_max, int s_min, int v_max, int v_min);
+	ColorExtraction();
 
-	int extractHockeyTable();
+	ColorExtraction(int aHMin, int aHMax, int aSMin, int aSMax, int aVMin, int aVMax);
 
-	int extractRobotSideHockeyTable();
+	void setHSV(int aHMin, int aHMax, int aSMin, int aSMax, int aVMin, int aVMax);
+
+	IplImage* extractHockeyTable();
+
+	IplImage* extractRobotSideHockeyTable();
+
+	void setMalletHSV();
+
+	void setPackHSV();
 
 };
 

@@ -8,10 +8,10 @@ HockeyTableMasking::HockeyTableMasking() :mTwoImageSynthesis()
 	mHockeyTableImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 }
 
-HockeyTableMasking::~HockeyTableMasking()
-{
-	cvReleaseImage(&mHockeyTableImage);
-}
+//HockeyTableMasking::~HockeyTableMasking()
+//{
+//	cvReleaseImage(&mHockeyTableImage);
+//}
 
 IplImage* HockeyTableMasking::mask()
 {

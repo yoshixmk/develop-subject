@@ -5,6 +5,7 @@
 #include "Color/HockeyTableMasking.h"
 #include "Color/RobotSideHockeyTableMasking.h"
 #include "Color/PerspectiveTransformation.h"
+#include "Color/ColorExtraction.h"
 
 namespace Test {
 
@@ -15,6 +16,7 @@ public:
 	void hockeyTableMaskingTest();
 	void robotSideHockeyTableMaskingTest();
 	void perspectiveTransformationTest();
+	void colorExtractionTest();
 };
 
 } /* namespace Test */
