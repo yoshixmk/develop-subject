@@ -172,9 +172,9 @@ int main(int argc, char* argv[])
     IplImage *src_img, *dst_img;
 
     // (1)画像を読み込む
-    if ((src_img = cvLoadImage ("../camera/photodir/capmalletf.png", CV_LOAD_IMAGE_GRAYSCALE)) == 0)
+    if ((src_img = cvLoadImage ("ah01.jpg", CV_LOAD_IMAGE_GRAYSCALE)) == 0)
         return -1;
-    if ((dst_img = cvLoadImage ("../camera/photodir/capmalletf.png", CV_LOAD_IMAGE_COLOR )) == 0)
+    if ((dst_img = cvLoadImage ("ah01.jpg", CV_LOAD_IMAGE_COLOR )) == 0)
         return -1;
 
     cv_Labelling(src_img, dst_img);
