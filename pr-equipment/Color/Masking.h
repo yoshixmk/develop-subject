@@ -14,7 +14,6 @@ private:
 
 public:
 	virtual IplImage* mask()=0;
-
 };
 
 }  // namespace Color
