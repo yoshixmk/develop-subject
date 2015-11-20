@@ -8,6 +8,7 @@ CPP_SRCS += \
 ../Color/HockeyTableMasking.cpp \
 ../Color/Labeling.cpp \
 ../Color/Masking.cpp \
+../Color/PerspectiveTransformation.cpp \
 ../Color/RobotSideHockeyTableMasking.cpp \
 ../Color/TwoImageSynthesis.cpp 
 
@@ -16,6 +17,7 @@ OBJS += \
 ./Color/HockeyTableMasking.o \
 ./Color/Labeling.o \
 ./Color/Masking.o \
+./Color/PerspectiveTransformation.o \
 ./Color/RobotSideHockeyTableMasking.o \
 ./Color/TwoImageSynthesis.o 
 
@@ -24,6 +26,7 @@ CPP_DEPS += \
 ./Color/HockeyTableMasking.d \
 ./Color/Labeling.d \
 ./Color/Masking.d \
+./Color/PerspectiveTransformation.d \
 ./Color/RobotSideHockeyTableMasking.d \
 ./Color/TwoImageSynthesis.d 
 

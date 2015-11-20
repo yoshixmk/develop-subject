@@ -53,7 +53,8 @@ Color/TwoImageSynthesis.d: ../Color/TwoImageSynthesis.cpp \
  C:\dev\opencv-2.4.11\include/opencv2/core/internal.hpp \
  C:\dev\opencv-2.4.11\include/opencv/highgui.h \
  C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui_c.h \
- C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui.hpp
+ C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui.hpp \
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/PerspectiveTransformation.h
 
 ../Color/TwoImageSynthesis.h:
 
@@ -166,3 +167,5 @@ C:\dev\opencv-2.4.11\include/opencv/highgui.h:
 C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui_c.h:
 
 C:\dev\opencv-2.4.11\include/opencv2/highgui/highgui.hpp:
+
+C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Color/PerspectiveTransformation.h:

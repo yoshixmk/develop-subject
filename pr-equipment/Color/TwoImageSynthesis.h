@@ -2,6 +2,7 @@
 #define COLOR_TWO_IMAGE_SYNTHESIS_H
 
 #include "Hardware/Camera.h"
+#include "Color/PerspectiveTransformation.h"
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -14,12 +15,14 @@ class TwoImageSynthesis
 {
 private:
 	Hardware::Camera mCamera;
-
+	Color::PerspectiveTransformation perspectiveTransformation;
 	cv::Mat mMatSynthesisImage;
+	cv::Mat mMatNonDistortionImage;
 
 public:
 	TwoImageSynthesis();
 	IplImage* synthesize();
+	IplImage* synthesizeNonDistortion();
 
 };
 

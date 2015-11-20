@@ -20,7 +20,8 @@ int  main()
 	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
 //	colorTest.hockeyTableMaskingTest();
-	colorTest.robotSideHockeyTableMaskingTest();
+	colorTest.robotSideHockeyTableMaskingTest();//signal 6 がでることがある
+//	colorTest.perspectiveTransformationTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();

@@ -16,30 +16,31 @@ RobotSideHockeyTableMasking::~RobotSideHockeyTableMasking()
 IplImage* RobotSideHockeyTableMasking::mask()
 {
 	IplImage* src_img;
-	src_img = mTwoImageSynthesis.synthesize();
+	src_img = mTwoImageSynthesis.synthesizeNonDistortion();
 	int width = Hardware::Camera::getWidth();
 	int height = Hardware::Camera::getHeight();
 
-	int npts[2] = { 4, 8 };
+	int npts[2] = { 4, 6 };
 	CvPoint **pts;
 //	CvPoint center_frame_left = cvPoint(11, height);
 //	CvPoint center_frame_right = cvPoint(155, height);
 
 	pts = (CvPoint **) cvAlloc (sizeof (CvPoint *) * 2);
 	pts[0] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 4);
-	pts[1] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 8);
+	pts[1] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 6);
 	pts[0][0] = cvPoint(0,0);
 	pts[0][1] = cvPoint(width,0);
 	pts[0][2] = cvPoint(width, height*2);
 	pts[0][3] = cvPoint(0, height*2);
-	pts[1][1] = cvPoint(0, height);
-	pts[1][2] = cvPoint(width, height);
-	pts[1][3] = cvPoint(width, 164);
-	pts[1][4] = cvPoint(145, 224);
-	pts[1][5] = cvPoint(125, 233);
-	pts[1][6] = cvPoint(39, 233);
-	pts[1][7] = cvPoint(15, 217);
-	pts[1][0] = cvPoint(0, 133);
+	pts[1][0] = cvPoint(13, height);
+	pts[1][1] = cvPoint(13, 224);
+	pts[1][2] = cvPoint(30, 236);
+	pts[1][3] = cvPoint(128, 236);
+	pts[1][4] = cvPoint(146, 224);
+	pts[1][5] = cvPoint(146, height);
+//	pts[1][6] = cvPoint(39, 233);
+//	pts[1][7] = cvPoint(15, 217);
+
 
 //    cvLine(src_img, center_frame_left, center_frame_right, CV_RGB( 0, 255, 255 ));
     mRobotSideHockeyTableImage = src_img;

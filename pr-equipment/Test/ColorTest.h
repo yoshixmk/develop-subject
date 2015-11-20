@@ -4,6 +4,7 @@
 #include "Color/TwoImageSynthesis.h"
 #include "Color/HockeyTableMasking.h"
 #include "Color/RobotSideHockeyTableMasking.h"
+#include "Color/PerspectiveTransformation.h"
 
 namespace Test {
 
@@ -13,6 +14,7 @@ public:
 	void twoImageSynthesisTest();
 	void hockeyTableMaskingTest();
 	void robotSideHockeyTableMaskingTest();
+	void perspectiveTransformationTest();
 };
 
 } /* namespace Test */
