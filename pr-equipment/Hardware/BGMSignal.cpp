@@ -9,10 +9,13 @@ BGMSignal::BGMSignal(int aGpioPin)
 	gpioWrite(mGpioPin,0);
 }
 
-bool BGMSignal::readLevel()
+void BGMSignal::writeHigh()
 {
-	bool level=gpioRead(mGpioPin);
+	gpioWrite(mGpioPin, 1);
+}
 
-	return level;
+void BGMSignal::writeLow()
+{
+	gpioWrite(mGpioPin, 0);
 }
 }

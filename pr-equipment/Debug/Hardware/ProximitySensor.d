@@ -1,6 +1,7 @@
-Hardware/ProximitySensor.d: ../Hardware/ProximitySensor.cpp \
- ../Hardware/ProximitySensor.h C:\dev\pigpio-master/pigpio.h
+Hardware/ProximitySensor.o: ../Hardware/ProximitySensor.cpp \
+ ../Hardware/ProximitySensor.h \
+ C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment\Debug\Libraries\pigpio-master/pigpio.h
 
 ../Hardware/ProximitySensor.h:
 
-C:\dev\pigpio-master/pigpio.h:
+C:\Users\yoshihiro\Documents\GitHub\develop-subject\pr-equipment\Debug\Libraries\pigpio-master/pigpio.h:

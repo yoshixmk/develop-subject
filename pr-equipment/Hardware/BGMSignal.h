@@ -12,7 +12,8 @@ private:
 
 public:
 	BGMSignal(int aGpioPin);
-	bool readLevel();
+	void writeHigh();
+	void writeLow();
 };
 }
 #endif /* HARDWARE_BGMSIGNAL_H_ */

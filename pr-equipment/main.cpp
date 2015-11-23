@@ -14,7 +14,7 @@ int  main()
 	//hardwareTest.pushSwitchTest();
 	//hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
-	//hardwareTest.bgmSignalTest();
+	hardwareTest.bgmSignalTest();
 	//hardwareTest.cameraTest();
 
 	Test::ColorTest colorTest;
@@ -22,7 +22,7 @@ int  main()
 //	colorTest.hockeyTableMaskingTest();
 //	colorTest.robotSideHockeyTableMaskingTest();
 //	colorTest.perspectiveTransformationTest();
-	colorTest.colorExtractionTest();
+//	colorTest.colorExtractionTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();

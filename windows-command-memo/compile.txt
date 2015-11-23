@@ -1,3 +1,0 @@
-C:\dev\pigpio-master\EXAMPLES\CPP\ROTARY_ENCODER>arm-linux-gnueabihf-g++ -o rot_
-enc_cpp test_rotary_encoder.cpp rotary_encoder.cpp -lrt -I"../../../" -shared C:
-\dev\pigpio-master\libpigpio.so

@@ -168,7 +168,8 @@ void HardwareTest::bgmSignalTest()
 	std::cout<<"BGMSignal_test"<<std::endl;
 	Hardware::BGMSignal bgmSignal(13);
 
-	std::cout << bgmSignal.readLevel() <<std::endl;
+	bgmSignal.writeHigh();
+//	bgmSignal.writeLow();
 }
 
 void HardwareTest::cameraTest()
