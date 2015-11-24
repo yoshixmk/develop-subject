@@ -12,6 +12,7 @@ class MalletCoordinate : public Coordinate
 {
 private:
 	CvPoint mXYCoordinate;
+	Color::ColorExtraction mColorExtractionMallet;
 
 public:
 	MalletCoordinate();

@@ -26,8 +26,8 @@ int  main()
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
-	strategyTest.packCoordinateTest();
-//	strategyTest.malletCoordinateTest();
+//	strategyTest.packCoordinateTest();
+	strategyTest.malletCoordinateTest();
 
 	return 0;
 }
