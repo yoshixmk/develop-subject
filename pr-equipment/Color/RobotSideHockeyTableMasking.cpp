@@ -43,7 +43,8 @@ IplImage* RobotSideHockeyTableMasking::mask()
 
 
 //    cvLine(src_img, center_frame_left, center_frame_right, CV_RGB( 0, 255, 255 ));
-    mRobotSideHockeyTableImage = src_img;
+	cvCopy(src_img, mRobotSideHockeyTableImage);
+//    mRobotSideHockeyTableImage = src_img;
     cvFillPoly(mRobotSideHockeyTableImage, pts, npts, 2, CV_RGB(0, 0, 0));
 
 	return mRobotSideHockeyTableImage;

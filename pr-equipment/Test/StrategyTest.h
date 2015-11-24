@@ -3,6 +3,8 @@
 
 #include "Strategy/AnomalyDetection.h"
 #include "Strategy/PackCoordinate.h"
+#include "Strategy/MalletCoordinate.h"
+#include "Color/ColorExtraction.h"
 #include <iostream>
 #include <pigpio.h>
 
@@ -16,7 +18,7 @@ public:
 	StrategyTest();
 	void anomalyDetectionTest();
 	void packCoordinateTest();
-
+	void malletCoordinateTest();
 
 };
 

@@ -42,7 +42,8 @@ IplImage* HockeyTableMasking::mask()
 	pts[1][7] = cvPoint(30,13);
 
 //    cvLine(src_img, center_frame_left, center_frame_right, CV_RGB( 0, 255, 255 ));
-    mHockeyTableImage = src_img;
+//    mHockeyTableImage = src_img;
+	cvCopy(src_img, mHockeyTableImage);
     cvFillPoly(mHockeyTableImage, pts, npts, 2, CV_RGB(0, 0, 0));
 
 	return mHockeyTableImage;

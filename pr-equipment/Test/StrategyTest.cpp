@@ -26,7 +26,36 @@ void StrategyTest::packCoordinateTest()
 //	packCoordinate.getPreviousCoordinate();
 }
 
+void StrategyTest::malletCoordinateTest()
+{
+	std::cout << "!!!malletCoordinate Test!!!" << std::endl;
 
+	Hardware::Camera::renew();
+	Strategy::MalletCoordinate malletCoordinate;
+	while(1){
+		std::cout << "X: "<< malletCoordinate.getCoordinate().x << std::endl;
+		std::cout << "Y: "<< malletCoordinate.getCoordinate().y << std::endl;
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+//	cvNamedWindow("ColorExtractionAll", CV_WINDOW_AUTOSIZE);
+//	Color::ColorExtraction colorExtractionMallet;
+//	Color::ColorExtraction colorExtractionPack;
+//	colorExtractionMallet.setMalletHSV();
+//	colorExtractionPack.setPackHSV();
+//	while(1)
+//	{
+//		Hardware::Camera::renew();
+//		cvShowImage("ColorExtractionAll", colorExtractionMallet.extractRobotSideHockeyTable());
+//		cvShowImage("ColorExtractionR", colorExtractionPack.extractHockeyTable());
+//		if(cv::waitKey(1) >= 0) {
+//			break;
+//		}
+//		std::cout << "X: "<< malletCoordinate.getCoordinate().x << std::endl;
+//		std::cout << "Y: "<< malletCoordinate.getCoordinate().y << std::endl;
+//	}
+}
 
 
 }  // namespace Test

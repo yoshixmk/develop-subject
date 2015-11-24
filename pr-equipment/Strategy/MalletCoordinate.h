@@ -2,9 +2,7 @@
 #define STRATEGY_MALLET_COORDINATE_H
 
 #include "Strategy/Coordinate.h"
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include "Color/ColorExtraction.h"
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
@@ -15,8 +13,8 @@ class MalletCoordinate : public Coordinate
 private:
 	CvPoint mXYCoordinate;
 
-
 public:
+	MalletCoordinate();
 	CvPoint getCoordinate();
 
 };

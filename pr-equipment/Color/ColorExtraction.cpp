@@ -139,6 +139,7 @@ void ColorExtraction::setHSV(int aHMin, int aHMax, int aSMin, int aSMax, int aVM
 
 IplImage* ColorExtraction::extractHockeyTable()
 {
+	mColorExtractionImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 	IplImage* src_img = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 	src_img = mHockeyTableMasking.mask();
 	cvColorExtraction(src_img, mColorExtractionImage, CV_BGR2HSV, mHMin, mHMax, mSMin, mSMax, mVMin, mVMax);
@@ -147,6 +148,7 @@ IplImage* ColorExtraction::extractHockeyTable()
 
 IplImage* ColorExtraction::extractRobotSideHockeyTable()
 {
+	mColorExtractionImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 	IplImage* src_img = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 	src_img = mRobotSideHockeyTableMasking.mask();
 	cvColorExtraction(src_img, mColorExtractionImage, CV_BGR2HSV, mHMin, mHMax, mSMin, mSMax, mVMin, mVMax);

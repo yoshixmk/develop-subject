@@ -3,8 +3,9 @@
 namespace Strategy
 {
 
-PackCoordinate::PackCoordinate() : mColorExtractionPack()
+PackCoordinate::PackCoordinate() :mColorExtractionPack()
 {
+//	Color::ColorExtraction colorExtractionPack;
 	mColorExtractionPack.setPackHSV();
 	IplImage* packMasikingImage = mColorExtractionPack.extractHockeyTable();
 	cvSetImageCOI(packMasikingImage, 1);
@@ -29,9 +30,9 @@ CvPoint PackCoordinate::getCoordinate()
 	//現在の座標を、前回の座標に変える
 	mPreviousXYCoordinate = mXYCoordinate;
 
-	Color::ColorExtraction colorExtractionPack;
-	colorExtractionPack.setPackHSV();
-	IplImage* packMasikingImage = colorExtractionPack.extractHockeyTable();
+//	Color::ColorExtraction colorExtractionPack;
+	mColorExtractionPack.setPackHSV();
+	IplImage* packMasikingImage = mColorExtractionPack.extractHockeyTable();
 
 	cvSetImageCOI(packMasikingImage, 1);
 
