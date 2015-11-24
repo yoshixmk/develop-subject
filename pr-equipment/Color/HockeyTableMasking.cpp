@@ -15,7 +15,7 @@ HockeyTableMasking::HockeyTableMasking() :mTwoImageSynthesis()
 
 IplImage* HockeyTableMasking::mask()
 {
-	IplImage* src_img;
+	IplImage* src_img = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 	src_img = mTwoImageSynthesis.synthesizeNonDistortion();
 	int width = Hardware::Camera::getWidth();
 	int height = Hardware::Camera::getHeight();

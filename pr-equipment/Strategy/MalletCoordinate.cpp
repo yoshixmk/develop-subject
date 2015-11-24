@@ -3,8 +3,12 @@
 namespace Strategy
 {
 
-int MalletCoordinate::getCoordinate()
+CvPoint MalletCoordinate::getCoordinate()
 {
-	return 0;
+	Color::ColorExtraction colorExtractionMallet;
+
+	colorExtractionMallet.setMalletHSV();
+
+	return cvPoint(0, 0);
 }
 }  // namespace Strategy

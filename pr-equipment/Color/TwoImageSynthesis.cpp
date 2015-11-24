@@ -24,8 +24,10 @@ IplImage*  TwoImageSynthesis::synthesize()
 
 IplImage* TwoImageSynthesis::synthesizeNonDistortion()
 {
-	IplImage* imgRobotSide = perspectiveTransformation.transformRobotSideImage();
-	IplImage* imgHumanSide = perspectiveTransformation.transformHumanSideImage();
+	IplImage* imgRobotSide = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
+	imgRobotSide = perspectiveTransformation.transformRobotSideImage();
+	IplImage* imgHumanSide = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
+	imgHumanSide = perspectiveTransformation.transformHumanSideImage();
 	cv::Mat matFrameRobotSide;
 	cv::Mat matFrameHumanSide;
 	matFrameRobotSide = cv::cvarrToMat(imgRobotSide);

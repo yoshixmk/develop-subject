@@ -2,45 +2,50 @@
 #define STRATEGY_FRAME_COORDINATE_H
 
 #include "Strategy/Coordinate.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
 namespace Strategy
 {
 class FrameCoordinate : public Coordinate
 {
 private:
-	int upper_left_f;
+	CvPoint mUpperLeftF;
 
-	int lower_left_f;
+	CvPoint mLowerLeftF;
 
-	int upper_right_f;
+	CvPoint mUpperRightF;
 
-	int lower_right_f;
+	CvPoint mLowerRightF;
 
-	int upper_left_g;
+	CvPoint mUpperLeftG;
 
-	int lower_left_g;
+	CvPoint mLowerLeftG;
 
-	int upper_right_g;
+	CvPoint mUpperRightG;
 
-	int lower_right_g;
+	CvPoint mLowerRightG;
 
 
 public:
-	void getUpperLeftF();
+	CvPoint getUpperLeftF();
 
-	void getLowerLeftF();
+	CvPoint getLowerLeftF();
 
-	void getUpperRightF();
+	CvPoint getUpperRightF();
 
-	void getLowerRightF();
+	CvPoint getLowerRightF();
 
-	void getUpperLeftG();
+	CvPoint getUpperLeftG();
 
-	void getLowerLeftG();
+	CvPoint getLowerLeftG();
 
-	void getUpperRightG();
+	CvPoint getUpperRightG();
 
-	void getLowerRightG();
+	CvPoint getLowerRightG();
 
 };
 

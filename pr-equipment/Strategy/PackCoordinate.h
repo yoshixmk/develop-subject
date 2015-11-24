@@ -2,21 +2,30 @@
 #define STRATEGY_PACK_COORDINATE_H
 
 #include "Strategy/Coordinate.h"
+#include "Color/ColorExtraction.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
 namespace Strategy
 {
 class PackCoordinate : public Coordinate
 {
 private:
-	int x_y_coordinate;
+	CvPoint mXYCoordinate;
 
-	int previous_x_y_coordinate;
+	CvPoint mPreviousXYCoordinate;
 
+	Color::ColorExtraction mColorExtractionPack;
 
 public:
-	int getCoordinate();
+	PackCoordinate();
 
-	int getPreviousCoordinate();
+	CvPoint getCoordinate();
+
+	CvPoint getPreviousCoordinate();
 
 };
 

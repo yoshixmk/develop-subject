@@ -31,7 +31,7 @@ private:
 						   int aCh2Lower, int aCh2Upper,
 						   int aCh3Lower, int aCh3Upper);
 
-	IplImage* colorExtractionImage;
+	IplImage* mColorExtractionImage;
 
 public:
 	ColorExtraction();

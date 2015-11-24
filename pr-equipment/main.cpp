@@ -14,7 +14,7 @@ int  main()
 	//hardwareTest.pushSwitchTest();
 	//hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
-	hardwareTest.bgmSignalTest();
+//	hardwareTest.bgmSignalTest();
 	//hardwareTest.cameraTest();
 
 	Test::ColorTest colorTest;
@@ -26,6 +26,7 @@ int  main()
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
+	strategyTest.packCoordinateTest();
 
 	return 0;
 }

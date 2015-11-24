@@ -30,6 +30,7 @@ Camera::Camera(int aWidth, int aHeight)
 		std::cout << "Camera Capture FAILED" << std::endl;
 		exit(-1);
 	}
+    renew();
 }
 
 void Camera::setSize(int aWidth, int aHeight)

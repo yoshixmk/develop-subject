@@ -8,7 +8,7 @@ namespace Color
 
 ColorExtraction::ColorExtraction():mHockeyTableMasking(), mRobotSideHockeyTableMasking()
 {
-	colorExtractionImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
+	mColorExtractionImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 	mHMin = 0;
 	mHMax = 255;
 	mSMin = 0;
@@ -19,7 +19,7 @@ ColorExtraction::ColorExtraction():mHockeyTableMasking(), mRobotSideHockeyTableM
 
 ColorExtraction::ColorExtraction(int aHMin, int aHMax, int aSMin, int aSMax, int aVMin, int aVMax) :mHockeyTableMasking(), mRobotSideHockeyTableMasking()
 {
-	colorExtractionImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
+	mColorExtractionImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 	mHMax = aHMax;
 	mHMin = aHMin;
 	mSMax = aSMax;
@@ -139,16 +139,18 @@ void ColorExtraction::setHSV(int aHMin, int aHMax, int aSMin, int aSMax, int aVM
 
 IplImage* ColorExtraction::extractHockeyTable()
 {
-	IplImage* src_img = mHockeyTableMasking.mask();
-	cvColorExtraction(src_img, colorExtractionImage, CV_BGR2HSV, mHMin, mHMax, mSMin, mSMax, mVMin, mVMax);
-	return colorExtractionImage;
+	IplImage* src_img = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
+	src_img = mHockeyTableMasking.mask();
+	cvColorExtraction(src_img, mColorExtractionImage, CV_BGR2HSV, mHMin, mHMax, mSMin, mSMax, mVMin, mVMax);
+	return mColorExtractionImage;
 }
 
 IplImage* ColorExtraction::extractRobotSideHockeyTable()
 {
-	IplImage* src_img = mRobotSideHockeyTableMasking.mask();
-	cvColorExtraction(src_img, colorExtractionImage, CV_BGR2HSV, mHMin, mHMax, mSMin, mSMax, mVMin, mVMax);
-	return colorExtractionImage;
+	IplImage* src_img = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
+	src_img = mRobotSideHockeyTableMasking.mask();
+	cvColorExtraction(src_img, mColorExtractionImage, CV_BGR2HSV, mHMin, mHMax, mSMin, mSMax, mVMin, mVMax);
+	return mColorExtractionImage;
 }
 
 void ColorExtraction::setMalletHSV()

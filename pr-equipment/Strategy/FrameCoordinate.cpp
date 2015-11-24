@@ -3,35 +3,43 @@
 namespace Strategy
 {
 
-void FrameCoordinate::getUpperLeftF()
+CvPoint FrameCoordinate::getUpperLeftF()
 {
+	return cvPoint(0, 0);
 }
 
-void FrameCoordinate::getLowerLeftF()
+CvPoint FrameCoordinate::getLowerLeftF()
 {
+	return cvPoint(0, 0);
 }
 
-void FrameCoordinate::getUpperRightF()
+CvPoint FrameCoordinate::getUpperRightF()
 {
+	return cvPoint(0, 0);
 }
 
-void FrameCoordinate::getLowerRightF()
+CvPoint FrameCoordinate::getLowerRightF()
 {
+	return cvPoint(0, 0);
 }
 
-void FrameCoordinate::getUpperLeftG()
+CvPoint FrameCoordinate::getUpperLeftG()
 {
+	return cvPoint(0, 0);
 }
 
-void FrameCoordinate::getLowerLeftG()
+CvPoint FrameCoordinate::getLowerLeftG()
 {
+	return cvPoint(0, 0);
 }
 
-void FrameCoordinate::getUpperRightG()
+CvPoint FrameCoordinate::getUpperRightG()
 {
+	return cvPoint(0, 0);
 }
 
-void FrameCoordinate::getLowerRightG()
+CvPoint FrameCoordinate::getLowerRightG()
 {
+	return cvPoint(0, 0);
 }
 }  // namespace Strategy
