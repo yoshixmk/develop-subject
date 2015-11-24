@@ -3,43 +3,63 @@
 namespace Strategy
 {
 
+FrameCoordinate::FrameCoordinate()
+{
+	mUpperLeftF = cvPoint(21, 33);
+
+	mLowerLeftF = cvPoint(19, 219);
+
+	mUpperRightF = cvPoint(139, 30);
+
+	mLowerRightF = cvPoint(138, 219);
+
+	mUpperLeftG = cvPoint(33, 22);
+
+	mLowerLeftG = cvPoint(27, 227);
+
+	mUpperRightG = cvPoint(128, 22);
+
+	mLowerRightG = cvPoint(127, 228);
+
+}
+
 CvPoint FrameCoordinate::getUpperLeftF()
 {
-	return cvPoint(0, 0);
+	return mUpperLeftF;
 }
 
 CvPoint FrameCoordinate::getLowerLeftF()
 {
-	return cvPoint(0, 0);
+	return mLowerLeftF;
 }
 
 CvPoint FrameCoordinate::getUpperRightF()
 {
-	return cvPoint(0, 0);
+	return mUpperRightF;
 }
 
 CvPoint FrameCoordinate::getLowerRightF()
 {
-	return cvPoint(0, 0);
+	return mLowerRightF;
 }
 
 CvPoint FrameCoordinate::getUpperLeftG()
 {
-	return cvPoint(0, 0);
+	return mUpperLeftG;
 }
 
 CvPoint FrameCoordinate::getLowerLeftG()
 {
-	return cvPoint(0, 0);
+	return mLowerLeftG;
 }
 
 CvPoint FrameCoordinate::getUpperRightG()
 {
-	return cvPoint(0, 0);
+	return mUpperRightG;
 }
 
 CvPoint FrameCoordinate::getLowerRightG()
 {
-	return cvPoint(0, 0);
+	return mLowerRightG;
 }
 }  // namespace Strategy

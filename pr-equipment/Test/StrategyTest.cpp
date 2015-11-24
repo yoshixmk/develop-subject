@@ -42,5 +42,34 @@ void StrategyTest::malletCoordinateTest()
 	}
 }
 
+void StrategyTest::frameCoordinateTest()
+{
+	std::cout << "!!!frameCoordinate Test!!!" << std::endl;
+	Strategy::FrameCoordinate frameCoordinate;
+	std::cout << "X: "<< frameCoordinate.getUpperLeftF().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getUpperLeftF().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getLowerLeftF().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getLowerLeftF().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getUpperRightF().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getUpperRightF().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getLowerRightF().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getLowerRightF().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getUpperLeftG().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getUpperLeftG().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getLowerLeftG().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getLowerLeftG().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getUpperRightG().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getUpperRightG().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getLowerRightG().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getLowerRightG().y << std::endl;
+}
+
 
 }  // namespace Test
