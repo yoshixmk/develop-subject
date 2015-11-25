@@ -3,25 +3,32 @@
 
 #include "Hardware/MotorDriver.h"
 #include "Hardware/Timer.h"
+#include <iostream>
+#include <cstdlib>
 
 namespace Strategy
 {
 class FrequencySwitching
 {
 private:
-	int current_frequency;
+	int mCurrentFrequency;
 
-	int xaxis_or_yaxis;
+	char mXaxisOrYaxis;
 
-	Hardware::MotorDriver motorDriver;
-	Hardware::Timer timer;
+	Hardware::MotorDriver *mMotorDriverX;
+	Hardware::MotorDriver *mMotorDriverY1;
+	Hardware::MotorDriver *mMotorDriverY2;
+	Hardware::Timer mTimer;
 
 public:
-	void output();
+	//FrequencySwitching();
+	FrequencySwitching(char aXaxisOrYaxis);
 
-	void setXaxis();
+	~FrequencySwitching();
 
-	void setYaxis();
+	void output(bool isNormalRotation, int aOperatingTime);
+
+	void stop();
 
 	int getCurrentFrequency();
 
