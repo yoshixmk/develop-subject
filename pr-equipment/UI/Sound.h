@@ -3,18 +3,20 @@
 
 #include "Hardware/Speaker.h"
 #include "UI/PackSpeed.h"
+#include "Hardware/BGMSignal.h"
 
 namespace UI
 {
 class Sound
 {
 private:
-	Hardware::Speaker speaker;
-	PackSpeed packSpeed;
+	//Hardware::Speaker mSpeaker;
+	//PackSpeed mPackSpeed;
+	Hardware::BGMSignal mBGMSignal;
 
 public:
+	Sound();
 	void emitSettingModeSound();
-
 	void emitPlayModeSound();
 
 };

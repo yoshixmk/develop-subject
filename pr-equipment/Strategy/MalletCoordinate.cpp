@@ -3,10 +3,10 @@
 namespace Strategy
 {
 
-MalletCoordinate::MalletCoordinate() :mColorExtractionMallet()
+MalletCoordinate::MalletCoordinate()
 {
-	mColorExtractionMallet.setPackHSV();
-	IplImage* packMasikingImage = mColorExtractionMallet.extractRobotSideHockeyTable();
+	mColorExtraction.setPackHSV();
+	IplImage* packMasikingImage = mColorExtraction.extractRobotSideHockeyTable();
 	cvSetImageCOI(packMasikingImage, 1);
 
 	CvMoments moment_mallet;
@@ -26,8 +26,8 @@ MalletCoordinate::MalletCoordinate() :mColorExtractionMallet()
 CvPoint MalletCoordinate::getCoordinate()
 {
 //	Color::ColorExtraction colorExtractionMallet;
-	mColorExtractionMallet.setMalletHSV();
-	IplImage* malletMasikingImage = mColorExtractionMallet.extractRobotSideHockeyTable();
+	mColorExtraction.setMalletHSV();
+	IplImage* malletMasikingImage = mColorExtraction.extractRobotSideHockeyTable();
 
 	cvSetImageCOI(malletMasikingImage, 1);
 

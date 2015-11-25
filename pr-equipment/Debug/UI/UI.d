@@ -82,6 +82,7 @@ UI/UI.d: ../UI/UI.cpp ../UI/UI.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Speaker.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/UI/PackSpeed.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/PhotoelectricSensor.h \
+ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/BGMSignal.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/UI/Intelligent.h \
  C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/PushSwitch.h
 
@@ -252,6 +253,8 @@ C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/Speaker
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/UI/PackSpeed.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/PhotoelectricSensor.h:
+
+C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/Hardware/BGMSignal.h:
 
 C:\Users\miyawaki\Documents\Github\develop-subject\pr-equipment/UI/Intelligent.h:
 

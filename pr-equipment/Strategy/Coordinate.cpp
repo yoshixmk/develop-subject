@@ -2,6 +2,9 @@
 
 namespace Strategy
 {
+Coordinate::Coordinate() : mColorExtraction()
+{
+}
 
 int Coordinate::getCoordinate()
 {

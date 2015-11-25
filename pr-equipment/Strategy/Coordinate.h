@@ -10,9 +10,11 @@ class Coordinate
 private:
 	int x_y_coordinate;
 
-	Color::ColorExtraction colorExtraction;
+protected:
+	Color::ColorExtraction mColorExtraction;
 
 public:
+	Coordinate();
 	int getCoordinate();
 
 };

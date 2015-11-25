@@ -3,11 +3,11 @@
 namespace Strategy
 {
 
-PackCoordinate::PackCoordinate() :mColorExtractionPack()
+PackCoordinate::PackCoordinate()
 {
 //	Color::ColorExtraction colorExtractionPack;
-	mColorExtractionPack.setPackHSV();
-	IplImage* packMasikingImage = mColorExtractionPack.extractHockeyTable();
+	mColorExtraction.setPackHSV();
+	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
 	cvSetImageCOI(packMasikingImage, 1);
 
 	CvMoments moment_pack;
@@ -31,8 +31,8 @@ CvPoint PackCoordinate::getCoordinate()
 	mPreviousXYCoordinate = mXYCoordinate;
 
 //	Color::ColorExtraction colorExtractionPack;
-	mColorExtractionPack.setPackHSV();
-	IplImage* packMasikingImage = mColorExtractionPack.extractHockeyTable();
+	mColorExtraction.setPackHSV();
+	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
 
 	cvSetImageCOI(packMasikingImage, 1);
 

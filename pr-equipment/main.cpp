@@ -16,11 +16,11 @@ int  main()
 	//hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
 //	hardwareTest.bgmSignalTest();
-	//hardwareTest.cameraTest();
+//	hardwareTest.cameraTest();
 
 	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
-//	colorTest.hockeyTableMaskingTest();
+	//colorTest.hockeyTableMaskingTest();
 //	colorTest.robotSideHockeyTableMaskingTest();
 //	colorTest.perspectiveTransformationTest();
 //	colorTest.colorExtractionTest();
@@ -33,7 +33,8 @@ int  main()
 //	strategyTest.locusTest();
 
 	Test::UITest uiTest;
-	uiTest.intelligentTest();
+//	uiTest.intelligentTest();
+	uiTest.soundTest();
 
 	return 0;
 }

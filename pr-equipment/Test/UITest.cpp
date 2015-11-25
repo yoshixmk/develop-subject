@@ -31,4 +31,19 @@ void UITest::intelligentTest()
 	}
 }
 
+void UITest::soundTest()
+{
+	std::cout<<"sound Test"<<std::endl;
+	Hardware::RaspberryPiSignal raspberryPiSignal(8);
+	UI::Sound sound;
+
+	sound.emitSettingModeSound();
+
+	if(raspberryPiSignal.readLevel()==0){
+		std::cout<<"setting mode"<<std::endl;
+	}
+	else{
+		std::cout<<"play mode"<<std::endl;
+	}
+}
 } /* namespace Color */
