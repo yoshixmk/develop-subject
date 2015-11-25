@@ -8,14 +8,15 @@ namespace UI
 class Intelligent
 {
 private:
-	bool strong_or_weak;
+	bool mStrongOrWeak;
 
-	Hardware::PushSwitch pushSwitch[2];
+	Hardware::PushSwitch mPushSwitchStrong;
+	Hardware::PushSwitch mPushSwitchWeak;
 
 public:
-	void chooseStrong();
+	Intelligent();
 
-	void chooseWeak();
+	void renew();
 
 	bool isStrong();
 

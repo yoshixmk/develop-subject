@@ -3,21 +3,29 @@
 namespace UI
 {
 
-void Intelligent::chooseStrong()
+Intelligent::Intelligent() :mPushSwitchStrong(10), mPushSwitchWeak(11)
 {
+	//default = strong
+	mStrongOrWeak = true;
 }
 
-void Intelligent::chooseWeak()
+void Intelligent::renew()
 {
+	if(mPushSwitchStrong.readLevel() == 1){
+		mStrongOrWeak = true;
+	}
+	else if(mPushSwitchWeak.readLevel() == 1){
+		mStrongOrWeak = false;
+	}
 }
 
 bool Intelligent::isStrong()
 {
-	return false;
+	return mStrongOrWeak;
 }
 
 bool Intelligent::isWeak()
 {
-	return false;
+	return !mStrongOrWeak;
 }
 }  // namespace UI

@@ -1,6 +1,7 @@
 #include "Test/HardwareTest.h"
 #include "Test/ColorTest.h"
 #include "Test/StrategyTest.h"
+#include "Test/UITest.h"
 
 int  main()
 {
@@ -29,7 +30,10 @@ int  main()
 //	strategyTest.packCoordinateTest();
 //	strategyTest.malletCoordinateTest();
 //	strategyTest.frameCoordinateTest();
-	strategyTest.locusTest();
+//	strategyTest.locusTest();
+
+	Test::UITest uiTest;
+	uiTest.intelligentTest();
 
 	return 0;
 }
