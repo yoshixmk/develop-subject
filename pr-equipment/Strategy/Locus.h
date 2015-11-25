@@ -3,23 +3,28 @@
 
 #include "Strategy/Coordinate.h"
 #include "Strategy/RandomPositionCoordinate.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
 namespace Strategy
 {
 class Locus
 {
 private:
-	int a_inclination;
+	double mAInclination;
 
-	int b_intercept;
+	double mBIntercept;
 
-	bool isRandom;
+	bool mIsRandom;
 
-	Coordinate positionalCoordinate;
-	RandomPositionCoordinate randomPositionCoordinate;
+	Coordinate mPositionalCoordinate;
+	RandomPositionCoordinate mRandomPositionCoordinate;
 
 public:
-	void calculateLocus(int coordinate1, int coordinate2);
+	void calculateLocus(CvPoint aCoordinate1, CvPoint aCoordinate2);
 
 	double getaAInclination();
 

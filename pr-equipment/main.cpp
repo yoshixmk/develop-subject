@@ -28,7 +28,8 @@ int  main()
 	//strategyTest.anomalyDetectionTest();
 //	strategyTest.packCoordinateTest();
 //	strategyTest.malletCoordinateTest();
-	strategyTest.frameCoordinateTest();
+//	strategyTest.frameCoordinateTest();
+	strategyTest.locusTest();
 
 	return 0;
 }

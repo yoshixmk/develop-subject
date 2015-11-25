@@ -71,5 +71,25 @@ void StrategyTest::frameCoordinateTest()
 	std::cout << "Y: "<< frameCoordinate.getLowerRightG().y << std::endl;
 }
 
+void StrategyTest::locusTest()
+{
+	std::cout << "!!!Locus Test!!!" << std::endl;
+	Hardware::Camera::renew();
+	Strategy::PackCoordinate packCoordinate;
+	Strategy::Locus locus;
+	while(1){
+		Hardware::Camera::renew();
+		CvPoint coordinate = packCoordinate.getCoordinate();
+		CvPoint previousCoordinate = packCoordinate.getPreviousCoordinate();
+		locus.calculateLocus(coordinate, previousCoordinate);
+		double a_inclination = locus.getaAInclination();
+		double b_intercept = locus.getBIntercept();
+		std::cout << "a: " << a_inclination << std::endl;
+		std::cout << "b: " << b_intercept << std::endl;
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+}
 
 }  // namespace Test

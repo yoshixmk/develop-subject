@@ -5,6 +5,7 @@
 #include "Strategy/PackCoordinate.h"
 #include "Strategy/MalletCoordinate.h"
 #include "Strategy/FrameCoordinate.h"
+#include "Strategy/Locus.h"
 #include <iostream>
 #include <pigpio.h>
 
@@ -20,6 +21,7 @@ public:
 	void packCoordinateTest();
 	void malletCoordinateTest();
 	void frameCoordinateTest();
+	void locusTest();
 
 };
 
