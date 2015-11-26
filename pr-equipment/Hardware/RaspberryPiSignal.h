@@ -3,10 +3,8 @@
 
 #include<pigpio.h>
 
-namespace Hardware
-{
-class RaspberryPiSignal
-{
+namespace Hardware {
+class RaspberryPiSignal {
 private:
 	int mGpioPin;
 

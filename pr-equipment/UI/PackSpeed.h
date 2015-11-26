@@ -4,10 +4,8 @@
 #include "Hardware/Timer.h"
 #include "Hardware/PhotoelectricSensor.h"
 
-namespace UI
-{
-class PackSpeed
-{
+namespace UI {
+class PackSpeed {
 private:
 	int speed;
 

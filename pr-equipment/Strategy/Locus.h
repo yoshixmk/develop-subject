@@ -4,10 +4,8 @@
 #include "Strategy/Coordinate.h"
 #include "Strategy/RandomPositionCoordinate.h"
 
-namespace Strategy
-{
-class Locus
-{
+namespace Strategy {
+class Locus {
 private:
 	int a_inclination;
 

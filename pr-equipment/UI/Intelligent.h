@@ -3,10 +3,8 @@
 
 #include "Hardware/PushSwitch.h"
 
-namespace UI
-{
-class Intelligent
-{
+namespace UI {
+class Intelligent {
 private:
 	bool strong_or_weak;
 

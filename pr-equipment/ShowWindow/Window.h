@@ -1,18 +1,24 @@
 #ifndef SHOWWINDOW_WINDOW_H
 #define SHOWWINDOW_WINDOW_H
 
-namespace ShowWindow
-{
-class Window
-{
-private:
-	int window_neme;
+#include <iostream>
+#include <string.h>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
+namespace ShowWindow {
+class Window {
+private:
+	std::string mWindowName;
+	const char *mCharWindowname;
 
 public:
-	void showImage(int image);
+	Window(std::string aWindowName);
+	void showImage(IplImage* aImage);
 
 	void destroyWindow();
+
+
 
 };
 

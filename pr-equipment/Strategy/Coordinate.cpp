@@ -1,10 +1,8 @@
 #include "Coordinate.h"
 
-namespace Strategy
-{
+namespace Strategy {
 
-int Coordinate::getCoordinate()
-{
+int Coordinate::getCoordinate() {
 	return 0;
 }
 }  // namespace Strategy

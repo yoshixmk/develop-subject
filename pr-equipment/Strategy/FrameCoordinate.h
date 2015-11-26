@@ -3,10 +3,8 @@
 
 #include "Strategy/Coordinate.h"
 
-namespace Strategy
-{
-class FrameCoordinate : public Coordinate
-{
+namespace Strategy {
+class FrameCoordinate: public Coordinate {
 private:
 	int upper_left_f;
 
@@ -23,7 +21,6 @@ private:
 	int upper_right_g;
 
 	int lower_right_g;
-
 
 public:
 	void getUpperLeftF();

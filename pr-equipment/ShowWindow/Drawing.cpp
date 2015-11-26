@@ -1,21 +1,18 @@
 #include "Drawing.h"
 
-namespace ShowWindow
-{
+namespace ShowWindow {
 
-void Drawing::drawPack(int image)
-{
+void Drawing::drawPack(IplImage* aimage) {
+
 }
 
-void Drawing::drawMallet(int image)
-{
+void Drawing::drawMallet(IplImage* aimage) {
 }
 
-void Drawing::drawDefenseLine(int image)
-{
+void Drawing::drawDefenseLine(IplImage* aimage) {
+	cvLine(aimage, cvPoint(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() - 30), cvPoint(0, Hardware::Camera::getHeight() - 30), cvScalar(255,255,0), 2);
 }
 
-void Drawing::drawPackLocus(int image)
-{
+void Drawing::drawPackLocus(IplImage* aimage) {
 }
 }  // namespace ShowWindow

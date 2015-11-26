@@ -1,10 +1,8 @@
 #include "UI.h"
 
-namespace UI
-{
+namespace UI {
 
-void UI::main()
-{
+void UI::main() {
 	std::cout << "!!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
 }
 }  // namespace UI

@@ -5,10 +5,8 @@
 #include "Strategy/FrequencySwitching.h"
 #include "Strategy/AnomalyDetection.h"
 
-namespace Strategy
-{
-class RobotAction
-{
+namespace Strategy {
+class RobotAction {
 private:
 	FrequencySwitching frequencySwitching[3];
 	Hardware::MotorDriver motorDriver;

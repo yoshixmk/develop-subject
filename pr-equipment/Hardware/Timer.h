@@ -5,10 +5,8 @@
 #include <iostream>
 #include <pigpio.h>
 
-namespace Hardware
-{
-class Timer
-{
+namespace Hardware {
+class Timer {
 private:
 	double mStartTime;
 	double mNowTime;

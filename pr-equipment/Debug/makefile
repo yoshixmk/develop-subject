@@ -14,7 +14,6 @@ RM := rm -rf
 -include ShowWindow/subdir.mk
 -include Hardware/subdir.mk
 -include Color/subdir.mk
--include .metadata/.plugins/org.eclipse.cdt.make.core/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -44,19 +43,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: pr-equipment
+all: pr_equipment
 
 # Tool invocations
-pr-equipment: $(OBJS) $(USER_OBJS)
+pr_equipment: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	arm-linux-gnueabihf-g++ -L"C:\dev\pigpio-master" -L"C:\dev\opencv-2.4.11\lib" -Xlinker -rpath-link=\\RASPBERRYPI\pi\lib\arm-linux-gnueabihf -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib\arm-linux-gnueabihf -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib -o "pr-equipment" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-linux-gnueabihf-g++ -L"C:\dev\pigpio-master" -L"\\RASP-ENDO\pi\home\pi\opencv-2.4.11\build\lib" -Xlinker -rpath-link=\\RASP-ENDO\pi\usr\lib\arm-linux-gnueabihf -Xlinker -rpath-link=\\RASP-ENDO\pi\usr\lib\ -Xlinker -rpath-link=\\RASP-ENDO\pi\lib\arm-linux-gnueabihf -o "pr_equipment" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(C_DEPS)$(CPP_DEPS) pr-equipment
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(C_DEPS)$(CPP_DEPS) pr_equipment
 	-@echo ' '
 
 .PHONY: all clean dependents

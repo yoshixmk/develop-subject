@@ -3,13 +3,10 @@
 
 #include<pigpio.h>
 
-namespace Hardware
-{
-class PhotoelectricSensor
-{
+namespace Hardware {
+class PhotoelectricSensor {
 private:
 	int mGpioPin;
-
 
 public:
 	PhotoelectricSensor(int aGpioPin);

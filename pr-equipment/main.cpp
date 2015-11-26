@@ -1,9 +1,9 @@
 #include "Test/HardwareTest.h"
 #include "Test/ColorTest.h"
 #include "Test/StrategyTest.h"
+#include "Test/ShowWindowTest.h"
 
-int  main()
-{
+int main() {
 	Test::HardwareTest hardwareTest;
 	//hardware_test.timerTest();
 	//hardware_test.raspberryPiSignalTest();
@@ -18,11 +18,14 @@ int  main()
 	//hardwareTest.cameraTest();
 
 	Test::ColorTest colorTest;
-//	colorTest.twoImageSynthesisTest();
-	colorTest.hockeyTableMaskingTest();
+	//colorTest.twoImageSynthesisTest();
+//	colorTest.hockeyTableMaskingTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
 
+	Test::ShowWindowTest showWindowTest;
+//	showWindowTest.windowTest();
+	showWindowTest.drawingTest();
 	return 0;
 }

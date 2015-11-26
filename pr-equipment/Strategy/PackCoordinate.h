@@ -3,15 +3,12 @@
 
 #include "Strategy/Coordinate.h"
 
-namespace Strategy
-{
-class PackCoordinate : public Coordinate
-{
+namespace Strategy {
+class PackCoordinate: public Coordinate {
 private:
 	int x_y_coordinate;
 
 	int previous_x_y_coordinate;
-
 
 public:
 	int getCoordinate();

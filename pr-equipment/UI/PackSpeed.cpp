@@ -1,10 +1,8 @@
 #include "PackSpeed.h"
 
-namespace UI
-{
+namespace UI {
 
-double PackSpeed::getSpeed()
-{
+double PackSpeed::getSpeed() {
 	return 0;
 }
 }  // namespace UI

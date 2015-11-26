@@ -6,10 +6,8 @@
 #include "UI/Mode.h"
 #include <iostream>
 
-namespace UI
-{
-class UI
-{
+namespace UI {
+class UI {
 private:
 	//Mode mode;
 	Hardware::RaspberryPiSignal raspberryPiSignal;

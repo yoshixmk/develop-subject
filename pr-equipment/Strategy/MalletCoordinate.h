@@ -3,13 +3,10 @@
 
 #include "Strategy/Coordinate.h"
 
-namespace Strategy
-{
-class MalletCoordinate : public Coordinate
-{
+namespace Strategy {
+class MalletCoordinate: public Coordinate {
 private:
 	int x_y_coordinate;
-
 
 public:
 	int getCoordinate();

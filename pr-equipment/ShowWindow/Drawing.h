@@ -1,18 +1,18 @@
 #ifndef SHOWWINDOW_DRAWING_H
 #define SHOWWINDOW_DRAWING_H
 
-namespace ShowWindow
-{
-class Drawing
-{
+#include "Hardware/Camera.h"
+
+namespace ShowWindow {
+class Drawing {
 public:
-	void drawPack(int image);
+	void drawPack(IplImage* aimage);
 
-	void drawMallet(int image);
+	void drawMallet(IplImage* aimage);
 
-	void drawDefenseLine(int image);
+	void drawDefenseLine(IplImage* aimage);
 
-	void drawPackLocus(int image);
+	void drawPackLocus(IplImage* aimage);
 
 };
 

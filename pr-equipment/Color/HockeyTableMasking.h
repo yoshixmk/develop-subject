@@ -3,10 +3,8 @@
 
 #include "Color/Masking.h"
 
-namespace Color
-{
-class HockeyTableMasking //: public Masking
-{
+namespace Color {
+class HockeyTableMasking: public Masking {
 private:
 	IplImage* mHockeyTableImage;
 	TwoImageSynthesis twoImageSynthesis;

@@ -1,10 +1,8 @@
 #include "MalletCoordinate.h"
 
-namespace Strategy
-{
+namespace Strategy {
 
-int MalletCoordinate::getCoordinate()
-{
+int MalletCoordinate::getCoordinate() {
 	return 0;
 }
 }  // namespace Strategy

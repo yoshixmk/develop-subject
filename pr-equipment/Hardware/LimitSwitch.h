@@ -3,13 +3,10 @@
 
 #include<pigpio.h>
 
-namespace Hardware
-{
-class LimitSwitch
-{
+namespace Hardware {
+class LimitSwitch {
 private:
 	int mGpioPin;
-
 
 public:
 	LimitSwitch(int aGpioPin);

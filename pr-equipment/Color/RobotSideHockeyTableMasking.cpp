@@ -1,10 +1,8 @@
 #include "RobotSideHockeyTableMasking.h"
 
-namespace Color
-{
+namespace Color {
 
-IplImage* RobotSideHockeyTableMasking::mask()
-{
+IplImage* RobotSideHockeyTableMasking::mask() {
 	return 0;
 }
 }  // namespace Color

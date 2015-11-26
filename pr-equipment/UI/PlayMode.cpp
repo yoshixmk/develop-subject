@@ -1,9 +1,7 @@
 #include "PlayMode.h"
 
-namespace UI
-{
+namespace UI {
 
-void PlayMode::execute()
-{
+void PlayMode::execute() {
 }
 }  // namespace UI

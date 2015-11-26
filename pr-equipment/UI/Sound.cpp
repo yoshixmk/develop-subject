@@ -1,13 +1,10 @@
 #include "Sound.h"
 
-namespace UI
-{
+namespace UI {
 
-void Sound::emitSettingModeSound()
-{
+void Sound::emitSettingModeSound() {
 }
 
-void Sound::emitPlayModeSound()
-{
+void Sound::emitPlayModeSound() {
 }
 }  // namespace UI

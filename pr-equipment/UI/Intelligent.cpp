@@ -1,23 +1,18 @@
 #include "Intelligent.h"
 
-namespace UI
-{
+namespace UI {
 
-void Intelligent::chooseStrong()
-{
+void Intelligent::chooseStrong() {
 }
 
-void Intelligent::chooseWeak()
-{
+void Intelligent::chooseWeak() {
 }
 
-bool Intelligent::isStrong()
-{
+bool Intelligent::isStrong() {
 	return false;
 }
 
-bool Intelligent::isWeak()
-{
+bool Intelligent::isWeak() {
 	return false;
 }
 }  // namespace UI

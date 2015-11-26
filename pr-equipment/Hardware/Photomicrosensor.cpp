@@ -1,18 +1,15 @@
 #include "Photomicrosensor.h"
 
-namespace Hardware
-{
-Photomicrosensor::Photomicrosensor(int aGpioPin)
-{
-	mGpioPin=aGpioPin;
+namespace Hardware {
+Photomicrosensor::Photomicrosensor(int aGpioPin) {
+	mGpioPin = aGpioPin;
 
 	gpioSetMode(mGpioPin, PI_INPUT);
-	gpioWrite(mGpioPin,0);
+	gpioWrite(mGpioPin, 0);
 }
 
-bool Photomicrosensor::readLevel()
-{
-	bool level=gpioRead(mGpioPin);
+bool Photomicrosensor::readLevel() {
+	bool level = gpioRead(mGpioPin);
 
 	return level;
 }
