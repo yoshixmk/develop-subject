@@ -25,6 +25,10 @@ private:
 
 	CvPoint mLowerRightG;
 
+	CvPoint mRobotGoalLeft;
+
+	CvPoint mRobotGoalRight;
+
 public:
 	FrameCoordinate();
 
@@ -43,6 +47,10 @@ public:
 	CvPoint getUpperRightG();
 
 	CvPoint getLowerRightG();
+
+	CvPoint getRobotGoalLeft();
+
+	CvPoint getRobotGoalRight();
 
 };
 

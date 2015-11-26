@@ -175,9 +175,4 @@ void ColorExtraction::setPackHSV()
 	mVMax = 255;
 }
 
-IplImage* ColorExtraction::getColorExtractionImage()
-{
-	return mColorExtractionImage;
-}
-
 }  // namespace Color

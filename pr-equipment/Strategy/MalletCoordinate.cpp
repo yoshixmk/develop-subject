@@ -25,7 +25,6 @@ MalletCoordinate::MalletCoordinate()
 
 CvPoint MalletCoordinate::getCoordinate()
 {
-//	Color::ColorExtraction colorExtractionMallet;
 	mColorExtraction.setMalletHSV();
 	IplImage* malletMasikingImage = mColorExtraction.extractRobotSideHockeyTable();
 

@@ -36,14 +36,13 @@ void ShowWindowTest::drawingTest()
 	ShowWindow::Drawing drawing;
 	Color::TwoImageSynthesis twoImageSynthesis;
 	IplImage* testImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight()), IPL_DEPTH_8U, 3);
-	Hardware::Camera::renew();
 	while(1)
 	{
 		Hardware::Camera::renew();
 		testImage = twoImageSynthesis.synthesizeNonDistortion();
 		drawing.drawDefenseLine(testImage);
 		drawing.drawPack(testImage);
-//		drawing.drawMallet(testImage);
+		drawing.drawMallet(testImage);
 		window.showImage(testImage);
 //		cvShowImage("Test", camera.getRobotSideImage());
 		if(cv::waitKey(1) >= 0) {

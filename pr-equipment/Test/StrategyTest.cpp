@@ -67,6 +67,12 @@ void StrategyTest::frameCoordinateTest()
 
 	std::cout << "X: "<< frameCoordinate.getLowerRightG().x << std::endl;
 	std::cout << "Y: "<< frameCoordinate.getLowerRightG().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getRobotGoalLeft().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getRobotGoalLeft().y << std::endl;
+
+	std::cout << "X: "<< frameCoordinate.getRobotGoalRight().x << std::endl;
+	std::cout << "Y: "<< frameCoordinate.getRobotGoalRight().y << std::endl;
 }
 
 void StrategyTest::locusTest()

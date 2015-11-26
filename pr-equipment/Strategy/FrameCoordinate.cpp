@@ -21,6 +21,9 @@ FrameCoordinate::FrameCoordinate()
 
 	mLowerRightG = cvPoint(127, 228);
 
+	mRobotGoalLeft = cvPoint(57, 229);
+
+	mRobotGoalRight = cvPoint(100, 229);
 }
 
 CvPoint FrameCoordinate::getUpperLeftF()
@@ -61,5 +64,15 @@ CvPoint FrameCoordinate::getUpperRightG()
 CvPoint FrameCoordinate::getLowerRightG()
 {
 	return mLowerRightG;
+}
+
+CvPoint FrameCoordinate::getRobotGoalLeft()
+{
+	return mRobotGoalLeft;
+}
+
+CvPoint FrameCoordinate::getRobotGoalRight()
+{
+	return mRobotGoalRight;
 }
 }  // namespace Strategy
