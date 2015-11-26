@@ -7,7 +7,7 @@ PackCoordinate::PackCoordinate()
 {
 //	Color::ColorExtraction colorExtractionPack;
 	mColorExtraction.setPackHSV();
-	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
+	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
 	cvSetImageCOI(packMasikingImage, 1);
 
 	CvMoments moment_pack;
@@ -32,7 +32,7 @@ CvPoint PackCoordinate::getCoordinate()
 
 //	Color::ColorExtraction colorExtractionPack;
 	mColorExtraction.setPackHSV();
-	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
+	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
 
 	cvSetImageCOI(packMasikingImage, 1);
 

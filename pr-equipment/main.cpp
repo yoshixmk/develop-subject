@@ -37,7 +37,6 @@ int main() {
 //	uiTest.soundTest();
 
 	Test::ShowWindowTest showWindowTest;
-//	showWindowTest.windowTest();
 	showWindowTest.drawingTest();
 	return 0;
 }

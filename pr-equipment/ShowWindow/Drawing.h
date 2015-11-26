@@ -2,6 +2,7 @@
 #define SHOWWINDOW_DRAWING_H
 
 #include "Hardware/Camera.h"
+#include "Strategy/PackCoordinate.h"
 
 namespace ShowWindow {
 class Drawing {
