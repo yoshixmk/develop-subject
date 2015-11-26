@@ -13,6 +13,8 @@ private:
 public:
 	MotorDriver(int aPulseGpioPin, int aCwCcwGpioPin);
 
+	~MotorDriver();
+
 	void output();
 
 	void stopOutput();

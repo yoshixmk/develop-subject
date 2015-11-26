@@ -10,7 +10,13 @@ MotorDriver::MotorDriver(int aPulseGpioPin, int aCwCcwGpioPin) {
 	gpioWrite(mCwCcwGpioPin, 0);
 }
 
-void MotorDriver::output() {
+MotorDriver::~MotorDriver()
+{
+
+}
+
+void MotorDriver::output()
+{
 	gpioPWM(mPulseGpioPin, 128);
 }
 
