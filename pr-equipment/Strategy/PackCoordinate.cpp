@@ -7,11 +7,11 @@ PackCoordinate::PackCoordinate()
 {
 //	Color::ColorExtraction colorExtractionPack;
 	mColorExtraction.setPackHSV();
-	mPackMasikingImage = mColorExtraction.extractHockeyTable();
-	cvSetImageCOI(mPackMasikingImage, 1);
+	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
+	cvSetImageCOI(packMasikingImage, 1);
 
 	CvMoments moment_pack;
-	cvMoments(mPackMasikingImage, &moment_pack, 0);
+	cvMoments(packMasikingImage, &moment_pack, 0);
 
 	double m00_now_pack = cvGetSpatialMoment(&moment_pack, 0, 0);
 	double m10_now_pack = cvGetSpatialMoment(&moment_pack, 1, 0);
@@ -32,12 +32,12 @@ CvPoint PackCoordinate::getCoordinate()
 
 //	Color::ColorExtraction colorExtractionPack;
 	mColorExtraction.setPackHSV();
-	mPackMasikingImage = mColorExtraction.extractHockeyTable();
+	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
 
-	cvSetImageCOI(mPackMasikingImage, 1);
+	cvSetImageCOI(packMasikingImage, 1);
 
 	CvMoments moment_pack;
-	cvMoments(mPackMasikingImage, &moment_pack, 0);
+	cvMoments(packMasikingImage, &moment_pack, 0);
 
 	double m00_now_pack = cvGetSpatialMoment(&moment_pack, 0, 0);
 	double m10_now_pack = cvGetSpatialMoment(&moment_pack, 1, 0);
