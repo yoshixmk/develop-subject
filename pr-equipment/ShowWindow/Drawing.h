@@ -9,7 +9,7 @@ namespace ShowWindow {
 class Drawing {
 
 private:
-	Strategy::PackCoordinate mPackCoodinate;
+	Strategy::PackCoordinate mMalletCoordinate;
 
 	Strategy::MalletCoordinate mMalletCoodinate;
 

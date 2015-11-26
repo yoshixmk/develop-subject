@@ -3,12 +3,12 @@
 namespace ShowWindow {
 
 void Drawing::drawPack(IplImage* aImage) {
-	CvPoint drawPoint = mPackCoodinate.getCoordinate();
+	CvPoint drawPoint = mMalletCoordinate.getCoordinate();
 	cvCircle(aImage, drawPoint, Hardware::Camera::getHeight() / 10, CV_RGB(0,0,255), 6, 8, 0);
 }
 
 void Drawing::drawMallet(IplImage* aImage) {
-	CvPoint drawPoint = mMalletCoodinate.getCoordinate();
+	CvPoint drawPoint = mMalletCoordinate.getCoordinate();
 	cvCircle(aImage, drawPoint, Hardware::Camera::getHeight() / 10, CV_RGB(0,0,255), 6, 8, 0);
 }
 
