@@ -3,10 +3,8 @@
 
 #include "Color/TwoImageSynthesis.h"
 
-namespace Color
-{
-class Masking
-{
+namespace Color {
+class Masking {
 private:
 	IplImage* mOutputImage;
 

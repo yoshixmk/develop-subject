@@ -1,17 +1,13 @@
 #include "OffenseDefenseStrategy.h"
 
-namespace Strategy
-{
+namespace Strategy {
 
-void OffenseDefenseStrategy::initialize()
-{
+void OffenseDefenseStrategy::initialize() {
 }
 
-void OffenseDefenseStrategy::execute(int strength)
-{
+void OffenseDefenseStrategy::execute(int strength) {
 }
 
-void OffenseDefenseStrategy::terminate()
-{
+void OffenseDefenseStrategy::terminate() {
 }
 }  // namespace Strategy

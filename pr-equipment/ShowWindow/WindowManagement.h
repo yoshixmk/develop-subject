@@ -4,10 +4,8 @@
 #include "ShowWindow/Window.h"
 #include "ShowWindow/Drawing.h"
 
-namespace ShowWindow
-{
-class WindowManagement
-{
+namespace ShowWindow {
+class WindowManagement {
 private:
 	Window window[];
 	Drawing drawing;

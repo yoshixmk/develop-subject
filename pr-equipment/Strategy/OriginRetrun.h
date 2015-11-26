@@ -5,10 +5,8 @@
 #include "Hardware/Photomicrosensor.h"
 #include "Strategy/RobotAction.h"
 
-namespace Strategy
-{
-class OriginRetrun
-{
+namespace Strategy {
+class OriginRetrun {
 private:
 	RobotAction robotAction;
 	Hardware::ProximitySensor proximitySensor;

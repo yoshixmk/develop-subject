@@ -1,9 +1,7 @@
 #include "WindowManagement.h"
 
-namespace ShowWindow
-{
+namespace ShowWindow {
 
-void WindowManagement::manage()
-{
+void WindowManagement::manage() {
 }
 }  // namespace ShowWindow

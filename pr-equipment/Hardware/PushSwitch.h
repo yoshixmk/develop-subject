@@ -3,13 +3,10 @@
 
 #include<pigpio.h>
 
-namespace Hardware
-{
-class PushSwitch
-{
+namespace Hardware {
+class PushSwitch {
 private:
 	int mGpioPin;
-
 
 public:
 	PushSwitch(int aGpioPin);

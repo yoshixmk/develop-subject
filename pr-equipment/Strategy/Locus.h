@@ -9,10 +9,8 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
-namespace Strategy
-{
-class Locus
-{
+namespace Strategy {
+class Locus {
 private:
 	double mAInclination;
 

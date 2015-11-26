@@ -1,9 +1,7 @@
 #include "OriginRetrun.h"
 
-namespace Strategy
-{
+namespace Strategy {
 
-void OriginRetrun::instruct()
-{
+void OriginRetrun::instruct() {
 }
 }  // namespace Strategy

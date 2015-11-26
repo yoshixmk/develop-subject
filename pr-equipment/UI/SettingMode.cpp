@@ -1,9 +1,7 @@
 #include "SettingMode.h"
 
-namespace UI
-{
+namespace UI {
 
-void SettingMode::execute()
-{
+void SettingMode::execute() {
 }
 }  // namespace UI

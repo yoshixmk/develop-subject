@@ -1,7 +1,6 @@
 #include "Intelligent.h"
 
-namespace UI
-{
+namespace UI {
 
 Intelligent::Intelligent() :mPushSwitchStrong(10), mPushSwitchWeak(11)
 {

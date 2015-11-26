@@ -1,14 +1,11 @@
 #include "RobotAction.h"
 
-namespace Strategy
-{
+namespace Strategy {
 
-bool RobotAction::move(int direction, int time)
-{
+bool RobotAction::move(int direction, int time) {
 	return false;
 }
 
-void RobotAction::stop(int time)
-{
+void RobotAction::stop(int time) {
 }
 }  // namespace Strategy

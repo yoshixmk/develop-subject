@@ -3,10 +3,8 @@
 
 #include "Strategy/Strategy.h"
 
-namespace Strategy
-{
-class OffenseDefenseStrategy : public Strategy
-{
+namespace Strategy {
+class OffenseDefenseStrategy: public Strategy {
 public:
 	void initialize();
 

@@ -3,10 +3,8 @@
 
 #include <pigpio.h>
 
-namespace Hardware
-{
-class MotorDriver
-{
+namespace Hardware {
+class MotorDriver {
 private:
 	int mPulseGpioPin;
 

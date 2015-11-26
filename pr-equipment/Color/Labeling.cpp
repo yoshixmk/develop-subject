@@ -1,9 +1,7 @@
 #include "Labeling.h"
 
-namespace Color
-{
+namespace Color {
 
-void Labeling::process(int monochrome_image, int color_image)
-{
+void Labeling::process(int monochrome_image, int color_image) {
 }
 }  // namespace Color

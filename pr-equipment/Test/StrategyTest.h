@@ -9,10 +9,8 @@
 #include <iostream>
 #include <pigpio.h>
 
-namespace Test
-{
-class StrategyTest
-{
+namespace Test {
+class StrategyTest {
 private:
 
 public:

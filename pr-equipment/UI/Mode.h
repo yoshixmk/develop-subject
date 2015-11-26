@@ -5,10 +5,8 @@
 #include "UI/Sound.h"
 #include "UI/Intelligent.h"
 
-namespace UI
-{
-class Mode
-{
+namespace UI {
+class Mode {
 private:
 	//Strategy::Strategy strategy;
 	Sound sound;

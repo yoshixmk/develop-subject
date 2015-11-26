@@ -3,10 +3,8 @@
 
 #include "Color/ColorExtraction.h"
 
-namespace Strategy
-{
-class Coordinate
-{
+namespace Strategy {
+class Coordinate {
 private:
 	int x_y_coordinate;
 

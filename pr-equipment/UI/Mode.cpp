@@ -1,7 +1,5 @@
 #include "Mode.h"
 
-namespace UI
-{
-
+namespace UI {
 
 }  // namespace UI

@@ -4,10 +4,8 @@
 #include "Hardware/MotorDriver.h"
 #include "Hardware/Timer.h"
 
-namespace Strategy
-{
-class FrequencySwitching
-{
+namespace Strategy {
+class FrequencySwitching {
 private:
 	int current_frequency;
 

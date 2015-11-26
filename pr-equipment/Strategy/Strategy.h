@@ -6,10 +6,8 @@
 #include "Strategy/Locus.h"
 #include "Strategy/Coordinate.h"
 
-namespace Strategy
-{
-class Strategy
-{
+namespace Strategy {
+class Strategy {
 private:
 	OriginRetrun originRetrun;
 	RobotAction robotAction;

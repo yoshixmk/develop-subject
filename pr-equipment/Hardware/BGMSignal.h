@@ -3,10 +3,8 @@
 
 #include<pigpio.h>
 
-namespace Hardware
-{
-class BGMSignal
-{
+namespace Hardware {
+class BGMSignal {
 private:
 	int mGpioPin;
 

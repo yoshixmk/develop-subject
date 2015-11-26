@@ -5,10 +5,8 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
-namespace Strategy
-{
-class FrameCoordinate : public Coordinate
-{
+namespace Strategy {
+class FrameCoordinate: public Coordinate {
 private:
 	//座標はすべて枠の内側
 	CvPoint mUpperLeftF;
@@ -26,7 +24,6 @@ private:
 	CvPoint mUpperRightG;
 
 	CvPoint mLowerRightG;
-
 
 public:
 	FrameCoordinate();

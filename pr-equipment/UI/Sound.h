@@ -5,10 +5,8 @@
 #include "UI/PackSpeed.h"
 #include "Hardware/BGMSignal.h"
 
-namespace UI
-{
-class Sound
-{
+namespace UI {
+class Sound {
 private:
 	//Hardware::Speaker mSpeaker;
 	//PackSpeed mPackSpeed;

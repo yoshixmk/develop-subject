@@ -20,10 +20,8 @@
 //#include <opencv2/imgproc/imgproc.hpp>
 //#include <opencv2/highgui/highgui.hpp>
 
-namespace Test
-{
-class HardwareTest
-{
+namespace Test {
+class HardwareTest {
 private:
 	static void signalHandler(int aSignal);
 

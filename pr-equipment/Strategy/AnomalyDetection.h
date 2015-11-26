@@ -3,10 +3,8 @@
 
 #include "Hardware/LimitSwitch.h"
 
-namespace Strategy
-{
-class AnomalyDetection
-{
+namespace Strategy {
+class AnomalyDetection {
 private:
 	Hardware::LimitSwitch limitSwitch;
 

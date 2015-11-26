@@ -2,9 +2,9 @@
 #include "Test/ColorTest.h"
 #include "Test/StrategyTest.h"
 #include "Test/UITest.h"
+#include "Test/ShowWindowTest.h"
 
-int  main()
-{
+int main() {
 	Test::HardwareTest hardwareTest;
 	//hardware_test.timerTest();
 	//hardware_test.raspberryPiSignalTest();
@@ -20,7 +20,7 @@ int  main()
 
 	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
-	//colorTest.hockeyTableMaskingTest();
+//	colorTest.hockeyTableMaskingTest();
 //	colorTest.robotSideHockeyTableMaskingTest();
 //	colorTest.perspectiveTransformationTest();
 //	colorTest.colorExtractionTest();
@@ -34,7 +34,10 @@ int  main()
 
 	Test::UITest uiTest;
 //	uiTest.intelligentTest();
-	uiTest.soundTest();
+//	uiTest.soundTest();
 
+	Test::ShowWindowTest showWindowTest;
+//	showWindowTest.windowTest();
+	showWindowTest.drawingTest();
 	return 0;
 }

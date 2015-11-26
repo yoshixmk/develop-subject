@@ -1,9 +1,7 @@
 #include "StrategyTest.h"
 
-namespace Test
-{
-StrategyTest::StrategyTest()
-{
+namespace Test {
+StrategyTest::StrategyTest() {
 
 }
 
@@ -12,7 +10,7 @@ void StrategyTest::anomalyDetectionTest()
 	std::cout << "!!!anomalyDetection Test!!!" << std::endl;
 	Strategy::AnomalyDetection anomalyDetectionTest;
 
-	std::cout << anomalyDetectionTest.detect() <<std::endl;
+	std::cout << anomalyDetectionTest.detect() << std::endl;
 }
 
 void StrategyTest::packCoordinateTest()

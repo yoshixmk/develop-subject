@@ -3,10 +3,8 @@
 
 #include "UI/Mode.h"
 
-namespace UI
-{
-class PlayMode : public Mode
-{
+namespace UI {
+class PlayMode: public Mode {
 public:
 	void execute();
 

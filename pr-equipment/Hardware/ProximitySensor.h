@@ -3,13 +3,10 @@
 
 #include "pigpio.h"
 
-namespace Hardware
-{
-class ProximitySensor
-{
+namespace Hardware {
+class ProximitySensor {
 private:
 	int mGpioPin;
-
 
 public:
 	ProximitySensor(int aGpioPin);

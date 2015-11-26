@@ -8,10 +8,8 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
-namespace Color
-{
-class RobotSideHockeyTableMasking : public Masking
-{
+namespace Color {
+class RobotSideHockeyTableMasking: public Masking {
 private:
 	IplImage* mRobotSideHockeyTableImage;
 	TwoImageSynthesis mTwoImageSynthesis;

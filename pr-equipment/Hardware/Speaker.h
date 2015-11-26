@@ -7,10 +7,8 @@
 #include <iostream>
 #include <signal.h>
 
-namespace Hardware
-{
-class Speaker
-{
+namespace Hardware {
+class Speaker {
 private:
 	std::string mSoundTrack;
 
