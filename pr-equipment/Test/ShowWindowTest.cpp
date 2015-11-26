@@ -31,15 +31,19 @@ void ShowWindowTest::windowTest()
 void ShowWindowTest::drawingTest()
 {
 	Hardware::Camera camera;
+
 	ShowWindow::Window window("Test");
 	ShowWindow::Drawing drawing;
-	Hardware::Camera::renew();
-	drawing.drawDefenseLine(camera.getRobotSideImage());
+	Color::TwoImageSynthesis twoImageSynthesis;
+	IplImage* testImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight()), IPL_DEPTH_8U, 3);
 	while(1)
 	{
 		Hardware::Camera::renew();
-		drawing.drawDefenseLine(camera.getRobotSideImage());
-		window.showImage(camera.getRobotSideImage());
+		testImage = twoImageSynthesis.synthesizeNonDistortion();
+		drawing.drawDefenseLine(testImage);
+		drawing.drawPack(testImage);
+		drawing.drawMallet(testImage);
+		window.showImage(testImage);
 //		cvShowImage("Test", camera.getRobotSideImage());
 		if(cv::waitKey(1) >= 0) {
 			break;

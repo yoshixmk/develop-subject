@@ -48,8 +48,6 @@ public:
 
 	void setPackHSV();
 
-	IplImage* getColorExtractionImage();
-
 };
 
 }  // namespace Color

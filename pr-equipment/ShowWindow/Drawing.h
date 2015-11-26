@@ -2,18 +2,25 @@
 #define SHOWWINDOW_DRAWING_H
 
 #include "Hardware/Camera.h"
+#include "Strategy/PackCoordinate.h"
+#include "Strategy/MalletCoordinate.h"
 
 namespace ShowWindow {
 class Drawing {
+
+private:
+	Strategy::PackCoordinate mPackCoodinate;
+
+	Strategy::MalletCoordinate mMalletCoodinate;
+
 public:
-	void drawPack(IplImage* aimage);
+	void drawPack(IplImage* aImage);
 
-	void drawMallet(IplImage* aimage);
+	void drawMallet(IplImage* aImage);
 
-	void drawDefenseLine(IplImage* aimage);
+	void drawDefenseLine(IplImage* aImage);
 
-	void drawPackLocus(IplImage* aimage);
-
+	void drawPackLocus(IplImage* aImage);
 };
 
 }  // namespace ShowWindow

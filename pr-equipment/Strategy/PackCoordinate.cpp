@@ -5,9 +5,8 @@ namespace Strategy
 
 PackCoordinate::PackCoordinate()
 {
-//	Color::ColorExtraction colorExtractionPack;
 	mColorExtraction.setPackHSV();
-	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
+	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
 	cvSetImageCOI(packMasikingImage, 1);
 
 	CvMoments moment_pack;
@@ -30,9 +29,8 @@ CvPoint PackCoordinate::getCoordinate()
 	//現在の座標を、前回の座標に変える
 	mPreviousXYCoordinate = mXYCoordinate;
 
-//	Color::ColorExtraction colorExtractionPack;
 	mColorExtraction.setPackHSV();
-	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
+	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
 
 	cvSetImageCOI(packMasikingImage, 1);
 
@@ -47,6 +45,7 @@ CvPoint PackCoordinate::getCoordinate()
 	double gY_now_pack = m01_now_pack / m00_now_pack;
 
 	CvPoint mXYCoordinate = cvPoint(gX_now_pack, gY_now_pack);
+
 	return mXYCoordinate;
 }
 
