@@ -17,6 +17,8 @@ private:
 
 	CvPoint mPreviousXYCoordinate;
 
+	IplImage* mPackMasikingImage;
+
 public:
 	PackCoordinate();
 
