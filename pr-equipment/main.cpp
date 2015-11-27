@@ -13,7 +13,7 @@ int main() {
 	//hardwareTest.limitSwitch();
 	//hardwareTest.proximitySensor();
 	//hardwareTest.pushSwitchTest();
-	//hardwareTest.moterDriverTest();
+	hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
 //	hardwareTest.bgmSignalTest();
 //	hardwareTest.cameraTest();
@@ -31,6 +31,7 @@ int main() {
 //	strategyTest.malletCoordinateTest();
 //	strategyTest.frameCoordinateTest();
 //	strategyTest.locusTest();
+//	strategyTest.frequencySwitchingTest();
 
 	Test::UITest uiTest;
 //	uiTest.intelligentTest();
@@ -38,6 +39,6 @@ int main() {
 
 	Test::ShowWindowTest showWindowTest;
 //	showWindowTest.windowTest();
-	showWindowTest.drawingTest();
+//	showWindowTest.drawingTest();
 	return 0;
 }

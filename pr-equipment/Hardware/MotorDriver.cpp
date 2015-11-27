@@ -32,11 +32,11 @@ void MotorDriver::setPulse(int aFrequency) {
 	}
 }
 
-void MotorDriver::setCwCcw(bool aHOrL) {
+void MotorDriver::setCwCcw(bool aIsHighLevel) {
 	//設定はパルスを止める
 	gpioPWM(mPulseGpioPin, 0);
-	if (gpioRead(mCwCcwGpioPin) != aHOrL) {
-		gpioWrite(mCwCcwGpioPin, aHOrL);
+	if (gpioRead(mCwCcwGpioPin) != aIsHighLevel) {
+		gpioWrite(mCwCcwGpioPin, aIsHighLevel);
 	}
 }
 

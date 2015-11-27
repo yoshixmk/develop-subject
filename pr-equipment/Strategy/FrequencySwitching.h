@@ -10,11 +10,9 @@ namespace Strategy {
 class FrequencySwitching {
 private:
 	int mCurrentFrequency;
-
 	char mXaxisOrYaxis;
-
-	char mDirection;//'L' or 'R'
-
+	char mTargetDirection;//'L' or 'R'
+	char mNowDirection;
 	double mTargetTime;
 
 	Hardware::MotorDriver *mMotorDriverX;
@@ -30,7 +28,7 @@ public:
 
 	void setOutputInformation(char aDirection, double aTime);
 
-	void output(bool isNormalRotation, int aOperatingTime);
+	void output();
 
 	void stop();
 

@@ -96,4 +96,18 @@ void StrategyTest::locusTest()
 	}
 }
 
+void StrategyTest::frequencySwitchingTest()
+{
+	std::cout << "!!!FrequencySwitching Test!!!" << std::endl;
+	Strategy::FrequencySwitching frequencySwitching('X');
+	frequencySwitching.setOutputInformation('R', 0.5);
+	while(1){
+		frequencySwitching.output();
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+
+}
+
 }  // namespace Test

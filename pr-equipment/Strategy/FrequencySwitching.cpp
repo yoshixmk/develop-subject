@@ -7,7 +7,8 @@ FrequencySwitching::FrequencySwitching(char aXaxisOrYaxis)
 {
 	mXaxisOrYaxis = aXaxisOrYaxis;
 	mCurrentFrequency = 400;
-	mDirection = 'R';
+	mTargetDirection = 'R';
+	mNowDirection = 'R';
 	mTargetTime = 0;
 	if(mXaxisOrYaxis == 'X'){
 		mMotorDriverX = new Hardware::MotorDriver(25, 18);
@@ -33,27 +34,32 @@ FrequencySwitching::~FrequencySwitching()
 	}
 }
 
-void FrequencySwitching::setOutputInformation(char aDirection, double aTargetTime)
+void FrequencySwitching::setOutputInformation(char aTargetDirection, double aTargetTime)
 {
-	double operating_time = mTimer.getOperatingTime();
-	if(mDirection != aDirection){
-		mDirection = aDirection;
-//		mCurrentFrequency
-//		mTargetTime = aTargetTime;
-	}
-	else{
-		mTargetTime = aTargetTime;
-	}
+	mTargetDirection = aTargetDirection;
+	mTargetTime = aTargetTime;
 	mTimer.resetStartOperatingTime();
 }
 
-void FrequencySwitching::output(bool isNormalRotation, int aOperatingTime)
+void FrequencySwitching::output()
 {
-	int frequency[] = {400, 500, 625, 1000, 1250, 2000, 2500, 5000, 10000};
-	mTimer.setTimer(0.03);
-	if(mTimer.getAlarm()){
-		mCurrentFrequency = frequency[4];
+	int frequency_acceleration[] = {1000, 1250, 2000, 2500};
+	int frequency_deceleration[] = {2500, 2000, 1250, 1000, 625, 500, 400, 313};
+	double now_time = mTimer.getOperatingTime();
+	int i;
+	for(i=0; i<4; i++){
+		if(now_time < 1.0 * (i+1)){ //本番0.05s
+			if(mCurrentFrequency != frequency_acceleration[i]){
+				mCurrentFrequency = frequency_acceleration[i];
+				mMotorDriverX->setPulse(mCurrentFrequency);
+				mMotorDriverX->setCwCcw(1);
+			}
+			break;
+		}
 	}
+//	if(mTargetDirection == 'L')
+
+	mMotorDriverX->output();
 }
 
 void FrequencySwitching::stop()

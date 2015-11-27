@@ -21,7 +21,7 @@ public:
 
 	void setPulse(int aFrequency);
 
-	void setCwCcw(bool aHOrL);
+	void setCwCcw(bool aIsHighLevel);
 
 };
 

@@ -4,6 +4,7 @@ namespace Test {
 /* シグナル受信/処理 */
 void HardwareTest::signalHandler(int aSignal) {
 	std::cout << "SIGNAL Keybord Interrupt, END" << std::endl;
+	gpioTerminate();
 	exit(0);
 }
 
@@ -114,20 +115,17 @@ void HardwareTest::moterDriverTest() {
 	Hardware::Timer timer;
 	timer.setTimer(5);
 	moterDriverXAxis.output();
-	while (!timer.getAlarm())
-		;
+	while (!timer.getAlarm());
 
 	moterDriverXAxis.setPulse(2000);
 	timer.setTimer(5);
 	moterDriverXAxis.output();
-	while (!timer.getAlarm())
-		;
+	while (!timer.getAlarm());
 
 	moterDriverXAxis.setPulse(2500);
 	timer.setTimer(5);
 	moterDriverXAxis.output();
-	while (!timer.getAlarm())
-		;
+	while (!timer.getAlarm());
 }
 
 void HardwareTest::speakerTest() {

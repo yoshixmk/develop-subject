@@ -6,6 +6,7 @@
 #include "Strategy/MalletCoordinate.h"
 #include "Strategy/FrameCoordinate.h"
 #include "Strategy/Locus.h"
+#include "Strategy/FrequencySwitching.h"
 #include <iostream>
 #include <pigpio.h>
 
@@ -20,6 +21,7 @@ public:
 	void malletCoordinateTest();
 	void frameCoordinateTest();
 	void locusTest();
+	void frequencySwitchingTest();
 
 };
 
