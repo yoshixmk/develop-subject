@@ -6,7 +6,7 @@
 
 int main() {
 	Test::HardwareTest hardwareTest;
-	hardwareTest.timerTest();
+//	hardwareTest.timerTest();
 	//hardwareTest.raspberryPiSignalTest();
 	//hardwareTest.photoelectricSensor();
 	//hardwareTest.photomicrosensor();
@@ -38,6 +38,6 @@ int main() {
 
 	Test::ShowWindowTest showWindowTest;
 //	showWindowTest.windowTest();
-//	showWindowTest.drawingTest();
+	showWindowTest.drawingTest();
 	return 0;
 }

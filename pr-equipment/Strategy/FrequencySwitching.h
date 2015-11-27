@@ -13,6 +13,10 @@ private:
 
 	char mXaxisOrYaxis;
 
+	char mDirection;//'L' or 'R'
+
+	double mTargetTime;
+
 	Hardware::MotorDriver *mMotorDriverX;
 	Hardware::MotorDriver *mMotorDriverY1;
 	Hardware::MotorDriver *mMotorDriverY2;
@@ -23,6 +27,8 @@ public:
 	FrequencySwitching(char aXaxisOrYaxis);
 
 	~FrequencySwitching();
+
+	void setOutputInformation(char aDirection, double aTime);
 
 	void output(bool isNormalRotation, int aOperatingTime);
 

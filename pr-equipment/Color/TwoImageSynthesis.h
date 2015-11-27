@@ -15,15 +15,18 @@ class TwoImageSynthesis
 {
 private:
 	Hardware::Camera mCamera;
-	Color::PerspectiveTransformation perspectiveTransformation;
+	Color::PerspectiveTransformation mPerspectiveTransformation;
 	cv::Mat mMatSynthesisImage;
 	cv::Mat mMatNonDistortionImage;
+	IplImage* mSynthesisImage;
+	IplImage* mImgRobotSide;
+	IplImage* mImgHumanSide;
 
 public:
 	TwoImageSynthesis();
+	~TwoImageSynthesis();
 	IplImage* synthesize();
 	IplImage* synthesizeNonDistortion();
-
 };
 
 }  // namespace Color

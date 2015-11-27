@@ -15,15 +15,11 @@ RobotSideHockeyTableMasking::RobotSideHockeyTableMasking() :mTwoImageSynthesis()
 
 IplImage* RobotSideHockeyTableMasking::mask()
 {
-	IplImage* src_img;
-	src_img = mTwoImageSynthesis.synthesizeNonDistortion();
 	int width = Hardware::Camera::getWidth();
 	int height = Hardware::Camera::getHeight();
 
 	int npts[2] = { 4, 6 };
 	CvPoint **pts;
-//	CvPoint center_frame_left = cvPoint(11, height);
-//	CvPoint center_frame_right = cvPoint(155, height);
 
 	pts = (CvPoint **) cvAlloc (sizeof (CvPoint *) * 2);
 	pts[0] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 4);
@@ -38,15 +34,11 @@ IplImage* RobotSideHockeyTableMasking::mask()
 	pts[1][3] = cvPoint(128, 236);
 	pts[1][4] = cvPoint(146, 224);
 	pts[1][5] = cvPoint(146, height);
-//	pts[1][6] = cvPoint(39, 233);
-//	pts[1][7] = cvPoint(15, 217);
 
-
-//    cvLine(src_img, center_frame_left, center_frame_right, CV_RGB( 0, 255, 255 ));
-	cvCopy(src_img, mRobotSideHockeyTableImage);
-//    mRobotSideHockeyTableImage = src_img;
     cvFillPoly(mRobotSideHockeyTableImage, pts, npts, 2, CV_RGB(0, 0, 0));
-
+    cvFree(&pts[0]);
+    cvFree(&pts[1]);
+    cvFree(pts);
 	return mRobotSideHockeyTableImage;
 }
 }  // namespace Color

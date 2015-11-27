@@ -18,7 +18,7 @@ private:
 
 public:
 	HockeyTableMasking();
-//	~HockeyTableMasking();
+	~HockeyTableMasking();
 	IplImage* mask();
 };
 

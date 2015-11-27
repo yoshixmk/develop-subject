@@ -8,22 +8,19 @@ HockeyTableMasking::HockeyTableMasking() :mTwoImageSynthesis()
 	mHockeyTableImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 }
 
-//HockeyTableMasking::~HockeyTableMasking()
-//{
-//	cvReleaseImage(&mHockeyTableImage);
-//}
+HockeyTableMasking::~HockeyTableMasking()
+{
+	cvReleaseImage(&mHockeyTableImage);
+}
 
 IplImage* HockeyTableMasking::mask()
 {
-	IplImage* src_img = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
-	src_img = mTwoImageSynthesis.synthesizeNonDistortion();
+	mHockeyTableImage = mTwoImageSynthesis.synthesizeNonDistortion();
 	int width = Hardware::Camera::getWidth();
 	int height = Hardware::Camera::getHeight();
 
 	int npts[2] = { 4, 8 };
 	CvPoint **pts;
-//	CvPoint center_frame_left = cvPoint(11, height);
-//	CvPoint center_frame_right  = cvPoint(155, height);
 
 	pts = (CvPoint **) cvAlloc (sizeof (CvPoint *) * 2);
 	pts[0] = (CvPoint *) cvAlloc (sizeof (CvPoint) * 4);
@@ -41,11 +38,10 @@ IplImage* HockeyTableMasking::mask()
 	pts[1][6] = cvPoint(128,13);
 	pts[1][7] = cvPoint(30,13);
 
-//    cvLine(src_img, center_frame_left, center_frame_right, CV_RGB( 0, 255, 255 ));
-//    mHockeyTableImage = src_img;
-	cvCopy(src_img, mHockeyTableImage);
     cvFillPoly(mHockeyTableImage, pts, npts, 2, CV_RGB(0, 0, 0));
-
+    cvFree(&pts[0]);
+    cvFree(&pts[1]);
+    cvFree(pts);
 	return mHockeyTableImage;
 }
 }  // namespace Color

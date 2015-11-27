@@ -2,15 +2,13 @@
 
 namespace Strategy
 {
-//FrequencySwitching::FrequencySwitching() :mMotorDriver(25,18), mMotorDriverY1(23, 7), mMotorDriverY2(24,12)
-//{
-//
-//}
 
 FrequencySwitching::FrequencySwitching(char aXaxisOrYaxis)
 {
 	mXaxisOrYaxis = aXaxisOrYaxis;
-	mCurrentFrequency = 1000;
+	mCurrentFrequency = 400;
+	mDirection = 'R';
+	mTargetTime = 0;
 	if(mXaxisOrYaxis == 'X'){
 		mMotorDriverX = new Hardware::MotorDriver(25, 18);
 	}
@@ -33,6 +31,20 @@ FrequencySwitching::~FrequencySwitching()
 		delete mMotorDriverY1;
 		delete mMotorDriverY2;
 	}
+}
+
+void FrequencySwitching::setOutputInformation(char aDirection, double aTargetTime)
+{
+	double operating_time = mTimer.getOperatingTime();
+	if(mDirection != aDirection){
+		mDirection = aDirection;
+//		mCurrentFrequency
+//		mTargetTime = aTargetTime;
+	}
+	else{
+		mTargetTime = aTargetTime;
+	}
+	mTimer.resetStartOperatingTime();
 }
 
 void FrequencySwitching::output(bool isNormalRotation, int aOperatingTime)
