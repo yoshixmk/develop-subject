@@ -5,17 +5,24 @@ namespace Strategy
 
 FrequencySwitching::FrequencySwitching(char aXaxisOrYaxis)
 {
+	mFrequencyIndex=0;
+	mFrequency[0] = 1000;
+	mFrequency[1] = 1250;
+	mFrequency[2] = 2000;
+	mFrequency[3] = 2500;
+
 	mXaxisOrYaxis = aXaxisOrYaxis;
-	mCurrentFrequency = 400;
-	mTargetDirection = 'R';
+	mCurrentFrequency = 2000;
 	mNowDirection = 'R';
 	mTargetTime = 0;
 	if(mXaxisOrYaxis == 'X'){
 		mMotorDriverX = new Hardware::MotorDriver(25, 18);
+		mTargetDirection = 'R';
 	}
 	else if(mXaxisOrYaxis == 'Y'){
 		mMotorDriverY1 = new Hardware::MotorDriver(23, 7);
 		mMotorDriverY2 = new Hardware::MotorDriver(24, 12);
+		mTargetDirection = 'U';
 	}
 	else{
 		std::cout<<"mXaxisOrYaxis is Bad argument in FrequencySwitching Class"<<std::endl;
@@ -39,31 +46,58 @@ void FrequencySwitching::setOutputInformation(char aTargetDirection, double aTar
 	mTargetDirection = aTargetDirection;
 	mTargetTime = aTargetTime;
 	mTimer.resetStartOperatingTime();
+
+	int i;
+	int array_num = sizeof(mFrequency)/sizeof(mFrequency[0]);
+	for(i=0; i<array_num; i++){
+		if(mFrequency[i] == mCurrentFrequency){
+			mFrequencyIndex = i;
+		}
+	}
 }
 
 void FrequencySwitching::output()
 {
-	int frequency_acceleration[] = {1000, 1250, 2000, 2500};
-	int frequency_deceleration[] = {2500, 2000, 1250, 1000, 625, 500, 400, 313};
 	double now_time = mTimer.getOperatingTime();
 	int i;
+	//加速
 	for(i=0; i<4; i++){
-		if(now_time < 1.0 * (i+1)){ //本番0.05s
-			if(mCurrentFrequency != frequency_acceleration[i]){
-				mCurrentFrequency = frequency_acceleration[i];
+		if(now_time < 0.05 * (i+1)){ //本番0.05s
+			if(mCurrentFrequency != mFrequency[i]){
+				mCurrentFrequency = mFrequency[i];
 				mMotorDriverX->setPulse(mCurrentFrequency);
-				mMotorDriverX->setCwCcw(1);
+				if(mTargetDirection == 'R'){
+					mMotorDriverX->setCwCcw(1);
+				}
+				if(mTargetDirection == 'L'){
+					mMotorDriverX->setCwCcw(0);
+				}
 			}
 			break;
 		}
 	}
-//	if(mTargetDirection == 'L')
+
 
 	mMotorDriverX->output();
 }
 
 void FrequencySwitching::stop()
 {
+	mTimer.resetStartOperatingTime();
+	//減速
+	int array_num = sizeof(mFrequency)/sizeof(mFrequency[0]);
+	int i;
+	double now_time = mTimer.getOperatingTime();
+	for(i=mFrequencyIndex; 0<=i; i--){
+		if(now_time < 3.0 * (array_num-1 - i)){ //本番0.05s
+				mCurrentFrequency = mFrequency[i];
+				mMotorDriverX->setPulse(mCurrentFrequency);
+				mMotorDriverX->setCwCcw(1);
+			break;
+		}
+	}
+	std::cout << mCurrentFrequency << std::endl;
+
 	mCurrentFrequency = 0;
 	if(mXaxisOrYaxis == 'X'){
 		mMotorDriverX->stopOutput();

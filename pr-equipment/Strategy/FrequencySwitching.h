@@ -11,7 +11,7 @@ class FrequencySwitching {
 private:
 	int mCurrentFrequency;
 	char mXaxisOrYaxis;
-	char mTargetDirection;//'L' or 'R'
+	char mTargetDirection;//X: 'L' or 'R' | Y: 'U' or 'D'
 	char mNowDirection;
 	double mTargetTime;
 
@@ -19,6 +19,9 @@ private:
 	Hardware::MotorDriver *mMotorDriverY1;
 	Hardware::MotorDriver *mMotorDriverY2;
 	Hardware::Timer mTimer;
+
+	int mFrequencyIndex;
+	int mFrequency[4];
 
 public:
 	//FrequencySwitching();
