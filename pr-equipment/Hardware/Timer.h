@@ -11,10 +11,14 @@ private:
 	double mStartTime;
 	double mNowTime;
 	double mNotificationTime;
+	double mStartOperatingTime;
 
 public:
 	void setTimer(double aNotificationTime);
 	bool getAlarm();
+	double getOperatingTime();
+	void resetStartOperatingTime();
+
 };
 
 }  // namespace Hardware

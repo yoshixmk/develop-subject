@@ -6,12 +6,12 @@
 
 int main() {
 	Test::HardwareTest hardwareTest;
-	//hardware_test.timerTest();
-	//hardware_test.raspberryPiSignalTest();
-	//hardware_test.photoelectricSensor();
-	//hardware_test.photomicrosensor();
-	//hardware_test.limitSwitch();
-	//hardware_test.proximitySensor();
+	hardwareTest.timerTest();
+	//hardwareTest.raspberryPiSignalTest();
+	//hardwareTest.photoelectricSensor();
+	//hardwareTest.photomicrosensor();
+	//hardwareTest.limitSwitch();
+	//hardwareTest.proximitySensor();
 	//hardwareTest.pushSwitchTest();
 	//hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
@@ -29,7 +29,7 @@ int main() {
 	//strategyTest.anomalyDetectionTest();
 //	strategyTest.packCoordinateTest();
 //	strategyTest.malletCoordinateTest();
-	strategyTest.frameCoordinateTest();
+//	strategyTest.frameCoordinateTest();
 //	strategyTest.locusTest();
 
 	Test::UITest uiTest;

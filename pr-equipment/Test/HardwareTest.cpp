@@ -30,10 +30,10 @@ void HardwareTest::timerTest() {
 	std::cout << "!!!Timer Test!!!" << std::endl; // Timer Test start!
 
 	Hardware::Timer timer;
-
+	std::cout << "### Alarm Test ###" << std::endl;
 	timer.setTimer(10.5);
-	while (!timer.getAlarm())
-		;
+	while (!timer.getAlarm());
+
 	/*//while(!timer.getAlarm()){
 	 if(timer.getAlarm()){
 	 std::cout << "getAlarm() retun Bool OK." << std::endl;
@@ -42,6 +42,15 @@ void HardwareTest::timerTest() {
 	 std::cout << "getAlarm() retun Bool NG." << std::endl;
 	 }
 	 //}*/
+	std::cout << "### OparatingTime Test ###" << std::endl;
+	timer.resetStartOperatingTime();
+	while(1){
+		std::cout << timer.getOperatingTime() << std::endl;
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+
 }
 
 void HardwareTest::raspberryPiSignalTest() {
