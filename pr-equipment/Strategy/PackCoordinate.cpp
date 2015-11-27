@@ -6,7 +6,7 @@ namespace Strategy
 PackCoordinate::PackCoordinate()
 {
 	mColorExtraction.setPackHSV();
-	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
+	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
 	cvSetImageCOI(packMasikingImage, 1);
 
 	CvMoments moment_pack;
@@ -30,7 +30,7 @@ CvPoint PackCoordinate::getCoordinate()
 	mPreviousXYCoordinate = mXYCoordinate;
 
 	mColorExtraction.setPackHSV();
-	IplImage* packMasikingImage = mColorExtraction.getColorExtractionImage();
+	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
 
 	cvSetImageCOI(packMasikingImage, 1);
 
