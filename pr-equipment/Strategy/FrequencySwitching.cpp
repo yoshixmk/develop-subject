@@ -77,7 +77,6 @@ void FrequencySwitching::output()
 		}
 	}
 
-
 	mMotorDriverX->output();
 }
 
@@ -89,7 +88,7 @@ void FrequencySwitching::stop()
 	int i;
 	double now_time = mTimer.getOperatingTime();
 	for(i=mFrequencyIndex; 0<=i; i--){
-		if(now_time < 3.0 * (array_num-1 - i)){ //本番0.05s
+		if(now_time < 0.05 * (array_num-1 - i)){ //本番0.05s
 				mCurrentFrequency = mFrequency[i];
 				mMotorDriverX->setPulse(mCurrentFrequency);
 				mMotorDriverX->setCwCcw(1);

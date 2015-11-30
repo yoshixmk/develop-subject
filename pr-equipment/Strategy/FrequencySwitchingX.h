@@ -9,8 +9,16 @@ class FrequencySwitchingX: public FrequencySwitching
 {
 public:
 	FrequencySwitchingX(char aXaxis);
+
 	~FrequencySwitchingX();
 
+	void setOutputInformation(char aDirection, double aTime);
+
+	void output();
+
+	void stop();
+
+	int getCurrentFrequency();
 };
 
 } /* namespace Strategy */

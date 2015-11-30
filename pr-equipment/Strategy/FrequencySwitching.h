@@ -9,18 +9,18 @@
 namespace Strategy {
 class FrequencySwitching {
 private:
-	int mCurrentFrequency;
 	char mXaxisOrYaxis;
-	char mTargetDirection;//X: 'L' or 'R' | Y: 'U' or 'D'
 	char mNowDirection;
 	double mTargetTime;
+	int mFrequencyIndex;
 
+protected:
+	int mCurrentFrequency;
+	char mTargetDirection;//X: 'L' or 'R' | Y: 'U' or 'D'
 	Hardware::MotorDriver *mMotorDriverX;
 	Hardware::MotorDriver *mMotorDriverY1;
 	Hardware::MotorDriver *mMotorDriverY2;
 	Hardware::Timer mTimer;
-
-	int mFrequencyIndex;
 	int mFrequency[4];
 
 public:

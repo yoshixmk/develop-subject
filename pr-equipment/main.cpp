@@ -31,7 +31,8 @@ int main() {
 //	strategyTest.malletCoordinateTest();
 //	strategyTest.frameCoordinateTest();
 //	strategyTest.locusTest();
-	strategyTest.frequencySwitchingTest();
+//	strategyTest.frequencySwitchingTest();
+	strategyTest.frequencySwitchng_X_Test();
 
 	Test::UITest uiTest;
 //	uiTest.intelligentTest();
