@@ -114,7 +114,7 @@ void StrategyTest::frequencySwitchng_X_Test()
 {
 	std::cout << "!!!FrequencySwitching X Test!!!" << std::endl;
 	Strategy::FrequencySwitchingX frequencySwitchingX('X');
-	frequencySwitchingX.setOutputInformation('R', 0.5);
+	frequencySwitchingX.setOutputInformation('R', 10);
 	while(1){
 		frequencySwitchingX.output();
 		if(cv::waitKey(1) >= 0) {

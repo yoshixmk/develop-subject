@@ -82,20 +82,19 @@ void FrequencySwitching::output()
 
 void FrequencySwitching::stop()
 {
-	mTimer.resetStartOperatingTime();
+	mMovingStopTimer.resetStartOperatingTime();
 	//減速
 	int array_num = sizeof(mFrequency)/sizeof(mFrequency[0]);
 	int i;
 	double now_time = mTimer.getOperatingTime();
 	for(i=mFrequencyIndex; 0<=i; i--){
-		if(now_time < 0.05 * (array_num-1 - i)){ //本番0.05s
-				mCurrentFrequency = mFrequency[i];
-				mMotorDriverX->setPulse(mCurrentFrequency);
-				mMotorDriverX->setCwCcw(1);
+		if(now_time < 3.0 * (array_num-1 - i)){ //本番0.05s
+			mCurrentFrequency = mFrequency[i];
+			mMotorDriverX->setPulse(mCurrentFrequency);
+			mMotorDriverX->setCwCcw(1);
 			break;
 		}
 	}
-	std::cout << mCurrentFrequency << std::endl;
 
 	mCurrentFrequency = 0;
 	if(mXaxisOrYaxis == 'X'){

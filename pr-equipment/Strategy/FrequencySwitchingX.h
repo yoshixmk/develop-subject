@@ -7,6 +7,8 @@ namespace Strategy {
 
 class FrequencySwitchingX: public FrequencySwitching
 {
+private:
+
 public:
 	FrequencySwitchingX(char aXaxis);
 
