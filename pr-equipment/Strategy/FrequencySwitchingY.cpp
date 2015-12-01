@@ -82,7 +82,7 @@ void FrequencySwitchingY::output()
 				mMotorDriverY2->stopOutput();
 			}
 		}
-		std::cout << mCurrentFrequency << std::endl;
+//		std::cout << mCurrentFrequency << std::endl;
 	}
 }
 
@@ -119,7 +119,7 @@ void FrequencySwitchingY::stop()
 		}
 	}
 
-	std::cout << mCurrentFrequency << std::endl;
+//	std::cout << mCurrentFrequency << std::endl;
 }
 
 int FrequencySwitchingY::getCurrentFrequency()

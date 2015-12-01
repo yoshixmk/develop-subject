@@ -73,7 +73,7 @@ void FrequencySwitchingX::output()
 				mMotorDriverX->stopOutput();
 			}
 		}
-		std::cout << mCurrentFrequency << std::endl;
+//		std::cout << mCurrentFrequency << std::endl;
 	}
 }
 
@@ -105,7 +105,7 @@ void FrequencySwitchingX::stop()
 		}
 	}
 
-	std::cout << mCurrentFrequency << std::endl;
+//	std::cout << mCurrentFrequency << std::endl;
 }
 
 
