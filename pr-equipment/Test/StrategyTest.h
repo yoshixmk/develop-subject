@@ -9,6 +9,7 @@
 #include "Strategy/FrequencySwitching.h"
 #include "Strategy/FrequencySwitchingX.h"
 #include "Strategy/FrequencySwitchingY.h"
+#include "Strategy/Frequency.h"
 #include <iostream>
 #include <pigpio.h>
 
@@ -26,6 +27,7 @@ public:
 	void frequencySwitchingTest();
 	void frequencySwitching_X_Test();
 	void frequencySwitching_Y_Test();
+	void frequencyTest();
 };
 
 }  // namespace Test

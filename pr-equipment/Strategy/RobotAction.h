@@ -8,14 +8,14 @@
 namespace Strategy {
 class RobotAction {
 private:
-	FrequencySwitching frequencySwitching[3];
-	Hardware::MotorDriver motorDriver;
-	AnomalyDetection anomalyDetection;
+	FrequencySwitching mFrequencySwitching[3];
+	Hardware::MotorDriver mMotorDriver;
+	AnomalyDetection mAnomalyDetection;
 
 public:
-	bool move(int direction, int time);
+	bool move(int aDirection, int aTime);
 
-	void stop(int time);
+	void stop();
 
 };
 

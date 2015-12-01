@@ -12,7 +12,7 @@ FrequencySwitching::FrequencySwitching(char aXaxisOrYaxis)
 	mFrequency[3] = 2500;
 
 	mXaxisOrYaxis = aXaxisOrYaxis;
-	mCurrentFrequency = 2000;
+	mCurrentFrequency = 0;
 	mNowDirection = 'R';
 	mTargetTime = 0;
 	if(mXaxisOrYaxis == 'X'){

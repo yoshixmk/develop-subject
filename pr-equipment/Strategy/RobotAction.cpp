@@ -2,10 +2,10 @@
 
 namespace Strategy {
 
-bool RobotAction::move(int direction, int time) {
+bool RobotAction::move(int aDirection, int aTime) {
 	return false;
 }
 
-void RobotAction::stop(int time) {
+void RobotAction::stop() {
 }
 }  // namespace Strategy

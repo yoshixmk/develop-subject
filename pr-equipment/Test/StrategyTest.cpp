@@ -154,4 +154,28 @@ void StrategyTest::frequencySwitching_Y_Test()
 		}
 	}
 }
+
+void StrategyTest::frequencyTest()
+{
+	std::cout <<"!!!Frequency Test!!!" << std::endl;
+	Strategy::Frequency frequencyX('X');
+	Strategy::Frequency frequencyY('Y');
+
+	Hardware::Timer timer;
+	timer.setTimer(5);
+
+	while(1){
+		if(!timer.getAlarm()){
+			frequencyX.output1000('R');
+//			frequencyY.output1000('U');
+			frequencyY.output313('D');
+		}
+		else{
+			break;
+		}
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+}
 }  // namespace Test

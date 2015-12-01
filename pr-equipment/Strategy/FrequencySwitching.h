@@ -11,7 +11,6 @@ class FrequencySwitching {
 private:
 	char mXaxisOrYaxis;
 
-
 protected:
 	char mNowDirection;
 	double mTargetTime;
