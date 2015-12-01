@@ -114,13 +114,23 @@ void StrategyTest::frequencySwitchng_X_Test()
 {
 	std::cout << "!!!FrequencySwitching X Test!!!" << std::endl;
 	Strategy::FrequencySwitchingX frequencySwitchingX('X');
-	frequencySwitchingX.setOutputInformation('R', 10);
+	frequencySwitchingX.setOutputInformation('L', 10);
+
+	Hardware::Timer timer;
+	timer.setTimer(5);
+
 	while(1){
-		frequencySwitchingX.output();
+//		if(!timer.getAlarm()){
+			frequencySwitchingX.output();
+//		}
+//		else{
+//			frequencySwitchingX.stop();
+//		}
 		if(cv::waitKey(1) >= 0) {
 			break;
 		}
 	}
+
 }
 
 }  // namespace Test
