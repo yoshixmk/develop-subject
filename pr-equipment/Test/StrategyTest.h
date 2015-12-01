@@ -8,6 +8,7 @@
 #include "Strategy/Locus.h"
 #include "Strategy/FrequencySwitching.h"
 #include "Strategy/FrequencySwitchingX.h"
+#include "Strategy/FrequencySwitchingY.h"
 #include <iostream>
 #include <pigpio.h>
 
@@ -23,7 +24,8 @@ public:
 	void frameCoordinateTest();
 	void locusTest();
 	void frequencySwitchingTest();
-	void frequencySwitchng_X_Test();
+	void frequencySwitching_X_Test();
+	void frequencySwitching_Y_Test();
 };
 
 }  // namespace Test

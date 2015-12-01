@@ -9,7 +9,7 @@ namespace Strategy
 class FrequencySwitchingY: public FrequencySwitching
 {
 public:
-	FrequencySwitchingY(char aXaxisOrYaxis);
+	FrequencySwitchingY(char aYaxis='Y');
 
 	~FrequencySwitchingY();
 

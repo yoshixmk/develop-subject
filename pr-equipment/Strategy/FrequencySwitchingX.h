@@ -10,7 +10,7 @@ class FrequencySwitchingX: public FrequencySwitching
 private:
 
 public:
-	FrequencySwitchingX(char aXaxis);
+	FrequencySwitchingX(char aXaxis = 'X');
 
 	~FrequencySwitchingX();
 

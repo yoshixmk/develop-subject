@@ -110,10 +110,10 @@ void StrategyTest::frequencySwitchingTest()
 
 }
 
-void StrategyTest::frequencySwitchng_X_Test()
+void StrategyTest::frequencySwitching_X_Test()
 {
 	std::cout << "!!!FrequencySwitching X Test!!!" << std::endl;
-	Strategy::FrequencySwitchingX frequencySwitchingX('X');
+	Strategy::FrequencySwitchingX frequencySwitchingX;
 	frequencySwitchingX.setOutputInformation('L', 10);
 
 	Hardware::Timer timer;
@@ -133,4 +133,25 @@ void StrategyTest::frequencySwitchng_X_Test()
 
 }
 
+void StrategyTest::frequencySwitching_Y_Test()
+{
+	std::cout <<"!!!FrequencySwitching Y Test!!!" << std::endl;
+	Strategy::FrequencySwitchingY frequencySwitchingY;
+	frequencySwitchingY.setOutputInformation('U',10);
+
+	Hardware::Timer timer;
+	timer.setTimer(5);
+
+	while(1){
+		if(!timer.getAlarm()){
+			frequencySwitchingY.output();
+		}
+		else{
+			frequencySwitchingY.stop();
+		}
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+}
 }  // namespace Test
