@@ -2,21 +2,30 @@
 #define STRATEGY_ROBOT_ACTION_H
 
 #include "Hardware/MotorDriver.h"
-#include "Strategy/FrequencySwitching.h"
+#include "Strategy/FrequencySwitchingX.h"
+#include "Strategy/FrequencySwitchingY.h"
+#include "Strategy/FrequencyX.h"
+#include "Strategy/FrequencyY.h"
 #include "Strategy/AnomalyDetection.h"
+#include "Strategy/FrameCoordinate.h"
 
 namespace Strategy {
 class RobotAction {
 private:
-	FrequencySwitching mFrequencySwitching[3];
-	Hardware::MotorDriver mMotorDriver;
+	FrequencySwitchingX mFrequencySwitchingX;
+	FrequencySwitchingY mFrequencySwitchingY;
+	FrequencyX mFrequencyX;
+	FrequencyY mFrequencyY;
 	AnomalyDetection mAnomalyDetection;
 
+	void moveForLimit();
+
+	void limitCheck();
+
 public:
-	bool move(int aDirection, int aTime);
+	void moveToCenter(CvPoint aMalletCoordinate);
 
-	void stop();
-
+	void moveToHitBack(CvPoint aPredictedCoordinate, CvPoint aMalletCoordinate);
 };
 
 }  // namespace Strategy

@@ -5,7 +5,7 @@ namespace Strategy
 
 MalletCoordinate::MalletCoordinate()
 {
-	mColorExtraction.setPackHSV();
+	mColorExtraction.setMalletHSV();
 	IplImage* packMasikingImage = mColorExtraction.extractRobotSideHockeyTable();
 	cvSetImageCOI(packMasikingImage, 1);
 
@@ -25,7 +25,6 @@ MalletCoordinate::MalletCoordinate()
 
 CvPoint MalletCoordinate::getCoordinate()
 {
-	mColorExtraction.setMalletHSV();
 	IplImage* malletMasikingImage = mColorExtraction.extractRobotSideHockeyTable();
 
 	cvSetImageCOI(malletMasikingImage, 1);

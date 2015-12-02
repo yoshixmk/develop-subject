@@ -3,7 +3,7 @@
 namespace Strategy
 {
 
-PackCoordinate::PackCoordinate()
+PackCoordinate::PackCoordinate() : Coordinate()
 {
 	mColorExtraction.setPackHSV();
 	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
@@ -29,7 +29,6 @@ CvPoint PackCoordinate::getCoordinate()
 	//現在の座標を、前回の座標に変える
 	mPreviousXYCoordinate = mXYCoordinate;
 
-	mColorExtraction.setPackHSV();
 	IplImage* packMasikingImage = mColorExtraction.extractHockeyTable();
 
 	cvSetImageCOI(packMasikingImage, 1);

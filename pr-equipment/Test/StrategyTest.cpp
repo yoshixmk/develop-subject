@@ -178,4 +178,66 @@ void StrategyTest::frequencyTest()
 		}
 	}
 }
+
+void StrategyTest::frequency_X_Test()
+{
+	std::cout <<"!!!Frequency X Test!!!" << std::endl;
+	Strategy::FrequencyX frequencyX;
+
+	Hardware::Timer timer;
+	timer.setTimer(5);
+
+	while(1){
+		if(!timer.getAlarm()){
+//			frequencyX.output1000('R');
+			frequencyX.output100('R');
+		}
+		else{
+			break;
+		}
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+}
+
+void StrategyTest::frequency_Y_Test()
+{
+	std::cout <<"!!!Frequency Y Test!!!" << std::endl;
+	Strategy::FrequencyY frequencyY;
+
+	Hardware::Timer timer;
+	timer.setTimer(5);
+
+	while(1){
+		if(!timer.getAlarm()){
+//			frequencyY.output1000('U');
+			frequencyY.output313('D');
+		}
+		else{
+			break;
+		}
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+}
+
+void StrategyTest::robotActionTest()
+{
+	std::cout <<"!!!RobotAction Test!!!" << std::endl;
+	Hardware::Camera::renew();
+	Strategy::MalletCoordinate malletCoordinate;
+	Strategy::RobotAction robotAction;
+	while(1){
+		Hardware::Camera::renew();
+		robotAction.moveToCenter(malletCoordinate.getCoordinate());
+		std::cout << malletCoordinate.getCoordinate().x << std::endl;
+
+		if(cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+}
+
 }  // namespace Test

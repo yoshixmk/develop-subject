@@ -157,6 +157,15 @@ IplImage* ColorExtraction::extractRobotSideHockeyTable()
 
 void ColorExtraction::setMalletHSV()
 {
+	//黄色の場合
+//	mHMin = 25;
+//	mHMax = 44;
+//	mSMin = 171;
+//	mSMax = 255;
+//	mVMin = 126;
+//	mVMax = 255;
+
+//  青の場合
 	mHMin = 106;
 	mHMax = 135;
 	mSMin = 218;

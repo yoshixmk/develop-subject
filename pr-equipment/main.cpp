@@ -23,7 +23,7 @@ int main() {
 //	colorTest.hockeyTableMaskingTest();
 //	colorTest.robotSideHockeyTableMaskingTest();
 //	colorTest.perspectiveTransformationTest();
-//	colorTest.colorExtractionTest();
+	colorTest.colorExtractionTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
@@ -34,7 +34,10 @@ int main() {
 //	strategyTest.frequencySwitchingTest();
 //	strategyTest.frequencySwitching_X_Test();
 //	strategyTest.frequencySwitching_Y_Test();
-	strategyTest.frequencyTest();
+//	strategyTest.frequencyTest();
+//	strategyTest.frequency_X_Test();
+//	strategyTest.frequency_Y_Test();
+//	strategyTest.robotActionTest();
 
 	Test::UITest uiTest;
 //	uiTest.intelligentTest();
