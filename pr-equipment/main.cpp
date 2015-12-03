@@ -23,7 +23,7 @@ int main() {
 //	colorTest.hockeyTableMaskingTest();
 //	colorTest.robotSideHockeyTableMaskingTest();
 //	colorTest.perspectiveTransformationTest();
-	colorTest.colorExtractionTest();
+//	colorTest.colorExtractionTest();
 
 	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
@@ -37,7 +37,7 @@ int main() {
 //	strategyTest.frequencyTest();
 //	strategyTest.frequency_X_Test();
 //	strategyTest.frequency_Y_Test();
-//	strategyTest.robotActionTest();
+	strategyTest.robotActionTest();
 
 	Test::UITest uiTest;
 //	uiTest.intelligentTest();

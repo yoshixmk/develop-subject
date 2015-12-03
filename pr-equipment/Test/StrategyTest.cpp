@@ -230,9 +230,15 @@ void StrategyTest::robotActionTest()
 	Strategy::MalletCoordinate malletCoordinate;
 	Strategy::RobotAction robotAction;
 	while(1){
+		double start_time =time_time();
 		Hardware::Camera::renew();
 		robotAction.moveToCenter(malletCoordinate.getCoordinate());
 		std::cout << malletCoordinate.getCoordinate().x << std::endl;
+		double end_time =time_time();
+
+		double time = end_time - start_time;
+
+		std::cout << "time: " << time << std::endl;
 
 		if(cv::waitKey(1) >= 0) {
 			break;

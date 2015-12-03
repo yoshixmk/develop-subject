@@ -4,11 +4,10 @@ namespace Strategy {
 
 void RobotAction::moveToCenter(CvPoint aMalletCoordinate)
 {
-	FrameCoordinate frameCoordinate;
 	CvPoint waiting_position;
-	waiting_position.x = (frameCoordinate.getRobotGoalLeft().x + frameCoordinate.getRobotGoalRight().x)/2;
-	waiting_position.y = (frameCoordinate.getRobotGoalLeft().y + frameCoordinate.getRobotGoalRight().y)/2;
-	std::cout << aMalletCoordinate.x << std::endl;
+	waiting_position.x = (FrameCoordinate::getRobotGoalLeft().x + FrameCoordinate::getRobotGoalRight().x)/2;
+	waiting_position.y = (FrameCoordinate::getRobotGoalLeft().y + FrameCoordinate::getRobotGoalRight().y)/2;
+
 	if(aMalletCoordinate.x < waiting_position.x -40){
 		//ゴールから遠いと速くする
 		mFrequencyX.output1000('R');

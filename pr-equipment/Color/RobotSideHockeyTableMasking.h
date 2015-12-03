@@ -16,7 +16,7 @@ private:
 
 public:
 	RobotSideHockeyTableMasking();
-//	~RobotSideHockeyTableMasking();
+	~RobotSideHockeyTableMasking();
 	IplImage* mask();
 };
 

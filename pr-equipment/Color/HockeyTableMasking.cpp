@@ -15,7 +15,8 @@ HockeyTableMasking::~HockeyTableMasking()
 
 IplImage* HockeyTableMasking::mask()
 {
-	mHockeyTableImage = mTwoImageSynthesis.synthesizeNonDistortion();
+//	mHockeyTableImage = mTwoImageSynthesis.synthesizeNonDistortion();
+	cvCopy(mTwoImageSynthesis.synthesizeNonDistortion(), mHockeyTableImage);
 	int width = Hardware::Camera::getWidth();
 	int height = Hardware::Camera::getHeight();
 

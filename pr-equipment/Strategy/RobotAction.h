@@ -17,6 +17,7 @@ private:
 	FrequencyX mFrequencyX;
 	FrequencyY mFrequencyY;
 	AnomalyDetection mAnomalyDetection;
+//	FrameCoordinate frameCoordinate;
 
 	void moveForLimit();
 

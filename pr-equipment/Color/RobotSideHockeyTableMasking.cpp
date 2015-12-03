@@ -8,13 +8,14 @@ RobotSideHockeyTableMasking::RobotSideHockeyTableMasking() :mTwoImageSynthesis()
 	mRobotSideHockeyTableImage = cvCreateImage(cvSize(Hardware::Camera::getWidth(), Hardware::Camera::getHeight() * 2), IPL_DEPTH_8U, 3);
 }
 
-//RobotSideHockeyTableMasking::~RobotSideHockeyTableMasking()
-//{
-//	cvReleaseImage(&mRobotSideHockeyTableImage);
-//}
+RobotSideHockeyTableMasking::~RobotSideHockeyTableMasking()
+{
+	cvReleaseImage(&mRobotSideHockeyTableImage);
+}
 
 IplImage* RobotSideHockeyTableMasking::mask()
 {
+	cvCopy( mTwoImageSynthesis.synthesizeNonDistortion(), mRobotSideHockeyTableImage);
 	int width = Hardware::Camera::getWidth();
 	int height = Hardware::Camera::getHeight();
 
@@ -34,7 +35,6 @@ IplImage* RobotSideHockeyTableMasking::mask()
 	pts[1][3] = cvPoint(128, 236);
 	pts[1][4] = cvPoint(146, 224);
 	pts[1][5] = cvPoint(146, height);
-
     cvFillPoly(mRobotSideHockeyTableImage, pts, npts, 2, CV_RGB(0, 0, 0));
     cvFree(&pts[0]);
     cvFree(&pts[1]);
