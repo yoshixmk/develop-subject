@@ -4,14 +4,20 @@
 #include "Hardware/Camera.h"
 #include "Strategy/PackCoordinate.h"
 #include "Strategy/MalletCoordinate.h"
+#include "Strategy/Locus.h"
+#include "Strategy/FrameCoordinate.h"
 
 namespace ShowWindow {
 class Drawing {
 
 private:
-	Strategy::PackCoordinate mMalletCoordinate;
+	Strategy::PackCoordinate mPackCoordinate;
 
-	Strategy::MalletCoordinate mMalletCoodinate;
+	Strategy::MalletCoordinate mMalletCoordinate;
+
+	Strategy::Locus mLocus;
+
+	Strategy::FrameCoordinate mFrameCoordinate;
 
 public:
 	void drawPack(IplImage* aImage);

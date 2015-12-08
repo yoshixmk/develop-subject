@@ -15,7 +15,7 @@ void Locus::calculateLocus(CvPoint aCoordinate1, CvPoint aCoordinate2)
 	}
 }
 
-double Locus::getaAInclination()
+double Locus::getAInclination()
 {
 	return mAInclination;
 }

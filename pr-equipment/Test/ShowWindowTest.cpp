@@ -7,27 +7,27 @@ ShowWindowTest::ShowWindowTest() {
 
 }
 
-void ShowWindowTest::windowTest()
-{
-	Hardware::Camera camera;
-	ShowWindow::Window window("Test");
-	Hardware::Camera::renew();
-	window.showImage(camera.getRobotSideImage());
-	while(1)
-	{
-		Hardware::Camera::renew();
-		window.showImage(camera.getRobotSideImage());
-
-
-
-//		cvShowImage("Test", camera.getRobotSideImage());
-		if(cv::waitKey(1) >= 0) {
-			break;
-		}
-	}
-	window.destroyWindow();
-}
-
+//void ShowWindowTest::windowTest()
+//{
+//	Hardware::Camera camera;
+//	ShowWindow::Window window("Test");
+//	Hardware::Camera::renew();
+//	window.showImage(camera.getRobotSideImage());
+//	while(1)
+//	{
+//		Hardware::Camera::renew();
+//		window.showImage(camera.getRobotSideImage());
+//
+//
+//
+////		cvShowImage("Test", camera.getRobotSideImage());
+//		if(cv::waitKey(1) >= 0) {
+//			break;
+//		}
+//	}
+//	window.destroyWindow();
+//}
+//
 void ShowWindowTest::drawingTest()
 {
 	Hardware::Camera camera;
@@ -43,6 +43,7 @@ void ShowWindowTest::drawingTest()
 		drawing.drawDefenseLine(testImage);
 		drawing.drawPack(testImage);
 		drawing.drawMallet(testImage);
+//		drawing.drawPackLocus(testImage);
 		window.showImage(testImage);
 //		cvShowImage("Test", camera.getRobotSideImage());
 		if(cv::waitKey(1) >= 0) {
@@ -51,4 +52,10 @@ void ShowWindowTest::drawingTest()
 	}
 	window.destroyWindow();
 }
+
+//void ShowWindowTest::manageTest()
+//{
+//	ShowWindow::WindowManagement manage;
+//	manage.manage();
+//}
 } /* namespace Test */

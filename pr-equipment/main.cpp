@@ -29,7 +29,7 @@ int main() {
 	//strategyTest.anomalyDetectionTest();
 //	strategyTest.packCoordinateTest();
 //	strategyTest.malletCoordinateTest();
-	strategyTest.frameCoordinateTest();
+//	strategyTest.frameCoordinateTest();
 //	strategyTest.locusTest();
 
 	Test::UITest uiTest;
@@ -38,6 +38,7 @@ int main() {
 
 	Test::ShowWindowTest showWindowTest;
 //	showWindowTest.windowTest();
-//	showWindowTest.drawingTest();
+	showWindowTest.drawingTest();
+//	showWindowTest.manageTest();
 	return 0;
 }
