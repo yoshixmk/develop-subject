@@ -13,9 +13,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include </home/pi/develop-subject/pr-equipment/Color/PerspectiveTransformation.h>
-#include </home/pi/develop-subject/pr-equipment/Hardware/Camera.h>
-#include </home/pi/develop-subject/pr-equipment/Color/HockeyTableMasking.h>
+#include "pr-equipment/Color/PerspectiveTransformation.h"
+#include "pr-equipment/Hardware/Camera.h"
+#include "pr-equipment/Color/HockeyTableMasking.h"
 
 #define CAM_PIX_2HEIGHT (2 * CAM_PIX_HEIGHT)
 #define CAM_PIX_WIDTH  160
@@ -792,7 +792,7 @@ int main(int argc, char* argv[]) {
 			double waiting_position = (robot_goal_left.x + robot_goal_right.x) / 2;	//75がど真ん中になるポジション
 
 			int pack_found_flg;		//プレイヤー側からロボット側にパックがきたとき、1回目の検出なら1を代入、それ以外なら0を代入（1のときのみX軸を動かす）
-
+			gpioWrite(6, 1);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			
 			
