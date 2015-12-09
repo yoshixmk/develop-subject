@@ -24,10 +24,24 @@ int main(int argc, char* argv[]) {
 	}
 
 	if (signal(SIGINT, &signalHandler) == SIG_ERR) {
-		std::cout << "I could not set up signal. finished" << std::endl;
-		gpioTerminate();
-		exit(1);
 	}
+	
+	//pigpio CW/CCW pin setup
+	//X:18, Y1:14, Y2:15
+	gpioSetMode(18, PI_OUTPUT);
+	gpioSetMode(7, PI_OUTPUT);
+	gpioSetMode(12, PI_OUTPUT);
+	//pigpio pulse setup
+	//X:25, Y1:23, Y2:24
+	gpioSetMode(25, PI_OUTPUT);
+	gpioSetMode(23, PI_OUTPUT);
+	gpioSetMode(24, PI_OUTPUT);
+	
+	gpioWrite(6, 0);
+	
+	int f = gpioHardwarePWM(18, 0, 500000); 
+	
+	
 	
 	char sertty[] = "/dev/ttyAMA0";
 	int handle = serOpen(sertty, 19200, 0);
@@ -44,16 +58,25 @@ int main(int argc, char* argv[]) {
 	double now_time, passed_time;
 	int frequencyX = 0;
 	int frequencyY = 0;
+	int preFrequencyX = 0;
+	int preFrequencyY = 0;
 	while(1){
 		start_time = time_time();
 		while(serDataAvailable(handle)){
 			start_time = time_time();
 			serRead(handle, input, 2);
 			//暗黙のint変換。char->unsigned char->int
-			frequencyX = (unsigned char)input[0];
-			frequencyY = (unsigned char)input[1];
+			//0~255 -> 0~2550Hz とするための、10倍
+			frequencyX = (unsigned char)input[0] * 10;
+			frequencyY = (unsigned char)input[1] * 10;
 			std::cout << "X: " << frequencyX << std::endl;
 			std::cout << "Y: " << frequencyY << std::endl;
+			
+			if(frequencyX != preFrequencyX){
+				f = gpioHardwarePWM(18, frequencyX, 500000);
+				preFrequencyX = frequencyX;
+			}
+			
 			now_time = time_time();
 			std::cout << now_time - start_time << std::endl;
 		}
