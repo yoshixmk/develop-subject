@@ -42,22 +42,17 @@ int main(int argc, char* argv[]) {
 	char input[5];
 	double start_time;
 	double now_time, passed_time;
-	
+	int frequency = 0;
 	while(1){
-		
 		while(serDataAvailable(handle)){
 			start_time = time_time();
 			serRead(handle, input, 5);
-			std::cout << input << '\n' << std::flush;
-			//printf("%s\n" , input);
-			fflush(stdout);
+			std::cout << input << std::endl;
 			now_time = time_time();
-			std::cout << now_time - start_time << '\n' << std::endl;
-			//printf("%f\n", now_time - start_time);
-			//fflush(stdout);
+			std::cout << now_time - start_time << std::endl;
 		}
-		
 	}
+	
 	serClose(handle);
 	gpioTerminate();
 
