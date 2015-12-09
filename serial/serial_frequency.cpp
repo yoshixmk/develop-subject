@@ -23,11 +23,11 @@ int main(int argc, char* argv[]) {
 		std::cout << "pigpio initialised okay." << std::endl;
 	}
 
-	/*if (signal(SIGINT, &signalHandler) == SIG_ERR) {
+	if (signal(SIGINT, &signalHandler) == SIG_ERR) {
 		std::cout << "I could not set up signal. finished" << std::endl;
 		gpioTerminate();
 		exit(1);
-	}*/
+	}
 	
 	char sertty[] = "/dev/ttyAMA0";
 	int handle = serOpen(sertty, 19200, 0);
@@ -39,15 +39,21 @@ int main(int argc, char* argv[]) {
 		std::cout << "NG, serial port cannnot open" << std::endl;
 	}
 	
-	char input[5];
+	char input[2];
 	double start_time;
 	double now_time, passed_time;
-	int frequency = 0;
+	int frequencyX = 0;
+	int frequencyY = 0;
 	while(1){
+		start_time = time_time();
 		while(serDataAvailable(handle)){
 			start_time = time_time();
-			serRead(handle, input, 5);
-			std::cout << input << std::endl;
+			serRead(handle, input, 2);
+			//暗黙のint変換。char->unsigned char->int
+			frequencyX = (unsigned char)input[0];
+			frequencyY = (unsigned char)input[1];
+			std::cout << "X: " << frequencyX << std::endl;
+			std::cout << "Y: " << frequencyY << std::endl;
 			now_time = time_time();
 			std::cout << now_time - start_time << std::endl;
 		}
