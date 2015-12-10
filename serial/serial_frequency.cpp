@@ -60,21 +60,25 @@ int main(int argc, char* argv[]) {
 	int frequencyY = 0;
 	int preFrequencyX = 0;
 	int preFrequencyY = 0;
+	int isRead = 0;
 	while(1){
 		start_time = time_time();
 		while(serDataAvailable(handle)){
 			start_time = time_time();
-			serRead(handle, input, 2);
+			isRead = serRead(handle, input, 2);
 			//暗黙のint変換。char->unsigned char->int
 			//0~255 -> 0~2550Hz とするための、10倍
-			frequencyX = (unsigned char)input[0] * 10;
-			frequencyY = (unsigned char)input[1] * 10;
-			std::cout << "X: " << frequencyX << std::endl;
-			std::cout << "Y: " << frequencyY << std::endl;
-			
-			if(frequencyX != preFrequencyX){
-				f = gpioHardwarePWM(18, frequencyX, 500000);
-				preFrequencyX = frequencyX;
+			if(isRead >= 0){
+				frequencyX = (unsigned char)input[0] * 10;
+				frequencyY = (unsigned char)input[1] * 10;
+				std::cout << "X: " << frequencyX << std::endl;
+				std::cout << "Y: " << frequencyY << std::endl;
+				
+				if(frequencyX != preFrequencyX){
+					f = gpioHardwarePWM(18, frequencyX, 500000);
+					preFrequencyX = frequencyX;
+				}
+				isRead = 0;
 			}
 			
 			now_time = time_time();
