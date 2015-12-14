@@ -1,6 +1,6 @@
 Hardware/Timer.d: ../Hardware/Timer.cpp ../Hardware/Timer.h \
- C:\dev\pigpio-master/pigpio.h
+ \\raspberrypi\pi\usr\local\include/pigpio.h
 
 ../Hardware/Timer.h:
 
-C:\dev\pigpio-master/pigpio.h:
+\\raspberrypi\pi\usr\local\include/pigpio.h:

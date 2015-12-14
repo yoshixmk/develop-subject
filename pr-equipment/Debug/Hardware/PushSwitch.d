@@ -1,6 +1,6 @@
 Hardware/PushSwitch.d: ../Hardware/PushSwitch.cpp \
- ../Hardware/PushSwitch.h C:\dev\pigpio-master/pigpio.h
+ ../Hardware/PushSwitch.h \\raspberrypi\pi\usr\local\include/pigpio.h
 
 ../Hardware/PushSwitch.h:
 
-C:\dev\pigpio-master/pigpio.h:
+\\raspberrypi\pi\usr\local\include/pigpio.h:
