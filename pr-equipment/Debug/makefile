@@ -10,10 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include UI/subdir.mk
 -include Test/subdir.mk
--include Strategy/subdir.mk
--include ShowWindow/subdir.mk
 -include Hardware/subdir.mk
--include Color/subdir.mk
 -include .metadata/.plugins/org.eclipse.cdt.make.core/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -50,7 +47,7 @@ all: pr-equipment
 pr-equipment: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	arm-linux-gnueabihf-g++ -L"C:\dev\pigpio-master" -L"C:\dev\opencv-2.4.11\lib" -Xlinker -rpath-link=\\RASPBERRYPI\pi\lib\arm-linux-gnueabihf -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib\arm-linux-gnueabihf -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib -o "pr-equipment" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-linux-gnueabihf-g++ -L"C:\dev\opencv-2.4.11\lib" -L"C:\dev\pigpio-master" -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib\arm-linux-gnueabihf -Xlinker -rpath-link=\\RASPBERRYPI\pi\usr\lib -Xlinker -rpath-link=\\RASPBERRYPI\pi\lib\arm-linux-gnueabihf -o "pr-equipment" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

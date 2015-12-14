@@ -1,6 +1,6 @@
 #include "Test/HardwareTest.h"
-#include "Test/ColorTest.h"
-#include "Test/StrategyTest.h"
+//#include "Test/ColorTest.h"
+//#include "Test/StrategyTest.h"
 #include "Test/UITest.h"
 
 int  main()
@@ -18,14 +18,14 @@ int  main()
 //	hardwareTest.bgmSignalTest();
 //	hardwareTest.cameraTest();
 
-	Test::ColorTest colorTest;
+//	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
 	//colorTest.hockeyTableMaskingTest();
 //	colorTest.robotSideHockeyTableMaskingTest();
 //	colorTest.perspectiveTransformationTest();
 //	colorTest.colorExtractionTest();
 
-	Test::StrategyTest strategyTest;
+//	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
 //	strategyTest.packCoordinateTest();
 //	strategyTest.malletCoordinateTest();
