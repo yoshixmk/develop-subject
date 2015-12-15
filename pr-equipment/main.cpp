@@ -2,10 +2,13 @@
 //#include "Test/ColorTest.h"
 //#include "Test/StrategyTest.h"
 #include "Test/UITest.h"
+#include "UI/RobotMovement.h"
+#include <iostream>
+#include <pigpio.h>
 
 int  main()
 {
-	Test::HardwareTest hardwareTest;
+//	Test::HardwareTest hardwareTest;
 	//hardware_test.timerTest();
 	//hardware_test.raspberryPiSignalTest();
 	//hardware_test.photoelectricSensor();
@@ -13,10 +16,11 @@ int  main()
 	//hardware_test.limitSwitch();
 	//hardware_test.proximitySensor();
 	//hardwareTest.pushSwitchTest();
-	//hardwareTest.moterDriverTest();
+//	hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
 //	hardwareTest.bgmSignalTest();
 //	hardwareTest.cameraTest();
+//	hardwareTest.serialTest();
 
 //	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
@@ -32,9 +36,12 @@ int  main()
 //	strategyTest.frameCoordinateTest();
 //	strategyTest.locusTest();
 
-	Test::UITest uiTest;
+//	Test::UITest uiTest;
 //	uiTest.intelligentTest();
-	uiTest.soundTest();
+//	uiTest.soundTest();
+
+	UI::RobotMovement robotMovement;
+	robotMovement.move();
 
 	return 0;
 }

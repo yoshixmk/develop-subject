@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../UI/RobotMovement.cpp \
 ../UI/Sound.cpp 
 
 OBJS += \
+./UI/RobotMovement.o \
 ./UI/Sound.o 
 
 CPP_DEPS += \
+./UI/RobotMovement.d \
 ./UI/Sound.d 
 
 

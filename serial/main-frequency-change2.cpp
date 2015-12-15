@@ -3,12 +3,13 @@
 #include <iostream>
 #include <windows.h>
 #include <tchar.h>
+#include <math.h>
 
 int main(int argc, const char* argv[])
 {
 	HANDLE comPort;
 
-	comPort = CreateFile(_T("COM3"),                //port name
+	comPort = CreateFile(_T("COM4"),                //port name
 		GENERIC_READ | GENERIC_WRITE, //Read/Write
 		0,                            // No Sharing
 		NULL,                         // No Security
@@ -24,8 +25,8 @@ int main(int argc, const char* argv[])
 	DCB dcb; // シリアルポートの構成情報が入る構造体
 	GetCommState(comPort, &dcb); // 現在の設定値を読み込み
 
-	dcb.BaudRate = 19200; // 速度
-	dcb.ByteSize = 8; // データ長
+	dcb.BaudRate = 115200; // 速度
+	dcb.ByteSize = 2; // データ長
 	dcb.Parity = NOPARITY; // パリティ
 	dcb.StopBits = ONESTOPBIT; // ストップビット長
 	dcb.fOutxCtsFlow = FALSE; // ハードウェアフロー制御 送信時CTSフロー
@@ -34,25 +35,53 @@ int main(int argc, const char* argv[])
 
 	// 幅320px、高さ240pxで赤色の画像データを生成
 	cv::Mat redImg(cv::Size(320, 240), CV_8UC3, cv::Scalar(0, 0, 255));
+	cv::Mat yellowImg(cv::Size(320, 240), CV_8UC3, cv::Scalar(0, 255, 255));
 
 	// 画像表示用のウィンドウを生成
 	cv::namedWindow("red", cv::WINDOW_AUTOSIZE);
 
 	// キー入力を待機 frequency test
 	DWORD numberOfPut;
-	const char* sentData;
-	DWORD lengthOfSent = 5; // 送信する文字数
+	char sentData[2];
+	DWORD lengthOfSent = 2; // 送信する文字数
 	cv::imshow("red", redImg);
-	sentData = "1000"; // 送信する文字列
+	sentData[0] = 0;
+	sentData[1] = 0;
+
+	int i;
+
+	//切替の速度調整を簡易的に調整
+	int ajustmentNum = 40;//40
+	//初期周波数を決定
+	int initialCountValue = 250 * ajustmentNum / 10;
+	//周波数の間隔を決める。1上げると10Hz
+	int interval = 30;//100
+	int count = initialCountValue;
 	while (1){
-		WriteFile(comPort, sentData, lengthOfSent, &numberOfPut, NULL); // ポートへ送信
+		for (i = 0; i < ajustmentNum; i++){
+			WriteFile(comPort, sentData, lengthOfSent, &numberOfPut, NULL); // ポートへ送信
+
+			count++;
+			sentData[0] = count / ajustmentNum;
+			sentData[1] = count / ajustmentNum;
+			//周波数最高値
+			if (count >= 1100 * ajustmentNum / 10){
+				//count = initialCountValue;
+				count = 1100 * ajustmentNum / 10;
+			}
+		}
+		count += ajustmentNum * (interval - 1);
+
 		if (cv::waitKey(1) > 0){
 			break;
 		}
 	}
 
-	cv::imshow("red", redImg);
-	sentData = "0"; // 送信する文字列
+	cv::imshow("red", yellowImg);
+	sentData[0] = 0;
+	sentData[1] = 25;
+	//sentData[2] = '\0';
+	//sentData = "0";
 	while (1){
 		WriteFile(comPort, sentData, lengthOfSent, &numberOfPut, NULL); // ポートへ送信
 		if (cv::waitKey(1) > 0){

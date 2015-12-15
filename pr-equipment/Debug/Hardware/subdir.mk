@@ -8,11 +8,13 @@ CPP_SRCS += \
 ../Hardware/Camera.cpp \
 ../Hardware/LimitSwitch.cpp \
 ../Hardware/MotorDriver.cpp \
+../Hardware/MotorDriverOri.cpp \
 ../Hardware/PhotoelectricSensor.cpp \
 ../Hardware/Photomicrosensor.cpp \
 ../Hardware/ProximitySensor.cpp \
 ../Hardware/PushSwitch.cpp \
 ../Hardware/RaspberryPiSignal.cpp \
+../Hardware/Serial.cpp \
 ../Hardware/Speaker.cpp \
 ../Hardware/Timer.cpp 
 
@@ -21,11 +23,13 @@ OBJS += \
 ./Hardware/Camera.o \
 ./Hardware/LimitSwitch.o \
 ./Hardware/MotorDriver.o \
+./Hardware/MotorDriverOri.o \
 ./Hardware/PhotoelectricSensor.o \
 ./Hardware/Photomicrosensor.o \
 ./Hardware/ProximitySensor.o \
 ./Hardware/PushSwitch.o \
 ./Hardware/RaspberryPiSignal.o \
+./Hardware/Serial.o \
 ./Hardware/Speaker.o \
 ./Hardware/Timer.o 
 
@@ -34,11 +38,13 @@ CPP_DEPS += \
 ./Hardware/Camera.d \
 ./Hardware/LimitSwitch.d \
 ./Hardware/MotorDriver.d \
+./Hardware/MotorDriverOri.d \
 ./Hardware/PhotoelectricSensor.d \
 ./Hardware/Photomicrosensor.d \
 ./Hardware/ProximitySensor.d \
 ./Hardware/PushSwitch.d \
 ./Hardware/RaspberryPiSignal.d \
+./Hardware/Serial.d \
 ./Hardware/Speaker.d \
 ./Hardware/Timer.d 
 

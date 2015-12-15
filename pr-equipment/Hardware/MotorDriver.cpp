@@ -6,10 +6,13 @@ MotorDriver::MotorDriver(int aPulseGpioPin, int aCwCcwGpioPin)
 {
 	mPulseGpioPin=aPulseGpioPin;
 	gpioSetMode(mPulseGpioPin, PI_OUTPUT);
+	gpioHardwarePWM(mPulseGpioPin, 0, 500000);
+	mFrequency = 0;
 
 	mCwCcwGpioPin = aCwCcwGpioPin;
 	gpioSetMode(mCwCcwGpioPin, PI_OUTPUT);
 	gpioWrite(mCwCcwGpioPin, 0);
+	mIsHigh = false;//0
 }
 
 MotorDriver::~MotorDriver()
@@ -17,31 +20,15 @@ MotorDriver::~MotorDriver()
 
 }
 
-void MotorDriver::output()
+void MotorDriver::output(int aFrequency, bool aIsHigh)
 {
-	gpioPWM(mPulseGpioPin, 128);
-}
-
-void MotorDriver::stopOutput()
-{
-	gpioPWM(mPulseGpioPin, 0);
-}
-
-void MotorDriver::setPulse(int aFrequency)
-{
-	//設定はパルスを止める
-	gpioPWM(mPulseGpioPin, 0);
-	if(gpioGetPWMfrequency(mPulseGpioPin) != aFrequency){
-		gpioSetPWMfrequency(mPulseGpioPin, aFrequency);
+	if(mFrequency != aFrequency){
+		gpioHardwarePWM(mPulseGpioPin, aFrequency, 500000);
+		mFrequency = aFrequency;
 	}
-}
-
-void MotorDriver::setCwCcw(bool aHOrL)
-{
-	//設定はパルスを止める
-	gpioPWM(mPulseGpioPin, 0);
-	if(gpioRead(mCwCcwGpioPin) != aHOrL){
-		gpioWrite(mCwCcwGpioPin, aHOrL);
+	if(mIsHigh != aIsHigh){
+		gpioWrite(mCwCcwGpioPin, aIsHigh);
+		mIsHigh = aIsHigh;
 	}
 }
 
