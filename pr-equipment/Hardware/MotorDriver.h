@@ -12,18 +12,16 @@ private:
 
 	int mCwCcwGpioPin;
 
+	int mFrequency;
+
+	bool mIsHigh;
+
 public:
 	MotorDriver(int aPulseGpioPin, int aCwCcwGpioPin);
 
 	~MotorDriver();
 
-	void output();
-
-	void stopOutput();
-
-	void setPulse(int aFrequency);
-
-	void setCwCcw(bool aHOrL);
+	void output(int aFrequency, bool aIsHigh);
 
 };
 

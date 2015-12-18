@@ -12,13 +12,12 @@
 #include "Hardware/Speaker.h"
 #include "Hardware/BGMSignal.h"
 #include "Hardware/Camera.h"
+#include "Hardware/Serial.h"
 #include <iostream>
 #include <pigpio.h>
 #include <signal.h>
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
-//#include <opencv2/imgproc/imgproc.hpp>
-//#include <opencv2/highgui/highgui.hpp>
 
 namespace Test
 {
@@ -41,6 +40,7 @@ public:
 	void speakerTest();
 	void bgmSignalTest();
 	void cameraTest();
+	void serialTest();
 };
 
 }  // namespace Test

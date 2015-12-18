@@ -6,12 +6,12 @@ namespace Test
 void HardwareTest::signalHandler(int aSignal)
 {
 	std::cout << "SIGNAL Keybord Interrupt, END" <<std::endl;
+	gpioTerminate();
     exit(0);
 }
 
 HardwareTest::HardwareTest()
 {
-	gpioCfgClock(4, 0, 100);
 	if (gpioInitialise() < 0)
 	{
 		std::cout << "pigpio initialisation failed." << std::endl;
@@ -106,30 +106,26 @@ void HardwareTest::pushSwitchTest()
 
 void HardwareTest::moterDriverTest()
 {
-	Hardware::MotorDriver moterDriverXAxis(25, 18);
-	Hardware::MotorDriver moterDriverY1Axis(23, 7);
-	Hardware::MotorDriver moterDriverY2Axis(24, 12);
+	Hardware::MotorDriver moterDriverXAxis(18, 25);
+	Hardware::MotorDriver moterDriverY1Axis(19, 7);
+	Hardware::MotorDriver moterDriverY2Axis(12, 24);
 
 	std::cout<<"moterDriver_test"<<std::endl;
-	moterDriverXAxis.setPulse(1000);
-	//moterDriverXAxis.setCwCcw(1);
-	moterDriverXAxis.setCwCcw(0);
-	moterDriverXAxis.output();
 
 	Hardware::Timer timer;
 	timer.setTimer(5);
-	moterDriverXAxis.output();
+	moterDriverXAxis.output(500, false);
 	while(!timer.getAlarm());
 
-	moterDriverXAxis.setPulse(2000);
 	timer.setTimer(5);
-	moterDriverXAxis.output();
+	moterDriverXAxis.output(440, true);
 	while(!timer.getAlarm());
 
-	moterDriverXAxis.setPulse(2500);
 	timer.setTimer(5);
-	moterDriverXAxis.output();
+	moterDriverXAxis.output(880, true);
 	while(!timer.getAlarm());
+
+	moterDriverXAxis.output(0, false);
 }
 
 void HardwareTest::speakerTest()
@@ -191,7 +187,46 @@ void HardwareTest::cameraTest()
 			break;
 		}
 	}
+}
 
+void HardwareTest::serialTest()
+{
+	std::cout<<"Serial_test"<<std::endl;
+	Hardware::Serial serial;
+	Hardware::MotorDriver motorDriver(18, 25);
+	char input[2];
+	int isRead;
+	double start_time;
+	double now_time, passed_time;
+	int frequencyX = 0;
+	int frequencyY = 0;
+	while(1){
+		while(serial.serialDataAvailable()){
+			start_time = time_time();
+			isRead = serial.serialRead(input, 2);
+			//暗黙のint変換。char->unsigned char->int
+			//0~255 -> 0~2550Hz とするための、10倍
+			if(isRead >= 0){
+				frequencyX = (unsigned char)input[0] * 10 * 2;
+				frequencyY = (unsigned char)input[1] * 10 * 2;
+				std::cout << "X: " << frequencyX << std::endl;
+				std::cout << "Y: " << frequencyY << std::endl;
+
+				motorDriver.output(frequencyX, true);
+				isRead = 0;
+			}
+
+			now_time = time_time();
+			passed_time = now_time - start_time;
+			std::cout << passed_time << std::endl;
+			if(cv::waitKey(1) > 0){
+				break;
+			}
+		}
+		if(cv::waitKey(1) > 0){
+			break;
+		}
+	}
 }
 
 }  // namespace Test

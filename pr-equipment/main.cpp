@@ -1,7 +1,10 @@
 #include "Test/HardwareTest.h"
-#include "Test/ColorTest.h"
-#include "Test/StrategyTest.h"
+//#include "Test/ColorTest.h"
+//#include "Test/StrategyTest.h"
 #include "Test/UITest.h"
+#include "UI/RobotMovement.h"
+#include <iostream>
+#include <pigpio.h>
 
 int  main()
 {
@@ -13,28 +16,36 @@ int  main()
 	//hardware_test.limitSwitch();
 	//hardware_test.proximitySensor();
 	//hardwareTest.pushSwitchTest();
-	//hardwareTest.moterDriverTest();
+//	hardwareTest.moterDriverTest();
 	//hardwareTest.speakerTest();
 //	hardwareTest.bgmSignalTest();
 //	hardwareTest.cameraTest();
+	hardwareTest.serialTest();
 
-	Test::ColorTest colorTest;
+//	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
 	//colorTest.hockeyTableMaskingTest();
 //	colorTest.robotSideHockeyTableMaskingTest();
 //	colorTest.perspectiveTransformationTest();
 //	colorTest.colorExtractionTest();
 
-	Test::StrategyTest strategyTest;
+//	Test::StrategyTest strategyTest;
 	//strategyTest.anomalyDetectionTest();
 //	strategyTest.packCoordinateTest();
 //	strategyTest.malletCoordinateTest();
 //	strategyTest.frameCoordinateTest();
 //	strategyTest.locusTest();
 
-	Test::UITest uiTest;
+//	Test::UITest uiTest;
 //	uiTest.intelligentTest();
-	uiTest.soundTest();
+//	uiTest.soundTest();
+
+//	UI::RobotMovement robotMovement;
+//	robotMovement.move();
 
 	return 0;
 }
+
+
+
+
