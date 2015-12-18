@@ -2,11 +2,11 @@ import serial
 import time
 
 def main():
-	con=serial.Serial('/dev/ttyAMA0', 19200, timeout=1)
+	con=serial.Serial('/dev/ttyAMA0', 115200, timeout=1)
 	print con.portstr
 	while 1:
 		#str=con.readline()
-		str=con.read(5)
+		str=con.read(2)
 		print str
 
 if __name__ == '__main__':

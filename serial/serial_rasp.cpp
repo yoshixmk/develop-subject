@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 	}*/
 	
 	char sertty[] = "/dev/ttyAMA0";
-	int handle = serOpen(sertty, 19200, 0);
+	int handle = serOpen(sertty, 115200, 0);
 	
 	if(handle>=0){
 		std::cout << "OK, serial port open" << std::endl;

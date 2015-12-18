@@ -6,12 +6,20 @@
 #include <pigpio.h>
 #include <iostream>
 #include <signal.h>
+#include <termios.h>
+
+int handle;
 
 /* シグナル受信/処理 */
 void signalHandler(int aSignal) {
 	std::cout << "SIGNAL Keybord Interrupt, END" << std::endl;
+	serClose(handle);
 	gpioTerminate();
 	exit(0);
+}
+
+void gpioUSleep(void){
+	usleep(1);
 }
 
 int main(int argc, char* argv[]) {
@@ -41,8 +49,14 @@ int main(int argc, char* argv[]) {
 	
 	int f = gpioHardwarePWM(18, 0, 500000); 
 	
+	/*struct termios options;
+	int fd;
+	tcgetattr(fd, &options);
+	options.c_cflag |= CS8;//8bit 
+	options.c_iflag |= IXON;
+	tcsetattr(fd, TCSANOW, &options);*/
 	char sertty[] = "/dev/ttyAMA0";
-	int handle = serOpen(sertty, 19200, 0);
+	handle = serOpen(sertty, 115200, 0);
 	
 	if(handle>=0){
 		std::cout << "OK, serial port open" << std::endl;
@@ -51,7 +65,7 @@ int main(int argc, char* argv[]) {
 		std::cout << "NG, serial port cannnot open" << std::endl;
 	}
 	
-	char input[2];
+	char input[]="aaaa";
 	double start_time;
 	double now_time, passed_time;
 	int frequencyX = 0;
@@ -59,8 +73,10 @@ int main(int argc, char* argv[]) {
 	int preFrequencyX = 0;
 	int preFrequencyY = 0;
 	int isRead = 0;
+	int i;
 	while(1){
 		start_time = time_time();
+		//std::cout << "before" << std::endl;
 		while(serDataAvailable(handle)){
 			start_time = time_time();
 			isRead = serRead(handle, input, 2);
@@ -71,6 +87,9 @@ int main(int argc, char* argv[]) {
 				frequencyY = (unsigned char)input[1] * 10 * 2;
 				std::cout << "X: " << frequencyX << std::endl;
 				std::cout << "Y: " << frequencyY << std::endl;
+				for(i=0; i<3; i++){
+					std::cout << input[i] << std::endl;
+				}
 				
 				if(frequencyX != preFrequencyX){
 					f = gpioHardwarePWM(18, frequencyX, 500000);
@@ -78,10 +97,13 @@ int main(int argc, char* argv[]) {
 				}
 				isRead = 0;
 			}
-			
+			//sleep(1);
 			now_time = time_time();
 			std::cout << now_time - start_time << std::endl;
 		}
+		//std::cout << "after" << std::endl;
+		gpioUSleep();
+		
 	}
 	
 	serClose(handle);
