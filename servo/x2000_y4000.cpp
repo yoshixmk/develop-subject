@@ -16,7 +16,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 	//pwm initialize
-	gpioCfgClock(1, 0, 100);
+	//gpioCfgClock(1, 0, 100);
 	if(gpioInitialise() < 0) return -1;
 	//pigpio CW/CCW pin setup
 	//X:18, Y1:14, Y2:15
@@ -50,12 +50,12 @@ int main(int argc, char* argv[]) {
 		gpioSetPWMfrequency(25, 2000);
 		//Y1
 		gpioPWM(23, 128);
-		//gpioSetPWMfrequency(23, 4000);
-		gpioSetPWMfrequency(23, 40000);
+		gpioSetPWMfrequency(23, 4000);
+		//gpioSetPWMfrequency(23, 40000);
 		//Y2
 		gpioPWM(24, 128);
-		//gpioSetPWMfrequency(24, 4000);
-		gpioSetPWMfrequency(24, 40000);
+		gpioSetPWMfrequency(24, 4000);
+		//gpioSetPWMfrequency(24, 40000);
 		getline(cin, input_line);
 		cout << input_line << endl;
 		break;
