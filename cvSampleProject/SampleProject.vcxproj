@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{E4D8EA50-1432-3DE7-9E7C-4709A0644AF9}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>SampleProject</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\cvSampleProject\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SampleProject.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SampleProject</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\cvSampleProject\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SampleProject.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SampleProject</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\dev\cvSampleProject\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SampleProject.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SampleProject</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\dev\cvSampleProject\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SampleProject.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SampleProject</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_videostab2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ts2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_superres2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_stitching2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_contrib2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_nonfree2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ocl2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_gpu2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_photo2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_objdetect2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_legacy2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_video2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ml2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_calib3d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_features2d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_highgui2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_imgproc2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_flann2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_core2411d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/dev/cvSampleProject/build/Debug/SampleProject.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/dev/cvSampleProject/build/Debug/SampleProject.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_videostab2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ts2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_superres2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_stitching2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_contrib2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_nonfree2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ocl2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_gpu2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_photo2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_objdetect2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_legacy2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_video2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ml2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_calib3d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_features2d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_highgui2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_imgproc2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_flann2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_core2411d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/dev/cvSampleProject/build/Release/SampleProject.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/dev/cvSampleProject/build/Release/SampleProject.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_videostab2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ts2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_superres2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_stitching2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_contrib2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_nonfree2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ocl2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_gpu2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_photo2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_objdetect2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_legacy2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_video2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ml2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_calib3d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_features2d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_highgui2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_imgproc2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_flann2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_core2411d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/dev/cvSampleProject/build/MinSizeRel/SampleProject.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/dev/cvSampleProject/build/MinSizeRel/SampleProject.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\opencv-2.4.11\build\install\include;C:\dev\opencv-2.4.11\build\install\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_videostab2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ts2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_superres2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_stitching2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_contrib2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_nonfree2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ocl2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_gpu2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_photo2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_objdetect2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_legacy2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_video2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_ml2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_calib3d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_features2d2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_highgui2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_imgproc2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_flann2411d.lib;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\opencv_core2411d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/dev/cvSampleProject/build/RelWithDebInfo/SampleProject.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/dev/cvSampleProject/build/RelWithDebInfo/SampleProject.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/cvSampleProject/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\dev\cmake-3.4.1-win32-x86\bin\cmake.exe -HC:/dev/cvSampleProject -BC:/dev/cvSampleProject/build --check-stamp-file C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/dev/cvSampleProject/CMakeLists.txt;C:\dev\cvSampleProject\CMakeLists.txt;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystem.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompilerABI.c;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompilerABI.cpp;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Internal\FeatureTesting.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;C:\dev\cvSampleProject\build\CMakeFiles\feature_tests.cxx;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig-version.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules-debug.cmake;C:\dev\cvSampleProject\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/cvSampleProject/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\dev\cmake-3.4.1-win32-x86\bin\cmake.exe -HC:/dev/cvSampleProject -BC:/dev/cvSampleProject/build --check-stamp-file C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/dev/cvSampleProject/CMakeLists.txt;C:\dev\cvSampleProject\CMakeLists.txt;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystem.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompilerABI.c;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompilerABI.cpp;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Internal\FeatureTesting.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;C:\dev\cvSampleProject\build\CMakeFiles\feature_tests.cxx;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig-version.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules-debug.cmake;C:\dev\cvSampleProject\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/dev/cvSampleProject/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\dev\cmake-3.4.1-win32-x86\bin\cmake.exe -HC:/dev/cvSampleProject -BC:/dev/cvSampleProject/build --check-stamp-file C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/dev/cvSampleProject/CMakeLists.txt;C:\dev\cvSampleProject\CMakeLists.txt;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystem.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompilerABI.c;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompilerABI.cpp;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Internal\FeatureTesting.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;C:\dev\cvSampleProject\build\CMakeFiles\feature_tests.cxx;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig-version.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules-debug.cmake;C:\dev\cvSampleProject\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/dev/cvSampleProject/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\dev\cmake-3.4.1-win32-x86\bin\cmake.exe -HC:/dev/cvSampleProject -BC:/dev/cvSampleProject/build --check-stamp-file C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/dev/cvSampleProject/CMakeLists.txt;C:\dev\cvSampleProject\CMakeLists.txt;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystem.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerId.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCompilerIdDetection.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseArguments.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\GNU-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MIPSpro-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CompilerId\VS-10.vcxproj.in;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeFindBinUtils.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeRCInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestRCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompilerABI.c;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCXXCompiler.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeTestCompilerCommon.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompilerABI.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompilerABI.cpp;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeDetermineCompileFeatures.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Internal\FeatureTesting.cmake;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\Compiler\MSVC-CXX-FeatureTests.cmake;C:\dev\cvSampleProject\build\CMakeFiles\feature_tests.cxx;C:\dev\cmake-3.4.1-win32-x86\share\cmake-3.4\Modules\CMakeCXXCompiler.cmake.in;C:\dev\cvSampleProject\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig-version.cmake;C:\dev\opencv-2.4.11\build\install\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVConfig.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules.cmake;C:\dev\opencv-2.4.11\build\install\x64\vc10\lib\OpenCVModules-debug.cmake;C:\dev\cvSampleProject\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\dev\cvSampleProject\build\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Color\ColorExtraction.cpp" />
+    <ClCompile Include="Color\HockeyTableMasking.cpp" />
+    <ClCompile Include="Color\Labeling.cpp" />
+    <ClCompile Include="Color\Masking.cpp" />
+    <ClCompile Include="Color\PerspectiveTransformation.cpp" />
+    <ClCompile Include="Color\RobotSideHockeyTableMasking.cpp" />
+    <ClCompile Include="Color\TwoImageSynthesis.cpp" />
+    <ClCompile Include="Hardware\BGMSignal.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\Camera.cpp" />
+    <ClCompile Include="Hardware\LimitSwitch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\MotorDriver.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\PhotoelectricSensor.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\Photomicrosensor.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\ProximitySensor.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\PushSwitch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\RaspberryPiSignal.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\serial_read.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\Speaker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Hardware\Timer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShowWindow\Drawing.cpp" />
+    <ClCompile Include="ShowWindow\Window.cpp" />
+    <ClCompile Include="ShowWindow\WindowManagement.cpp" />
+    <ClCompile Include="Strategy\AnomalyDetection.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Strategy\Coordinate.cpp" />
+    <ClCompile Include="Strategy\DefenseStrategy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Strategy\FrameCoordinate.cpp" />
+    <ClCompile Include="Strategy\FrequencySwitching.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Strategy\Locus.cpp" />
+    <ClCompile Include="Strategy\MalletCoordinate.cpp" />
+    <ClCompile Include="Strategy\OffenseDefenseStrategy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Strategy\OffenseStrategy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Strategy\OriginRetrun.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Strategy\PackCoordinate.cpp" />
+    <ClCompile Include="Strategy\RandomPositionCoordinate.cpp" />
+    <ClCompile Include="Strategy\RobotAction.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Strategy\Strategy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Test\ColorTest.cpp" />
+    <ClCompile Include="Test\HardwareTest.cpp" />
+    <ClCompile Include="Test\ShowWindowTest.cpp" />
+    <ClCompile Include="Test\StrategyTest.cpp" />
+    <ClCompile Include="Test\UITest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/dev/cvSampleProject/build/ZERO_CHECK.vcxproj">
+      <Project>CCB54275-59C9-3022-8D80-EBCF5A8DB7DD</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Color\ColorExtraction.h" />
+    <ClInclude Include="Color\HockeyTableMasking.h" />
+    <ClInclude Include="Color\Labeling.h" />
+    <ClInclude Include="Color\Masking.h" />
+    <ClInclude Include="Color\PerspectiveTransformation.h" />
+    <ClInclude Include="Color\RobotSideHockeyTableMasking.h" />
+    <ClInclude Include="Color\TwoImageSynthesis.h" />
+    <ClInclude Include="Hardware\BGMSignal.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\Camera.h" />
+    <ClInclude Include="Hardware\LimitSwitch.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\MotorDriver.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\PhotoelectricSensor.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\Photomicrosensor.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\ProximitySensor.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\PushSwitch.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\RaspberryPiSignal.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\Speaker.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Hardware\Timer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ShowWindow\Drawing.h" />
+    <ClInclude Include="ShowWindow\Window.h" />
+    <ClInclude Include="ShowWindow\WindowManagement.h" />
+    <ClInclude Include="Strategy\AnomalyDetection.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Strategy\Coordinate.h" />
+    <ClInclude Include="Strategy\DefenseStrategy.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Strategy\FrameCoordinate.h" />
+    <ClInclude Include="Strategy\FrequencySwitching.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Strategy\Locus.h" />
+    <ClInclude Include="Strategy\MalletCoordinate.h" />
+    <ClInclude Include="Strategy\OffenseDefenseStrategy.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Strategy\OffenseStrategy.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Strategy\OriginRetrun.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Strategy\PackCoordinate.h" />
+    <ClInclude Include="Strategy\RandomPositionCoordinate.h" />
+    <ClInclude Include="Strategy\RobotAction.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Strategy\Strategy.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Test\ColorTest.h" />
+    <ClInclude Include="Test\HardwareTest.h" />
+    <ClInclude Include="Test\ShowWindowTest.h" />
+    <ClInclude Include="Test\StrategyTest.h" />
+    <ClInclude Include="Test\UITest.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SampleProject.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
