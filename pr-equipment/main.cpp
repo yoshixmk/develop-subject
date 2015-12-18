@@ -45,6 +45,7 @@ int main() {
 
 	Test::ShowWindowTest showWindowTest;
 //	showWindowTest.windowTest();
-//	showWindowTest.drawingTest();
+	showWindowTest.drawingTest();
+//	showWindowTest.manageTest();
 	return 0;
 }

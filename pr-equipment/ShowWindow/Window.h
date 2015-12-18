@@ -1,8 +1,8 @@
 #ifndef SHOWWINDOW_WINDOW_H
 #define SHOWWINDOW_WINDOW_H
 
-#include <iostream>
 #include <string.h>
+#include <iostream>
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 

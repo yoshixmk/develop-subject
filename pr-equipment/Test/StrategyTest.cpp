@@ -86,7 +86,7 @@ void StrategyTest::locusTest()
 		CvPoint coordinate = packCoordinate.getCoordinate();
 		CvPoint previousCoordinate = packCoordinate.getPreviousCoordinate();
 		locus.calculateLocus(coordinate, previousCoordinate);
-		double a_inclination = locus.getaAInclination();
+		double a_inclination = locus.getAInclination();
 		double b_intercept = locus.getBIntercept();
 		std::cout << "a: " << a_inclination << std::endl;
 		std::cout << "b: " << b_intercept << std::endl;

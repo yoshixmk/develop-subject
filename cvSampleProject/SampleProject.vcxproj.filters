@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="..\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{403FA6B3-A727-3A5B-B211-F351CE0F7D96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HardWare">
+      <UniqueIdentifier>{f9a27f60-3117-4f28-b11c-88026d8fa434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{ec9f8b51-382d-4d31-9905-a714c1efc4bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Color">
+      <UniqueIdentifier>{470e7dd9-b829-44b4-a8d8-94b9f8053054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strategy">
+      <UniqueIdentifier>{5f7a0e43-3dd6-4f1b-89eb-c12c3cb6aef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShowWindow">
+      <UniqueIdentifier>{e85e6c1d-6bb3-4910-bc4b-06bad6a36306}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\BGMSignal.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\Camera.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\LimitSwitch.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\MotorDriver.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\PhotoelectricSensor.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\Photomicrosensor.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\ProximitySensor.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\PushSwitch.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\RaspberryPiSignal.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\serial_read.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\Speaker.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\Timer.cpp">
+      <Filter>HardWare</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\PerspectiveTransformation.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\RobotSideHockeyTableMasking.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\TwoImageSynthesis.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\ColorExtraction.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\HockeyTableMasking.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\Labeling.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\Masking.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\AnomalyDetection.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\Coordinate.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\DefenseStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\FrameCoordinate.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\FrequencySwitching.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\Locus.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\MalletCoordinate.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\OffenseDefenseStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\OffenseStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\OriginRetrun.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\PackCoordinate.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\RobotAction.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\Strategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\RandomPositionCoordinate.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowWindow\Drawing.cpp">
+      <Filter>ShowWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowWindow\Window.cpp">
+      <Filter>ShowWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowWindow\WindowManagement.cpp">
+      <Filter>ShowWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\ColorTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\HardwareTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\ShowWindowTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\StrategyTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\UITest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Hardware\BGMSignal.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\Camera.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\LimitSwitch.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\MotorDriver.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\PhotoelectricSensor.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\Photomicrosensor.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\ProximitySensor.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\PushSwitch.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\RaspberryPiSignal.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\Speaker.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\Timer.h">
+      <Filter>HardWare</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\Masking.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\PerspectiveTransformation.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\RobotSideHockeyTableMasking.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\TwoImageSynthesis.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\ColorExtraction.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\HockeyTableMasking.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\Labeling.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\AnomalyDetection.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\Coordinate.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\DefenseStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\FrameCoordinate.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\FrequencySwitching.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\Locus.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\MalletCoordinate.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\OffenseDefenseStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\OffenseStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\OriginRetrun.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\PackCoordinate.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\RobotAction.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\Strategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\RandomPositionCoordinate.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowWindow\Drawing.h">
+      <Filter>ShowWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowWindow\Window.h">
+      <Filter>ShowWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowWindow\WindowManagement.h">
+      <Filter>ShowWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\ColorTest.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\HardwareTest.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\ShowWindowTest.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\StrategyTest.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\UITest.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SampleProject.rc" />
+  </ItemGroup>
+</Project>

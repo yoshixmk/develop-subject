@@ -24,7 +24,7 @@ private:
 public:
 	void calculateLocus(CvPoint aCoordinate1, CvPoint aCoordinate2);
 
-	double getaAInclination();
+	double getAInclination();
 
 	double getBIntercept();
 
