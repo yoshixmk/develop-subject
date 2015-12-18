@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 		std::cout << "NG, serial port cannnot open" << std::endl;
 	}
 	
-	char input[]="aaaa";
+	char input[]="00A";
 	double start_time;
 	double now_time, passed_time;
 	int frequencyX = 0;
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
 	int i;
 	while(1){
 		start_time = time_time();
-		//std::cout << "before" << std::endl;
+
 		while(serDataAvailable(handle)){
 			start_time = time_time();
 			isRead = serRead(handle, input, 2);
@@ -87,9 +87,7 @@ int main(int argc, char* argv[]) {
 				frequencyY = (unsigned char)input[1] * 10 * 2;
 				std::cout << "X: " << frequencyX << std::endl;
 				std::cout << "Y: " << frequencyY << std::endl;
-				for(i=0; i<3; i++){
-					std::cout << input[i] << std::endl;
-				}
+				std::cout << std::flush;
 				
 				if(frequencyX != preFrequencyX){
 					f = gpioHardwarePWM(18, frequencyX, 500000);
@@ -97,13 +95,14 @@ int main(int argc, char* argv[]) {
 				}
 				isRead = 0;
 			}
-			//sleep(1);
 			now_time = time_time();
 			std::cout << now_time - start_time << std::endl;
 		}
-		//std::cout << "after" << std::endl;
 		gpioUSleep();
-		
+		//std::cout << std::flush;
+		if(frequencyX == 2200){
+			break;
+		}
 	}
 	
 	serClose(handle);
