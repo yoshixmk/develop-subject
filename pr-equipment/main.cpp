@@ -8,7 +8,7 @@
 
 int  main()
 {
-//	Test::HardwareTest hardwareTest;
+	Test::HardwareTest hardwareTest;
 	//hardware_test.timerTest();
 	//hardware_test.raspberryPiSignalTest();
 	//hardware_test.photoelectricSensor();
@@ -20,7 +20,7 @@ int  main()
 	//hardwareTest.speakerTest();
 //	hardwareTest.bgmSignalTest();
 //	hardwareTest.cameraTest();
-//	hardwareTest.serialTest();
+	hardwareTest.serialTest();
 
 //	Test::ColorTest colorTest;
 //	colorTest.twoImageSynthesisTest();
@@ -40,8 +40,12 @@ int  main()
 //	uiTest.intelligentTest();
 //	uiTest.soundTest();
 
-	UI::RobotMovement robotMovement;
-	robotMovement.move();
+//	UI::RobotMovement robotMovement;
+//	robotMovement.move();
 
 	return 0;
 }
+
+
+
+

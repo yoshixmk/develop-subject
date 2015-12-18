@@ -36,14 +36,10 @@ int Serial::serialRead(char* aBuf, int aBytes)
 		//暗黙のint変換。char->unsigned char->int
 		//0~255 -> 0~2550Hz とするための、10倍
 		if(mIsRead >= 0){
-//			frequencyX = (unsigned char)mInput[0] * 10 * 2;
-//			frequencyY = (unsigned char)mInput[1] * 10 * 2;
-//			std::cout << "X: " << frequencyX << std::endl;
-//			std::cout << "Y: " << frequencyY << std::endl;
-			mIsRead = 0;
+			return mIsRead;
 		}
 	}
-	return mIsRead;
+	return -1;
 }
 
 int Serial::serialDataAvailable()
