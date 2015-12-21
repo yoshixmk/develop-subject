@@ -1,75 +1,217 @@
-#include <opencv2/core/core.hpp>        // coreモジュールのヘッダーをインクルード
-#include <opencv2/highgui/highgui.hpp>  // highguiモジュールのヘッダーをインクルード
-#include <iostream>
-#include <windows.h>
-#include <tchar.h>
-#include <math.h>
+#include "HardwareTest.h"
 
-int main(int argc, const char* argv[])
-{
-	HANDLE comPort;
-
-	comPort = CreateFile(_T("COM4"),                //port name
-		GENERIC_READ | GENERIC_WRITE, //Read/Write
-		0,                            // No Sharing
-		NULL,                         // No Security
-		OPEN_EXISTING,// Open existing port only
-		0,            // Non Overlapped I/O
-		NULL);        // Null for Comm Devices
-
-	if (comPort == INVALID_HANDLE_VALUE)
-		printf("Error in opening serial port");
-	else
-		printf("opening serial port successful");
-
-	DCB dcb; // シリアルポートの構成情報が入る構造体
-	GetCommState(comPort, &dcb); // 現在の設定値を読み込み
-
-	dcb.BaudRate = 19200; // 速度
-	dcb.ByteSize = 2; // データ長
-	dcb.Parity = NOPARITY; // パリティ
-	dcb.StopBits = ONESTOPBIT; // ストップビット長
-	dcb.fOutxCtsFlow = FALSE; // ハードウェアフロー制御 送信時CTSフロー
-	dcb.fOutX = FALSE; // ソフトウェアフロー制御 送信時XON/OFF制御の有無
-	SetCommState(comPort, &dcb); // 変更した設定値を書き込み
-
-	// 幅320px、高さ240pxで赤色の画像データを生成
-	cv::Mat redImg(cv::Size(320, 240), CV_8UC3, cv::Scalar(0, 0, 255));
-	cv::Mat yellowImg(cv::Size(320, 240), CV_8UC3, cv::Scalar(0, 255, 255));
-
-	// 画像表示用のウィンドウを生成
-	cv::namedWindow("red", cv::WINDOW_AUTOSIZE);
-
-	// キー入力を待機 frequency test
-	DWORD numberOfPut;
-	char sentData[2];
-	DWORD lengthOfSent = 2; // 送信する文字数
-	cv::imshow("red", redImg); 
-	sentData[0] = 55;
-	sentData[1] = 50;
-
-	while (1){
-		WriteFile(comPort, sentData, lengthOfSent, &numberOfPut, NULL); // ポートへ送信
-		if (cv::waitKey(1) > 0){
-			break;
-		}
-	}
-
-	cv::imshow("red", yellowImg);
-	sentData[0] = 0;
-	sentData[1] = 25;
-	//sentData = "0";
-	while (1){
-		WriteFile(comPort, sentData, lengthOfSent, &numberOfPut, NULL); // ポートへ送信
-		if (cv::waitKey(1) > 0){
-			break;
-		}
-	}
-
-	CloseHandle(comPort);// Closing the Serial Port
-
-	// 5作成したウィンドウを全て破棄
-	cv::destroyAllWindows();
-
-	return 0;
+namespace Test {
+/* シグナル受信/処理 */
+void HardwareTest::signalHandler(int aSignal) {
+	std::cout << "SIGNAL Keybord Interrupt, END" << std::endl;
+	exit(0);
 }
+
+HardwareTest::HardwareTest() {
+	//gpioCfgClock(4, 0, 100);
+	//if (gpioInitialise() < 0) {
+	//	std::cout << "pigpio initialisation failed." << std::endl;
+	//} else {
+	//	std::cout << "pigpio initialised okay." << std::endl;
+	//}
+
+	//if (signal(SIGINT, &signalHandler) == SIG_ERR) {
+	//	std::cout << "I could not set up signal. finished" << std::endl;
+	//	gpioTerminate();
+	//	exit(1);
+	//}
+}
+
+HardwareTest::~HardwareTest() {
+	//gpioTerminate();
+}
+//
+//void HardwareTest::timerTest() {
+//	std::cout << "!!!Timer Test!!!" << std::endl; // Timer Test start!
+//
+//	Hardware::Timer timer;
+//
+//	timer.setTimer(10.5);
+//	while (!timer.getAlarm())
+//		;
+//	/*//while(!timer.getAlarm()){
+//	 if(timer.getAlarm()){
+//	 std::cout << "getAlarm() retun Bool OK." << std::endl;
+//	 }
+//	 else{
+//	 std::cout << "getAlarm() retun Bool NG." << std::endl;
+//	 }
+//	 //}*/
+//}
+//
+//void HardwareTest::raspberryPiSignalTest() {
+//	Hardware::RaspberryPiSignal raspberryPiSignal(8);
+//
+//	std::cout << raspberryPiSignal.readLevel() << std::endl;
+//}
+//
+//void HardwareTest::photoelectricSensorTest() {
+//	Hardware::PhotoelectricSensor photoelectricSensor1(2);
+//	Hardware::PhotoelectricSensor photoelectricSensor2(9);
+//
+//	std::cout << "phtoelectricSensor_test" << std::endl;
+//	std::cout << photoelectricSensor1.readLevel() << std::endl;
+//	std::cout << photoelectricSensor2.readLevel() << std::endl;
+//}
+//
+//void HardwareTest::photomicrosensorTest() {
+//	Hardware::Photomicrosensor photomicrosensorRight(16);
+//	Hardware::Photomicrosensor photomicrosensorLeft(21);
+//
+//	std::cout << "photomicrosensor_test" << std::endl;
+//	std::cout << photomicrosensorRight.readLevel() << std::endl;
+//	std::cout << photomicrosensorLeft.readLevel() << std::endl;
+//}
+//
+//void HardwareTest::limitSwitchTest() {
+//	Hardware::LimitSwitch limitSwitch(5);
+//
+//	std::cout << "limitSwitch_test" << std::endl;
+//	std::cout << limitSwitch.readLevel() << std::endl;
+//}
+//
+//void HardwareTest::proximitySensorTest() {
+//	Hardware::ProximitySensor proximitySensor(20);
+//
+//	std::cout << "proximitySensor_test" << std::endl;
+//	std::cout << proximitySensor.readLevel() << std::endl;
+//}
+//
+//void HardwareTest::pushSwitchTest() {
+//	Hardware::PushSwitch pushSwitch1(10);
+//	Hardware::PushSwitch pushSwitch2(11);
+//
+//	std::cout << "pushSwitch_test" << std::endl;
+//	std::cout << pushSwitch1.readLevel() << std::endl;
+//	std::cout << pushSwitch2.readLevel() << std::endl;
+//}
+//
+//void HardwareTest::moterDriverTest() {
+//	Hardware::MotorDriver moterDriverXAxis(25, 18);
+//	Hardware::MotorDriver moterDriverY1Axis(23, 7);
+//	Hardware::MotorDriver moterDriverY2Axis(24, 12);
+//
+//	std::cout << "moterDriver_test" << std::endl;
+//	moterDriverXAxis.setPulse(1000);
+//	//moterDriverXAxis.setCwCcw(1);
+//	moterDriverXAxis.setCwCcw(0);
+//	moterDriverXAxis.output();
+//
+//	Hardware::Timer timer;
+//	timer.setTimer(5);
+//	moterDriverXAxis.output();
+//	while (!timer.getAlarm())
+//		;
+//
+//	moterDriverXAxis.setPulse(2000);
+//	timer.setTimer(5);
+//	moterDriverXAxis.output();
+//	while (!timer.getAlarm())
+//		;
+//
+//	moterDriverXAxis.setPulse(2500);
+//	timer.setTimer(5);
+//	moterDriverXAxis.output();
+//	while (!timer.getAlarm())
+//		;
+//}
+//
+//void HardwareTest::speakerTest() {
+//	std::cout << "speaker_test" << std::endl;
+//	Hardware::Speaker speaker_hisyo, speaker_sword_f, speaker_chui;
+//	speaker_hisyo.setSoundTrack("hisyo.mp3", true);
+//	speaker_hisyo.emitSound();
+//	std::cout << "hisyo.mp3 emitted." << std::endl;
+//	Hardware::Timer timer;
+//	timer.setTimer(1);
+//	while (!timer.getAlarm())
+//		;
+//
+//	int i;
+//	for (i = 0; i < 2; i++) {
+//		speaker_sword_f.setSoundTrack("sword_f.mp3", false);
+//		speaker_sword_f.emitSound();
+//		std::cout << "sword_f.mp3 emitted." << std::endl;
+//		timer.setTimer(1);
+//		while (!timer.getAlarm())
+//			;
+//		if (i == 0) {
+//			speaker_hisyo.stopSound();
+//		}
+//		timer.setTimer(1);
+//		speaker_chui.setSoundTrack("chui.mp3", false);
+//		speaker_chui.emitSound();
+//		std::cout << "chui.mp3 emitted." << std::endl;
+//		while (!timer.getAlarm())
+//			;
+//	}
+//	speaker_chui.stopSound();
+//	speaker_chui.stopSound();
+//}
+//
+//void HardwareTest::bgmSignalTest() {
+//	std::cout << "BGMSignal_test" << std::endl;
+//	Hardware::BGMSignal bgmSignal(13);
+//
+//	bgmSignal.writeHigh();
+////	bgmSignal.writeLow();
+//}
+
+void HardwareTest::cameraTest() {
+	std::cout << "Camera_test" << std::endl;
+	Hardware::Camera camera;
+	Hardware::Camera camera2;
+
+	cvNamedWindow("RobotSide", CV_WINDOW_AUTOSIZE);
+	cvNamedWindow("HumanSide", CV_WINDOW_AUTOSIZE);
+
+	while (1) {
+		Hardware::Camera camera3;
+		Hardware::Camera::renew();
+		cvShowImage("RobotSide", camera.getRobotSideImage());
+		cvShowImage("HumanSide", camera2.getHumanSideImage());
+		if (cv::waitKey(1) >= 0) {
+			break;
+		}
+	}
+
+}
+
+void HardwareTest::serialTest(){
+	std::cout << "Serial_test" << std::endl;
+	Hardware::Serial serial;
+	unsigned char buf[] = { 50, 0, 'A', 100, 100, 100, 100, 100, 100 };
+	int i = 0;
+	while (1){
+		serial.serialWrite((char*)buf, 4);
+		if (buf[0] == 255){
+			break;
+		}
+
+		if (buf[0] < 255){
+			buf[0] += 1;
+		}
+		if (buf[1] < 255){
+			buf[1] += 1;
+		}
+		if (buf[2] == 'A'){
+			buf[2] = 'B';
+		}
+		else if (buf[2] == 'B'){
+			buf[2] = 'C';
+		}
+		else if (buf[2] == 'C'){
+			buf[2] = 'D';
+		}
+		else if (buf[2] == 'D'){
+			buf[2] = 'A';
+		}
+	}
+}
+
+}  // namespace Test

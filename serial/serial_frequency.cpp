@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
 	int fd;
 	tcgetattr(fd, &options);
 	options.c_cflag |= CS8;//8bit 
-	options.c_iflag |= IXON;
+	options.c_iflag |= IXOFF;
 	tcsetattr(fd, TCSANOW, &options);*/
 	char sertty[] = "/dev/ttyAMA0";
 	handle = serOpen(sertty, 115200, 0);
@@ -65,13 +65,14 @@ int main(int argc, char* argv[]) {
 		std::cout << "NG, serial port cannnot open" << std::endl;
 	}
 	
-	char input[]="00A";
+	char input[] = {0};
 	double start_time;
 	double now_time, passed_time;
 	int frequencyX = 0;
 	int frequencyY = 0;
 	int preFrequencyX = 0;
 	int preFrequencyY = 0;
+	//char distination;
 	int isRead = 0;
 	int i;
 	while(1){
@@ -79,7 +80,7 @@ int main(int argc, char* argv[]) {
 
 		while(serDataAvailable(handle)){
 			start_time = time_time();
-			isRead = serRead(handle, input, 2);
+			isRead = serRead(handle, input, 4);
 			//暗黙のint変換。char->unsigned char->int
 			//0~255 -> 0~2550Hz とするための、10倍
 			if(isRead >= 0){
@@ -87,6 +88,7 @@ int main(int argc, char* argv[]) {
 				frequencyY = (unsigned char)input[1] * 10 * 2;
 				std::cout << "X: " << frequencyX << std::endl;
 				std::cout << "Y: " << frequencyY << std::endl;
+				std::cout << "DIST: " << input[2] << std::endl;
 				std::cout << std::flush;
 				
 				if(frequencyX != preFrequencyX){
@@ -97,10 +99,13 @@ int main(int argc, char* argv[]) {
 			}
 			now_time = time_time();
 			std::cout << now_time - start_time << std::endl;
+			if(frequencyX == 5100){
+				break;
+			}
 		}
 		gpioUSleep();
 		//std::cout << std::flush;
-		if(frequencyX == 2200){
+		if(frequencyX == 5100){
 			break;
 		}
 	}
