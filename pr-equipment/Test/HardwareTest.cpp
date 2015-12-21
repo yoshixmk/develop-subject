@@ -219,6 +219,12 @@ void HardwareTest::serialTest()
 			now_time = time_time();
 			passed_time = now_time - start_time;
 			std::cout << passed_time << std::endl;
+			if(cv::waitKey(1) > 0){
+				break;
+			}
+		}
+		if(cv::waitKey(1) > 0){
+			break;
 		}
 	}
 }
