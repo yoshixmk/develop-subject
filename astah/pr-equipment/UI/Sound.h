@@ -1,12 +1,6 @@
 #ifndef UI_SOUND_H
 #define UI_SOUND_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Hardware/Speaker.h"
 #include "UI/PackSpeed.h"
 

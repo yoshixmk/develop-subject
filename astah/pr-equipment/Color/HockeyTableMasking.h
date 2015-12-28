@@ -1,12 +1,6 @@
 #ifndef COLOR_HOCKEY_TABLE_MASKING_H
 #define COLOR_HOCKEY_TABLE_MASKING_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Color/Masking.h"
 
 namespace Color

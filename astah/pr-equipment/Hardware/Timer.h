@@ -1,12 +1,6 @@
 #ifndef HARDWARE_TIMER_H
 #define HARDWARE_TIMER_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 namespace Hardware
 {
 class Timer

@@ -1,13 +1,7 @@
 #ifndef COLOR_MASKING_H
 #define COLOR_MASKING_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
-#include "Color/2ImageSynthesis.h"
+#include "Color/TwoImageSynthesis.h"
 
 namespace Color
 {
@@ -16,7 +10,7 @@ class Masking
 private:
 	int output_image;
 
-	2ImageSynthesis 2ImageSynthesis;
+	TwoImageSynthesis twoImageSynthesis;
 
 public:
 	virtual int mask()=0;

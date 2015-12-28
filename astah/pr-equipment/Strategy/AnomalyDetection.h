@@ -1,12 +1,6 @@
 #ifndef STRATEGY_ANOMALY_DETECTION_H
 #define STRATEGY_ANOMALY_DETECTION_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Hardware/LimitSwitch.h"
 
 namespace Strategy

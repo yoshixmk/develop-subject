@@ -1,12 +1,6 @@
 #ifndef UI_MODE_H
 #define UI_MODE_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Strategy/Strategy.h"
 #include "UI/Sound.h"
 #include "UI/Intelligent.h"
@@ -21,7 +15,7 @@ private:
 	Intelligent intelligent;
 
 public:
-	virtual void Execute()=0;
+	virtual void execute()=0;
 
 };
 

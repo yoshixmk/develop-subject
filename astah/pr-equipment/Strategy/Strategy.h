@@ -1,12 +1,6 @@
 #ifndef STRATEGY_STRATEGY_H
 #define STRATEGY_STRATEGY_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Strategy/OriginRetrun.h"
 #include "Strategy/RobotAction.h"
 #include "Strategy/Locus.h"

@@ -1,12 +1,6 @@
 #ifndef STRATEGY_ROBOT_ACTION_H
 #define STRATEGY_ROBOT_ACTION_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Hardware/MotorDriver.h"
 #include "Strategy/FrequencySwitching.h"
 #include "Strategy/AnomalyDetection.h"
