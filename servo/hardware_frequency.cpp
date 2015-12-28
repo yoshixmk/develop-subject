@@ -24,6 +24,8 @@ int main(int argc, char* argv[]) {
 	//limit-switch setup
 
 	std::cout << "Hardware Frequency" << std::endl;
+	gpioHardwarePWM(18, 0, 500000);
+	gpioHardwarePWM(13, 0, 500000);
 	gpioHardwarePWM(18, 670, 500000);
 	
 	/*std::cout << "Play Sound!!" <<std::endl;
