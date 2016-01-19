@@ -6,14 +6,20 @@
 #include <pigpio.h>
 #include <iostream>
 #include <signal.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include <termios.h>
+
+int handle;
 
 /* シグナル受信/処理 */
 void signalHandler(int aSignal) {
 	std::cout << "SIGNAL Keybord Interrupt, END" << std::endl;
+	serClose(handle);
 	gpioTerminate();
 	exit(0);
+}
+
+void gpioUSleep(void){
+	usleep(1);
 }
 
 int main(int argc, char* argv[]) {
@@ -43,8 +49,14 @@ int main(int argc, char* argv[]) {
 	
 	int f = gpioHardwarePWM(18, 0, 500000); 
 	
+	/*struct termios options;
+	int fd;
+	tcgetattr(fd, &options);
+	options.c_cflag |= CS8;//8bit 
+	options.c_iflag |= IXOFF;
+	tcsetattr(fd, TCSANOW, &options);*/
 	char sertty[] = "/dev/ttyAMA0";
-	int handle = serOpen(sertty, 19200, 0);
+	handle = serOpen(sertty, 115200, 0);
 	
 	if(handle>=0){
 		std::cout << "OK, serial port open" << std::endl;
@@ -53,25 +65,22 @@ int main(int argc, char* argv[]) {
 		std::cout << "NG, serial port cannnot open" << std::endl;
 	}
 	
-	char input[2];
+	char input[] = {0};
 	double start_time;
 	double now_time, passed_time;
 	int frequencyX = 0;
 	int frequencyY = 0;
 	int preFrequencyX = 0;
 	int preFrequencyY = 0;
+	//char distination;
 	int isRead = 0;
-	int ajustmentNum = 40;//40
-	int initialCountValue = 250 * ajustmentNum / 10;
-	int interval = 30;
-	int count = initialCountValue;
 	int i;
-	char sentData[2];
 	while(1){
 		start_time = time_time();
-		/*while(serDataAvailable(handle)){
+
+		while(serDataAvailable(handle)){
 			start_time = time_time();
-			isRead = serRead(handle, input, 2);
+			isRead = serRead(handle, input, 4);
 			//暗黙のint変換。char->unsigned char->int
 			//0~255 -> 0~2550Hz とするための、10倍
 			if(isRead >= 0){
@@ -79,6 +88,8 @@ int main(int argc, char* argv[]) {
 				frequencyY = (unsigned char)input[1] * 10 * 2;
 				std::cout << "X: " << frequencyX << std::endl;
 				std::cout << "Y: " << frequencyY << std::endl;
+				std::cout << "DIST: " << input[2] << std::endl;
+				std::cout << std::flush;
 				
 				if(frequencyX != preFrequencyX){
 					f = gpioHardwarePWM(18, frequencyX, 500000);
@@ -86,33 +97,20 @@ int main(int argc, char* argv[]) {
 				}
 				isRead = 0;
 			}
-			
 			now_time = time_time();
 			std::cout << now_time - start_time << std::endl;
-		}*/
-		for(i=0; i<ajustmentNum; i++){
-			count++;
-			sentData[0] = count /ajustmentNum;
-			sentData[1] = count / ajustmentNum;
-			if(count >= 1000*ajustmentNum / 10){
-				//count = initialCountValue;
-				count = 1100*ajustmentNum/10;
+			if(frequencyX == 5100){
+				break;
 			}
 		}
-		count += ajustmentNum * (interval -1);
-		frequencyX = sentData[0] * 10 * 2;
-		frequencyY = sentData[0] * 10 * 2;
-		if(frequencyX != preFrequencyX){
-			f = gpioHardwarePWM(18, frequencyX, 500000);
-			preFrequencyX = frequencyX;
-		}
-		std::cout << frequencyX << std::endl;
-		if(cv::waitKey(1) > 0){
+		gpioUSleep();
+		//std::cout << std::flush;
+		if(frequencyX == 5100){
 			break;
 		}
 	}
 	
-	//serClose(handle);
+	serClose(handle);
 	gpioTerminate();
 
 	return 0;

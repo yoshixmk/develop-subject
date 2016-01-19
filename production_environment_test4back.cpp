@@ -10,7 +10,6 @@
 //#include <wiringPi.h>
 //#include <softPwm.h>
 #include <float.h>
-#include <signal.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
@@ -304,21 +303,23 @@ int daikei_process(double start_time, double end, int cnt_freq, int flag)
 
 	double now_time = time_time();
 	short ch_freq[3] = {500,500,500};
-	short ch_freq2[4] = {500,500,500,500};
+	short ch_freq2[4] = {313,500,500,500};
 	double time_freq[4] = {0.05, 0.10, 0.15, 0.20};
 	int closest_frequency;
 	
 	if((end - time_freq[cnt_freq] < now_time) && (flag == 1)){
 		if(cnt_freq > 0){
-			closest_frequency = gpioHardwarePWM(18, ch_freq2[cnt_freq],50000);
+			closest_frequency = gpioSetPWMfrequency(18, ch_freq2[cnt_freq]);
 			//printf("gensoku_freq: %d\n",ch_freq2[cnt_freq]);
+			gpioPWM(18, 128);
 			cnt_freq--;
 		}
 	}
 	else if(now_time>=(start_time+time_freq[cnt_freq]) && (flag == 0)){
 		if(cnt_freq < 3){
-			closest_frequency = gpioHardwarePWM(18, ch_freq[cnt_freq],50000);
+			closest_frequency = gpioSetPWMfrequency(18, ch_freq[cnt_freq]);
 			//printf("kasoku_freq: %d\n",ch_freq[cnt_freq]);
+			gpioPWM(18, 128);
 			cnt_freq++;
 		}
 				
@@ -326,14 +327,6 @@ int daikei_process(double start_time, double end, int cnt_freq, int flag)
 	return cnt_freq;
 }
 
-
-void sigcatch(int sig){
-	int closest_frequency;
-	
-	printf("catch signal \n",sig);
-	closest_frequency = gpioHardwarePWM(18, 0,500000);
-	exit(1);
-}
 
 int main(int argc, char* argv[]) {
     CvMemStorage *contStorage = cvCreateMemStorage(0);
@@ -359,13 +352,13 @@ int main(int argc, char* argv[]) {
 	//pigpio CW/CCW pin setup
 	//X:18, Y1:7, Y2:12
 	gpioSetMode(18, PI_OUTPUT); 
-	gpioSetMode(7, PI_OUTPUT);
-	gpioSetMode(12, PI_OUTPUT);
+//	gpioSetMode(7, PI_OUTPUT);
+//	gpioSetMode(12, PI_OUTPUT);
 	//pigpio pulse setup
 	//X:25, Y1:23, Y2:24
 	gpioSetMode(25, PI_OUTPUT);
-	gpioSetMode(23, PI_OUTPUT);
-	gpioSetMode(24, PI_OUTPUT);
+//	gpioSetMode(23, PI_OUTPUT);
+//	gpioSetMode(24, PI_OUTPUT);
 	//limit-switch setup
 	gpioSetMode(5, PI_INPUT);
 	gpioWrite(5, 0);
@@ -420,17 +413,17 @@ int main(int argc, char* argv[]) {
 	int iSliderValuePack6 = 255;//203;
 	cvCreateTrackbar("maxV", "pack", &iSliderValuePack6, 255);
 	//mallet threthold 0, 255, 100, 255, 140, 200
-	int iSliderValuemallet1 = 16;
+	int iSliderValuemallet1 = 14;
 	cvCreateTrackbar("minH", "mallet", &iSliderValuemallet1, 255);
-	int iSliderValuemallet2 = 25;
+	int iSliderValuemallet2 = 44;
 	cvCreateTrackbar("maxH", "mallet", &iSliderValuemallet2, 255);
-	int iSliderValuemallet3 = 178;//140
+	int iSliderValuemallet3 = 161;//140
 	cvCreateTrackbar("minS", "mallet", &iSliderValuemallet3, 255);
-	int iSliderValuemallet4 = 255;
+	int iSliderValuemallet4 = 200;
 	cvCreateTrackbar("maxS", "mallet", &iSliderValuemallet4, 255);
-	int iSliderValuemallet5 = 120;
+	int iSliderValuemallet5 = 101;
 	cvCreateTrackbar("minV", "mallet", &iSliderValuemallet5, 255);
-	int iSliderValuemallet6 = 181;
+	int iSliderValuemallet6 = 255;
 	cvCreateTrackbar("maxV", "mallet", &iSliderValuemallet6, 255);
 	
 	// 画像ファイルポインタの宣言
@@ -563,18 +556,18 @@ int main(int argc, char* argv[]) {
 //	}
 //	else{
 		//printf("Frame is not 8 Point\n");
-		upper_left_f = cvPoint(28, 29);
-		upper_right_f =  cvPoint(125, 29);
-		lower_left_f = cvPoint(28, 220);
-		lower_right_f =  cvPoint(125, 220);
+		upper_left_f = cvPoint(14, 29);
+		upper_right_f =  cvPoint(143, 29);
+		lower_left_f = cvPoint(14, 220);
+		lower_right_f =  cvPoint(143, 220);
 
-		upper_left_g = cvPoint(25, 22);
-		upper_right_g = cvPoint(125, 22);
-		lower_left_g =  cvPoint(25, 226);
-		lower_right_g = cvPoint(125, 226);
+		upper_left_g = cvPoint(20, 22);
+		upper_right_g = cvPoint(138, 22);
+		lower_left_g =  cvPoint(20, 226);
+		lower_right_g = cvPoint(138, 226);
 
-		robot_goal_left = cvPoint(58, 226);
-		robot_goal_right = cvPoint(98, 226);
+		robot_goal_left = cvPoint(53, 226);
+		robot_goal_right = cvPoint(105, 226);
 
 //		cvCopy(img_all_round, show_img);
 //		cvLine(show_img, upper_left_f, upper_right_f, CV_RGB( 255, 255, 0 ));
@@ -596,16 +589,16 @@ int main(int argc, char* argv[]) {
 		//}
 		//return -1;
 //	}
-	//printf("upper_left_fX:%d, Y:%d\n",upper_left_f.x, upper_left_f.y);
-	//printf("upper_left_gX:%d, Y:%d\n",upper_left_g.x, upper_left_g.y);
-	//printf("upper_right_fX:%d,Y:%d\n", upper_right_f.x, upper_right_f.y);
-	//printf("upper_right_gX:%d, Y:%d\n" , upper_right_g.x, upper_right_g.y);
-	//printf("lower_left_fX:%d, Y:%d\n", lower_left_f.x, lower_left_f.y);
-	//printf("lower_left_gX:%d, Y:%d\n", lower_left_g.x, lower_left_g.y);
-	//printf("lower_right_fX:%d, Y:%d\n", lower_right_f.x, lower_right_f.y);
-	//printf("lower_right_gX:%d, Y:%d\n", lower_right_g.x, lower_right_g.y);
-	//printf("robot_goal_left:%d, Y:%d\n", robot_goal_left.x, robot_goal_left.y);
-	//printf("robot_goal_right:%d, Y:%d\n", robot_goal_right.x, robot_goal_right.y);
+	printf("upper_left_fX:%d, Y:%d\n",upper_left_f.x, upper_left_f.y);
+	printf("upper_left_gX:%d, Y:%d\n",upper_left_g.x, upper_left_g.y);
+	printf("upper_right_fX:%d,Y:%d\n", upper_right_f.x, upper_right_f.y);
+	printf("upper_right_gX:%d, Y:%d\n" , upper_right_g.x, upper_right_g.y);
+	printf("lower_left_fX:%d, Y:%d\n", lower_left_f.x, lower_left_f.y);
+	printf("lower_left_gX:%d, Y:%d\n", lower_left_g.x, lower_left_g.y);
+	printf("lower_right_fX:%d, Y:%d\n", lower_right_f.x, lower_right_f.y);
+	printf("lower_right_gX:%d, Y:%d\n", lower_right_g.x, lower_right_g.y);
+	printf("robot_goal_left:%d, Y:%d\n", robot_goal_left.x, robot_goal_left.y);
+	printf("robot_goal_right:%d, Y:%d\n", robot_goal_right.x, robot_goal_right.y);
 
     cvReleaseImage(&dst_img_frame);
     cvReleaseImage(&grayscale_img);
@@ -764,9 +757,7 @@ int main(int argc, char* argv[]) {
 			double gX_now_mallet = m10_mallet/m00_mallet;
 			double gY_now_mallet = m01_mallet/m00_mallet;
 
-			int target_direction = 0; //目標とする向き　時計回り＝1、　反時計回り＝0
-			gpioWrite(25, target_direction);
-			
+			int target_direction = -1; //目標とする向き　時計回り＝1、　反時計回り＝0
 			//円の大きさは全体の1/10で描画
 			cvCircle(show_img, cvPoint(gX_before, gY_before), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
 			cvCircle(show_img, cvPoint(gX_now_mallet, gY_now_mallet), CAM_PIX_HEIGHT/10, CV_RGB(0,0,255), 6, 8, 0);
@@ -776,7 +767,7 @@ int main(int argc, char* argv[]) {
 			//printf("gY_after: %f\n",gY_after);
 			//printf("gX_before: %f\n",gX_before);
 			//printf("gY_before: %f\n",gY_before);
-			printf("gX_now_mallet: %f\n",gX_now_mallet);
+			//printf("gX_now_mallet: %f\n",gX_now_mallet);
 			//printf("gY_now_mallet: %f\n",gY_now_mallet);
 			
 			
@@ -795,52 +786,37 @@ int main(int argc, char* argv[]) {
 			int right_frame = (upper_right_f.x + lower_right_f.x)/2;
 
 			double y_line = (upper_left_f.y + lower_right_f.y)/3;
-			double waiting_position = 78; //(robot_goal_left.x + robot_goal_right.x) / 2;	75がど真ん中になるポジション
+			double waiting_position = (robot_goal_left.x + robot_goal_right.x) / 2;	//75がど真ん中になるポジション
 
 			int pack_found_flg;		//プレイヤー側からロボット側にパックがきたとき、1回目の検出なら1を代入、それ以外なら0を代入（1のときのみX軸を動かす）
 			gpioWrite(6, 1);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			
 			
-			if(SIG_ERR == signal(SIGINT,sigcatch)){	//プログラム終了時にモータを止める
-				printf("fail");
-				exit(1);
-			}
 			
 			//ロボットからプレイヤーにパックを打ち返したとき、またはパックがその位置で静止したとき原点に戻る処理を行う
-			
-			
-			
 			if(gY_after - gY_before < -2 || (gY_after - gY_before <= 2 && gY_after - gY_before >= -2) ){ 
 				pack_found_flg = 0;							//リセット（プレイヤーからロボットにパックがきたときに再度動き始める）
-				printf("waiting_position:%f\n",waiting_position);
+				//printf("waiting_position:%d\n",waiting_position);
 				//printf("return\n");
-				
-				if(waiting_position +3 < gX_now_mallet){//+ 10
-					target_direction = 0;//反時計回り
-					gpioWrite(25, target_direction);
-					printf("target_direction:%d",target_direction);
-
-				}
-				else if(gX_now_mallet < waiting_position -3){//+5
-					target_direction = 1;//時計回り
-					gpioWrite(25, target_direction);
-					printf("target_direction:%d",target_direction);
-				}
-				else{
-					closest_frequency=gpioHardwarePWM(18,0,500000);
-				}
-				
-				if(waiting_position + 3> gX_now_mallet && gX_now_mallet > waiting_position -3)	closest_frequency = gpioHardwarePWM(18, 0,500000);	
-				else if(waiting_position +20 > gX_now_mallet && gX_now_mallet > waiting_position -20)	closest_frequency = gpioHardwarePWM(18, 100,500000);	//ゴール近辺ならモータの速度を落とす
-				else if(waiting_position +40 > gX_now_mallet && gX_now_mallet >waiting_position -40)closest_frequency = gpioHardwarePWM(18, 500,500000);	//ゴールに少し近づいてきたら速度を落とす
-				else   	closest_frequency = gpioHardwarePWM(18, 500,500000);																						//ゴールから遠い位置にパックがあるなら速度は速い
-//				int Get = gpioGetPWMfrequency(18);	
+				if(waiting_position +10 > gX_now_mallet && gX_now_mallet > waiting_position -10)	closest_frequency = gpioSetPWMfrequency(18,100);		//ゴール近辺ならモータの速度を落とす
+				else if(waiting_position +40 > gX_now_mallet && gX_now_mallet >waiting_position -40)	closest_frequency = gpioSetPWMfrequency(18,313);	//ゴールに少し近づいてきたら速度を落とす
+				else   	closest_frequency = gpioSetPWMfrequency(18, 500);																							//ゴールから遠い位置にパックがあるなら速度は速い
+				int Get = gpioGetPWMfrequency(18);	
 				//printf("Get_freq: %d\n",Get);
+				gpioPWM(18, 128);
 				target_coordinateX = waiting_position;
 				//printf("mallet:%f\n",gX_now_mallet);
 				//printf("target_direction:%d\n",target_direction);
-				
+				if(waiting_position +3 < gX_now_mallet){//+ 10
+					target_direction = 0;//反時計回り
+				}
+				else if(gX_now_mallet < waiting_position -3){//+5
+					target_direction = 1;//時計回り
+				}
+				else{
+					gpioPWM(18, 0);
+				}
 			}
 			/*else if(robot_goal_right.x < gX_now_mallet){
 				gpioPWM(25, 128);
@@ -862,11 +838,6 @@ int main(int argc, char* argv[]) {
 				printf("X軸左リミット！時計回り\n");
 			}
 */			
-
-
-
-///戦略//
-
 			//プレイヤーからロボット側にパックがきたときに、画像処理が一回目ならモータを動かす処理を行う
 			else if(gY_after - gY_before > 5 && pack_found_flg != 1){//y_lineはボードの真ん中。防御処理		// 	(y_line < gY_after && y_line > gY_before)	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	//モータの稼働までに0.0001秒かかる	
@@ -899,42 +870,42 @@ int main(int argc, char* argv[]) {
 					target_direction = 1;									//中心より右なら時計回り		
 				
 				if(move_dist < -50){										//パックの位置がマレットの位置より51以上左の時
-					printf("pos1\n");
+					//printf("pos1\n");
 					pos=1;
 					end = 1.2 * -move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
 				else if(move_dist < -18){									//パックの位置がマレットの位置より50以下26以上左の時
-					printf("pos2\n");
+					//printf("pos2\n");
 					pos=2;
-					end = 1.4 * -move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
+					end = 1.2 * -move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
 				else if(move_dist < -10){									//パックの位置がマレットの位置より25以下11以上左の時
-					printf("pos3\n");
+					//printf("pos3\n");
 					pos=3;
-					end = 1.3 * -move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
+					end = 1.2 * -move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
 				else if(move_dist < 0){									//パックの位置がマレットの位置より10以下1以上左の時
-					printf("pos4\n");
+					//printf("pos4\n");
 					pos=4;
 					end = 1.2 * -move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
 				else if(0 <= move_dist && move_dist < 10 ){				//パックの位置がマレットの位置より0以上9以下右の時
-					printf("pos5\n");
+					//printf("pos5\n");
 					pos=5;
-					end = 1.3 * move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
+					end = 1.2 * move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
 				else if(10 <= move_dist && move_dist < 25){				//パックの位置がマレットの位置より10以上24以下右の時
-					printf("pos6\n");
+					//printf("pos6\n");
 					pos=6;
-					end = 1.4 * move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
+					end = 1.2 * move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
 				else if(25 <= move_dist && move_dist < 50){				//パックの位置がマレットの位置より25以上49以下右の時
-					printf("pos7\n");
+					//printf("pos7\n");
 					pos=7;
-					end = 1.5 * move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
+					end = 1.2 * move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
 				else if(50 <= move_dist){									//パックの位置がマレットの位置より50以上右の時
-					printf("pos8\n");
+					//printf("pos8\n");
 					pos=8;
 					end = 1.2 * move_dist / 100;							//理論値は0.5。現在のマレットの位置と軌跡の位置から移動時間を算出する
 				}
@@ -942,7 +913,8 @@ int main(int argc, char* argv[]) {
 				end = end + now_time;										//マレットの移動時間
 				
 				gpioWrite(25, target_direction);							//ドライバXのGPIOにHIGHを入れる
-				closest_frequency = gpioHardwarePWM(18, 500,500000);	
+				closest_frequency = gpioSetPWMfrequency(18, 500);	
+				gpioPWM(18, 128);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				while(end - now_time >= 0){								//時間がくるまでループ
@@ -952,7 +924,7 @@ int main(int argc, char* argv[]) {
 					switch(pos){
 						case 1:												//パックの位置がマレットの位置より51以上左の時
 							//printf("case1\n");
-							//cnt_freq = daikei_process(start_time, end, cnt_freq, flag_freq);
+							cnt_freq = daikei_process(start_time, end, cnt_freq, flag_freq);
 							break;
 						case 2:												//パックの位置がマレットの位置より25以下11以上左の時
 							//printf("case2\n");
@@ -974,7 +946,7 @@ int main(int argc, char* argv[]) {
 							break;
 						case 8:												//パックの位置がマレットの位置より50以上右の時
 							//printf("case8\n");
-							//cnt_freq = daikei_process(start_time, end, cnt_freq, flag_freq);
+							cnt_freq = daikei_process(start_time, end, cnt_freq, flag_freq);
 							break;
 						default :
 							break;
@@ -987,10 +959,10 @@ int main(int argc, char* argv[]) {
 				else
 					target_direction=0;
 					
-				closest_frequency = gpioHardwarePWM(18, 0,500000);
+				closest_frequency = gpioSetPWMfrequency(18,14);
+				gpioPWM(18, 0);
 			}
 
-//戦略//
 ////////////////////////////////////////////////////////////////////////////////
 
 
