@@ -44,10 +44,10 @@ int main(int argc, char* argv[])
 	int target_direction = -1; //目標とする向き　時計回り＝1、　反時計回り＝0
 
 	int closest_frequency;
-	int x=400;
+	int x=300;
 	int freq_up=0;
 	int freq_up_cnt=34;		//周波数を上げる回数
-	int freq_ch=100;			//周波数切り替え
+	int freq_ch=200;			//周波数切り替え
 	int freq_ch2=100;
 	int std_time = 0;		//中間の間の時間
 
@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
 //		closest_frequency = gpioHardwarePWM(19, 0,500000);
 //		closest_frequency = gpioHardwarePWM(12, 0,500000);
 
-		sleep(10);
+		//sleep(10);
 
 		usleep(1000000);
 		

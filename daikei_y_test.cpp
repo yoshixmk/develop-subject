@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 	int freq_up_cnt=1;		//周波数を上げる回数
 	int freq_ch=100;			//周波数切り替え
 	int freq_ch2=100;
-	int std_time = 500000;		//中間の間の時間
+	int std_time = 250000;		//中間の間の時間
 
 	gpioWrite(6, 1);			//ファンの出力ON
 	
@@ -117,14 +117,14 @@ int main(int argc, char* argv[])
 	}*/
 
 	
-	int y=800;
+	int y=2000;
 	while(1){
 		
 		for(int i=0;i<freq_up_cnt;i++){
 //			closest_frequency = gpioHardwarePWM(18, 500+freq_up,500000);
 			Get = gpioGetPWMfrequency(18);
 //			printf("freq: %d\n",Get);
-			closest_frequency = gpioHardwarePWM(19, y,500000);
+			closest_frequency = gpioHardwarePWM(19, y+freq_up,500000);
 			//closest_frequency = gpioHardwarePWM(13, 500+freq_up,500000);
 			if(i<freq_up_cnt){
 				usleep(10000);	//10ms
@@ -142,7 +142,7 @@ int main(int argc, char* argv[])
 //			closest_frequency = gpioHardwarePWM(18, 500+freq_up,500000);
 			Get = gpioGetPWMfrequency(18);
 //			printf("freq: %d\n",Get);
-			closest_frequency = gpioHardwarePWM(19, y,500000);
+			closest_frequency = gpioHardwarePWM(19, y+freq_up,500000);
 			//closest_frequency = gpioHardwarePWM(13, 500+freq_up,500000);
 			if(i<freq_up_cnt){
 				usleep(10000);	//10ms
@@ -171,7 +171,7 @@ int main(int argc, char* argv[])
 //			closest_frequency = gpioHardwarePWM(18, 500+freq_up,500000);
 			Get = gpioGetPWMfrequency(18);
 //			printf("freq: %d\n",Get);
-			closest_frequency = gpioHardwarePWM(19, y,500000);
+			closest_frequency = gpioHardwarePWM(19, y+freq_up,500000);
 			//closest_frequency = gpioHardwarePWM(13, 500+freq_up,500000);
 			if(i<freq_up_cnt){
 				usleep(10000);	 // 1000=1ms
@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
 //			closest_frequency = gpioHardwarePWM(18, 500+freq_up,500000);
 			Get = gpioGetPWMfrequency(18);
 //			printf("freq: %d\n",Get);
-			closest_frequency = gpioHardwarePWM(19, y,500000);
+			closest_frequency = gpioHardwarePWM(19, y+freq_up,500000);
 			//closest_frequency = gpioHardwarePWM(13, 500+freq_up,500000);
 			if(i<freq_up_cnt){
 				usleep(10000);	//10ms

@@ -36,6 +36,8 @@ int main(int argc, char* argv[]) {
 	//pwm initialize
 	//gpioCfgClock(4, 0, 100);
 	
+	sleep(15);		//電源ON時に待つ
+	
 	if(SIG_ERR == signal(SIGINT,sigcatch)){	//プログラム終了時にモータを止める
 		printf("fail");
 		exit(1);
@@ -86,10 +88,9 @@ int main(int argc, char* argv[]) {
 	double now_time, passed_time;
 	char direction = '\0';
 	char predirection = '\0';
-	int frequencyX = 0;
-	int frequencyY = 0;
-	int preFrequencyX = 0;
-	int preFrequencyY = 0;
+	int frequencyX = 0, frequencyY = 0;
+	int preFrequencyX = 0, preFrequencyY = 0;
+	int malletX = 0, malletY = 0;
 	//char distination;
 	int isRead = 0;
 	int i;
@@ -98,16 +99,21 @@ int main(int argc, char* argv[]) {
 
 		while(serDataAvailable(handle)){
 			start_time = time_time();
-			isRead = serRead(handle, input, 4);
+			isRead = serRead(handle, input, 8);
 			//暗黙のint変換。char->unsigned char->int
 			//0~255 -> 0~2550Hz とするための、10倍
 			if(isRead >= 0){
 				frequencyX = (unsigned char)input[0] * 10 * 2;
 				frequencyY = (unsigned char)input[1] * 10 * 2;
 				direction  = (unsigned char)input[2];
+				malletX  = (unsigned char)input[6];
+				malletY  = (unsigned char)input[7];
 				std::cout << "X: " << frequencyX << std::endl;
 				std::cout << "Y: " << frequencyY << std::endl;
 				std::cout << "DIST: " << direction << std::endl;
+				printf("dist:%x\n", direction);
+				std::cout << "malletX: " << malletX << std::endl;
+				std::cout << "malletY: " << malletY << std::endl;
 				std::cout << std::flush;
 				
 				if(direction != predirection){
