@@ -186,8 +186,8 @@ int main(int argc, char* argv[])
 					}
 					mallet_X = (unsigned char)input[6] * 2;
 					mallet_Y = (unsigned char)input[7] * 2;
-//					std::cout << "X1: " << frequencyX << std::endl;
-//					std::cout << "Y1: " << frequencyY << std::endl;
+					std::cout << "X1: " << frequencyX << std::endl;
+					std::cout << "Y1: " << frequencyY << std::endl;
 //					std::cout << "mallet_X1: " << mallet_X << std::endl;
 //					std::cout << "mallet_Y1: " << mallet_Y << std::endl;
 //					std::cout << "DIST: " << direction << std::endl;
@@ -220,13 +220,13 @@ int main(int argc, char* argv[])
 					usleep(500);	//500
 					
 					if(gpioRead(limit) == HIGH && limit_flg2 == 0){//オーバラン(リミットが反応）したときに止める
-						//printf("limit\n");
+						printf("limit\n");
 						f = gpioHardwarePWM(motorX_pulse, 0, 500000);
 						f = gpioHardwarePWM(motorY_pulse, 0, 500000);
 						limit_flg = 1;
 						
 						if(frequencyX >= 400){		//周波数400がきたらオーバーランから抜ける
-					//		printf("limit_freq_x:%dHz\n",frequencyX);
+							printf("limit_freq_x:%dHz\n",frequencyX);
 							limit_flg = 0;
 							preFrequencyX = 0;
 							preFrequencyY = 0;
@@ -235,6 +235,10 @@ int main(int argc, char* argv[])
 					}
 					else if(gpioRead(limit) == LOW){
 						limit_flg2 = 0;
+						limit_flg = 0;
+						preFrequencyX = 0;
+						preFrequencyY = 0;
+						
 					}
 				
 					if(frequencyY != preFrequencyY && limit_flg==0){
@@ -319,7 +323,7 @@ int main(int argc, char* argv[])
 			}
 			gpioWrite(fan, 0);	//ファン:OFF
 		
-			//Y軸を原点に戻す
+			//Y軸を左上原点に戻す
 			gpioWrite(motorY1_direction, y1_direction_f);	//後
 			gpioWrite(motorY2_direction, y2_direction_f);
 			usleep(1);
@@ -353,12 +357,12 @@ int main(int argc, char* argv[])
 			}
 			
 			f = gpioHardwarePWM(motorX_pulse, 0, 500000);
-			gpioWrite(motorX_direction, x_direction_r);	//Xを右に動かす
+			gpioWrite(motorX_direction, x_direction_r);	//Xを中央に動かす
 			f = gpioHardwarePWM(motorX_pulse, 235, 500000);
 			sleep(3);
 			f = gpioHardwarePWM(motorX_pulse, 0, 500000);
 			
-			//Y軸を原点に戻す
+			//Y軸を下に下ろす
 			gpioWrite(motorY1_direction, y1_direction_b);	//後
 			gpioWrite(motorY2_direction, y2_direction_b);
 			f = gpioHardwarePWM(motorY_pulse, 345, 500000);
